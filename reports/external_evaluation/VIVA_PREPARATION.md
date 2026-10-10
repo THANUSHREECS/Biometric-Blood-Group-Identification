@@ -120,10 +120,10 @@ This document contains 30 potential viva questions and technically correct answe
 1. **No Subject IDs:** This prevents true measurement of population generalization.
 2. **Domain Shift:** Our live MFS100 scanner captures show different ridge contrast and mean intensity compared to the curated dataset.
 3. **Small Live Sample:** We primarily tested live on a single participant (O+ thumb), which drastically limits external validity.
-4. **Statistical vs. Scientific Significance:** Model A achieved 86.02% on a random image split, but subject independence cannot be verified (no subject IDs). Model B dataset accuracy is not reliably measured, and live validation on 101 participants yielded 27.72%, falling below the 36.63% always-O+ majority baseline.
+4. **Statistical vs. Scientific Significance:** Model A achieved 86.02% on a random image split, but subject independence cannot be verified (no subject IDs). Model B locked test accuracy is 38.10% (8/21 = always-O+ baseline). The 27.72% figure previously reported for 101 participants was obtained with **mismatched normalisation** (`densenet.preprocess_input` applied to a model trained without it) and is **invalid** (see AUDIT_SUMMARY.md Round 14). Model A (EfficientNetB0 on public dataset, 86.02% random split) is not deployed.
 
 **33. How do your results compare to statistical baselines?**
-**Answer:** For Model A (EfficientNetB0, 415 test images), the random split majority baseline is 30.60%. For Model B (E2 DenseNet121 ensemble, 101 live participants), the always-O+ majority baseline is 36.63% and prior-matched chance is 24.79%. Model B achieved 27.72%, which does not exceed the majority baseline.
+**Answer:** For Model A (EfficientNetB0, 415 test images, not deployed), the random split majority baseline is 30.60%. For Model B (E2 DenseNet121 ensemble), the 21 locked test always-O+ baseline is 38.10% and Model B matched it exactly (8/21 = 38.10%, binomial p = 1.0000). The 27.72% figure (101 participants via old mismatched pipeline) is **invalid: obtained with `densenet.preprocess_input` mismatching training**. Fixed pipeline result: 40/101 = 39.60%.
 
 **34. How did you handle model calibration and overconfidence?**
 **Answer:** The deployed system includes an advisory confidence layer with a 70% threshold in the UI, below which the system flags predictions as "Confirmation Recommended" or "Low Confidence", instructing users that serological testing is mandatory.

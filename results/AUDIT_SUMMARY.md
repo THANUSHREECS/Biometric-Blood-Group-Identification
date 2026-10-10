@@ -51,3 +51,60 @@
 
 
 **Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The origin of the 38.10% accuracy metric is unknown. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
+
+---
+
+## Round 14 — Normalisation Audit & Preprocessing Fix
+
+### Which evaluations used `preprocess_input`?
+
+| Evaluation | Used `preprocess_input`? | Verdict |
+| :--- | :--- | :--- |
+| `scratch/experiment6_fusion_supcon.py` (training) | **No** – local `transform_c5` lines 45–51: raw `[0,255]` float32 | **VALID** |
+| `scratch/final_evaluation_e2.py` (wrote FINAL_TEST_REPORT.md, 8/21=38.10%) | **No** – local `transform_c5` lines 30–36: raw `[0,255]` float32 | **VALID** |
+| `scripts/round13_reproduce_audit.py` (Round 13 reproduction of 8/21) | **No** – defines own `experiment_transform_c5()` lines 34–41 | **VALID** |
+| Round 9 sensitivity analysis (101 participants, 4 variants) | **Yes** – used `src.preprocessing.transform_c5()` which had `densenet.preprocess_input` | **INVALID: normalisation mismatch** |
+| Round 11 reproduce check (`scripts/round11_reproduce_check.py`) | **Yes** – `src.preprocessing.transform_c5()` | **INVALID: normalisation mismatch** |
+| Round 12 probes (`scripts/round12_live_101_eval.py`, reported 27.72%) | **Yes** – `src.preprocessing.transform_c5()` | **INVALID: normalisation mismatch** |
+| Round 12 class-order probes | **Yes** – `src.preprocessing.transform_c5()` | **INVALID: normalisation mismatch** |
+| Deployed web app all `/api/upload` and `/api/capture` predictions | **Yes** – `src.preprocessing.transform_c5()` | **INVALID: normalisation mismatch** |
+
+> **Contradiction from Round 13 summary:** Round 13 claimed the divergence was "no CLAHE, no crop" vs the deployed path. **This was wrong.** Both `experiment6_fusion_supcon.py` and `final_evaluation_e2.py` call `crop_mfs100_foreground` and `enhance_mfs100_ridge_contrast` from `src.preprocessing`. The **only** divergence was `densenet.preprocess_input` at the end of `src.preprocessing.transform_c5()`.
+
+### Fix Applied (Round 14, branch `fix-preprocessing-mismatch`)
+
+- Removed `densenet.preprocess_input` from `transform_c5()` in `src/preprocessing.py`.
+- Old function preserved as `transform_c5_legacy_with_preprocess_input()` (unused).
+- Committed: `bce0e7a` on branch `fix-preprocessing-mismatch`.
+- SHA256 of `src/preprocessing.py`: **OLD** `a7747d6cbc925bf0...` → **NEW** `4ccbfb0bef96d330...`
+
+### Regression Test Result
+
+- Test: `tests/test_preprocessing_regression.py`
+- **303/303 scans: max abs pixel diff = 0.000000** (exact bit-for-bit match between deployed and training paths).
+- Both `test_all_303_scans_pixel_match` and `test_all_303_scans_top1_match` **PASSED**.
+
+### Re-evaluation Results (Fixed Pipeline)
+
+| Dataset | N | Accuracy | Always-O+ Baseline | Binomial p |
+| :--- | :--- | :--- | :--- | :--- |
+| **21 Locked Test** | 21 | **8/21 = 38.10%** | 8/21 = 38.10% | 1.0000 |
+| **80 Development (non-OOF)** | 80 | **32/80 = 40.00%** | 29/80 = 36.25% | 0.4872 |
+| **101 Pooled** (contaminated) | 101 | **40/101 = 39.60%** | 37/101 = 36.63% | 0.5369 |
+
+**27.72% reported in Round 12 is now relabelled:** obtained with mismatched normalisation (`densenet.preprocess_input` applied to a network trained without it); **invalid**; 80 of 101 were development participants.
+
+### BMP Raw Data Properties (data/mfs100_final/raw, 303 files)
+
+- Mode: **`L` (8-bit grayscale)** — all 303 files
+- Size: **`(316, 354)`** — all files (MFS100 sensor platen)
+- Has Alpha: **0/303** (no alpha channels)
+- When `composite_alpha_on_white` is called on `L` mode: hits `else` branch → `pil_img.convert("RGB")` → correct 3-channel RGB.
+
+### frozen_model_config.json — "preprocessing: C5" Line
+
+- File timestamp: **09-10-2026 21:41:57**
+- Only git commit touching this file: **`c1aac08`** ("Recovered test suite and fixed imports")
+- That commit also introduced `src/preprocessing.py` with `transform_c5()` including `preprocess_input`.
+- No other commits. The "C5" label in `frozen_model_config.json` was written at the same time as the mismatched `preprocess_input` was introduced — by whoever wrote commit `c1aac08`.
+
