@@ -23,8 +23,8 @@ Through rigorous experimentation (Experiments 1 through 6), a finalized producti
 - **Fusion Protocol:** Employs a 3-scan feature concatenation (Left Thumb Protocol). Three separate fingerprint impressions (112x112) are pooled into a concatenated feature vector, passing through a 512-neuron Dense layer before Softmax classification.
 - **Ensemble Strategy:** Soft-voting ensemble aggregating predictions across 5 independent cross-validation checkpoints.
 - **Final Performance Metrics:** 
-  - Validated on a strictly locked, unseen 898-sample test dataset.
-  - **Empirical Accuracy:** 38.10%
+  - Validated on 21 locked test participants (63 scans): 8/21 = 38.10%, equal to always-O+ baseline.
+  - **Empirical Accuracy:** 38.10% (8/21)
   - **Macro F1 Score:** 0.2500
 
 ## 3. Preprocessing Pipeline (C5 Pipeline)
@@ -53,7 +53,7 @@ A production-ready Web Application serves as the interface for the prototype:
 During the final pre-evaluation readiness phase, several critical audits and pipeline remediations were completed:
 1. **Scientific Integrity Audit:** Standardized documentation to ensure claims accurately reflect the 38.10% accuracy metric without falsifying positive results.
 2. **Hardware Environment Fix:** Resolved `.NET` DLL loading issues by establishing the correct `pythonnet` dependencies.
-3. **Pipeline Bug Remediation:** Discovered and patched a critical discrepancy where the deployed Flask app was omitting ImageNet pixel normalization (`preprocess_input`) and using an incorrect class mapping (`[A+, B+, AB+, O+]` instead of `[A+, AB+, B+, O+]`). These fixes resolved extreme out-of-distribution hallucinations and stabilized live hardware inference.
+3. **Model & Architecture Audit:** Confirmed class ordering for both models: E2 DenseNet121 ensemble uses `['A+', 'B+', 'AB+', 'O+']` ([src/config.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/src/config.py#L7), matching [scripts/experiment6_fusion_supcon.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/scripts/experiment6_fusion_supcon.py#L35)), whereas Model A (EfficientNetB0) uses `['A+', 'AB+', 'B+', 'O+']` ([scripts/evaluate_abo_positive_4class.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/scripts/evaluate_abo_positive_4class.py#L56)). Discovered that E2 training used raw `[0, 255]` float32 input without ImageNet `preprocess_input`.
 4. **Documentation Arsenal Generated:**
    - `FINAL_PROJECT_READINESS_REPORT.md`
    - `HARDWARE_TEST_PROCEDURE.md`

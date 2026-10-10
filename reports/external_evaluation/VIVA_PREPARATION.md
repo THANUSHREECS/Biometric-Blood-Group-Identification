@@ -72,10 +72,12 @@ This document contains 30 potential viva questions and technically correct answe
 ## Results & Limitations
 
 **20. What was your final test accuracy?**
-**Answer:** The final test accuracy on unseen participants was 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware).
+**Answer:** Two distinct models exist in the codebase:
+- **Model A (EfficientNetB0, single-scan 224x224, not deployed):** Achieved 86.02% on a random image split of 415 images (class order `['A+', 'AB+', 'B+', 'O+']` in `scripts/evaluate_abo_positive_4class.py:56`).
+- **Model B (E2 DenseNet121 5-fold ensemble, 3-scan 112x112, deployed):** On the 101 participants: 80 were used in E2 development (out-of-fold accuracy 53.75%); 21 were locked test: **8/21 = 38.10%** (Wilson 95% CI: [20.75%, 59.12%]), exactly equal to the always-O+ majority baseline (8/21 = 38.10%).
 
-**21. Isn't 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) very low?**
-**Answer:** Four-class random guessing has an expected accuracy of 25% only under uniform random prediction. While 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is higher, observed accuracy alone does not establish meaningful biological information. Therefore, our scientific conclusion is that the tested system did not demonstrate reliable four-class blood group classification on unseen participants.
+**21. Isn't 38.10% on the locked test equal to chance?**
+**Answer:** Yes. On the 21 locked test participants, the always-O+ majority baseline is 38.10% (8/21 O+). The model achieved exactly 8/21 (38.10%), with an exact binomial test p-value of 0.5817 against the always-O+ baseline, failing to demonstrate any predictive signal above the majority class. (Note: training script is preserved at `scripts/experiment6_fusion_supcon.py`, and class order `['A+', 'B+', 'AB+', 'O+']` at `src/config.py:7` matches training exactly).
 
 **22. Why do you think the accuracy is not higher?**
 **Answer:** Blood group markers in fingerprints may be too subtle or non-existent at a macro-ridge level. Additionally, our dataset was relatively small, making it difficult for the model to generalize across the entire population.
@@ -118,16 +120,15 @@ This document contains 30 potential viva questions and technically correct answe
 1. **No Subject IDs:** This prevents true measurement of population generalization.
 2. **Domain Shift:** Our live MFS100 scanner captures show different ridge contrast and mean intensity compared to the curated dataset.
 3. **Small Live Sample:** We primarily tested live on a single participant (O+ thumb), which drastically limits external validity.
-4. **Statistical vs. Scientific Significance:** A 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy on 4-classes is statistically better than random guessing (25%), but it completely lacks the scientific and clinical significance needed for a medical device.
+4. **Statistical vs. Scientific Significance:** Model A achieved 86.02% on a random image split, but subject independence cannot be verified (no subject IDs). Model B dataset accuracy is not reliably measured, and live validation on 101 participants yielded 27.72%, falling below the 36.63% always-O+ majority baseline.
 
-**33. How does your 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy compare to statistical baselines?**
-**Answer:** We computed the random baseline (25.00%) and majority-class baseline (26.95%). A bootstrap 95% confidence interval placed our accuracy between 34.86% and 41.31%. A permutation test confirmed our result is statistically better than random chance ($p < 0.001$), but the clinical utility remains negligible.
+**33. How do your results compare to statistical baselines?**
+**Answer:** For Model A (EfficientNetB0, 415 test images), the random split majority baseline is 30.60%. For Model B (E2 DenseNet121 ensemble, 101 live participants), the always-O+ majority baseline is 36.63% and prior-matched chance is 24.79%. Model B achieved 27.72%, which does not exceed the majority baseline.
 
 **34. How did you handle model calibration and overconfidence?**
-**Answer:** The original model was highly overconfident. We performed calibration analysis, finding an uncalibrated Expected Calibration Error (ECE) of 0.4094. Applying temperature scaling on the validation set reduced the ECE to 0.2802. We also instituted a strict 70% threshold in the UI, below which the system abstains and outputs "Not Reliable" instead of a blood group.
+**Answer:** The deployed system includes an advisory confidence layer with a 70% threshold in the UI, below which the system flags predictions as "Confirmation Recommended" or "Low Confidence", instructing users that serological testing is mandatory.
 
 **35. What is the fundamental limitation of this project?**
-**Answer:** The primary limitation is biological plausibility: there is no supported genetic mechanism linking friction ridge patterns to ABO blood groups. Our 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy may capture latent confounding variables in the dataset (like regional demographic distributions) rather than a universal biological truth. Additionally, the data leakage issues prevent claims of broad population generalization. The system is completely unfit for clinical use.
+**Answer:** The primary limitation is biological plausibility: there is no established genetic or physiological mechanism linking macroscopic epidermal ridge patterns to ABO blood groups. Our empirical evaluation on 21 locked test participants yielded 8/21 = 38.10%, equal to the always-O+ majority baseline (p = 0.5817). Training script is verified at `scripts/experiment6_fusion_supcon.py`, and class orders are confirmed (E2: `['A+', 'B+', 'AB+', 'O+']` at `src/config.py:7`; Model A: `['A+', 'AB+', 'B+', 'O+']` at `scripts/evaluate_abo_positive_4class.py:56`). The system is completely unfit for clinical use.
 
-
-**Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The origin of the 38.10% accuracy metric is unknown. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
+**Current evidence:** Model A (EfficientNetB0, 224x224, not deployed) achieves 86.02% on a random split of 415 images. Model B (E2 DenseNet121 5-fold ensemble, deployed) achieves 53.75% out-of-fold on 80 development participants and 38.10% (8/21) on 21 locked test participants, equal to the always-O+ baseline. Clinical validity is not claimed.

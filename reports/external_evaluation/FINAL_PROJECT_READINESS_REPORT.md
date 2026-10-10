@@ -5,19 +5,23 @@ The Biometric Blood Group Detection project (4-class: A+, B+, AB+, O+) using the
 
 ## Current Evidence (Verified Metrics)
 
-| Evaluation Set | N Samples | Model Evaluated | Accuracy | 95% Confidence Interval |
-| :--- | :--- | :--- | :--- | :--- |
-| **Dataset Random Split** | 415 test images | E2 Champion (DenseNet121 Ensemble) | 86.02% | [82.65%, 88.92%] |
-| **Pseudo-Subject Split** | 2,769 training images | Real Model Retraining (E7) | Not done | (Unfeasible on CPU) |
-| **Live Validation Set** | 303 scans (101 subjects) | E2 Champion (Frozen) | 27.39% | [22.68%, 32.67%] |
+| Evaluation Setting | Model / Architecture | Samples / Scope | Metric / Accuracy | Baseline & Chance | Status & Audit Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; not deployed in production pipeline |
+| **Dataset Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | Dataset test set | **Not reliably measured** | Chance: ~25.0% | Multi-scan 5-fold ensemble; training script recovered at `scripts/experiment6_fusion_supcon.py` (9 Oct 2026) |
+| **Locked External Test** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans, 3 per person) | **38.10%** (8/21, Wilson CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21, exact binomial p=0.5817) | True locked test set; exact reproduction of `FINAL_TEST_REPORT.md` (8/21 correct) |
+| **Development Cohort (OOF)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (240 scans, Out-of-Fold) | **53.75%** (43/80, Wilson CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | StratifiedGroupKFold cross-validation; checkpoint selection makes this optimistic |
+| **Live Pooled (Contaminated)** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 101 Participants (pooled: 80 dev + 21 locked test) | **27.72%** (Wilson 95% CI: [19.93%, 37.15%]) | Always-O+ baseline: 36.63% (37/101); Prior-matched chance: 24.79% | Contaminated evaluation: includes 80 participants used in E2 training/selection |
+| **Live Exploratory** | **Model A: EfficientNetB0** | 101 Participants (avg of 3 scans) | **30.69%** (Wilson 95% CI: [22.54%, 40.26%]) | Always-O+ baseline: 36.63%; Prior-matched chance: 33.54% | Exploratory single-image model averaged over 3 scans |
+| **Pseudo-Group Split (ORB)** | Logistic Regression / DenseNet | 898 samples | **Invalid (72.53%)** | Baseline: ~25% | Grouping collapsed with 87.7% false-link rate |
 
 *Note: The proxy metadata artifact classifier achieved 44.58% on a random split, and pseudo-subject grouping reduced the proxy pixel classifier accuracy from 85% to 58.46%, indicating significant dataset leakage in random splits.*
 
-## Remaining Limitations
-1. **Subject Independence Unverified:** The original dataset lacks subject IDs. Burst-capture sequences artificially inflate random-split accuracy.
-2. **Dataset Artifacts:** Metadata artifacts (intensity, contrast, file size) significantly correlate with blood group labels (p=0.0010), demonstrating non-biological cues in the training data.
-3. **Cross-Domain Generalization:** The live system exhibits severe domain shift (different contrast/intensity) compared to the training set, flattening the ensemble confidence distributions.
-4. **Origin of 38.10%:** The 38.10% test accuracy figure previously cited was tracked back to a 4-class random permutation baseline or subset metric (898 samples, 38.08%), and does not represent true model performance. The actual random split accuracy is 86.02%.
+## Remaining Limitations & Audit Notes
+1. **Model Distinction:** Model A (EfficientNetB0, 224x224, 86.02%) is not deployed. Model B (E2 DenseNet121 5-fold ensemble, 112x112) is deployed.
+2. **Participant Breakdown & Script Provenance:** Of 101 participants, 80 were used in E2 development and 21 formed the locked test cohort (8/21 = 38.10%, equal to always-O+). E2 training script recovered at `scripts/experiment6_fusion_supcon.py` (9 Oct 2026).
+3. **Class Order Verification:** E2 deployed class order is `['A+', 'B+', 'AB+', 'O+']` (`src/config.py` line 7, `src/predictor.py` line 40), exactly matching the training script (`scripts/experiment6_fusion_supcon.py` line 35). Model A used `['A+', 'AB+', 'B+', 'O+']` (`scripts/evaluate_abo_positive_4class.py` line 56).
+4. **Cross-Domain Generalization:** On the 21 locked test participants, accuracy is 38.10% (matching the 38.10% O+ baseline). On the contaminated 101 pooled cohort, deployed accuracy is 27.72% (below 36.63% majority baseline).
 5. **Clinical Validity:** The system is purely a research prototype and cannot be used for clinical diagnosis. 
 
 ## Tests Executed and Results

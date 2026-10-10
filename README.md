@@ -226,26 +226,24 @@ To ensure the utmost honesty and scientific rigor in evaluating this research pr
 An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerprint image clusters lack explicit metadata linking individual images to unique human subject IDs. Therefore, it is impossible to guarantee strict subject-level splitting (i.e., ensuring a person's fingerprint is not in both train and test splits). Due to this inherent dataset limitation, any reported high accuracy on the 8-class scenario (e.g., ~85%) was heavily inflated by data leakage.
 
 ### Baselines & Honest Metrics
-On the locked test set, without artificially inflating metrics or peeking at the test data, the model achieved:
-- **Model Accuracy:** 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) (95% CI: [34.86%, 41.31%])
-- **Random Baseline:** 25.00%
-- **Majority-Class Baseline:** 26.95%
-- **Macro F1:** ~0.25
-- **Permutation Test:** A statistical permutation test confirms that while 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is better than random chance ($p < 0.001$), the clinical relevance is extremely limited.
+
+| Evaluation Setting | Model / Architecture | Samples / Scope | Metric / Accuracy | Baseline & Chance | Status & Audit Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; not deployed in production pipeline |
+| **Dataset Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 80 Development Participants (OOF) | **53.75%** (Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | Multi-scan 5-fold ensemble trained on 80 dev participants (`scripts/experiment6_fusion_supcon.py`); checkpoint selection is optimistic |
+| **Locked Test Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans) | **38.10%** (8/21; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21) | 101 participants total: 80 used in E2 development; 21 locked test: 8/21 = 38.10%, equal to always-O+ baseline (p = 0.5817) |
+| **Live Exploratory** | **Model A: EfficientNetB0** | 101 Participants (avg of 3 scans) | **30.69%** (Wilson 95% CI: [22.54%, 40.26%]) | Always-O+ baseline: 36.63%; Prior-matched chance: 33.54% | Exploratory single-image model averaged over 3 scans |
 
 ### Class Imbalance & Calibration
-The model exhibits class imbalance effects and was highly overconfident in its predictions. Calibration analysis revealed:
-- **Uncalibrated ECE:** 0.4094
-- **Temperature Scaled ECE (Validation):** 0.2802
-The UI has been strictly updated to enforce a **70% advisory threshold**. Predictions below this threshold display an explicit **"Not Reliable"** warning rather than presenting the user with an overconfident blood group letter.
+The deployed system includes an advisory threshold layer in the UI (70% threshold). Predictions below this threshold display an explicit **"Confirmation Recommended" / "Low Confidence"** notice, instructing users that standard serological testing is mandatory.
 
 ### Limitations & Threats to Validity
-1. **Data Leakage & 8-Class Claims:** Our initial 8-class accuracy metrics (~85%) are **possibly inflated and cannot be verified without subject IDs**. The lack of unique participant identifiers in the raw dataset means identical subjects were likely split across training and testing sets, resulting in identity memorization rather than blood group generalization.
-2. **Domain Shift:** Live hardware captures from the MFS100 differ statistically (ridge contrast, mean intensity) from the curated dataset samples.
-3. **Small Live Sample:** Testing strictly on a limited live sample (e.g. one participant's O+ thumb) reduces external validity and statistical power.
-4. **Statistical vs. Scientific Significance:** While the random-split 4-class accuracy of 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is statistically higher than random guessing (25%, $p < 0.001$) on leaked data, it does not establish a scientifically viable or clinically useful diagnostic tool.
-5. **Biological Plausibility:** There is no supported biological or genetic mechanism linking friction ridge patterns to ABO blood groups (no signal detected at n=101; strongly predictive model excluded; weak effects cannot be excluded). The observed accuracy may capture latent confounding variables in the dataset rather than a universal biological truth.
-6. **Clinical Viability:** The system is completely unfit for any clinical decision-making.
+1. **Model Distinction:** Model A (EfficientNetB0, 224x224, 86.02%) is not deployed. Model B (E2 DenseNet121 5-fold ensemble, 112x112) is deployed.
+2. **Model Provenance & Class Order Verified:** E2 training script preserved at `scripts/experiment6_fusion_supcon.py` (copied from `scratch/experiment6_fusion_supcon.py`, 9 Oct 2026). Class orders: E2 DenseNet121 ensemble uses `['A+', 'B+', 'AB+', 'O+']` ([src/config.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/src/config.py#L7)), matching training; Model A uses `['A+', 'AB+', 'B+', 'O+']` ([scripts/evaluate_abo_positive_4class.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/scripts/evaluate_abo_positive_4class.py#L56)).
+3. **Subject Independence:** The raw dataset lacks participant IDs. Burst captures likely span train and test sets, inflating random-split performance.
+4. **Participant Partitioning & Real-World Generalization:** Of the 101 participants, 80 were used in E2 development and 21 constituted the locked test set. On the 21 locked test participants, the E2 ensemble achieves 8/21 = 38.10%, equal to the 38.10% always-O+ majority baseline.
+5. **Biological Plausibility:** There is no established genetic or physiological mechanism linking macroscopic epidermal ridge patterns to ABO blood groups. Our empirical data on 21 locked test participants show no detectable signal above majority chance.
+6. **Clinical Viability:** The system is completely unfit for clinical decision-making.
 
 ---
 
@@ -254,6 +252,4 @@ The UI has been strictly updated to enforce a **70% advisory threshold**. Predic
 > **MANDATORY MEDICAL DISCLAIMER**  
 > This system is an AI-based preliminary estimation tool developed for academic research and proof-of-concept investigation. The results generated by this model **MUST BE CONFIRMED** using standard laboratory serological blood typing tests (e.g., forward and reverse ABO agglutination) before any clinical or medical administration. This system does not replace certified clinical laboratory diagnostics.
 
-
-
-**Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The origin of the 38.10% accuracy metric is unknown. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
+**Current evidence:** Model A (EfficientNetB0, 224x224, not deployed) achieves 86.02% on a random split of 415 images. Model B (E2 DenseNet121 5-fold ensemble, deployed) achieves 53.75% out-of-fold on 80 development participants and 38.10% (8/21) on 21 locked test participants, equal to the always-O+ baseline. Clinical validity is not claimed.
