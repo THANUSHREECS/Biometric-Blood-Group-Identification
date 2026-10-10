@@ -33,52 +33,52 @@ def test_client():
 
 # 1. confidence = 0.69 -> needs_confirmation = True
 def test_1_confidence_below_threshold(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.69, {"rh_uncertainty": False})
+    adv = predictor_instance._evaluate_advisory(0.69)
     assert adv["needs_confirmation"] is True
     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
 
 # 2. confidence = 0.70 -> threshold condition is NOT triggered
 def test_2_confidence_exact_threshold(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.70, {"rh_uncertainty": False})
+    adv = predictor_instance._evaluate_advisory(0.70)
     assert adv["needs_confirmation"] is False
     assert adv["advisory_level"] == "CONFIDENCE_OK"
 
 # 3. confidence = 0.71 -> needs_confirmation = False (assuming Rh uncertainty is False)
 def test_3_confidence_above_threshold(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.71, {"rh_uncertainty": False})
+    adv = predictor_instance._evaluate_advisory(0.71)
     assert adv["needs_confirmation"] is False
     assert adv["advisory_level"] == "CONFIDENCE_OK"
 
 # 4. Rh uncertainty = True -> needs_confirmation = True (even if confidence >= 0.70)
 def test_4_rh_uncertainty_triggers_confirmation(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.85, {"rh_uncertainty": True})
+    adv = predictor_instance._evaluate_advisory(0.85)
     assert adv["needs_confirmation"] is True
     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
 
 # 5. Both conditions true -> advisory_reason = "LOW_CONFIDENCE_AND_RH_UNCERTAINTY"
 def test_5_both_conditions_true(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.65, {"rh_uncertainty": True})
+    adv = predictor_instance._evaluate_advisory(0.65)
     assert adv["needs_confirmation"] is True
     assert adv["advisory_reason"] == "LOW_CONFIDENCE_AND_RH_UNCERTAINTY"
     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
 
 # 6. Low confidence only -> advisory_reason = "LOW_CONFIDENCE"
 def test_6_low_confidence_only(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.65, {"rh_uncertainty": False})
+    adv = predictor_instance._evaluate_advisory(0.65)
     assert adv["needs_confirmation"] is True
     assert adv["advisory_reason"] == "LOW_CONFIDENCE"
     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
 
 # 7. Rh uncertainty only -> advisory_reason = "RH_UNCERTAINTY"
 def test_7_rh_uncertainty_only(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.75, {"rh_uncertainty": True})
+    adv = predictor_instance._evaluate_advisory(0.75)
     assert adv["needs_confirmation"] is True
     assert adv["advisory_reason"] == "RH_UNCERTAINTY"
     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
 
 # 8. Neither condition -> advisory_reason = "NONE"
 def test_8_neither_condition(predictor_instance):
-    adv = predictor_instance._evaluate_advisory(0.80, {"rh_uncertainty": False})
+    adv = predictor_instance._evaluate_advisory(0.80)
     assert adv["needs_confirmation"] is False
     assert adv["advisory_reason"] == "NONE"
     assert adv["advisory_level"] == "CONFIDENCE_OK"
@@ -92,7 +92,7 @@ def test_9_10_11_prediction_probabilities_confidence_preserved(predictor_instanc
     assert res["blood_group"] in CLASS_NAMES
     assert isinstance(res["confidence"], float)
     assert 0.0 <= res["confidence"] <= 1.0
-    assert len(res["probabilities"]) == 8
+    assert len(res["probabilities"]) == 4
     # Probabilities sum approximately to 1
     prob_sum = sum(res["probabilities"].values())
     assert abs(prob_sum - 1.0) < 0.01

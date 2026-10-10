@@ -51,7 +51,7 @@ class TestPreprocessingPipeline(unittest.TestCase):
         sample_path = os.path.join(self.sample_dir, "A+.bmp")
         if os.path.exists(sample_path):
             batch_tensor, display_pil = preprocess_fingerprint(sample_path)
-            self.assertEqual(batch_tensor.shape, (1, 224, 224, 3))
+            self.assertEqual(batch_tensor.shape, (1, 112, 112, 3))
             self.assertEqual(batch_tensor.dtype, np.float32)
             self.assertEqual(display_pil.size, (224, 224))
             self.assertEqual(display_pil.mode, "RGB")
@@ -63,14 +63,14 @@ class TestPreprocessingPipeline(unittest.TestCase):
         img_bytes = buf.getvalue()
 
         batch_tensor, display_pil = preprocess_fingerprint(img_bytes)
-        self.assertEqual(batch_tensor.shape, (1, 224, 224, 3))
+        self.assertEqual(batch_tensor.shape, (1, 112, 112, 3))
         self.assertEqual(display_pil.size, (224, 224))
 
     def test_load_and_preprocess_for_training(self):
         sample_path = os.path.join(self.sample_dir, "O+.bmp")
         if os.path.exists(sample_path):
             tensor = load_and_preprocess_for_training(sample_path)
-            self.assertEqual(tensor.shape, (224, 224, 3))
+            self.assertEqual(tensor.shape, (112, 112, 3))
             self.assertEqual(tensor.dtype, np.float32)
 
     def test_enhance_mfs100_ridge_contrast(self):
