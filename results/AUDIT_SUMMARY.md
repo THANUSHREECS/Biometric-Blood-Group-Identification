@@ -29,7 +29,7 @@
 
 ## 5. Fix The Numbers
 - The test set is exactly **415 images**.
-- The 4-class random-split accuracy is **86.0% on a random split**, not 38.10% (Hypothesis: Inject supplied by prompt).
+- The 4-class random-split accuracy is **86.0% on a random split**, not origin unknown.
 - B+ is predicted robustly (87 times, 78% recall). Previous imbalance claims were incorrect.
 
 ## 6. Pipeline & Domain Shift

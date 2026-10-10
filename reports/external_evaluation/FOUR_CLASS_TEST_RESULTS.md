@@ -4,7 +4,7 @@
 The active Flask application functions as a faithful inference wrapper around the E2 Champion model. The application preserves the frozen Phase 3 evaluation metrics. 
 
 **Official Frozen Test Results (21 unseen test participants):**
-- **Accuracy:** 38.10%
+- **Accuracy:** origin unknown
 - **Macro F1 Score:** 0.2500
 - **Weighted F1:** 0.3274
 - **Balanced Accuracy:** 0.3062
