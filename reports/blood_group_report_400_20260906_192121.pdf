@@ -1,0 +1,531 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter [ /ASCII85Decode /FlateDecode ] /Height 354 /Length 119 /Subtype /Image 
+  /Type /XObject /Width 316
+>>
+stream
+Gb"0;!=]#/!5bE.oq'5EDEn4&zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz!!!"H)eQ4?:&~>endstream
+endobj
+5 0 obj
+<<
+/Contents 9 0 R /MediaBox [ 0 0 612 792 ] /Parent 8 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] /XObject <<
+/FormXob.2be6c857866228c73f9abb095ba2a099 4 0 R
+>>
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+6 0 obj
+<<
+/PageMode /UseNone /Pages 8 0 R /Type /Catalog
+>>
+endobj
+7 0 obj
+<<
+/Author (\(anonymous\)) /CreationDate (D:20260906192121+05'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260906192121+05'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
+>>
+endobj
+8 0 obj
+<<
+/Count 1 /Kids [ 5 0 R ] /Type /Pages
+>>
+endobj
+9 0 obj
+<<
+/Length 7967
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 42 728 cm
+q
+.117647 .227451 .541176 rg
+BT 1 0 0 1 0 4 Tm /F2 18 Tf 22 TL 28.983 0 Td (BIOMETRIC BLOOD GROUP IDENTIFICATION SYSTEM) Tj T* -28.983 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 714 cm
+q
+.294118 .333333 .388235 rg
+BT 1 0 0 1 0 3 Tm /F1 11 Tf 14 TL 105.2645 0 Td (Final Year B.E. Major Project \177 Deep Learning AI Analysis Report) Tj T* -105.2645 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 704 cm
+Q
+q
+1 0 0 1 42 701.5 cm
+q
+1.5 w
+1 J
+.145098 .388235 .921569 RG
+n 0 0 m 528 0 l S
+Q
+Q
+q
+1 0 0 1 36 659.5 cm
+q
+.996078 .886275 .886275 rg
+n 0 30 540 -30 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+BT 1 0 0 1 0 15 Tm 12 TL /F2 9 Tf .6 .105882 .105882 rg (MEDICAL DISCLAIMER:) Tj /F1 9 Tf ( AI-based preliminary estimation only. This result must be confirmed using a standard laboratory blood) Tj T* (typing test before medical use. This system does not replace standard serological blood typing.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.937255 .266667 .266667 RG
+1 w
+n 0 30 m 540 30 l S
+n 0 0 m 540 0 l S
+n 0 0 m 0 30 l S
+n 540 0 m 540 30 l S
+Q
+Q
+Q
+q
+1 0 0 1 42 645.5 cm
+Q
+q
+1 0 0 1 42 633.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 0 Tm /F1 12 Tf 12 TL (Champion Ensemble V2 \(ResNet50 58% + VGG16 38% + EffNet 4%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 617.5 cm
+q
+BT 1 0 0 1 0 4 Tm 16 TL /F2 12 Tf .121569 .160784 .215686 rg (1. EXAMINATION & SAMPLE AUDIT DETAILS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 611.5 cm
+Q
+q
+1 0 0 1 36 503.5 cm
+q
+.976471 .980392 .984314 rg
+n 0 108 540 -108 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 93 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Report ID:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 116 93 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (BG-000400) Tj T* ET
+Q
+Q
+q
+1 0 0 1 276 93 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Timestamp:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 386 93 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (2026-09-06 19:21:21) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 69 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Input Source:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 116 63 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 15 Tm /F1 9 Tf 12 TL (Mantra MFS100 Scanner | Standard) Tj T* (Finger: LEFT THUMB) Tj T* ET
+Q
+Q
+q
+1 0 0 1 276 69 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Evaluation Status:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 386 69 cm
+q
+1 0 0 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (LOW_CONFIDENCE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Model Name:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 116 33 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 15 Tm /F1 9 Tf 12 TL (Champion Ensemble V2 \(ResNet50) Tj T* (58% + VGG16 38% + EffNet 4%\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 276 39 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (Confidence:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 386 39 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (39.68%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 15 Tm /F2 9 Tf 12 TL (Standard Acquisition) Tj T* (Finger:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 116 9 cm
+q
+BT 1 0 0 1 0 3 Tm 12 TL /F2 9 Tf .113725 .305882 .847059 rg (LEFT THUMB) Tj /F1 9 Tf .066667 .094118 .152941 rg ( ) Tj .419608 .447059 .501961 rg (\(Convention-based protocol \227 not automatically verified by scanner\)) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.898039 .905882 .921569 RG
+.5 w
+n 0 108 m 540 108 l S
+n 0 0 m 540 0 l S
+n 0 0 m 0 108 l S
+n 540 0 m 540 108 l S
+n 0 90 m 540 90 l S
+n 0 60 m 540 60 l S
+n 0 30 m 540 30 l S
+n 110 0 m 110 108 l S
+n 270 30 m 270 108 l S
+n 380 30 m 380 108 l S
+Q
+Q
+Q
+q
+1 0 0 1 42 487.5 cm
+Q
+q
+1 0 0 1 42 471.5 cm
+q
+BT 1 0 0 1 0 4 Tm 16 TL /F2 12 Tf .121569 .160784 .215686 rg (2. BIOMETRIC IMPRESSION & PREDICTED BLOOD GROUP) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 463.5 cm
+Q
+q
+1 0 0 1 36 249.5 cm
+q
+.952941 .956863 .964706 rg
+n 0 214 170 -214 re f*
+.937255 .964706 1 rg
+n 170 214 370 -214 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 15 37 cm
+q
+140 0 0 140 0 0 cm
+/FormXob.2be6c857866228c73f9abb095ba2a099 Do
+Q
+Q
+q
+1 0 0 1 176 59 cm
+q
+BT 1 0 0 1 0 120 Tm 56.312 0 Td 38 TL /F2 32 Tf .862745 .14902 .14902 rg (Predicted Blood) Tj T* 69.36 0 Td (Group:) Tj  T* 53.328 0 Td  T* -32.448 0 Td (AB+) Tj T* -146.552 0 Td ET
+Q
+Q
+q
+1 0 0 1 176 3 cm
+q
+BT 1 0 0 1 0 46 Tm 119.525 0 Td 14 TL /F1 10 Tf .215686 .254902 .317647 rg (Confidence Score: ) Tj /F2 10 Tf (39.68%) Tj /F1 10 Tf  T* 20.29 0 Td (Threshold: 60.0%) Tj  T* -69.465 0 Td (Classification: Low Confidence - Retest Required) Tj  T* -7.83 0 Td (Derived ABO Group: ) Tj /F2 10 Tf (AB) Tj /F1 10 Tf ( \(48.5% prob\) | Rh Factor: ) Tj /F2 10 Tf (+) Tj T* -62.52 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+1 w
+n 0 214 m 540 214 l S
+n 0 0 m 540 0 l S
+n 0 0 m 0 214 l S
+n 540 0 m 540 214 l S
+Q
+Q
+Q
+q
+1 0 0 1 42 239.5 cm
+Q
+q
+1 0 0 1 36 211.5 cm
+q
+.996078 .952941 .780392 rg
+n 0 28 540 -28 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+BT 1 0 0 1 0 13.5 Tm 11 TL /F2 8.5 Tf .470588 .207843 .058824 rg (Rh FACTOR UNCERTAINTY ADVISORY:) Tj /F1 8.5 Tf ( Rh factor \(\261\) determination is uncertain \(moderate 8-class confidence \(39.7%\)\). ABO group) Tj T* (appears to be 'AB' \(48.5% confidence\). Standard serological laboratory blood typing is required to confirm Rh factor.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.960784 .619608 .043137 RG
+1 w
+n 0 28 m 540 28 l S
+n 0 0 m 540 0 l S
+n 0 0 m 0 28 l S
+n 540 0 m 540 28 l S
+Q
+Q
+Q
+q
+1 0 0 1 42 195.5 cm
+Q
+q
+1 0 0 1 42 179.5 cm
+q
+.121569 .160784 .215686 rg
+BT 1 0 0 1 0 4 Tm /F2 12 Tf 16 TL (3. 8-CLASS BLOOD GROUP PROBABILITY DISTRIBUTION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 171.5 cm
+Q
+q
+1 0 0 1 36 135.5 cm
+q
+.886275 .909804 .941176 rg
+n 0 36 540 -18 re f*
+1 1 1 rg
+n 0 18 540 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (A+) Tj T* ET
+Q
+Q
+q
+1 0 0 1 73.5 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (A-) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (AB+) Tj T* ET
+Q
+Q
+q
+1 0 0 1 208.5 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (AB-) Tj T* ET
+Q
+Q
+q
+1 0 0 1 276 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (B+) Tj T* ET
+Q
+Q
+q
+1 0 0 1 343.5 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (B-) Tj T* ET
+Q
+Q
+q
+1 0 0 1 411 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (O+) Tj T* ET
+Q
+Q
+q
+1 0 0 1 478.5 21 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F2 9 Tf 12 TL (O-) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (4.7%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 73.5 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (1.4%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (39.7%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 208.5 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (8.8%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 276 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (22.0%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 343.5 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (2.9%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 411 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (1.9%) Tj T* ET
+Q
+Q
+q
+1 0 0 1 478.5 3 cm
+q
+.066667 .094118 .152941 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (18.7%) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.5 w
+n 0 36 m 540 36 l S
+n 0 0 m 540 0 l S
+n 0 0 m 0 36 l S
+n 540 0 m 540 36 l S
+n 0 18 m 540 18 l S
+n 67.5 0 m 67.5 36 l S
+n 135 0 m 135 36 l S
+n 202.5 0 m 202.5 36 l S
+n 270 0 m 270 36 l S
+n 337.5 0 m 337.5 36 l S
+n 405 0 m 405 36 l S
+n 472.5 0 m 472.5 36 l S
+Q
+Q
+Q
+q
+1 0 0 1 42 115.5 cm
+Q
+q
+1 0 0 1 42 113.5 cm
+q
+1 w
+1 J
+.611765 .639216 .686275 RG
+n 0 0 m 528 0 l S
+Q
+Q
+q
+1 0 0 1 42 95.5 cm
+q
+BT 1 0 0 1 0 2 Tm 18.448 0 Td 10 TL /F1 8 Tf .419608 .447059 .501961 rg (Biometric Blood Group Identification System \177 Research & Academic Demonstration Platform \177 Mantra MFS100 Optical Sensor Compatible) Tj T* -18.448 0 Td ET
+Q
+Q
+ 
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000630 00000 n 
+0000000886 00000 n 
+0000000954 00000 n 
+0000001234 00000 n 
+0000001293 00000 n 
+trailer
+<<
+/ID 
+[<85130c47b6d1175d3a3e7a6e27f26df9><85130c47b6d1175d3a3e7a6e27f26df9>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 7 0 R
+/Root 6 0 R
+/Size 10
+>>
+startxref
+9311
+%%EOF

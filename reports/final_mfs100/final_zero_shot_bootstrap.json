@@ -1,0 +1,11 @@
+{
+    "accuracy_mean": 0.30676633663366343,
+    "accuracy_ci_lower": 0.21782178217821782,
+    "accuracy_ci_upper": 0.40594059405940597,
+    "macro_f1_mean": 0.14862207987736625,
+    "macro_f1_ci_lower": 0.1016949152542373,
+    "macro_f1_ci_upper": 0.20407179253419278,
+    "n_participants": 101,
+    "bootstrap_iterations": 10000,
+    "seed": 42
+}

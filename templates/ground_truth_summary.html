@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ground Truth Collection - Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Ground Truth Collection – Subject Completed</h1>
+<p>Subject ID: {{ summary.subject_id }}</p>
+<p>Confirmed Blood Group: {{ summary.blood_group }}</p>
+<p>Total Captures: {{ summary.capture_count }}</p>
+<h2>Capture Details</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr><th>#</th><th>Filename</th><th>NFIQ</th><th>Quality</th></tr>
+    {% for c in summary.captures %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ c.filename }}</td>
+        <td>{{ c.nfiq }}</td>
+        <td>{{ c.quality }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>CSV Validation Output</h2>
+<pre>{{ summary.validation_output }}</pre>
+<a href="{{ url_for('ground_truth.start_page') }}">Start New Subject</a>
+</body>
+</html>

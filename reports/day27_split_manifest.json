@@ -1,0 +1,6 @@
+{
+    "train_size": 4195,
+    "val_size": 898,
+    "test_size": 907,
+    "seed": 42
+}

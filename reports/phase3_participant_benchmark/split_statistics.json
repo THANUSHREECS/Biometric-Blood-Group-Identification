@@ -1,0 +1,32 @@
+{
+    "TRAIN": {
+        "participants": 64,
+        "images": 192,
+        "classes": {
+            "O+": 23,
+            "B+": 20,
+            "A+": 15,
+            "AB+": 6
+        }
+    },
+    "VALIDATION": {
+        "participants": 16,
+        "images": 48,
+        "classes": {
+            "O+": 6,
+            "B+": 5,
+            "A+": 4,
+            "AB+": 1
+        }
+    },
+    "TEST": {
+        "participants": 21,
+        "images": 63,
+        "classes": {
+            "O+": 8,
+            "B+": 6,
+            "A+": 5,
+            "AB+": 2
+        }
+    }
+}

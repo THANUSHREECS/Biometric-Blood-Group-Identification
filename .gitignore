@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+venv/
+env/
+.idea/
+.vscode/
+
+# Ignore SQLite temporary files
+*.db-journal
+
+# Ignore local system logs
+*.log
+
+models/
+data/
+outputs/
+results/

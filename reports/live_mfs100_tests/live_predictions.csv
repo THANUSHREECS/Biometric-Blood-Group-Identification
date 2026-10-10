@@ -1,0 +1,3 @@
+timestamp,capture_number,image_path,predicted_class,confidence,prob_A_plus,prob_B_plus,prob_AB_plus,prob_O_plus,actual_label
+2026-09-27T10:24:47.847396,1,reports/live_mfs100_tests\live_capture_1790484664.bmp,O+,99.99012,0.0042389664,0.000453849,0.0051892884,99.99012,O+
+2026-09-27T10:29:16.763929,2,reports/live_mfs100_tests\live_capture_1790485052.bmp,O+,99.857185,0.070136294,0.015776973,0.056896843,99.857185,AB+

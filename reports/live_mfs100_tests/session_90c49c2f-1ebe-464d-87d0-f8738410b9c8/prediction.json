@@ -1,0 +1,48 @@
+{
+    "id": "90c49c2f-1ebe-464d-87d0-f8738410b9c8",
+    "scans": [
+        {
+            "timestamp": "2026-10-07T10:58:28.000978",
+            "capture_number": 1,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\live_mfs100_tests\\session_90c49c2f-1ebe-464d-87d0-f8738410b9c8\\scan_1.bmp",
+            "prediction": "O+",
+            "confidence": 0.9997559189796448,
+            "prob_A_plus": 0.00017222939641214907,
+            "prob_B_plus": 6.421601483452832e-06,
+            "prob_AB_plus": 6.5421118051745e-05,
+            "prob_O_plus": 0.9997559189796448
+        },
+        {
+            "timestamp": "2026-10-07T10:58:34.071212",
+            "capture_number": 2,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\live_mfs100_tests\\session_90c49c2f-1ebe-464d-87d0-f8738410b9c8\\scan_2.bmp",
+            "prediction": "O+",
+            "confidence": 0.9997560381889343,
+            "prob_A_plus": 0.0001708591589704156,
+            "prob_B_plus": 6.569292509084335e-06,
+            "prob_AB_plus": 6.653930904576555e-05,
+            "prob_O_plus": 0.9997560381889343
+        },
+        {
+            "timestamp": "2026-10-07T10:58:37.770038",
+            "capture_number": 3,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\live_mfs100_tests\\session_90c49c2f-1ebe-464d-87d0-f8738410b9c8\\scan_3.bmp",
+            "prediction": "O+",
+            "confidence": 0.9997491240501404,
+            "prob_A_plus": 0.00017332281277049333,
+            "prob_B_plus": 6.774210305593442e-06,
+            "prob_AB_plus": 7.079896749928594e-05,
+            "prob_O_plus": 0.9997491240501404
+        }
+    ],
+    "dir": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\live_mfs100_tests\\session_90c49c2f-1ebe-464d-87d0-f8738410b9c8",
+    "start_time": "2026-10-07T10:58:23.781047",
+    "combined_prob_A_plus": 0.000172137122717686,
+    "combined_prob_B_plus": 6.588368099376869e-06,
+    "combined_prob_AB_plus": 6.758646486559883e-05,
+    "combined_prob_O_plus": 0.9997536937395731,
+    "final_prediction": "O+",
+    "final_confidence": 0.9997536937395731,
+    "agreement_count": 3,
+    "consistency_level": "HIGH"
+}

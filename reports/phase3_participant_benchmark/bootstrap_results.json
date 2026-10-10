@@ -1,0 +1,8 @@
+{
+    "accuracy_mean": 0.3821952380952381,
+    "accuracy_ci_lower": 0.19047619047619047,
+    "accuracy_ci_upper": 0.5714285714285714,
+    "macro_f1_mean": 0.2834362763359789,
+    "macro_f1_ci_lower": 0.09615384615384616,
+    "macro_f1_ci_upper": 0.49350857475857474
+}

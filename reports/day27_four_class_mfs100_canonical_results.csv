@@ -1,0 +1,2 @@
+accuracy,macro_precision,macro_recall,macro_f1,A+_precision,A+_recall,A+_f1,AB+_precision,AB+_recall,AB+_f1,B+_precision,B+_recall,B+_f1,O+_precision,O+_recall,O+_f1
+0.46153846153846156,0.23958333333333331,0.28125,0.20714285714285713,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.125,0.2,0.4583333333333333,1.0,0.6285714285714286

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ground Truth Collection - Capture</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Ground Truth Collection – Capture Impressions</h1>
+<p>Subject: {{ session.get('subject_id') }} | Blood Group: {{ session.get('blood_group') }}</p>
+<p>Captures taken: {{ capture_count }} / 3</p>
+<form method="post" action="{{ url_for('ground_truth.capture_sample') }}">
+    <button type="submit">Take Next Capture (LEFT THUMB)</button>
+</form>
+<form method="post" action="{{ url_for('ground_truth.finish_subject') }}">
+    <button type="submit" {% if capture_count < 3 %}disabled{% endif %}>Finish Subject</button>
+</form>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

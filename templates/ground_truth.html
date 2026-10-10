@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ground Truth Collection - Start Subject</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Ground Truth Collection – New Subject</h1>
+<p><strong>Disclaimer:</strong> This interface is for research data collection only. AI predictions must never be used as ground truth.</p>
+<form method="post" action="{{ url_for('ground_truth.start_subject') }}">
+    <label for="subject_id">Subject ID (e.g., S001):</label><br>
+    <input type="text" id="subject_id" name="subject_id" required pattern="S\\d{3}"><br><br>
+
+    <label for="blood_group">Confirmed Blood Group:</label><br>
+    <select id="blood_group" name="blood_group" required>
+        <option value="">--Select--</option>
+        <option>A+</option>
+        <option>A-</option>
+        <option>AB+</option>
+        <option>AB-</option>
+        <option>B+</option>
+        <option>B-</option>
+        <option>O+</option>
+        <option>O-</option>
+    </select><br><br>
+
+    <label for="source">Independent Confirmation Source:</label><br>
+    <input type="text" id="source" name="source" placeholder="Serological test, lab report, etc." required><br><br>
+
+    <label for="notes">Notes (optional):</label><br>
+    <textarea id="notes" name="notes" rows="3"></textarea><br><br>
+
+    <button type="submit">Start Subject</button>
+</form>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

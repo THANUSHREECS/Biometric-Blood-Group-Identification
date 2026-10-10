@@ -1,0 +1,50 @@
+{
+    "id": "16fc225c-bd05-4ca7-8dd1-1857b1503c27",
+    "participant_id": "P0096",
+    "scans": [
+        {
+            "timestamp": "2026-10-07T13:02:20.616342",
+            "capture_number": 1,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\scratch\\research_16fc225c-bd05-4ca7-8dd1-1857b1503c27\\scan_1.bmp",
+            "prediction": "O+",
+            "confidence": 0.9998507499694824,
+            "prob_A_plus": 5.406494528870098e-05,
+            "prob_B_plus": 8.26631803647615e-05,
+            "prob_AB_plus": 1.2479879842430819e-05,
+            "prob_O_plus": 0.9998507499694824
+        },
+        {
+            "timestamp": "2026-10-07T13:02:24.182119",
+            "capture_number": 2,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\scratch\\research_16fc225c-bd05-4ca7-8dd1-1857b1503c27\\scan_2.bmp",
+            "prediction": "O+",
+            "confidence": 0.9998434782028198,
+            "prob_A_plus": 5.7145112805301324e-05,
+            "prob_B_plus": 8.693767449585721e-05,
+            "prob_AB_plus": 1.2399947081576101e-05,
+            "prob_O_plus": 0.9998434782028198
+        },
+        {
+            "timestamp": "2026-10-07T13:02:27.730967",
+            "capture_number": 3,
+            "raw_image_path": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\scratch\\research_16fc225c-bd05-4ca7-8dd1-1857b1503c27\\scan_3.bmp",
+            "prediction": "O+",
+            "confidence": 0.9998446702957153,
+            "prob_A_plus": 6.432099326048046e-05,
+            "prob_B_plus": 7.795966666890308e-05,
+            "prob_AB_plus": 1.294373123528203e-05,
+            "prob_O_plus": 0.9998446702957153
+        }
+    ],
+    "dir": "C:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\scratch\\research_16fc225c-bd05-4ca7-8dd1-1857b1503c27",
+    "start_time": "2026-10-07T13:02:16.764425",
+    "is_research": true,
+    "combined_prob_A_plus": 5.8510350451494254e-05,
+    "combined_prob_B_plus": 8.252017384317394e-05,
+    "combined_prob_AB_plus": 1.2607852719762983e-05,
+    "combined_prob_O_plus": 0.9998462994893392,
+    "final_prediction": "O+",
+    "final_confidence": 0.9998462994893392,
+    "agreement_count": 3,
+    "consistency_level": "HIGH"
+}

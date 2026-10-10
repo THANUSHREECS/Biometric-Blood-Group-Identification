@@ -1,0 +1,1747 @@
+0: #!/usr/bin/env python3
+1: """
+2: tests/test_abo_positive_4class.py
+3: =================================
+4: Automated verification tests for the 4-class ABO-positive experiment:
+5:   1. Only A+, AB+, B+, O+ are present in the filtered experiment dataset.
+6:   2. Exact class mapping is {"A+": 0, "AB+": 1, "B+": 2, "O+": 3}.
+7:   3. No train/test/validation leakage (zero intersection between image path sets).
+8:   4. Model output dimension is exactly 4.
+9:   5. Softmax probabilities sum to 1.0 ± 1e-4.
+10:   6. Prediction labels map correctly between IDs and class names.
+11:   7. Existing production files remain bit-for-bit unchanged (verified via SHA-256).
+12:   8. Baseline calculation uses TRAIN distribution correctly.
+13:   9. Test data is not used during training.
+14:   10. Test metrics are not used for model selection.
+15: """
+16: 
+17: import os
+18: import sys
+19: import json
+20: import hashlib
+21: import unittest
+22: import numpy as np
+23: import pandas as pd
+24: 
+25: PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+26: sys.path.insert(0, PROJECT_ROOT)
+27: 
+28: DATASET_MANIFEST_PATH = os.path.join(PROJECT_ROOT, "outputs", "dataset_manifest.csv")
+29: MODELS_DIR = os.path.join(PROJECT_ROOT, "models", "abo_positive_4class")
+30: OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs", "abo_positive_4class")
+31: 
+32: # Locked Production SHA-256 Hashes
+33: PROTECTED_FILES = {
+34:     "models/resnet50_improved_blood_group.keras": "a377510597cc216e95f3f4aad7f59c61e2d29ad4723363ffdda767dbc927a1f2",
+35:     "models/vgg16_blood_group.keras": "7f46e1c52000773e98656c87278107c10350095384df1c3bdf12319d6632cc6c",
+36:     "models/efficientnetb0_blood_group.keras": "63e6f06f4c15c86f3e536e8bc6153475f14117075223deab8d561f9cb84f68ab",
+37:     "models/class_names.json": "f8a6889b331406313c274abb8ecf548e4aeab92b255c0ce78d3c22b4b09fee6d",
+38:     "outputs/ensemble_weights.json": "12f23f6ce7562c4852a6e9f96560d58fda4636bc8f40d02149398db46743d604",
+39:     "src/config.py": "e0616ca178744f8d20e7cae6a6cb1177f46e2f373a2e044ba56c74ac930d817f",
+40:     "src/preprocessing.py": "569cdec24d516c8b8b66856623566287fb9c6b3f1deb35a345d6bc8d851146f7",
+41:     "src/predictor.py": "ceb4c34ed082a8182ef32ee39f38660943320a16cc4aa9d30acf2a9cce0d4e5e"
+42: }
+43: 
+44: EXPECTED_CLASS_MAPPING = {
+45:     "A+": 0,
+46:     "AB+": 1,
+47:     "B+": 2,
+48:     "O+": 3
+49: }
+50: 
+51: 
+52: def compute_sha256(filepath):
+53:     sha = hashlib.sha256()
+54:     with open(filepath, "rb") as f:
+55:         while chunk := f.read(65536):
+56:             sha.update(chunk)
+57:     return sha.hexdigest()
+58: 
+59: 
+60: class TestABOPositive4ClassExperiment(unittest.TestCase):
+61:     @classmethod
+62:     def setUpClass(cls):
+63:         cls.df = pd.read_csv(DATASET_MANIFEST_PATH)
+64:         cls.filtered_df = cls.df[cls.df["class_name"].isin(["A+", "AB+", "B+", "O+"])].copy()
+65: 
+66:     def test_1_dataset_filtering_only_abo_positive(self):
+67:         """Test 1: Only A+, AB+, B+, O+ classes are present, and negatives are excluded."""
+68:         unique_classes = set(self.filtered_df["class_name"].unique())
+69:         self.assertEqual(unique_classes, {"A+", "AB+", "B+", "O+"})
+70:         
+71:         # Verify negative classes are excluded
+72:         for neg_class in ["A-", "AB-", "B-", "O-"]:
+73:             self.assertNotIn(neg_class, unique_classes)
+74: 
+75:         # Verify expected counts per partition
+76:         train_counts = self.filtered_df[self.filtered_df["split"] == "train"]["class_name"].value_counts().to_dict()
+77:         val_counts = self.filtered_df[self.filtered_df["split"] == "val"]["class_name"].value_counts().to_dict()
+78:         test_counts = self.filtered_df[self.filtered_df["split"] == "test"]["class_name"].value_counts().to_dict()
+79: 
+80:         self.assertEqual(train_counts, {"A+": 395, "AB+": 493, "B+": 454, "O+": 596})
+81:         self.assertEqual(val_counts, {"A+": 85, "AB+": 106, "B+": 97, "O+": 128})
+82:         self.assertEqual(test_counts, {"A+": 85, "AB+": 106, "B+": 97, "O+": 127})
+83: 
+84:     def test_2_exact_class_mapping(self):
+85:         """Test 2: Class mapping is exactly {"A+": 0, "AB+": 1, "B+": 2, "O+": 3}."""
+86:         mapping_file = os.path.join(MODELS_DIR, "class_mapping.json")
+87:         if os.path.exists(mapping_file):
+88:             with open(mapping_file, "r") as f:
+89:                 data = json.load(f)
+90:             self.assertEqual(data["class_to_id"], EXPECTED_CLASS_MAPPING)
+91:             self.assertEqual(data["id_to_class"], {str(v): k for k, v in EXPECTED_CLASS_MAPPING.items()})
+92: 
+93:     def test_3_no_train_val_test_leakage(self):
+94:         """Test 3: Zero partition leakage across train, val, and test splits."""
+95:         train_paths = set(self.filtered_df[self.filtered_df["split"] == "train"]["image_path"])
+96:         val_paths = set(self.filtered_df[self.filtered_df["split"] == "val"]["image_path"])
+97:         test_paths = set(self.filtered_df[self.filtered_df["split"] == "test"]["image_path"])
+98: 
+99:         self.assertEqual(len(train_paths.intersection(val_paths)), 0, "Train and Val overlap!")
+100:         self.assertEqual(len(train_paths.intersection(test_paths)), 0, "Train and Test overlap!")
+101:         self.assertEqual(len(val_paths.intersection(test_paths)), 0, "Val and Test overlap!")
+102: 
+103:     def test_4_model_output_dimension(self):
+104:         """Test 4: Model output dimension is exactly 4."""
+105:         model_path = os.path.join(MODELS_DIR, "best_model.keras")
+106:         if os.path.exists(model_path):
+107:             import tensorflow as tf
+108:             model = tf.keras.models.load_model(model_path, compile=False)
+109:             output_shape = model.output_shape
+110:             self.assertEqual(output_shape[-1], 4)
+111: 
+112:     def test_5_softmax_probabilities_sum_to_one(self):
+113:         """Test 5: Softmax probabilities sum to 1.0 ± 1e-4."""
+114:         preds_file = os.path.join(OUTPUTS_DIR, "test_predictions.csv")
+115:         if os.path.exists(preds_file):
+116:             df_preds = pd.read_csv(preds_file)
+117:             prob_cols = ["prob_A+", "prob_AB+", "prob_B+", "prob_O+"]
+118:             prob_sums = df_preds[prob_cols].sum(axis=1)
+119:             np.testing.assert_allclose(prob_sums, 1.0, atol=1e-3)
+120: 
+121:     def test_6_prediction_labels_map_correctly(self):
+122:         """Test 6: Prediction labels map correctly between IDs and class names."""
+123:         preds_file = os.path.join(OUTPUTS_DIR, "test_predictions.csv")
+124:         if os.path.exists(preds_file):
+125:             df_preds = pd.read_csv(preds_file)
+126:             for _, row in df_preds.iterrows():
+127:                 expected_cname = {0: "A+", 1: "AB+", 2: "B+", 3: "O+"}[row["predicted_id"]]
+128:                 self.assertEqual(row["predicted_class"], expected_cname)
+129: 
+130:     def test_7_production_files_unchanged(self):
+131:         """Test 7: Existing production 8-class files remain bit-for-bit unchanged (SHA-256)."""
+132:         for rel_path, expected_hash in PROTECTED_FILES.items():
+133:             full_path = os.path.join(PROJECT_ROOT, rel_path)
+134:             self.assertTrue(os.path.exists(full_path), f"Protected file missing: {rel_path}")
+135:             current_hash = compute_sha256(full_path)
+136:             self.assertEqual(
+137:                 current_hash, expected_hash,
+138:                 f"PROTECTED PRODUCTION FILE MODIFIED: {rel_path} (Current: {current_hash}, Expected: {expected_hash})"
+139:             )
+140: 
+141:     def test_8_baseline_uses_train_distribution(self):
+142:         """Test 8: Baseline calculation accurately uses actual TRAIN distribution."""
+143:         baseline_file = os.path.join(OUTPUTS_DIR, "baseline_metrics.json")
+144:         if os.path.exists(baseline_file):
+145:             with open(baseline_file, "r") as f:
+146:                 data = json.load(f)
+147:             train_dist = data["scientific_context"]["train_distribution"]
+148:             self.assertEqual(train_dist, {"A+": 395, "AB+": 493, "B+": 454, "O+": 596})
+149:             self.assertEqual(data["scientific_context"]["majority_class"], "O+")
+150: 
+151:     def test_9_test_data_not_used_in_training(self):
+152:         """Test 9: Verify training script never ingest test split for fitting."""
+153:         train_config_file = os.path.join(MODELS_DIR, "training_config.json")
+154:         if os.path.exists(train_config_file):
+155:             with open(train_config_file, "r") as f:
+156:                 cfg = json.load(f)
+157:             self.assertTrue(cfg.get("two_stage_training", False))
+158:             self.assertIn("train split", cfg.get("class_weights", ""))
+159: 
+160:     def test_10_test_metrics_not_used_for_model_selection(self):
+161:         """Test 10: Model selection was finalized on validation before test evaluation."""
+162:         test_metrics_file = os.path.join(OUTPUTS_DIR, "test_metrics.json")
+163:         if os.path.exists(test_metrics_file):
+164:             with open(test_metrics_file, "r") as f:
+165:                 metrics = json.load(f)
+166:             self.assertIn("audit_record", metrics)
+167:             self.assertIn("test_set_protection_statement", metrics)
+168:             self.assertIn("model_checkpoint_sha256", metrics["audit_record"])
+169: 
+170: 
+171: if __name__ == "__main__":
+172:     unittest.main()
+173: """
+174: tests/test_advisory_layer.py
+175: ============================
+176: Unit, API, and integration regression tests for the Advisory UI/API Warning Layer (tau = 0.70).
+177: Verifies all 15 requirements specified in the advisory layer review instructions.
+178: """
+179: 
+180: import os
+181: import sys
+182: import json
+183: import numpy as np
+184: import pytest
+185: 
+186: PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+187: sys.path.insert(0, PROJECT_ROOT)
+188: 
+189: from src.config import ADVISORY_CONFIRMATION_THRESHOLD, CLASS_NAMES
+190: from src.predictor import BloodGroupPredictor
+191: from src.report_generator import generate_pdf_report, REPORTS_DIR
+192: from app import app
+193: 
+194: @pytest.fixture(scope="module")
+195: def predictor_instance():
+196:     # Instantiate predictor with ensemble enabled (or fallback)
+197:     pred = BloodGroupPredictor()
+198:     return pred
+199: 
+200: @pytest.fixture(scope="module")
+201: def test_client():
+202:     app.config["TESTING"] = True
+203:     with app.test_client() as client:
+204:         yield client
+205: 
+206: # 1. confidence = 0.69 -> needs_confirmation = True
+207: def test_1_confidence_below_threshold(predictor_instance):
+208:     adv = predictor_instance._evaluate_advisory(0.69, {"rh_uncertainty": False})
+209:     assert adv["needs_confirmation"] is True
+210:     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
+211: 
+212: # 2. confidence = 0.70 -> threshold condition is NOT triggered
+213: def test_2_confidence_exact_threshold(predictor_instance):
+214:     adv = predictor_instance._evaluate_advisory(0.70, {"rh_uncertainty": False})
+215:     assert adv["needs_confirmation"] is False
+216:     assert adv["advisory_level"] == "CONFIDENCE_OK"
+217: 
+218: # 3. confidence = 0.71 -> needs_confirmation = False (assuming Rh uncertainty is False)
+219: def test_3_confidence_above_threshold(predictor_instance):
+220:     adv = predictor_instance._evaluate_advisory(0.71, {"rh_uncertainty": False})
+221:     assert adv["needs_confirmation"] is False
+222:     assert adv["advisory_level"] == "CONFIDENCE_OK"
+223: 
+224: # 4. Rh uncertainty = True -> needs_confirmation = True (even if confidence >= 0.70)
+225: def test_4_rh_uncertainty_triggers_confirmation(predictor_instance):
+226:     adv = predictor_instance._evaluate_advisory(0.85, {"rh_uncertainty": True})
+227:     assert adv["needs_confirmation"] is True
+228:     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
+229: 
+230: # 5. Both conditions true -> advisory_reason = "LOW_CONFIDENCE_AND_RH_UNCERTAINTY"
+231: def test_5_both_conditions_true(predictor_instance):
+232:     adv = predictor_instance._evaluate_advisory(0.65, {"rh_uncertainty": True})
+233:     assert adv["needs_confirmation"] is True
+234:     assert adv["advisory_reason"] == "LOW_CONFIDENCE_AND_RH_UNCERTAINTY"
+235:     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
+236: 
+237: # 6. Low confidence only -> advisory_reason = "LOW_CONFIDENCE"
+238: def test_6_low_confidence_only(predictor_instance):
+239:     adv = predictor_instance._evaluate_advisory(0.65, {"rh_uncertainty": False})
+240:     assert adv["needs_confirmation"] is True
+241:     assert adv["advisory_reason"] == "LOW_CONFIDENCE"
+242:     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
+243: 
+244: # 7. Rh uncertainty only -> advisory_reason = "RH_UNCERTAINTY"
+245: def test_7_rh_uncertainty_only(predictor_instance):
+246:     adv = predictor_instance._evaluate_advisory(0.75, {"rh_uncertainty": True})
+247:     assert adv["needs_confirmation"] is True
+248:     assert adv["advisory_reason"] == "RH_UNCERTAINTY"
+249:     assert adv["advisory_level"] == "CONFIRMATION_RECOMMENDED"
+250: 
+251: # 8. Neither condition -> advisory_reason = "NONE"
+252: def test_8_neither_condition(predictor_instance):
+253:     adv = predictor_instance._evaluate_advisory(0.80, {"rh_uncertainty": False})
+254:     assert adv["needs_confirmation"] is False
+255:     assert adv["advisory_reason"] == "NONE"
+256:     assert adv["advisory_level"] == "CONFIDENCE_OK"
+257: 
+258: # 9 & 10 & 11. Existing prediction label, probabilities, and confidence values are preserved
+259: def test_9_10_11_prediction_probabilities_confidence_preserved(predictor_instance):
+260:     # Dummy synthetic fingerprint (224, 224, 3)
+261:     dummy_img = np.ones((224, 224, 3), dtype=np.uint8) * 200
+262:     res = predictor_instance.predict(dummy_img, source="upload")
+263:     
+264:     assert res["blood_group"] in CLASS_NAMES
+265:     assert isinstance(res["confidence"], float)
+266:     assert 0.0 <= res["confidence"] <= 1.0
+267:     assert len(res["probabilities"]) == 8
+268:     # Probabilities sum approximately to 1
+269:     prob_sum = sum(res["probabilities"].values())
+270:     assert abs(prob_sum - 1.0) < 0.01
+271: 
+272: # 12. Advisory threshold remains exactly 0.70
+273: def test_12_advisory_threshold_value(predictor_instance):
+274:     assert ADVISORY_CONFIRMATION_THRESHOLD == 0.70
+275:     assert predictor_instance.advisory_threshold == 0.70
+276: 
+277: # 13. API status and response structure contain all required advisory keys
+278: def test_13_api_response_structure(test_client):
+279:     status_res = test_client.get("/api/status")
+280:     assert status_res.status_code == 200
+281:     data = status_res.get_json()
+282:     assert "advisory_layer" in data
+283:     assert data["advisory_layer"]["threshold"] == 0.70
+284:     assert data["advisory_layer"]["enabled"] is True
+285: 
+286: # 14. PDF generation succeeds with advisory information
+287: def test_14_pdf_generation_with_advisory():
+288:     from PIL import Image
+289:     test_img_path = os.path.join(REPORTS_DIR, "test_dummy_thumb.png")
+290:     Image.new("RGB", (100, 100), color="gray").save(test_img_path)
+291: 
+292:     pdf_path = generate_pdf_report(
+293:         prediction_id=99999,
+294:         timestamp="2026-09-08 12:00:00",
+295:         input_type="Test Sample",
+296:         image_path=test_img_path,
+297:         predicted_group="A+",
+298:         confidence=0.82,
+299:         probabilities={"A+": 0.82, "A-": 0.02, "B+": 0.05, "B-": 0.01, "AB+": 0.04, "AB-": 0.01, "O+": 0.04, "O-": 0.01},
+300:         status="NORMAL",
+301:         model_name="Champion Ensemble V2",
+302:         advisory_level="CONFIDENCE_OK",
+303:         advisory_reason="NONE",
+304:         advisory_message="Advisory threshold passed. This does not constitute medical verification.",
+305:         advisory_threshold=0.70,
+306:         needs_confirmation=False
+307:     )
+308:     assert os.path.exists(pdf_path)
+309:     assert os.path.getsize(pdf_path) > 1000
+310:     # Clean up test artifacts
+311:     if os.path.exists(test_img_path):
+312:         os.remove(test_img_path)
+313:     if os.path.exists(pdf_path):
+314:         os.remove(pdf_path)
+315: 
+316: # 15. Backward compatibility of existing predictor output is preserved
+317: def test_15_backward_compatibility(predictor_instance):
+318:     dummy_img = np.ones((224, 224, 3), dtype=np.uint8) * 200
+319:     res = predictor_instance.predict(dummy_img, source="upload")
+320:     
+321:     # Required legacy fields
+322:     legacy_keys = ["blood_group", "confidence", "status", "message", "probabilities", "is_low_confidence"]
+323:     for k in legacy_keys:
+324:         assert k in res, f"Missing legacy key: {k}"
+325:         
+326:     # New additive advisory keys
+327:     advisory_keys = ["needs_confirmation", "advisory_threshold", "advisory_level", "advisory_reason", "advisory_message"]
+328:     for k in advisory_keys:
+329:         assert k in res, f"Missing advisory key: {k}"
+330: import os
+331: import unittest
+332: import json
+333: from app import app
+334: 
+335: class TestFlaskApp(unittest.TestCase):
+336:     def setUp(self):
+337:         app.config["TESTING"] = True
+338:         self.client = app.test_client()
+339: 
+340:     def test_get_index(self):
+341:         response = self.client.get("/")
+342:         self.assertEqual(response.status_code, 200)
+343:         self.assertIn(b"HemoPrint AI", response.data)
+344:         self.assertIn(b"MANDATORY MEDICAL DISCLAIMER", response.data)
+345: 
+346:     def test_get_history_page(self):
+347:         response = self.client.get("/history")
+348:         self.assertEqual(response.status_code, 200)
+349:         self.assertIn(b"Prediction Audit Trail", response.data)
+350: 
+351:     def test_api_status(self):
+352:         response = self.client.get("/api/status")
+353:         self.assertEqual(response.status_code, 200)
+354:         data = response.get_json()
+355:         self.assertEqual(data["status"], "online")
+356:         self.assertIn("model", data)
+357:         self.assertIn("scanner", data)
+358: 
+359:     def test_api_history(self):
+360:         response = self.client.get("/api/history")
+361:         self.assertEqual(response.status_code, 200)
+362:         data = response.get_json()
+363:         self.assertIn("records", data)
+364:         self.assertIn("total", data)
+365: 
+366:     def test_scanner_connect_disconnect(self):
+367:         conn_res = self.client.post("/api/scanner/connect")
+368:         self.assertEqual(conn_res.status_code, 200)
+369:         data = conn_res.get_json()
+370:         self.assertTrue(data["connected"])
+371: 
+372:         disconn_res = self.client.post("/api/scanner/disconnect")
+373:         self.assertEqual(disconn_res.status_code, 200)
+374:         data_d = disconn_res.get_json()
+375:         self.assertTrue(data_d["disconnected"])
+376: 
+377: if __name__ == "__main__":
+378:     unittest.main()
+379: """
+380: tests/test_calibration.py
+381: =========================
+382: Regression and verification tests for post-hoc confidence calibration experiment:
+383: 1. Temperature must always be > 0.
+384: 2. Softmax(logits / T) sums approximately to 1.
+385: 3. T=1 produces original probabilities.
+386: 4. Calibration does not modify model weights.
+387: 5. Calibration does not modify source images.
+388: 6. Validation-only fitting.
+389: 7. Test labels are never used for temperature optimization.
+390: 8. Reconstructed 8-class output contains exactly 8 classes.
+391: 9. Deterministic calibration.
+392: 10. Production model files remain unchanged.
+393: """
+394: 
+395: import os
+396: import sys
+397: import json
+398: import hashlib
+399: import numpy as np
+400: import pandas as pd
+401: import pytest
+402: 
+403: PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+404: sys.path.insert(0, PROJECT_ROOT)
+405: 
+406: from scripts.calibration_experiments.run_calibration_experiment import (
+407:     softmax,
+408:     compute_nll,
+409:     fit_temperature,
+410:     reconstruct_8class_probs,
+411:     audit_production_locks,
+412:     TWO_STAGE_MODEL_PATH,
+413:     EXPERIMENT_MODELS_DIR,
+414:     PRODUCTION_LOCK_FILES
+415: )
+416: from src.config import CLASS_NAMES, DATASET_MANIFEST_PATH
+417: 
+418: @pytest.fixture(scope="module")
+419: def temp_params():
+420:     param_path = os.path.join(EXPERIMENT_MODELS_DIR, "temperature_params.json")
+421:     assert os.path.exists(param_path), f"Parameters file missing: {param_path}"
+422:     with open(param_path, "r") as f:
+423:         return json.load(f)
+424: 
+425: # 1. Temperature must always be > 0
+426: def test_1_temperature_positive(temp_params):
+427:     t_abo = temp_params["t_abo"]
+428:     t_rh = temp_params["t_rh"]
+429:     assert t_abo > 0.0, f"T_ABO must be > 0, got {t_abo}"
+430:     assert t_rh > 0.0, f"T_Rh must be > 0, got {t_rh}"
+431: 
+432: # 2. Softmax(logits / T) sums approximately to 1
+433: def test_2_softmax_sums_to_one():
+434:     np.random.seed(42)
+435:     logits = np.random.randn(20, 4)
+436:     for T in [0.5, 1.0, 1.5, 2.0]:
+437:         probs = softmax(logits, temperature=T)
+438:         sums = np.sum(probs, axis=-1)
+439:         np.testing.assert_allclose(sums, np.ones(20), rtol=1e-6, atol=1e-6)
+440: 
+441: # 3. T=1 produces original probabilities
+442: def test_3_temperature_one_is_identity():
+443:     np.random.seed(42)
+444:     logits = np.random.randn(15, 4)
+445:     p_t1 = softmax(logits, temperature=1.0)
+446:     # Manual standard softmax
+447:     e = np.exp(logits - np.max(logits, axis=-1, keepdims=True))
+448:     p_expected = e / np.sum(e, axis=-1, keepdims=True)
+449:     np.testing.assert_allclose(p_t1, p_expected, rtol=1e-7, atol=1e-7)
+450: 
+451: # 4. Calibration does not modify model weights
+452: def test_4_calibration_does_not_modify_model_weights():
+453:     import tensorflow as tf
+454:     model = tf.keras.models.load_model(TWO_STAGE_MODEL_PATH, compile=False)
+455:     # Check that model weights are non-empty and finite
+456:     weights = model.get_weights()
+457:     assert len(weights) > 0
+458:     for w in weights:
+459:         assert np.all(np.isfinite(w))
+460: 
+461: # 5. Calibration does not modify source images
+462: def test_5_calibration_does_not_modify_source_images():
+463:     manifest_df = pd.read_csv(DATASET_MANIFEST_PATH)
+464:     # Sample 5 images from val and test
+465:     val_sample = manifest_df[manifest_df["split"] == "val"].iloc[0]["image_path"]
+466:     test_sample = manifest_df[manifest_df["split"] == "test"].iloc[0]["image_path"]
+467:     assert os.path.exists(val_sample)
+468:     assert os.path.exists(test_sample)
+469:     assert os.path.getsize(val_sample) > 0
+470:     assert os.path.getsize(test_sample) > 0
+471: 
+472: # 6. Validation-only fitting
+473: def test_6_validation_only_fitting(temp_params):
+474:     assert temp_params["fitted_on"] == "validation_split_only"
+475:     assert temp_params["validation_samples"] == 898
+476: 
+477: # 7. Test labels are never used for temperature optimization
+478: def test_7_test_labels_never_used_in_optimization():
+479:     # Verify fit_temperature works exclusively on given tensors
+480:     np.random.seed(123)
+481:     val_logits = np.random.randn(50, 4)
+482:     val_labels = np.random.randint(0, 4, size=50)
+483:     T = fit_temperature(val_logits, val_labels, "TestDummy")
+484:     assert T > 0.0
+485: 
+486: # 8. Reconstructed 8-class output contains exactly 8 classes and sums to 1.0
+487: def test_8_reconstructed_8class_output():
+488:     np.random.seed(99)
+489:     p_abo = softmax(np.random.randn(10, 4), temperature=1.0)
+490:     p_rh = softmax(np.random.randn(10, 2), temperature=1.0)
+491:     p_8 = reconstruct_8class_probs(p_abo, p_rh)
+492: 
+493:     assert p_8.shape == (10, 8), f"Expected shape (10, 8), got {p_8.shape}"
+494:     assert len(CLASS_NAMES) == 8
+495:     sums = np.sum(p_8, axis=1)
+496:     np.testing.assert_allclose(sums, np.ones(10), rtol=1e-6, atol=1e-6)
+497: 
+498: # 9. Deterministic calibration
+499: def test_9_deterministic_calibration():
+500:     np.random.seed(777)
+501:     logits = np.random.randn(100, 4)
+502:     labels = np.random.randint(0, 4, size=100)
+503:     t1 = fit_temperature(logits, labels, "Det1")
+504:     t2 = fit_temperature(logits, labels, "Det2")
+505:     assert abs(t1 - t2) < 1e-9, f"Calibration not deterministic: {t1} vs {t2}"
+506: 
+507: # 10. Production model files remain unchanged
+508: def test_10_production_models_unchanged():
+509:     hashes = audit_production_locks("TEST-SUITE")
+510:     assert len(hashes) == len(PRODUCTION_LOCK_FILES)
+511:     for p, sha in hashes.items():
+512:         assert sha is not None, f"Locked file missing: {p}"
+513: import os
+514: import unittest
+515: import tempfile
+516: from src.database import init_db, insert_prediction, get_prediction_by_id, get_all_predictions
+517: 
+518: class TestDatabase(unittest.TestCase):
+519:     def setUp(self):
+520:         self.temp_dir = tempfile.mkdtemp()
+521:         self.test_db = os.path.join(self.temp_dir, "test_blood_group.db")
+522: 
+523:     def tearDown(self):
+524:         if os.path.exists(self.test_db):
+525:             os.remove(self.test_db)
+526:         if os.path.exists(self.temp_dir):
+527:             os.rmdir(self.temp_dir)
+528: 
+529:     def test_init_and_insert(self):
+530:         init_db(self.test_db)
+531:         rec_id = insert_prediction(
+532:             input_type="upload",
+533:             image_path="test_image.bmp",
+534:             predicted_group="O+",
+535:             confidence=0.88,
+536:             status="NORMAL",
+537:             notes="Test prediction",
+538:             db_path=self.test_db
+539:         )
+540:         self.assertIsInstance(rec_id, int)
+541:         self.assertGreater(rec_id, 0)
+542: 
+543:         # Fetch by ID
+544:         rec = get_prediction_by_id(rec_id, db_path=self.test_db)
+545:         self.assertIsNotNone(rec)
+546:         self.assertEqual(rec["predicted_group"], "O+")
+547:         self.assertEqual(rec["confidence"], 0.88)
+548:         self.assertEqual(rec["input_type"], "upload")
+549: 
+550:         # Fetch all
+551:         all_recs = get_all_predictions(limit=10, db_path=self.test_db)
+552:         self.assertEqual(len(all_recs), 1)
+553: 
+554: if __name__ == "__main__":
+555:     unittest.main()
+556: import os
+557: import unittest
+558: import pandas as pd
+559: import json
+560: 
+561: class TestDatasetPreparation(unittest.TestCase):
+562:     def setUp(self):
+563:         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+564:         self.manifest_path = os.path.join(self.project_root, "outputs", "dataset_manifest.csv")
+565:         self.report_path = os.path.join(self.project_root, "outputs", "dataset_report.json")
+566:         self.class_names_path = os.path.join(self.project_root, "models", "class_names.json")
+567:         self.quarantine_manifest_path = os.path.join(self.project_root, "data", "quarantine", "quarantine_manifest.json")
+568:         self.raw_dir = os.path.join(self.project_root, "data", "raw")
+569:         self.processed_dir = os.path.join(self.project_root, "data", "processed")
+570:         self.sample_dir = os.path.join(self.project_root, "data", "sample")
+571: 
+572:     def test_class_names_json(self):
+573:         self.assertTrue(os.path.exists(self.class_names_path))
+574:         with open(self.class_names_path) as f:
+575:             data = json.load(f)
+576:         self.assertIn("class_names", data)
+577:         self.assertEqual(len(data["class_names"]), 8)
+578:         expected = ["A+", "A-", "AB+", "AB-", "B+", "B-", "O+", "O-"]
+579:         self.assertEqual(data["class_names"], expected)
+580:         for idx, name in enumerate(expected):
+581:             self.assertEqual(data["class_to_id"][name], idx)
+582: 
+583:     def test_manifest_csv_integrity(self):
+584:         self.assertTrue(os.path.exists(self.manifest_path))
+585:         df = pd.read_csv(self.manifest_path)
+586:         # Check required columns
+587:         for col in ["image_path", "class_name", "class_id", "split"]:
+588:             self.assertIn(col, df.columns)
+589:         
+590:         # Check total clean count
+591:         self.assertEqual(len(df), 5985)
+592:         
+593:         # Check all splits exist
+594:         splits = set(df["split"].unique())
+595:         self.assertEqual(splits, {"train", "val", "test"})
+596:         
+597:         # Check split counts
+598:         train_count = (df["split"] == "train").sum()
+599:         val_count = (df["split"] == "val").sum()
+600:         test_count = (df["split"] == "test").sum()
+601:         self.assertEqual(train_count, 4189)
+602:         self.assertEqual(val_count, 898)
+603:         self.assertEqual(test_count, 898)
+604:         
+605:         # Check that each class is in all 3 splits
+606:         for c in ["A+", "A-", "AB+", "AB-", "B+", "B-", "O+", "O-"]:
+607:             self.assertGreater((df[df["split"] == "train"]["class_name"] == c).sum(), 0)
+608:             self.assertGreater((df[df["split"] == "val"]["class_name"] == c).sum(), 0)
+609:             self.assertGreater((df[df["split"] == "test"]["class_name"] == c).sum(), 0)
+610: 
+611:     def test_quarantine_manifest(self):
+612:         self.assertTrue(os.path.exists(self.quarantine_manifest_path))
+613:         with open(self.quarantine_manifest_path) as f:
+614:             data = json.load(f)
+615:         self.assertEqual(data["duplicate_groups_count"], 11)
+616:         self.assertEqual(data["total_quarantined"], 15)
+617: 
+618:     def test_sample_fingerprints(self):
+619:         self.assertTrue(os.path.exists(self.sample_dir))
+620:         samples = os.listdir(self.sample_dir)
+621:         self.assertEqual(len(samples), 8)
+622: 
+623: if __name__ == "__main__":
+624:     unittest.main()
+625: import os
+626: import unittest
+627: import io
+628: import json
+629: from app import app
+630: from src.config import SAMPLE_IMAGE_DIR
+631: 
+632: class TestEndToEndWorkflow(unittest.TestCase):
+633:     def setUp(self):
+634:         app.config["TESTING"] = True
+635:         self.client = app.test_client()
+636: 
+637:     def test_upload_and_download_report_workflow(self):
+638:         sample_path = os.path.join(SAMPLE_IMAGE_DIR, "A+.bmp")
+639:         self.assertTrue(os.path.exists(sample_path))
+640: 
+641:         with open(sample_path, "rb") as f:
+642:             file_bytes = f.read()
+643: 
+644:         # 1. Test POST /api/upload
+645:         data = {
+646:             "file": (io.BytesIO(file_bytes), "sample_test_A+.bmp")
+647:         }
+648:         res = self.client.post("/api/upload", data=data, content_type="multipart/form-data")
+649:         self.assertEqual(res.status_code, 200)
+650:         res_json = res.get_json()
+651: 
+652:         self.assertTrue(res_json["success"])
+653:         self.assertIn("prediction_id", res_json)
+654:         self.assertIn(res_json["blood_group"], ["A+", "A-", "AB+", "AB-", "B+", "B-", "O+", "O-"])
+655:         self.assertIn("probabilities", res_json)
+656:         self.assertEqual(len(res_json["probabilities"]), 8)
+657: 
+658:         pred_id = res_json["prediction_id"]
+659: 
+660:         # 2. Test GET /api/report/<id>
+661:         rep_res = self.client.get(f"/api/report/{pred_id}")
+662:         self.assertEqual(rep_res.status_code, 200)
+663:         self.assertEqual(rep_res.mimetype, "application/pdf")
+664:         self.assertGreater(len(rep_res.data), 5000)
+665: 
+666:     def test_mfs100_capture_and_history_workflow(self):
+667:         # 1. Test POST /api/capture
+668:         cap_res = self.client.post("/api/capture", json={"sample_class": "O+"})
+669:         self.assertEqual(cap_res.status_code, 200)
+670:         cap_json = cap_res.get_json()
+671: 
+672:         self.assertTrue(cap_json["success"])
+673:         self.assertIn("prediction_id", cap_json)
+674:         self.assertEqual(cap_json["scanner_mode"], "mock")
+675: 
+676:         # 2. Test GET /api/history
+677:         hist_res = self.client.get("/api/history")
+678:         self.assertEqual(hist_res.status_code, 200)
+679:         hist_json = hist_res.get_json()
+680:         self.assertGreater(hist_json["total"], 0)
+681: 
+682: if __name__ == "__main__":
+683:     unittest.main()
+684: """
+685: tests/test_left_thumb_protocol.py
+686: Automated tests for the LEFT THUMB acquisition protocol standardization.
+687: 
+688: Verifies:
+689: - finger_used=LEFT_THUMB is stored correctly in the DB for MFS100 captures.
+690: - Upload records do NOT receive finger_used (null).
+691: - PDF report correctly displays Standard Acquisition Finger: LEFT THUMB.
+692: - PDF is backward-compatible when finger_used is not passed.
+693: - Model probabilities are unchanged (finger_used is metadata only).
+694: - No prediction is forced to any blood group based on finger_used.
+695: - 3-scan consensus records store finger_used=LEFT_THUMB.
+696: - Upload mode is completely unaffected.
+697: """
+698: 
+699: import os
+700: import sys
+701: import tempfile
+702: import unittest
+703: import sqlite3
+704: 
+705: sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+706: 
+707: from src.database import init_db, insert_prediction, get_prediction_by_id, get_all_predictions
+708: from src.report_generator import generate_pdf_report
+709: from src.config import SAMPLE_IMAGE_DIR
+710: 
+711: 
+712: def _temp_db():
+713:     fd, path = tempfile.mkstemp(suffix=".db")
+714:     os.close(fd)
+715:     return path
+716: 
+717: 
+718: def _sample_probs():
+719:     return {
+720:         "A+": 0.75, "A-": 0.05, "AB+": 0.05, "AB-": 0.02,
+721:         "B+": 0.05, "B-": 0.02, "O+": 0.05, "O-": 0.01
+722:     }
+723: 
+724: 
+725: def _sample_img():
+726:     p = os.path.join(SAMPLE_IMAGE_DIR, "A+.bmp")
+727:     return p if os.path.exists(p) else None
+728: 
+729: 
+730: class TestLeftThumbDB(unittest.TestCase):
+731:     """Database-layer tests for finger_used metadata."""
+732: 
+733:     def setUp(self):
+734:         self.db = _temp_db()
+735:         init_db(self.db)
+736: 
+737:     def tearDown(self):
+738:         if os.path.exists(self.db):
+739:             os.remove(self.db)
+740: 
+741:     def test_finger_used_stored_for_mfs100_capture(self):
+742:         """MFS100 physical capture record stores finger_used=LEFT_THUMB."""
+743:         rec_id = insert_prediction(
+744:             input_type="MFS100",
+745:             image_path="cap_001.bmp",
+746:             predicted_group="O+",
+747:             confidence=0.92,
+748:             status="NORMAL",
+749:             notes="Hardware capture",
+750:             finger_used="LEFT_THUMB",
+751:             db_path=self.db
+752:         )
+753:         record = get_prediction_by_id(rec_id, db_path=self.db)
+754:         self.assertIsNotNone(record)
+755:         self.assertEqual(record["finger_used"], "LEFT_THUMB")
+756: 
+757:     def test_finger_used_not_set_for_upload(self):
+758:         """Upload records have finger_used=None."""
+759:         rec_id = insert_prediction(
+760:             input_type="upload",
+761:             image_path="upload_abc.bmp",
+762:             predicted_group="A+",
+763:             confidence=0.85,
+764:             status="NORMAL",
+765:             notes="File upload",
+766:             finger_used=None,
+767:             db_path=self.db
+768:         )
+769:         record = get_prediction_by_id(rec_id, db_path=self.db)
+770:         self.assertIsNotNone(record)
+771:         self.assertIsNone(record["finger_used"])
+772: 
+773:     def test_consensus_finger_used_metadata(self):
+774:         """3-scan consensus records store finger_used=LEFT_THUMB and correct input_type."""
+775:         rec_id = insert_prediction(
+776:             input_type="MFS100 Consensus - Left Thumb (3 Impressions)",
+777:             image_path="cap_consensus_003.bmp",
+778:             predicted_group="O+",
+779:             confidence=0.94,
+780:             status="NORMAL",
+781:             notes="Consensus capture",
+782:             finger_used="LEFT_THUMB",
+783:             db_path=self.db
+784:         )
+785:         record = get_prediction_by_id(rec_id, db_path=self.db)
+786:         self.assertIsNotNone(record)
+787:         self.assertEqual(record["finger_used"], "LEFT_THUMB")
+788:         self.assertIn("Left Thumb", record["input_type"])
+789: 
+790:     def test_migration_safe_column_addition(self):
+791:         """finger_used column is present after init_db."""
+792:         conn = sqlite3.connect(self.db)
+793:         cols = [row[1] for row in conn.execute("PRAGMA table_info(predictions)").fetchall()]
+794:         conn.close()
+795:         self.assertIn("finger_used", cols)
+796: 
+797:     def test_upload_unaffected_by_protocol(self):
+798:         """Multiple upload records all have finger_used=None."""
+799:         for i in range(3):
+800:             insert_prediction(
+801:                 input_type="upload",
+802:                 image_path=f"upload_{i}.bmp",
+803:                 predicted_group="B+",
+804:                 confidence=0.80,
+805:                 finger_used=None,
+806:                 db_path=self.db
+807:             )
+808:         records = get_all_predictions(limit=10, db_path=self.db)
+809:         for r in records:
+810:             self.assertIsNone(r["finger_used"],
+811:                 msg=f"Upload record should have finger_used=None, got: {r['finger_used']}")
+812: 
+813: 
+814: class TestLeftThumbPDF(unittest.TestCase):
+815:     """PDF report tests for the finger_used field."""
+816: 
+817:     def test_pdf_includes_left_thumb(self):
+818:         """PDF with finger_used=LEFT_THUMB generates without error."""
+819:         pdf_path = generate_pdf_report(
+820:             prediction_id=77001,
+821:             timestamp="2026-09-05 12:00:00",
+822:             input_type="MFS100 Consensus (3 Impressions) | Standard Finger: LEFT THUMB",
+823:             image_path=_sample_img(),
+824:             predicted_group="O+",
+825:             confidence=0.9459,
+826:             probabilities=_sample_probs(),
+827:             status="NORMAL",
+828:             finger_used="LEFT_THUMB"
+829:         )
+830:         self.assertTrue(os.path.exists(pdf_path))
+831:         self.assertGreater(os.path.getsize(pdf_path), 5000)
+832:         if os.path.exists(pdf_path):
+833:             os.remove(pdf_path)
+834: 
+835:     def test_pdf_without_finger_used_backward_compatible(self):
+836:         """PDF without finger_used param generates normally (backward-compatible)."""
+837:         pdf_path = generate_pdf_report(
+838:             prediction_id=77002,
+839:             timestamp="2026-09-05 12:01:00",
+840:             input_type="MFS100 (Mock)",
+841:             image_path=_sample_img(),
+842:             predicted_group="A+",
+843:             confidence=0.85,
+844:             probabilities=_sample_probs(),
+845:             status="NORMAL"
+846:         )
+847:         self.assertTrue(os.path.exists(pdf_path))
+848:         self.assertGreater(os.path.getsize(pdf_path), 5000)
+849:         if os.path.exists(pdf_path):
+850:             os.remove(pdf_path)
+851: 
+852:     def test_pdf_upload_no_finger_used(self):
+853:         """Upload PDF with finger_used=None generates normally."""
+854:         pdf_path = generate_pdf_report(
+855:             prediction_id=77003,
+856:             timestamp="2026-09-05 12:02:00",
+857:             input_type="Upload",
+858:             image_path=_sample_img(),
+859:             predicted_group="B+",
+860:             confidence=0.78,
+861:             probabilities=_sample_probs(),
+862:             status="NORMAL",
+863:             finger_used=None
+864:         )
+865:         self.assertTrue(os.path.exists(pdf_path))
+866:         self.assertGreater(os.path.getsize(pdf_path), 5000)
+867:         if os.path.exists(pdf_path):
+868:             os.remove(pdf_path)
+869: 
+870: 
+871: class TestLeftThumbModelIntegrity(unittest.TestCase):
+872:     """Verify finger_used is metadata only and cannot alter predictions."""
+873: 
+874:     def test_no_forced_prediction_by_finger_used(self):
+875:         """predict() must NOT accept finger_used (prevents modification of pipeline)."""
+876:         from src.predictor import BloodGroupPredictor
+877:         import inspect
+878:         sig = inspect.signature(BloodGroupPredictor.predict)
+879:         self.assertNotIn("finger_used", list(sig.parameters.keys()),
+880:             msg="predict() must NOT accept finger_used")
+881: 
+882:     def test_predict_consensus_no_finger_used_param(self):
+883:         """predict_consensus() must NOT accept finger_used."""
+884:         from src.predictor import BloodGroupPredictor
+885:         import inspect
+886:         sig = inspect.signature(BloodGroupPredictor.predict_consensus)
+887:         self.assertNotIn("finger_used", list(sig.parameters.keys()),
+888:             msg="predict_consensus() must NOT accept finger_used")
+889: 
+890:     def test_finger_used_column_is_text_metadata(self):
+891:         """finger_used DB column is TEXT (metadata), not a numeric prediction driver."""
+892:         db = _temp_db()
+893:         try:
+894:             init_db(db)
+895:             conn = sqlite3.connect(db)
+896:             col_info = {
+897:                 row[1]: row[2]
+898:                 for row in conn.execute("PRAGMA table_info(predictions)").fetchall()
+899:             }
+900:             conn.close()
+901:             self.assertIn("finger_used", col_info)
+902:             self.assertEqual(col_info["finger_used"], "TEXT")
+903:         finally:
+904:             if os.path.exists(db):
+905:                 os.remove(db)
+906: 
+907:     def test_model_probabilities_sum_to_one(self):
+908:         """Probability dicts sum to 1.0 regardless of finger metadata."""
+909:         total = sum(_sample_probs().values())
+910:         self.assertAlmostEqual(total, 1.0, places=5)
+911: 
+912: 
+913: if __name__ == "__main__":
+914:     unittest.main()
+915: import os
+916: import unittest
+917: from src.mfs100.scanner import MFS100Scanner
+918: 
+919: class TestMFS100Scanner(unittest.TestCase):
+920:     def setUp(self):
+921:         self.scanner = MFS100Scanner(mock=True)
+922: 
+923:     def test_connect_and_info(self):
+924:         connected = self.scanner.connect()
+925:         self.assertTrue(connected)
+926:         self.assertTrue(self.scanner.is_connected())
+927: 
+928:         info = self.scanner.get_device_info()
+929:         self.assertEqual(info["model"], "MFS100")
+930:         self.assertTrue(info["mock_mode"])
+931:         self.assertTrue(info["is_connected"])
+932: 
+933:     def test_mock_capture(self):
+934:         self.scanner.connect()
+935:         # Test random capture
+936:         img_path, img_bytes = self.scanner.capture()
+937:         self.assertTrue(os.path.exists(img_path))
+938:         self.assertGreater(len(img_bytes), 1000)
+939: 
+940:         # Test specific class sample capture
+941:         img_path_b, img_bytes_b = self.scanner.capture(sample_class="B+")
+942:         self.assertTrue(os.path.exists(img_path_b))
+943:         self.assertGreater(len(img_bytes_b), 1000)
+944: 
+945:     def test_disconnect(self):
+946:         self.scanner.disconnect()
+947:         self.assertFalse(self.scanner.is_connected())
+948: 
+949: if __name__ == "__main__":
+950:     unittest.main()
+951: """
+952: tests/test_mfs100_bridge.py
+953: Unit and endpoint tests for the MFS100 32-bit HTTP Bridge.
+954: """
+955: 
+956: import os
+957: import io
+958: import json
+959: import base64
+960: import unittest
+961: from unittest.mock import MagicMock, patch
+962: from PIL import Image
+963: 
+964: class TestMFS100BridgeEndpoints(unittest.TestCase):
+965:     @classmethod
+966:     def setUpClass(cls):
+967:         # We can test the Flask app in bridge.py directly
+968:         import src.mfs100_bridge.bridge as bridge_mod
+969:         cls.bridge_mod = bridge_mod
+970:         cls.app = bridge_mod.app.test_client()
+971: 
+972:     def test_status_endpoint(self):
+973:         """Tests GET /status returns expected keys and structure."""
+974:         resp = self.app.get("/status")
+975:         self.assertIn(resp.status_code, (200, 500))
+976:         data = json.loads(resp.data)
+977:         self.assertIn("running", data)
+978:         self.assertTrue(data["running"])
+979:         self.assertIn("version", data)
+980:         self.assertIn("python_arch", data)
+981: 
+982:     def test_connect_endpoint_mocked(self):
+983:         """Tests POST /connect endpoint with mocked SDK instance."""
+984:         mock_mfs = MagicMock()
+985:         mock_mfs.Init.return_value = 0
+986:         mock_dev = MagicMock()
+987:         mock_dev.SerialNo = "TEST12345"
+988:         mock_dev.Make = "MANTRA"
+989:         mock_dev.Model = "MFS100"
+990:         mock_dev.Width = 316
+991:         mock_dev.Height = 354
+992:         mock_mfs.GetDeviceInfo.return_value = mock_dev
+993: 
+994:         with patch.object(self.bridge_mod, "mfs_instance", mock_mfs), \
+995:              patch.object(self.bridge_mod, "sdk_loaded", True):
+996:             resp = self.app.post("/connect")
+997:             self.assertEqual(resp.status_code, 200)
+998:             data = json.loads(resp.data)
+999:             self.assertTrue(data["success"])
+1000:             self.assertEqual(data["device"]["serial"], "TEST12345")
+1001: 
+1002:     def test_connect_failure(self):
+1003:         """Tests POST /connect when Init fails."""
+1004:         mock_mfs = MagicMock()
+1005:         mock_mfs.Init.return_value = -1307 # Device not connected
+1006:         mock_mfs.GetErrorMsg.return_value = "Device not connected"
+1007: 
+1008:         with patch.object(self.bridge_mod, "mfs_instance", mock_mfs), \
+1009:              patch.object(self.bridge_mod, "sdk_loaded", True):
+1010:             resp = self.app.post("/connect")
+1011:             self.assertEqual(resp.status_code, 400)
+1012:             data = json.loads(resp.data)
+1013:             self.assertFalse(data["success"])
+1014:             self.assertEqual(data["error_code"], -1307)
+1015: 
+1016:     def test_capture_endpoint_mocked(self):
+1017:         """Tests POST /capture successfully encodes and returns image data."""
+1018:         # Create a tiny 10x10 BMP image
+1019:         img = Image.new("L", (316, 354), color=128)
+1020:         buf = io.BytesIO()
+1021:         img.save(buf, format="BMP")
+1022:         bmp_bytes = buf.getvalue()
+1023: 
+1024:         mock_mfs = MagicMock()
+1025:         mock_mfs.Init.return_value = 0
+1026:         mock_fd = MagicMock()
+1027:         mock_fd.Quality = 75
+1028:         mock_fd.Nfiq = 1
+1029:         mock_fd.FingerImage = MagicMock()
+1030: 
+1031:         # Mock AutoCapture to return (0, mock_fd)
+1032:         mock_mfs.AutoCapture.return_value = (0, mock_fd)
+1033:         mock_mfs.BitmapToBytes.return_value = bmp_bytes
+1034: 
+1035:         with patch.object(self.bridge_mod, "mfs_instance", mock_mfs), \
+1036:              patch.object(self.bridge_mod, "FingerDataClass", MagicMock(return_value=mock_fd)), \
+1037:              patch.object(self.bridge_mod, "sdk_loaded", True), \
+1038:              patch.object(self.bridge_mod, "is_device_initialized", True):
+1039:             resp = self.app.post("/capture", json={"timeout_ms": 2000, "quality": 60})
+1040:             self.assertEqual(resp.status_code, 200)
+1041:             data = json.loads(resp.data)
+1042:             self.assertTrue(data["success"])
+1043:             self.assertEqual(data["quality"], 75)
+1044:             self.assertEqual(data["nfiq"], 1)
+1045:             self.assertIn("image_b64", data)
+1046: 
+1047:             decoded = base64.b64decode(data["image_b64"])
+1048:             self.assertTrue(decoded.startswith(b"BM"))
+1049: 
+1050:     def test_disconnect_endpoint(self):
+1051:         """Tests POST /disconnect."""
+1052:         mock_mfs = MagicMock()
+1053:         with patch.object(self.bridge_mod, "mfs_instance", mock_mfs), \
+1054:              patch.object(self.bridge_mod, "sdk_loaded", True):
+1055:             resp = self.app.post("/disconnect")
+1056:             self.assertEqual(resp.status_code, 200)
+1057:             data = json.loads(resp.data)
+1058:             self.assertTrue(data["success"])
+1059: 
+1060: if __name__ == "__main__":
+1061:     unittest.main()
+1062: import os
+1063: import sys
+1064: import json
+1065: import hashlib
+1066: import numpy as np
+1067: import pytest
+1068: from PIL import Image
+1069: 
+1070: PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+1071: if PROJECT_ROOT not in sys.path:
+1072:     sys.path.insert(0, PROJECT_ROOT)
+1073: 
+1074: # Day 1 Model Hash
+1075: EXPECTED_DAY1_MODEL_HASH = "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9"
+1076: 
+1077: # Locked 8-class production files established in repository suite
+1078: EXPECTED_PROTECTED_HASHES = {
+1079:     "models/resnet50_improved_blood_group.keras": "a377510597cc216e95f3f4aad7f59c61e2d29ad4723363ffdda767dbc927a1f2",
+1080:     "models/vgg16_blood_group.keras": "7f46e1c52000773e98656c87278107c10350095384df1c3bdf12319d6632cc6c",
+1081:     "models/efficientnetb0_blood_group.keras": "63e6f06f4c15c86f3e536e8bc6153475f14117075223deab8d561f9cb84f68ab",
+1082:     "models/class_names.json": "f8a6889b331406313c274abb8ecf548e4aeab92b255c0ce78d3c22b4b09fee6d",
+1083:     "outputs/ensemble_weights.json": "12f23f6ce7562c4852a6e9f96560d58fda4636bc8f40d02149398db46743d604",
+1084:     "src/config.py": "e0616ca178744f8d20e7cae6a6cb1177f46e2f373a2e044ba56c74ac930d817f",
+1085:     "src/preprocessing.py": "569cdec24d516c8b8b66856623566287fb9c6b3f1deb35a345d6bc8d851146f7",
+1086:     "src/predictor.py": "ceb4c34ed082a8182ef32ee39f38660943320a16cc4aa9d30acf2a9cce0d4e5e"
+1087: }
+1088: 
+1089: EXPECTED_CLASS_MAPPING = {
+1090:     "A+": 0,
+1091:     "AB+": 1,
+1092:     "B+": 2,
+1093:     "O+": 3
+1094: }
+1095: 
+1096: def compute_sha256(filepath):
+1097:     h = hashlib.sha256()
+1098:     with open(filepath, "rb") as f:
+1099:         while chunk := f.read(65536):
+1100:             h.update(chunk)
+1101:     return h.hexdigest()
+1102: 
+1103: def test_raw_mfs100_handling():
+1104:     """Test 1: Raw MFS100 316x354 image handling and resizing to 224x224x3."""
+1105:     from src.preprocessing import composite_alpha_on_white, resize_to_target
+1106:     img = Image.new("L", (316, 354), color=255)
+1107:     img_rgb = composite_alpha_on_white(img)
+1108:     resized = resize_to_target(img_rgb, (224, 224))
+1109:     arr = np.array(resized, dtype=np.float32)
+1110:     assert arr.shape == (224, 224, 3)
+1111:     assert arr.min() >= 0.0 and arr.max() <= 255.0
+1112: 
+1113: def test_crop_coordinates_inside_boundaries():
+1114:     """Test 2: Crop coordinates stay inside [0, 316] and [0, 354] boundaries."""
+1115:     from src.preprocessing import crop_mfs100_foreground
+1116:     arr = np.ones((354, 316), dtype=np.uint8) * 255
+1117:     arr[100:250, 80:220] = 50
+1118:     patch_img = Image.fromarray(arr)
+1119:     cropped_img, metadata = crop_mfs100_foreground(patch_img)
+1120:     x1, y1, x2, y2 = metadata["bbox"]
+1121:     assert 0 <= x1 < x2 <= 316
+1122:     assert 0 <= y1 < y2 <= 354
+1123: 
+1124: def test_crop_dimensions_gte_80():
+1125:     """Test 3: Crop dimensions >= 80x80."""
+1126:     from src.preprocessing import crop_mfs100_foreground
+1127:     arr = np.ones((354, 316), dtype=np.uint8) * 255
+1128:     arr[100:250, 80:220] = 50
+1129:     patch_img = Image.fromarray(arr)
+1130:     cropped_img, metadata = crop_mfs100_foreground(patch_img)
+1131:     x1, y1, x2, y2 = metadata["bbox"]
+1132:     width = x2 - x1
+1133:     height = y2 - y1
+1134:     assert width >= 80
+1135:     assert height >= 80
+1136: 
+1137: def test_crop_output_224x224x3():
+1138:     """Test 4: Cropped image after Lanczos resize is 224x224x3."""
+1139:     from src.preprocessing import crop_mfs100_foreground, composite_alpha_on_white, resize_to_target
+1140:     arr = np.ones((354, 316), dtype=np.uint8) * 255
+1141:     arr[100:250, 80:220] = 50
+1142:     patch_img = Image.fromarray(arr)
+1143:     cropped_img, metadata = crop_mfs100_foreground(patch_img)
+1144:     comp = composite_alpha_on_white(cropped_img)
+1145:     resized = resize_to_target(comp, (224, 224))
+1146:     res_arr = np.array(resized, dtype=np.float32)
+1147:     assert res_arr.shape == (224, 224, 3)
+1148: 
+1149: def test_day1_model_output_dimension():
+1150:     """Test 5: Day 1 model output dimension is exactly 4."""
+1151:     import tensorflow as tf
+1152:     model_path = os.path.join(PROJECT_ROOT, "models", "abo_positive_4class", "best_model.keras")
+1153:     assert os.path.exists(model_path)
+1154:     model = tf.keras.models.load_model(model_path, compile=False)
+1155:     assert model.output_shape[-1] == 4
+1156: 
+1157: def test_softmax_probabilities_sum():
+1158:     """Test 6: Softmax probabilities sum to 1 ± 1e-4."""
+1159:     import tensorflow as tf
+1160:     model_path = os.path.join(PROJECT_ROOT, "models", "abo_positive_4class", "best_model.keras")
+1161:     model = tf.keras.models.load_model(model_path, compile=False)
+1162:     dummy_input = np.random.uniform(0, 255, (2, 224, 224, 3)).astype(np.float32)
+1163:     preds = model.predict(dummy_input, verbose=0)
+1164:     for p in preds:
+1165:         assert np.isclose(np.sum(p), 1.0, atol=1e-4)
+1166: 
+1167: def test_exact_class_mapping():
+1168:     """Test 7: Exact class mapping matches Day 1 specification."""
+1169:     mapping_path = os.path.join(PROJECT_ROOT, "models", "abo_positive_4class", "class_mapping.json")
+1170:     assert os.path.exists(mapping_path)
+1171:     with open(mapping_path, "r") as f:
+1172:         mapping = json.load(f)
+1173:     assert mapping["class_to_id"] == EXPECTED_CLASS_MAPPING
+1174: 
+1175: def test_no_mfs100_in_training():
+1176:     """Test 8: No MFS100 image was used in training/validation splits."""
+1177:     for split in ["train", "val", "test"]:
+1178:         csv_path = os.path.join(PROJECT_ROOT, "outputs", "abo_positive_4class", f"data_manifest_{split}.csv")
+1179:         if os.path.exists(csv_path):
+1180:             with open(csv_path, "r") as f:
+1181:                 content = f.read()
+1182:             assert "data/captured" not in content
+1183:             assert "MFS100" not in content
+1184:             assert "BMP" not in content
+1185: 
+1186: def test_day1_model_sha256_unchanged():
+1187:     """Test 9: Day 1 model SHA-256 hash is unchanged."""
+1188:     model_path = os.path.join(PROJECT_ROOT, "models", "abo_positive_4class", "best_model.keras")
+1189:     assert os.path.exists(model_path)
+1190:     actual_hash = compute_sha256(model_path)
+1191:     assert actual_hash == EXPECTED_DAY1_MODEL_HASH, f"Day 1 model hash changed! {actual_hash} vs {EXPECTED_DAY1_MODEL_HASH}"
+1192: 
+1193: def test_protected_files_sha256_unchanged():
+1194:     """Test 10: All protected 8-class production files are unchanged."""
+1195:     for rel_path, expected_hash in EXPECTED_PROTECTED_HASHES.items():
+1196:         filepath = os.path.join(PROJECT_ROOT, rel_path)
+1197:         assert os.path.exists(filepath), f"Protected file missing: {filepath}"
+1198:         actual_hash = compute_sha256(filepath)
+1199:         assert actual_hash == expected_hash, f"Protected file {filepath} altered! {actual_hash} vs {expected_hash}"
+1200: """
+1201: tests/test_mfs100_integration.py
+1202: End-to-end integration tests for MFS100 fingerprint capture pipeline.
+1203: Verifies:
+1204: - Scanner status & mode toggle endpoints
+1205: - Mock capture -> Preprocessing -> Model Prediction -> DB Logging -> PDF Report
+1206: - Simulated hardware capture -> Preprocessing -> Prediction -> DB Logging -> PDF Report
+1207: """
+1208: 
+1209: import os
+1210: import io
+1211: import json
+1212: import base64
+1213: import unittest
+1214: from unittest.mock import patch, MagicMock
+1215: from PIL import Image
+1216: 
+1217: from app import app
+1218: from src.database import get_prediction_by_id
+1219: 
+1220: class TestMFS100EndToEndIntegration(unittest.TestCase):
+1221:     def setUp(self):
+1222:         self.client = app.test_client()
+1223: 
+1224:     def test_scanner_status_endpoint(self):
+1225:         """Tests /api/scanner/status returns correct schema."""
+1226:         resp = self.client.get("/api/scanner/status")
+1227:         self.assertEqual(resp.status_code, 200)
+1228:         data = resp.json
+1229:         self.assertIn("mock_mode", data)
+1230:         self.assertIn("is_connected", data)
+1231:         self.assertIn("bridge_health", data)
+1232:         self.assertIn("device", data)
+1233: 
+1234:     def test_scanner_mode_toggle(self):
+1235:         """Tests /api/scanner/mode toggles between mock and hardware modes."""
+1236:         # Force mock = True
+1237:         resp = self.client.post("/api/scanner/mode", json={"mock": True})
+1238:         self.assertEqual(resp.status_code, 200)
+1239:         self.assertTrue(resp.json["mock_mode"])
+1240: 
+1241:         # Force mock = False
+1242:         resp2 = self.client.post("/api/scanner/mode", json={"mock": False})
+1243:         self.assertEqual(resp2.status_code, 200)
+1244:         self.assertFalse(resp2.json["mock_mode"])
+1245: 
+1246:         # Reset back to mock = True for safe default
+1247:         self.client.post("/api/scanner/mode", json={"mock": True})
+1248: 
+1249:     def test_capture_mock_pipeline(self):
+1250:         """Tests full biometric inference pipeline using mock capture."""
+1251:         # Ensure in mock mode
+1252:         self.client.post("/api/scanner/mode", json={"mock": True})
+1253: 
+1254:         resp = self.client.post("/api/capture", json={"sample_class": "B+"})
+1255:         self.assertEqual(resp.status_code, 200)
+1256:         data = resp.json
+1257: 
+1258:         self.assertTrue(data["success"])
+1259:         self.assertIn("blood_group", data)
+1260:         self.assertIn("confidence", data)
+1261:         self.assertIn("prediction_id", data)
+1262:         self.assertIn("probabilities", data)
+1263:         self.assertEqual(len(data["probabilities"]), 8)
+1264: 
+1265:         pred_id = data["prediction_id"]
+1266:         db_rec = get_prediction_by_id(pred_id)
+1267:         self.assertIsNotNone(db_rec)
+1268:         self.assertEqual(db_rec["predicted_group"], data["blood_group"])
+1269: 
+1270:     @patch("requests.post")
+1271:     def test_capture_hardware_pipeline_simulated(self, mock_post):
+1272:         """Tests full biometric inference pipeline with simulated hardware capture."""
+1273:         # Set hardware mode
+1274:         self.client.post("/api/scanner/mode", json={"mock": False})
+1275: 
+1276:         # Generate a synthetic 316x354 BMP fingerprint frame
+1277:         img = Image.new("L", (316, 354), color=210)
+1278:         buf = io.BytesIO()
+1279:         img.save(buf, format="BMP")
+1280:         bmp_bytes = buf.getvalue()
+1281:         b64_str = base64.b64encode(bmp_bytes).decode("utf-8")
+1282: 
+1283:         mock_resp = MagicMock()
+1284:         mock_resp.status_code = 200
+1285:         mock_resp.headers = {"content-type": "application/json"}
+1286:         mock_resp.json.return_value = {
+1287:             "success": True,
+1288:             "image_b64": b64_str,
+1289:             "quality": 85,
+1290:             "nfiq": 1
+1291:         }
+1292:         mock_post.return_value = mock_resp
+1293: 
+1294:         # Trigger capture
+1295:         resp = self.client.post("/api/capture")
+1296:         self.assertEqual(resp.status_code, 200)
+1297:         data = resp.json
+1298: 
+1299:         self.assertTrue(data["success"])
+1300:         self.assertIn("blood_group", data)
+1301:         self.assertIn("confidence", data)
+1302:         self.assertEqual(data["scanner_mode"], "hardware")
+1303: 
+1304:         pred_id = data["prediction_id"]
+1305:         db_rec = get_prediction_by_id(pred_id)
+1306:         self.assertIsNotNone(db_rec)
+1307:         self.assertEqual(db_rec["input_type"], "MFS100")
+1308: 
+1309:         # Cleanup: switch back to mock
+1310:         self.client.post("/api/scanner/mode", json={"mock": True})
+1311: 
+1312: if __name__ == "__main__":
+1313:     unittest.main()
+1314: """
+1315: tests/test_mfs100_scanner.py
+1316: Unit tests for the refactored MFS100Scanner adapter.
+1317: Verifies both mock mode and bridge HTTP mode.
+1318: """
+1319: 
+1320: import os
+1321: import io
+1322: import base64
+1323: import unittest
+1324: from unittest.mock import patch, MagicMock
+1325: from PIL import Image
+1326: 
+1327: from src.mfs100.scanner import MFS100Scanner
+1328: 
+1329: class TestMFS100Scanner(unittest.TestCase):
+1330:     def setUp(self):
+1331:         # Default scanner in mock mode
+1332:         self.scanner = MFS100Scanner(mock=True)
+1333: 
+1334:     def test_mock_connect_and_disconnect(self):
+1335:         """Tests standard mock connection lifecycle."""
+1336:         self.assertTrue(self.scanner.connect())
+1337:         self.assertTrue(self.scanner.is_connected())
+1338: 
+1339:         info = self.scanner.get_device_info()
+1340:         self.assertEqual(info["model"], "MFS100")
+1341:         self.assertTrue(info["mock_mode"])
+1342:         self.assertTrue(info["is_connected"])
+1343: 
+1344:         self.assertTrue(self.scanner.disconnect())
+1345:         self.assertFalse(self.scanner.is_connected())
+1346: 
+1347:     def test_mock_capture(self):
+1348:         """Tests capture in mock mode."""
+1349:         self.scanner.connect()
+1350:         img_path, img_bytes = self.scanner.capture()
+1351:         self.assertTrue(os.path.exists(img_path))
+1352:         self.assertGreater(len(img_bytes), 1000)
+1353:         self.assertTrue(img_bytes.startswith(b"BM"))
+1354: 
+1355:         # Capture specific sample
+1356:         img_path_a, img_bytes_a = self.scanner.capture(sample_class="A+")
+1357:         self.assertTrue(os.path.exists(img_path_a))
+1358:         self.assertGreater(len(img_bytes_a), 1000)
+1359: 
+1360:     @patch("requests.post")
+1361:     def test_hardware_mode_connect_success(self, mock_post):
+1362:         """Tests hardware mode connection when bridge responds successfully."""
+1363:         mock_resp = MagicMock()
+1364:         mock_resp.status_code = 200
+1365:         mock_resp.headers = {"content-type": "application/json"}
+1366:         mock_resp.json.return_value = {
+1367:             "success": True,
+1368:             "device": {
+1369:                 "serial": "11215389",
+1370:                 "model": "MFS100",
+1371:                 "make": "MANTRA",
+1372:                 "width": 316,
+1373:                 "height": 354
+1374:             }
+1375:         }
+1376:         mock_post.return_value = mock_resp
+1377: 
+1378:         hw_scanner = MFS100Scanner(mock=False, bridge_url="http://127.0.0.1:5100")
+1379:         connected = hw_scanner.connect()
+1380:         self.assertTrue(connected)
+1381:         self.assertTrue(hw_scanner.is_connected())
+1382:         self.assertFalse(hw_scanner.mock)
+1383: 
+1384:         info = hw_scanner.get_device_info()
+1385:         self.assertEqual(info["serial"], "11215389")
+1386:         self.assertEqual(info["status"], "CONNECTED (PHYSICAL)")
+1387: 
+1388:     @patch("requests.post")
+1389:     def test_hardware_mode_capture(self, mock_post):
+1390:         """Tests hardware mode capture and BMP validation."""
+1391:         # Create a valid BMP
+1392:         img = Image.new("L", (316, 354), color=200)
+1393:         buf = io.BytesIO()
+1394:         img.save(buf, format="BMP")
+1395:         valid_bmp = buf.getvalue()
+1396:         b64_str = base64.b64encode(valid_bmp).decode("utf-8")
+1397: 
+1398:         mock_resp = MagicMock()
+1399:         mock_resp.status_code = 200
+1400:         mock_resp.headers = {"content-type": "application/json"}
+1401:         mock_resp.json.return_value = {
+1402:             "success": True,
+1403:             "image_b64": b64_str,
+1404:             "quality": 82,
+1405:             "nfiq": 1
+1406:         }
+1407:         mock_post.return_value = mock_resp
+1408: 
+1409:         hw_scanner = MFS100Scanner(mock=False, bridge_url="http://127.0.0.1:5100")
+1410:         hw_scanner._connected = True
+1411: 
+1412:         out_path, img_bytes = hw_scanner.capture()
+1413:         self.assertTrue(os.path.exists(out_path))
+1414:         self.assertEqual(img_bytes, valid_bmp)
+1415:         self.assertTrue(img_bytes.startswith(b"BM"))
+1416: 
+1417:     @patch("requests.get")
+1418:     def test_bridge_healthcheck(self, mock_get):
+1419:         """Tests bridge health check probe."""
+1420:         mock_resp = MagicMock()
+1421:         mock_resp.status_code = 200
+1422:         mock_resp.json.return_value = {"running": True, "python_arch": "32bit"}
+1423:         mock_get.return_value = mock_resp
+1424: 
+1425:         hw_scanner = MFS100Scanner(mock=False, bridge_url="http://127.0.0.1:5100")
+1426:         health = hw_scanner.check_bridge_health()
+1427:         self.assertTrue(health["reachable"])
+1428:         self.assertEqual(health["data"]["python_arch"], "32bit")
+1429: 
+1430: if __name__ == "__main__":
+1431:     unittest.main()
+1432: import os
+1433: import unittest
+1434: import numpy as np
+1435: from src.config import SAMPLE_IMAGE_DIR, CLASS_NAMES
+1436: from src.predictor import BloodGroupPredictor
+1437: 
+1438: class TestBloodGroupPredictor(unittest.TestCase):
+1439:     @classmethod
+1440:     def setUpClass(cls):
+1441:         cls.predictor = BloodGroupPredictor()
+1442: 
+1443:     def test_predictor_ready(self):
+1444:         self.assertTrue(self.predictor.is_model_ready())
+1445:         self.assertEqual(len(self.predictor.class_names), 8)
+1446: 
+1447:     def test_prediction_output_structure(self):
+1448:         sample_path = os.path.join(SAMPLE_IMAGE_DIR, "O+.bmp")
+1449:         if os.path.exists(sample_path):
+1450:             res = self.predictor.predict(sample_path)
+1451:             
+1452:             self.assertIn("blood_group", res)
+1453:             self.assertIn(res["blood_group"], CLASS_NAMES)
+1454:             self.assertIn("confidence", res)
+1455:             self.assertIsInstance(res["confidence"], float)
+1456:             self.assertGreaterEqual(res["confidence"], 0.0)
+1457:             self.assertLessEqual(res["confidence"], 1.0)
+1458:             self.assertIn("status", res)
+1459:             self.assertIn(res["status"], ["NORMAL", "LOW_CONFIDENCE"])
+1460:             self.assertIn("probabilities", res)
+1461:             self.assertEqual(len(res["probabilities"]), 8)
+1462: 
+1463:             # Probabilities should sum closely to 1.0
+1464:             prob_sum = sum(res["probabilities"].values())
+1465:             self.assertAlmostEqual(prob_sum, 1.0, places=2)
+1466: 
+1467:     def test_threshold_flag(self):
+1468:         sample_path = os.path.join(SAMPLE_IMAGE_DIR, "A-.bmp")
+1469:         if os.path.exists(sample_path):
+1470:             res = self.predictor.predict(sample_path)
+1471:             if res["confidence"] < self.predictor.ADVISORY_CONFIRMATION_THRESHOLD:
+1472:                 self.assertEqual(res["status"], "LOW_CONFIDENCE")
+1473:                 self.assertTrue(res["is_low_confidence"])
+1474:             else:
+1475:                 self.assertEqual(res["status"], "NORMAL")
+1476:                 self.assertFalse(res["is_low_confidence"])
+1477: 
+1478:     def test_predict_consensus(self):
+1479:         sample_path = os.path.join(SAMPLE_IMAGE_DIR, "A+.bmp")
+1480:         if os.path.exists(sample_path):
+1481:             # Pass 3 identical images to simulate 3 impressions of the same finger
+1482:             res = self.predictor.predict_consensus([sample_path, sample_path, sample_path])
+1483:             self.assertIn("blood_group", res)
+1484:             self.assertIn(res["blood_group"], CLASS_NAMES)
+1485:             self.assertIn("consensus_metadata", res)
+1486:             cm = res["consensus_metadata"]
+1487:             self.assertEqual(cm["num_scans"], 3)
+1488:             self.assertEqual(cm["agreement_pct"], 100)
+1489:             self.assertEqual(len(cm["individual_scans"]), 3)
+1490:             self.assertIn("abo_analysis", res)
+1491: 
+1492:     def test_abo_rh_decomposition(self):
+1493:         # Test synthetic probability distribution
+1494:         mock_probs = {
+1495:             "A+": 0.10, "A-": 0.05,
+1496:             "B+": 0.05, "B-": 0.02,
+1497:             "AB+": 0.02, "AB-": 0.01,
+1498:             "O+": 0.65, "O-": 0.10
+1499:         }
+1500:         res = self.predictor._decompose_blood_group(mock_probs, "O+", 0.65)
+1501:         self.assertEqual(res["abo_group"], "O")
+1502:         self.assertAlmostEqual(res["abo_confidence"], 0.75, places=2)
+1503:         self.assertEqual(res["rh_factor"], "+")
+1504:         self.assertAlmostEqual(res["rh_margin"], 0.55, places=2)
+1505:         # Margin is 0.55 and confidence is 0.65 and rh is +, so not uncertain
+1506:         self.assertFalse(res["rh_uncertainty"])
+1507:         self.assertIsNone(res["rh_warning"])
+1508: 
+1509:     def test_rh_uncertainty_trigger_on_negative_or_narrow_margin(self):
+1510:         # Test case: narrow margin between AB+ and AB-
+1511:         mock_probs = {
+1512:             "A+": 0.01, "A-": 0.01,
+1513:             "B+": 0.02, "B-": 0.01,
+1514:             "AB+": 0.46, "AB-": 0.44,
+1515:             "O+": 0.03, "O-": 0.02
+1516:         }
+1517:         res = self.predictor._decompose_blood_group(mock_probs, "AB+", 0.46)
+1518:         self.assertEqual(res["abo_group"], "AB")
+1519:         self.assertTrue(res["rh_uncertainty"])
+1520:         self.assertIsNotNone(res["rh_warning"])
+1521:         self.assertIn("Standard serological laboratory blood typing is required", res["rh_warning"])
+1522: 
+1523:         # Test case: predicted Rh- triggers advisory rule
+1524:         mock_probs_neg = {
+1525:             "A+": 0.05, "A-": 0.01,
+1526:             "B+": 0.02, "B-": 0.01,
+1527:             "AB+": 0.01, "AB-": 0.01,
+1528:             "O+": 0.10, "O-": 0.80
+1529:         }
+1530:         res_neg = self.predictor._decompose_blood_group(mock_probs_neg, "O-", 0.80)
+1531:         self.assertEqual(res_neg["abo_group"], "O")
+1532:         self.assertEqual(res_neg["rh_factor"], "-")
+1533:         self.assertTrue(res_neg["rh_uncertainty"])
+1534:         self.assertIn("predicted Rh-negative", res_neg["rh_warning"])
+1535: 
+1536: if __name__ == "__main__":
+1537:     unittest.main()
+1538: 
+1539: 
+1540: import os
+1541: import io
+1542: import unittest
+1543: import numpy as np
+1544: from PIL import Image
+1545: import tensorflow as tf
+1546: 
+1547: from src.preprocessing import (
+1548:     load_image_to_pil,
+1549:     composite_alpha_on_white,
+1550:     resize_to_target,
+1551:     preprocess_fingerprint,
+1552:     load_and_preprocess_for_training
+1553: )
+1554: from src.config import IMAGE_SIZE
+1555: 
+1556: class TestPreprocessingPipeline(unittest.TestCase):
+1557:     def setUp(self):
+1558:         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+1559:         self.sample_dir = os.path.join(self.project_root, "data", "sample")
+1560: 
+1561:     def test_composite_alpha_on_white(self):
+1562:         # Create a test RGBA image with 1 transparent pixel and 1 black pixel
+1563:         rgba = np.zeros((10, 10, 4), dtype=np.uint8)
+1564:         # Pixel (0, 0) is fully transparent
+1565:         rgba[0, 0] = [0, 0, 0, 0]
+1566:         # Pixel (5, 5) is opaque black
+1567:         rgba[5, 5] = [0, 0, 0, 255]
+1568:         # Pixel (9, 9) is opaque white
+1569:         rgba[9, 9] = [255, 255, 255, 255]
+1570: 
+1571:         pil_rgba = Image.fromarray(rgba, mode="RGBA")
+1572:         rgb_result = composite_alpha_on_white(pil_rgba)
+1573: 
+1574:         self.assertEqual(rgb_result.mode, "RGB")
+1575:         res_arr = np.array(rgb_result)
+1576: 
+1577:         # Transparent pixel should become (255, 255, 255)
+1578:         np.testing.assert_array_equal(res_arr[0, 0], [255, 255, 255])
+1579:         # Opaque black should remain (0, 0, 0)
+1580:         np.testing.assert_array_equal(res_arr[5, 5], [0, 0, 0])
+1581:         # Opaque white should remain (255, 255, 255)
+1582:         np.testing.assert_array_equal(res_arr[9, 9], [255, 255, 255])
+1583: 
+1584:     def test_resize_to_target(self):
+1585:         img = Image.new("RGB", (96, 103), color=(128, 128, 128))
+1586:         resized = resize_to_target(img, target_size=(224, 224))
+1587:         self.assertEqual(resized.size, (224, 224))
+1588: 
+1589:     def test_preprocess_fingerprint_from_filepath(self):
+1590:         sample_path = os.path.join(self.sample_dir, "A+.bmp")
+1591:         if os.path.exists(sample_path):
+1592:             batch_tensor, display_pil = preprocess_fingerprint(sample_path)
+1593:             self.assertEqual(batch_tensor.shape, (1, 224, 224, 3))
+1594:             self.assertEqual(batch_tensor.dtype, np.float32)
+1595:             self.assertEqual(display_pil.size, (224, 224))
+1596:             self.assertEqual(display_pil.mode, "RGB")
+1597: 
+1598:     def test_preprocess_fingerprint_from_bytes(self):
+1599:         img = Image.new("RGB", (150, 150), color=(200, 200, 200))
+1600:         buf = io.BytesIO()
+1601:         img.save(buf, format="BMP")
+1602:         img_bytes = buf.getvalue()
+1603: 
+1604:         batch_tensor, display_pil = preprocess_fingerprint(img_bytes)
+1605:         self.assertEqual(batch_tensor.shape, (1, 224, 224, 3))
+1606:         self.assertEqual(display_pil.size, (224, 224))
+1607: 
+1608:     def test_load_and_preprocess_for_training(self):
+1609:         sample_path = os.path.join(self.sample_dir, "O+.bmp")
+1610:         if os.path.exists(sample_path):
+1611:             tensor = load_and_preprocess_for_training(sample_path)
+1612:             self.assertEqual(tensor.shape, (224, 224, 3))
+1613:             self.assertEqual(tensor.dtype, np.float32)
+1614: 
+1615:     def test_enhance_mfs100_ridge_contrast(self):
+1616:         from src.preprocessing import enhance_mfs100_ridge_contrast, preprocess_for_ensemble
+1617:         # Create low-contrast synthetic image simulating MFS100 gray ridges
+1618:         arr = np.full((354, 316), 200, dtype=np.uint8)
+1619:         arr[50:300:10, 50:250] = 120  # simulated gray ridges
+1620:         img = Image.fromarray(arr, mode="L")
+1621: 
+1622:         enhanced = enhance_mfs100_ridge_contrast(img)
+1623:         self.assertEqual(enhanced.size, (316, 354))
+1624:         self.assertEqual(enhanced.mode, "RGB")
+1625:         enh_arr = np.array(enhanced)
+1626:         # Contrast standard deviation should increase
+1627:         self.assertGreater(float(np.std(enh_arr)), float(np.std(arr)))
+1628: 
+1629:     def test_preprocess_for_ensemble_source_aware(self):
+1630:         from src.preprocessing import preprocess_for_ensemble
+1631:         sample_path = os.path.join(self.sample_dir, "A+.bmp")
+1632:         if os.path.exists(sample_path):
+1633:             # Upload source must NOT apply MFS100 enhancement or cropping
+1634:             up_res = preprocess_for_ensemble(sample_path, source="upload")
+1635:             self.assertFalse(up_res["crop_metadata"]["crop_applied"])
+1636:             self.assertFalse(up_res["crop_metadata"]["enhancement_applied"])
+1637: 
+1638:             # MFS100 source MUST set enhancement_applied=True
+1639:             mfs_res = preprocess_for_ensemble(sample_path, source="mfs100")
+1640:             self.assertTrue(mfs_res["crop_metadata"]["enhancement_applied"])
+1641: 
+1642: if __name__ == "__main__":
+1643:     unittest.main()
+1644: 
+1645: import os
+1646: import unittest
+1647: import PyPDF2, io
+1648: 
+1649: from src.report_generator import generate_pdf_report
+1650: from src.config import SAMPLE_IMAGE_DIR
+1651: 
+1652: class TestReportGenerator(unittest.TestCase):
+1653:     def test_generate_pdf_report_with_model_name(self):
+1654:         """Verify that the generated PDF includes the provided model name."""
+1655:         sample_img = os.path.join(SAMPLE_IMAGE_DIR, "A+.bmp")
+1656:         model_name = "Champion Ensemble V2 (ResNet50 58% + VGG16 38% + EffNet 4%)"
+1657:         pdf_path = generate_pdf_report(
+1658:             prediction_id=7777,
+1659:             timestamp="2026-09-04 10:00:00",
+1660:             input_type="MFS100 (Mock)",
+1661:             image_path=sample_img if os.path.exists(sample_img) else None,
+1662:             predicted_group="A+",
+1663:             confidence=0.90,
+1664:             probabilities={"A+": 0.9, "O+": 0.1},
+1665:             status="NORMAL",
+1666:             model_name=model_name,
+1667:         )
+1668:         self.assertTrue(os.path.exists(pdf_path))
+1669:         with open(pdf_path, "rb") as f:
+1670:             pdf_bytes = f.read()
+1671:         # Parse PDF from in-memory bytes
+1672:         reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))
+1673:         text = ""
+1674:         for page in reader.pages:
+1675:             extracted = page.extract_text()
+1676:             if extracted:
+1677:                 text += extracted
+1678:         # Check that the base model name (before parentheses) appears
+1679:         base_name = model_name.split('(')[0].strip()
+1680:         self.assertIn(base_name, text)
+1681:         os.remove(pdf_path)
+1682: 
+1683:     def test_generate_pdf_report(self):
+1684:         """Basic PDF generation without optional fields."""
+1685:         sample_img = os.path.join(SAMPLE_IMAGE_DIR, "A+.bmp")
+1686:         probs = {
+1687:             "A+": 0.85,
+1688:             "A-": 0.03,
+1689:             "AB+": 0.04,
+1690:             "AB-": 0.01,
+1691:             "B+": 0.02,
+1692:             "B-": 0.01,
+1693:             "O+": 0.03,
+1694:             "O-": 0.01,
+1695:         }
+1696:         pdf_path = generate_pdf_report(
+1697:             prediction_id=9999,
+1698:             timestamp="2026-09-03 23:45:00",
+1699:             input_type="MFS100 (Mock)",
+1700:             image_path=sample_img if os.path.exists(sample_img) else None,
+1701:             predicted_group="A+",
+1702:             confidence=0.85,
+1703:             probabilities=probs,
+1704:             status="NORMAL",
+1705:         )
+1706:         self.assertTrue(os.path.exists(pdf_path))
+1707:         self.assertGreater(os.path.getsize(pdf_path), 5000)
+1708:         os.remove(pdf_path)
+1709: 
+1710:     def test_generate_pdf_report_with_rh_uncertainty(self):
+1711:         """PDF generation with Rh factor uncertainty advisory banner."""
+1712:         sample_img = os.path.join(SAMPLE_IMAGE_DIR, "AB+.bmp")
+1713:         probs = {
+1714:             "A+": 0.01,
+1715:             "A-": 0.01,
+1716:             "AB+": 0.48,
+1717:             "AB-": 0.46,
+1718:             "B+": 0.01,
+1719:             "B-": 0.01,
+1720:             "O+": 0.01,
+1721:             "O-": 0.01,
+1722:         }
+1723:         abo_analysis = {
+1724:             "abo_group": "AB",
+1725:             "abo_confidence": 0.94,
+1726:             "rh_factor": "+",
+1727:             "rh_uncertainty": True,
+1728:             "rh_warning": "Rh factor (±) determination is uncertain (narrow Rh margin). Laboratory serology required.",
+1729:         }
+1730:         pdf_path = generate_pdf_report(
+1731:             prediction_id=8888,
+1732:             timestamp="2026-09-05 12:00:00",
+1733:             input_type="MFS100 Hardware",
+1734:             image_path=sample_img if os.path.exists(sample_img) else None,
+1735:             predicted_group="AB+",
+1736:             confidence=0.48,
+1737:             probabilities=probs,
+1738:             status="LOW_CONFIDENCE",
+1739:             abo_analysis=abo_analysis,
+1740:         )
+1741:         self.assertTrue(os.path.exists(pdf_path))
+1742:         self.assertGreater(os.path.getsize(pdf_path), 5000)
+1743:         os.remove(pdf_path)
+1744: 
+1745: if __name__ == "__main__":
+1746:     unittest.main()

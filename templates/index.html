@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biometric Blood Group Identification System | AI Diagnostic Research</title>
+    <meta name="description" content="AI-powered Biometric Blood Group Identification System using Optical Fingerprint Scanner and Deep Learning Transfer Learning.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 11c0 2.5-1.5 4-3 4-1 0-1.5-.5-2-1.5"/>
+                        <path d="M12 7c-2 0-4 1.5-4 4 0 3 1.5 5 4 5 1.5 0 3-1 3-3"/>
+                        <path d="M12 3C7 3 4 6.5 4 11c0 4.5 2 7.5 5 9.5"/>
+                        <path d="M16.5 8.5C18 10 19 12 19 14.5c0 3-2 5.5-5 7"/>
+                        <path d="M12 15c1.5 0 2.5-1 2.5-2.5 0-1.5-1-2.5-2.5-2.5S9.5 11 9.5 12.5"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">HemoPrint AI</h1>
+                    <p class="brand-subtitle">Biometric Blood Group Identification System</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="/" class="nav-link active" id="nav-dashboard">Dashboard</a>
+                <a href="/history" class="nav-link" id="nav-history">Audit History</a>
+                <div class="status-badge" id="scanner-indicator">
+                    <span class="status-dot"></span>
+                    <span id="scanner-status-text">Scanner: Standby</span>
+                </div>
+            </nav>
+        </div>
+    <!-- Medical Disclaimer Banner (Moved inside header) -->
+    <section class="disclaimer-banner">
+        <div class="container">
+            <div class="disclaimer-content">
+                <span class="disclaimer-icon">⚠️</span>
+                <p>
+                    <strong>MANDATORY MEDICAL DISCLAIMER (RESEARCH / PROTOTYPE SYSTEM):</strong> This system is a research/prototype fingerprint-based blood-group classification system. It is not clinically validated and must not be used as a substitute for standard serological blood-group testing or for medical/transfusion decisions.
+                </p>
+            </div>
+        </div>
+    </section>
+    </header>
+
+
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <div class="grid-layout">
+            <!-- Left Column: Acquisition & Input Controls -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <h2>Fingerprint Acquisition</h2>
+                    <span class="badge badge-primary">Input Source</span>
+                </div>
+
+                <!-- Tab Switching -->
+                <div class="tabs">
+                    <button class="tab-btn active" id="tab-scanner-btn" onclick="switchTab('scanner')">Mantra MFS100</button>
+                    <button class="tab-btn" id="tab-upload-btn" onclick="switchTab('upload')">File Upload</button>
+                </div>
+
+                <!-- Scanner Mode Panel -->
+                <div class="tab-content active" id="tab-scanner-content">
+                    <div class="scanner-box">
+                        <div class="scanner-graphic" id="scanner-visual">
+                            <svg class="fingerprint-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 11c0 2.5-1.5 4-3 4-1 0-1.5-.5-2-1.5"/>
+                                <path d="M12 7c-2 0-4 1.5-4 4 0 3 1.5 5 4 5 1.5 0 3-1 3-3"/>
+                                <path d="M12 3C7 3 4 6.5 4 11c0 4.5 2 7.5 5 9.5"/>
+                                <path d="M16.5 8.5C18 10 19 12 19 14.5c0 3-2 5.5-5 7"/>
+                                <path d="M12 15c1.5 0 2.5-1 2.5-2.5 0-1.5-1-2.5-2.5-2.5S9.5 11 9.5 12.5"/>
+                            </svg>
+                        </div>
+                        <div class="scanner-header-row" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                            <h3 id="scanner-status-heading" style="margin: 0;">Mantra MFS100 Scanner</h3>
+                            <span class="badge" id="scanner-badge-pill" style="font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; font-weight: 700; background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;">MOCK MODE</span>
+                        </div>
+                        <p class="scanner-desc" id="scanner-mode-label" style="font-size: 0.9rem; color: #64748b; margin-bottom: 12px;">Mode: Mock Emulation (Authentic Samples)</p>
+
+                        <!-- Hardware Info Box -->
+                        <div id="hardware-info-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 16px; font-size: 0.85rem; text-align: left; display: none;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                                <div><strong>Serial:</strong> <span id="hw-serial">--</span></div>
+                                <div><strong>Model:</strong> <span id="hw-model">MFS100</span></div>
+                                <div><strong>Make:</strong> <span id="hw-make">Mantra</span></div>
+                                <div><strong>Resolution:</strong> <span id="hw-res">316×354</span></div>
+                            </div>
+                            <div style="margin-top: 6px;"><strong>Status:</strong> <span id="hw-status" style="font-weight: 600; color: #059669;">Ready</span></div>
+                        </div>
+
+                        <!-- LEFT THUMB Acquisition Protocol Panel (shown only in hardware mode) -->
+                        <div id="left-thumb-protocol-panel" style="display:none; margin-bottom: 14px; border-radius: 10px; overflow: hidden; border: 1.5px solid #2563eb;">
+                            <!-- Protocol Header -->
+                            <div style="background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #fff; padding: 10px 14px; display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.3rem;">🖐</span>
+                                <div>
+                                    <div style="font-weight: 800; font-size: 0.9rem; letter-spacing: 0.3px;">Standard Acquisition Finger: LEFT THUMB</div>
+                                    <div style="font-size: 0.75rem; opacity: 0.85; margin-top: 1px;">Research Prototype Standardized Protocol</div>
+                                </div>
+                            </div>
+                            <!-- Instruction -->
+                            <div style="background: #eff6ff; padding: 10px 14px; font-size: 0.83rem; color: #1e40af; line-height: 1.5;">
+                                <strong>&#8594; Place your LEFT THUMB centrally on the scanner and keep it steady until capture completes.</strong>
+                            </div>
+                            <!-- Quality Checklist -->
+                            <div style="background: #f8fafc; padding: 10px 14px; font-size: 0.78rem; color: #334155; line-height: 1.7;">
+                                <div style="font-weight: 700; color: #475569; margin-bottom: 4px; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px;">Pre-Capture Checklist</div>
+                                <div>&#10003; &nbsp;LEFT THUMB on sensor (not another finger)</div>
+                                <div>&#10003; &nbsp;Center finger on sensor platen</div>
+                                <div>&#10003; &nbsp;Keep finger still during capture</div>
+                                <div>&#10003; &nbsp;Avoid excessive pressure</div>
+                                <div>&#10003; &nbsp;Ensure finger is clean and dry</div>
+                                <div>&#10003; &nbsp;Wait for capture completion before lifting</div>
+                            </div>
+                            <!-- Warning Note -->
+                            <div style="background: #fefce8; border-top: 1px solid #fde68a; padding: 8px 14px; font-size: 0.76rem; color: #92400e; line-height: 1.45;">
+                                <strong>&#9888; Note:</strong> For this research prototype, all physical MFS100 demonstrations should use the left thumb consistently. The scanner does not independently verify finger identity.
+                            </div>
+                        </div>
+
+                        <!-- Mock Sample Selector (for testing) -->
+                        <div class="sample-picker-group" id="mock-sample-group">
+                            <label for="sample-select">Simulate Specific Class (Mock Mode):</label>
+                            <select id="sample-select" class="form-select">
+                                <option value="">Random Authentic Fingerprint</option>
+                                <option value="A+">Sample: A+</option>
+                                <option value="AB+">Sample: AB+</option>
+                                <option value="B+">Sample: B+</option>
+                                <option value="O+">Sample: O+</option>
+                            </select>
+                        </div>
+
+                        <!-- 3-Scan Consensus Mode Toggle -->
+                        <div class="consensus-toggle-container" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 12px 0 8px 0; padding: 8px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;">
+                            <label style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: #166534; cursor: pointer;">
+                                <input type="checkbox" id="chk-consensus-mode" style="width: 16px; height: 16px; accent-color: #16a34a;">
+                                <span id="consensus-mode-label">🎯 3-Scan Consensus Mode <small style="font-weight: 400; color: #15803d;">(Recommended: averages 3 impressions to eliminate noise)</small></span>
+                            </label>
+                        </div>
+
+                        <!-- Quality & Placement Guide Display -->
+                        <div id="quality-placement-guide" style="display: none; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; margin-top: 10px; margin-bottom: 12px; text-align: left;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">Sensor Placement & Quality</span>
+                                <span id="quality-score-badge" style="font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: #dcfce7; color: #15803d;">Quality: 80/100</span>
+                            </div>
+                            <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-bottom: 8px;">
+                                <div id="quality-progress-bar" style="height: 100%; width: 80%; background: #22c55e; transition: width 0.3s ease;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #334155;">
+                                <span><strong>Pressure:</strong> <span id="quality-pressure-val" style="font-weight: 600; color: #16a34a;">OPTIMAL</span></span>
+                                <span><strong>NFIQ Grade:</strong> <span id="quality-nfiq-val" style="font-weight: 600;">1 (Excellent)</span></span>
+                            </div>
+                            <div id="quality-advice-val" style="font-size: 0.8rem; color: #64748b; margin-top: 4px; font-style: italic;">
+                                Finger impression optimal. Ridge definition sharp.
+                            </div>
+                        </div>
+
+                        <div class="action-buttons" style="margin-top: 16px;">
+                            <button class="btn btn-primary btn-lg" id="btn-capture" onclick="triggerCapture()">
+                                <span class="btn-icon">⚡</span> Capture Fingerprint
+                            </button>
+                            <button class="btn btn-secondary" id="btn-toggle-scanner-mode" onclick="toggleScannerMode()">
+                                Switch to Physical Scanner
+                            </button>
+                            <button class="btn btn-secondary" id="btn-check-scanner" onclick="checkScanner()">
+                                Device Diagnostic
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Panel -->
+                <div class="tab-content" id="tab-upload-content">
+                    <div class="dropzone" id="dropzone" onclick="document.getElementById('file-input').click()">
+                        <input type="file" id="file-input" accept=".bmp,.png,.jpg,.jpeg" style="display:none" onchange="handleFileSelected(this)">
+                        <div class="dropzone-icon">📁</div>
+                        <h3>Click or Drag & Drop Fingerprint Image</h3>
+                        <p>Supported: BMP, PNG, JPG (DenseNet121 auto-composites RGBA & normalizes to <span id="ui-res-1">112</span>×<span id="ui-res-2">112</span>)</p>
+                        <div class="file-name-preview" id="file-name-preview"></div>
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" id="btn-upload-predict" onclick="submitUpload()" disabled>
+                        Analyze Uploaded Fingerprint
+                    </button>
+                </div>
+
+                <!-- Live Status Alert -->
+                <div class="progress-box" id="progress-box" style="display:none">
+                    <div class="spinner"></div>
+                    <span id="progress-text">Processing fingerprint image...</span>
+                </div>
+            </section>
+
+            <!-- Right Column: Prediction Results & Clinical Analysis -->
+            <section class="card result-card">
+                <div class="card-header">
+                    <h2>Experimental Association Estimate</h2>
+                    <span class="badge badge-primary" id="model-tag">E2 Champion Ensemble (86.02% (random split, includes identity leakage) | ~0.00% (group-aware))</span>
+                </div>
+
+                <div class="result-placeholder" id="result-placeholder">
+                    <div class="placeholder-icon">🔬</div>
+                    <h3>No Fingerprint Analyzed Yet</h3>
+                    <p>Place finger on the Mantra MFS100 scanner and click <strong>Capture Fingerprint</strong>, or upload a high-resolution fingerprint image.</p>
+                </div>
+
+                <!-- Active Result Display -->
+                <div class="result-content" id="result-content" style="display:none">
+                    <div class="result-primary-grid">
+                        <!-- Fingerprint Thumbnail -->
+                        <div class="fingerprint-preview-box">
+                            <img id="preview-image" src="" alt="Captured Fingerprint" class="preview-img">
+                            <span class="preview-caption" id="preview-caption-text">112×112 Standardized RGB</span>
+                        </div>
+
+                        <!-- Main Prediction Big Card -->
+                        <div class="prediction-big-card" id="prediction-card">
+                            <span class="prediction-label">ESTIMATED BLOOD GROUP</span>
+                            <div class="blood-group-display" id="blood-group-val">--</div>
+                            
+
+
+                            <div class="confidence-container">
+                                <span class="confidence-text">Confidence: <strong id="confidence-val">--%</strong></span>
+                                <div class="confidence-bar-bg">
+                                    <div class="confidence-bar-fill" id="confidence-bar"></div>
+                                </div>
+                            </div>
+                            <div class="status-chip" id="confidence-chip">NORMAL</div>
+                            <span id="result-source-tag" style="display:none;margin-top:6px;"></span>
+                            <!-- Finger Used Badge (for real MFS100 captures only) -->
+                            <span id="result-finger-tag" style="display:none; margin-top:4px;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Low Confidence Warning Box -->
+                    <div class="alert-box alert-warning" id="low-confidence-alert" style="display:none">
+                        ⚠️ <strong>Low Confidence Alert:</strong> Prediction confidence is below the <span id="ui-thresh-1">70.0</span>% reliability threshold. Please recapture the fingerprint or confirm with standard laboratory blood typing.
+                    </div>
+
+                    <!-- Research Advisory Screening Box (tau = 0.70 Threshold) -->
+                    <div class="alert-box alert-warning" id="advisory-screening-alert" style="display:none; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 12px 14px; border-radius: 8px; margin-top: 12px; text-align: left; font-size: 0.85rem; line-height: 1.4;">
+                        <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="display: flex; align-items: center; gap: 6px;">
+                                <span>⚠️</span> <span>Research Advisory &mdash; Confirmation Recommended</span>
+                            </span>
+                            <span id="advisory-reason-pill" style="font-size: 0.72rem; padding: 2px 8px; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 10px; font-weight: 700; color: #92400e;">REASON</span>
+                        </div>
+                        <div id="advisory-screening-message" style="color: #78350f;">
+                            Prediction confidence is below the validation-selected advisory threshold of <span id="ui-thresh-2">70</span>%. Consider repeated fingerprint capture or 3-scan consensus. Verify blood group using standard serological testing before any medical or transfusion-related use.
+                        </div>
+                        <div style="font-size: 0.75rem; color: #a16207; margin-top: 6px; font-style: italic;">
+                            * Decision-support information for research/prototype use; not for clinical or transfusion decisions.
+                        </div>
+                    </div>
+
+                    <!-- Advisory Confidence OK Note -->
+                    <div class="alert-box" id="advisory-ok-alert" style="display:none; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 10px 14px; border-radius: 8px; margin-top: 12px; text-align: left; font-size: 0.82rem; line-height: 1.4;">
+                        <strong>✓ Advisory Status:</strong> Advisory threshold passed (&tau; &ge; <span id="ui-thresh-3">70.0</span>%). <span style="font-style: italic; color: #15803d;">Note: This does not constitute medical verification. Standard serological testing required before medical or transfusion-related use.</span>
+                    </div>
+
+
+
+                    <!-- Smart Quality / Consensus Suggestion Banner -->
+                    <div id="smart-consensus-suggestion" style="display:none; background: #f0fdf4; border: 1px solid #86efac; color: #166534; padding: 10px 14px; border-radius: 8px; margin-top: 12px; text-align: left; font-size: 0.85rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <strong>💡 Sensor Tip:</strong> <span id="smart-consensus-text">Suboptimal ridge quality detected. For maximum reliability, switch to 3-Scan Consensus mode.</span>
+                            </div>
+                            <button class="btn btn-sm btn-secondary" onclick="enableAndTriggerConsensus()" style="font-size: 0.78rem; padding: 4px 10px; margin-left: 10px; white-space: nowrap;">
+                                Switch & Retry
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4-Class Probability Distribution Chart -->
+                    <div class="probabilities-section">
+                        <h3>4-Class Probability Distribution</h3>
+                        <div class="prob-grid" id="prob-grid">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- 3-Scan Consensus Breakdown Card -->
+                    <div id="consensus-breakdown-card" style="display:none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px; margin-top: 14px; text-align: left;">
+                        <div style="font-weight: 700; color: #166534; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <span id="consensus-card-title">🎯 3-Impression Consensus Breakdown</span>
+                            <span id="consensus-agreement-badge" class="badge" style="background:#22c55e; color:#fff; font-size:0.75rem; padding: 3px 8px; border-radius: 6px;">3/3 (100% Agreement)</span>
+                        </div>
+                        <div id="consensus-scans-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; font-size: 0.82rem;">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Actions & Report Download -->
+                    <div class="report-actions">
+                        <a href="#" id="btn-download-pdf" class="btn btn-success btn-lg" target="_blank">
+                            📄 Download Research Report
+                        </a>
+                        <button class="btn btn-outline" onclick="resetView()">Recapture / Reset</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- System Architecture & Technical Specifications Section -->
+        <section class="card info-card">
+            <div class="card-header">
+                <h2>System Architecture & Deep Learning Pipeline</h2>
+                <span class="badge badge-secondary">Technical Blueprint</span>
+            </div>
+            <div class="pipeline-grid">
+                <div class="pipeline-step">
+                    <div class="step-num">1</div>
+                    <h4>Acquisition</h4>
+                    <p>Mantra MFS100 USB 2.0 Optical Sensor (500 DPI) or secure file upload.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">2</div>
+                    <h4>Central Preprocessor</h4>
+                    <p>Exact C5 Pipeline: Alpha white compositing -> MFS100 foreground crop -> CLAHE ridge enhancement -> Lanczos 112×112 resize.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">3</div>
+                    <h4>E2 Champion Inference</h4>
+                    <p>Frozen DenseNet121 feature extraction + 3-scan feature concatenation + Dense(512) classification head.</p>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">4</div>
+                    <h4>Clinical Audit</h4>
+                    <p>SQLite logging, 60% confidence threshold gating, automated ReportLab PDF.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>B.E. Final Year Major Project • Computer Science & Engineering (AI & ML) • Academic Year 2025–2026</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

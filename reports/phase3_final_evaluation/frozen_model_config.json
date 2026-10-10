@@ -1,0 +1,24 @@
+{
+    "model_name": "E2_CHAMPION_PIPELINE_ENSEMBLE",
+    "architecture": "DenseNet121_Fusion_SupCon",
+    "preprocessing": "C5 (composite_alpha_on_white -> crop_mfs100_foreground -> enhance_mfs100_ridge_contrast -> resize_to_target)",
+    "feature_extraction": "GlobalAveragePooling2D on frozen DenseNet121 ImageNet backbone",
+    "feature_fusion": "Concatenation of 3 scan vectors (1024 -> 3072) in order [scan1, scan2, scan3]",
+    "classification_head": "Dense(512, ReLU) -> Dropout(0.5) -> Dense(4, Softmax)",
+    "class_order": ["A+", "B+", "AB+", "O+"],
+    "probability_aggregation_rule": "Flat unweighted ensemble across 5 checkpoints. P_ensemble = sum(P_fold)/5.",
+    "final_prediction_rule": "argmax over the ensembled probability vector",
+    "ensemble_weights": [0.2, 0.2, 0.2, 0.2, 0.2],
+    "checkpoint_paths": [
+        "models/phase3_fusion_metric_learning/E2/fold_1_best.weights.h5",
+        "models/phase3_fusion_metric_learning/E2/fold_2_best.weights.h5",
+        "models/phase3_fusion_metric_learning/E2/fold_3_best.weights.h5",
+        "models/phase3_fusion_metric_learning/E2/fold_4_best.weights.h5",
+        "models/phase3_fusion_metric_learning/E2/fold_5_best.weights.h5"
+    ],
+    "input_shape": [3, 112, 112, 3],
+    "software_versions": {
+        "tensorflow": "2.11+",
+        "python": "3.10"
+    }
+}

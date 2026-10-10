@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Audit History | HemoPrint AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">HemoPrint AI</h1>
+                    <p class="brand-subtitle">Biometric Blood Group Identification System</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="/" class="nav-link" id="nav-dashboard">Dashboard</a>
+                <a href="/history" class="nav-link active" id="nav-history">Audit History</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="card">
+            <div class="card-header">
+                <h2>Prediction Audit Trail (SQLite)</h2>
+                <button class="btn btn-outline btn-sm" onclick="fetchHistory()">Refresh Logs</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table" id="history-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Timestamp</th>
+                            <th>Input Type</th>
+                            <th>Predicted Group</th>
+                            <th>Confidence</th>
+                            <th>Status</th>
+                            <th>Fingerprint</th>
+                            <th>Report</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody">
+                        <tr>
+                            <td colspan="8" class="text-center">Loading audit records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>B.E. Final Year Major Project • Computer Science & Engineering (AI & ML)</p>
+    </footer>
+
+    <script>
+        async function fetchHistory() {
+            const tbody = document.getElementById("history-tbody");
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center">Loading audit records...</td></tr>`;
+            try {
+                const res = await fetch("/api/history?limit=100");
+                const data = await res.json();
+                if (!data.records || data.records.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center">No prediction records found in SQLite database.</td></tr>`;
+                    return;
+                }
+                tbody.innerHTML = data.records.map(r => `
+                    <tr>
+                        <td><strong>#${r.id}</strong></td>
+                        <td>${new Date(r.timestamp).toLocaleString()}</td>
+                        <td><span class="badge badge-secondary">${r.input_type}</span></td>
+                        <td><strong class="blood-group-tag">${r.predicted_group}</strong></td>
+                        <td>${(r.confidence * 100).toFixed(1)}%</td>
+                        <td>
+                            <span class="status-chip ${r.status === 'NORMAL' ? 'chip-success' : 'chip-warning'}">
+                                ${r.status}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="/api/image/${r.image_path}" target="_blank" class="link-preview">View Image</a>
+                        </td>
+                        <td>
+                            <a href="/api/report/${r.id}" target="_blank" class="btn btn-outline btn-xs">PDF Report</a>
+                        </td>
+                    </tr>
+                `).join("");
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">Error loading history: ${err.message}</td></tr>`;
+            }
+        }
+        document.addEventListener("DOMContentLoaded", fetchHistory);
+    </script>
+</body>
+</html>
