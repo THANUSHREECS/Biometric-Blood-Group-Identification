@@ -88,7 +88,7 @@ class BloodGroupPredictor:
             return {
                 "name": "E2 Champion Ensemble",
                 "tag": "E2 Active",
-                "accuracy": "38.10%",
+                "accuracy": "origin unknown",
                 "type": "5-Fold Feature Fusion",
                 "classes": self.class_names,
                 "ADVISORY_CONFIRMATION_THRESHOLD": self.ADVISORY_CONFIRMATION_THRESHOLD,
@@ -109,7 +109,7 @@ class BloodGroupPredictor:
             advisory_reason = "LOW_CONFIDENCE"
             advisory_message = (
                 "Prediction confidence is below the validation-selected advisory threshold. "
-                "This model is a research prototype with ~38% real-world accuracy and MUST NOT be used "
+                "This model is a research prototype with origin unknown real-world accuracy and MUST NOT be used "
                 "for medical decisions. Confirm blood group using standard serological testing."
             )
         else:
@@ -118,7 +118,7 @@ class BloodGroupPredictor:
             advisory_reason = "NONE"
             advisory_message = (
                 "Advisory threshold passed. This does not constitute medical verification. "
-                "This model is a research prototype with ~38% real-world accuracy."
+                "This model is a research prototype with origin unknown real-world accuracy."
             )
 
         return {
