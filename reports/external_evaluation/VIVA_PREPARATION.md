@@ -128,3 +128,6 @@ This document contains 30 potential viva questions and technically correct answe
 
 **35. What is the fundamental limitation of this project?**
 **Answer:** The primary limitation is biological plausibility: there is no proven genetic mechanism linking friction ridge patterns to ABO blood groups. Our 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy may capture latent confounding variables in the dataset (like regional demographic distributions) rather than a universal biological truth. Additionally, the data leakage issues prevent claims of broad population generalization. The system is completely unfit for clinical use.
+
+
+**Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The origin of the 38.10% accuracy metric is unknown. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
