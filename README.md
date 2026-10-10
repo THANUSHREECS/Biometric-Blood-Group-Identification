@@ -6,7 +6,21 @@
 
 ---
 
-## 1. Project Overview
+## Current System
+
+- **Deployed Architecture**: E2 DenseNet121 3-Scan Feature Fusion Ensemble (5 cross-validation checkpoints with soft-voting).
+- **Input Dimensions**: 3 fingerprint impressions per participant, resized to 112×112 using Lanczos interpolation.
+- **Classification Scope**: 4 classes (`A+`, `B+`, `AB+`, `O+`).
+- **Participant Split & Provenance**: Trained on 80 development participants from the MFS100 dataset (`data/mfs100_final`); evaluated on 21 held-out locked-test participants (accuracy: **8/21 = 38.10%**, macro-F1: **0.2500**, matching always guessing O+ majority baseline).
+- **Preprocessing**: C5 deterministic pipeline (solid white alpha compositing → MFS100 foreground crop → CLAHE ridge contrast enhancement → Lanczos `(112, 112)` resize → raw `[0, 255]` float32 arrays; no ImageNet `preprocess_input`).
+- **Hardware Integration**: Mantra MFS100 500 DPI optical fingerprint sensor via 32-bit Python-to-.NET bridge (`src/mfs100_bridge/bridge.py`).
+- **Advisory Warning Layer**: Validation-selected threshold ($\tau = 0.70$) recommending standard serological confirmation for low-confidence classifications.
+
+---
+
+## Legacy (earlier dataset-based phases, not the deployed model)
+
+### 1. Project Overview
 
 The **Biometric Blood Group Identification System** is an end-to-end medical research prototype designed to investigate the feasibility of classifying human ABO/Rh blood groups directly from optical fingerprint impressions. 
 
@@ -25,7 +39,7 @@ The platform integrates:
 
 ---
 
-## 2. Problem Statement
+### 2. Problem Statement
 
 In emergency trauma response, disaster medicine, and remote rural clinics, rapid blood typing is critical for emergency transfusions. Standard serological blood typing (agglutination tests using anti-A, anti-B, and anti-D serums) requires venous blood extraction, clinical reagents, laboratory centrifuges, and trained phlebotomists. 
 
@@ -33,7 +47,7 @@ This project explores an AI-assisted non-invasive diagnostic methodology using o
 
 ---
 
-## 3. Objectives
+### 3. Objectives
 
 1. **Clean & Validate Fresh Datasets**: Clean, normalize, and validate uncleaned fingerprint datasets, quarantining redundant duplicates and handling transparency channels.
 2. **Eliminate Data Leakage**: Perform stratified splitting (70% train, 15% validation, 15% test) with cryptographic hash verification ensuring .
@@ -45,7 +59,7 @@ This project explores an AI-assisted non-invasive diagnostic methodology using o
 
 ---
 
-## 4. Dataset Overview & Fresh Audit
+### 4. Dataset Overview & Fresh Audit
 
 The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitmap (`.BMP`) format:
 
@@ -63,7 +77,7 @@ The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitm
 
 ---
 
-## 5. Dataset Cleaning & Duplicate Quarantine
+### 5. Dataset Cleaning & Duplicate Quarantine
 
 ### Alpha Transparency Handling
 5,956 of the 6,000 images are 32-bit RGBA BMPs. Approximately 7.89% of pixels are transparent borders (`alpha == 0`) with raw black `(0, 0, 0)` RGB values.
@@ -78,7 +92,7 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 
 ---
 
-## 6. Dataset Splitting & Leakage Prevention
+### 6. Dataset Splitting & Leakage Prevention
 
 - **Split Ratio**: 70% Training (~4,189), 15% Validation (~898), 15% Testing (~898).
 - **Stratification**: All 8 classes maintain proportional representation across splits.
@@ -88,7 +102,7 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 
 ---
 
-## 7. Central Preprocessing Pipeline (`src/preprocessing.py`)
+### 7. Central Preprocessing Pipeline (`src/preprocessing.py`)
 
 A single centralized pipeline governs all image inputs:
 ```
@@ -107,7 +121,7 @@ Fingerprint Source (File / Bytes / MFS100 / PIL)
 
 ---
 
-## 8. Deep Learning Architecture (`scripts/train_model.py`)
+### 8. Deep Learning Architecture (`scripts/train_model.py`)
 
 - **Backbone**: `tf.keras.applications.ResNet50(include_top=False, weights='imagenet')`
 - **Top Head**:
@@ -124,7 +138,7 @@ Fingerprint Source (File / Bytes / MFS100 / PIL)
 
 ---
 
-## 9. Model Evaluation (`scripts/evaluate_model.py`)
+### 9. Model Evaluation (`scripts/evaluate_model.py`)
 
 - Tested exclusively on the untouched 898-image test set.
 - Generates publication-ready confusion matrix: `outputs/confusion_matrix.png`.
@@ -133,7 +147,7 @@ Fingerprint Source (File / Bytes / MFS100 / PIL)
 
 ---
 
-## 10. Mantra MFS100 Integration & Mock Mode
+### 10. Mantra MFS100 Integration & Mock Mode
 
 The physical **Mantra MFS100 Optical Fingerprint Scanner** is supported via a unified adapter in `src/mfs100/scanner.py`.
 
@@ -144,7 +158,7 @@ The physical **Mantra MFS100 Optical Fingerprint Scanner** is supported via a un
 
 ---
 
-## 11. Web Application & REST API
+### 11. Web Application & REST API
 
 Run the Flask server:
 ```bash
@@ -165,7 +179,7 @@ Access the application at `http://127.0.0.1:5000`.
 
 ---
 
-## 12. SQLite Audit Trail & PDF Reports
+### 12. SQLite Audit Trail & PDF Reports
 
 - **Database**: `data/blood_group.db` with table `predictions`.
 - **PDF Report**: Generated using ReportLab (`src/report_generator.py`), including:
@@ -179,7 +193,7 @@ Access the application at `http://127.0.0.1:5000`.
 
 ---
 
-## 13. ABO/Rh Analytical Decomposition & Rh Uncertainty Advisory
+### 13. ABO/Rh Analytical Decomposition & Rh Uncertainty Advisory
 
 Following empirical findings from live Mantra MFS100 stress tests (where dermatoglyphic we investigate if ridge patterns correlate with ABO classes, but biological links to Rh factor are weak):
 
@@ -201,7 +215,7 @@ Following empirical findings from live Mantra MFS100 stress tests (where dermato
 
 ---
 
-## 14. Running Automated Tests
+### 14. Running Automated Tests
 
 Run the full suite of unit and integration tests:
 ```bash
