@@ -1,3 +1,10 @@
+# ==============================================================================
+# WARNING: SYNTHETIC DATA GENERATION SCRIPT - DO NOT CITE OR USE IN EVALUATION
+# This script simulates synthetic predictions, confusion matrices, reliability
+# diagrams, and calibration metrics for development mockup purposes only.
+# None of these values are real model evaluations.
+# ==============================================================================
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_recall_fscore_support

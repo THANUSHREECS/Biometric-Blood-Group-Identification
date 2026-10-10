@@ -13,7 +13,7 @@
 | **Bootstrap 95% CI** | [82.64%, 89.16%] | Measured on the 415-sample test set (Random Split). |
 | **Predicted B+ Count** | 87 predictions | Measured. B+ recall is 78.35%. |
 | **70% Threshold Coverage** | 81.69% | Measured. Accuracy on these covered samples is 91.45%. |
-| **Calibrated ECE** | 0.2802 | Estimated in Round 2 via Validation temperature fit applied to Test. |
+| **Calibrated ECE** | 0.2802 *(SYNTHETIC — DO NOT CITE)* | Invalid: derived from synthetic simulation in Round 2 (`_SYNTHETIC_DO_NOT_CITE_evaluation_audit.py`). |
 
 ## 1. Prove or Redo E7
 - **Finding:** Trained a new E7 Group-Aware Logistic Regression on DenseNet features (`scripts/e7_training.py`). The dataset consists of exactly 4 clusters (1 per blood group). Therefore, a group-aware split is physically impossible without dropping an entire class. Accuracy on the held-out class drops to **0.00%**, proving the model only learned 4 identities, not blood groups.
