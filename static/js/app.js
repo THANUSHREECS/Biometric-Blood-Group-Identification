@@ -140,9 +140,9 @@ async function checkSystemStatus() {
         const statusData = await modelRes.json();
         const modelTag = document.getElementById("model-tag");
         if (statusData.model) {
-            modelTag.innerText = "E2 Champion Ensemble (" + statusData.model.accuracy + ")";
+            modelTag.innerText = "E2 Research Ensemble — Research Prototype (21 held-out: 8/21, equal to always-O+ baseline)";
             modelTag.className = "badge badge-primary";
-            modelTag.title = "E2 Champion Model - Research accuracy is 86.02% (random split, includes identity leakage) | ~0.00% (group-aware), not a guarantee of individual prediction accuracy";
+            modelTag.title = "E2 Research Ensemble — On 21 held-out participants this model matched always guessing O+ (8/21). It is not a blood-typing tool.";
         }
 
     } catch (err) {
@@ -229,7 +229,7 @@ async function triggerCapture() {
             throw new Error(data.error || "Capture failed");
         }
 
-        progressText.innerText = "Enhancing ridges & evaluating via Champion Ensemble V2...";
+        progressText.innerText = "Enhancing ridges & evaluating via E2 Research Ensemble...";
         await new Promise(r => setTimeout(r, 400));
         progressBox.style.display = "none";
 

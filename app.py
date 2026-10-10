@@ -195,7 +195,7 @@ def capture_and_predict():
         captured_path, _, quality_meta = scanner.capture_with_meta(sample_class=sample_class)
         image_name = os.path.basename(captured_path)
 
-        # Run Prediction via E2 Champion Ensemble with source-aware cropping and ridge enhancement for real hardware
+        # Run Prediction via E2 Research Ensemble with source-aware cropping and ridge enhancement for real hardware
         source = "mfs100" if not scanner.mock else "upload"
         pred_res = predictor.predict(captured_path, source=source)
 
@@ -252,7 +252,7 @@ def capture_and_predict():
             "report_url": f"/api/report/{rec_id}",
             "is_low_confidence": pred_res["is_low_confidence"],
             "scanner_mode": "mock" if scanner.mock else "hardware",
-            "model_name": pred_res.get("model_name", "E2 Champion Ensemble"),
+            "model_name": pred_res.get("model_name", "E2 Research Ensemble"),
             "crop_metadata": pred_res.get("crop_metadata"),
             "quality_metadata": quality_meta,
             "finger_used": finger_used,
@@ -346,7 +346,7 @@ def capture_consensus_and_predict():
             "report_url": f"/api/report/{rec_id}",
             "is_low_confidence": pred_res["is_low_confidence"],
             "scanner_mode": "mock" if scanner.mock else "hardware",
-            "model_name": pred_res.get("model_name", "E2 Champion Ensemble Consensus"),
+            "model_name": pred_res.get("model_name", "E2 Research Ensemble Consensus"),
             "crop_metadata": pred_res.get("crop_metadata"),
             "consensus_metadata": pred_res.get("consensus_metadata"),
             "finger_used": finger_used,
