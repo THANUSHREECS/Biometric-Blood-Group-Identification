@@ -109,8 +109,8 @@ class BloodGroupPredictor:
             advisory_reason = "LOW_CONFIDENCE"
             advisory_message = (
                 "Prediction confidence is below the validation-selected advisory threshold. "
-                "This model is a research prototype with origin unknown real-world accuracy and MUST NOT be used "
-                "for medical decisions. Confirm blood group using standard serological testing."
+                "On 21 held-out participants this research model matched always guessing O+ (8/21). It is not a blood-typing tool. "
+                "Confirm blood group using standard serological testing."
             )
         else:
             needs_confirmation = False
@@ -118,7 +118,7 @@ class BloodGroupPredictor:
             advisory_reason = "NONE"
             advisory_message = (
                 "Advisory threshold passed. This does not constitute medical verification. "
-                "This model is a research prototype with origin unknown real-world accuracy."
+                "On 21 held-out participants this research model matched always guessing O+ (8/21). It is not a blood-typing tool."
             )
 
         return {
