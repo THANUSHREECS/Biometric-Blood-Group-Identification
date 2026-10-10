@@ -50,7 +50,7 @@
 - Majority Baseline was 30.60%. The metadata classifier beats the baseline and is statistically significant (p < 0.05). This strongly implies dataset artifacts (e.g. varying border padding or file size differences between classes) correlate with class labels.
 
 
-**Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The origin of the 38.10% accuracy metric is unknown. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
+**Current evidence:** The 4-class (A+, B+, AB+, O+) model achieves 86.0% accuracy on a random split. However, subject independence cannot be verified because the dataset lacks subject IDs. A metadata artifact classifier achieves 44.58%, beating the majority baseline, suggesting that dataset artifacts (like file size or contrast) correlate with the labels. The deployed model achieves 8/21 on the 21 locked-test participants, macro-F1 0.25. The live system does not demonstrate reliable cross-domain four-class blood group classification. Clinical validity is not claimed.
 
 ---
 

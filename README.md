@@ -220,7 +220,7 @@ The test suite evaluates:
 
 ## 15. Rigorous Scientific Evaluation Audit (Final Phase)
 
-To ensure the utmost honesty and scientific rigor in evaluating this research prototype, a comprehensive final audit was conducted restricting the evaluation to a strict 4-class scenario (A+, B+, AB+, O+) using the E2 Champion DenseNet121 model.
+To ensure the utmost honesty and scientific rigor in evaluating this research prototype, a comprehensive final audit was conducted restricting the evaluation to a strict 4-class scenario (A+, B+, AB+, O+) using the E2 Research DenseNet121 model.
 
 ### Data Leakage & Subject-Level Splitting
 An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerprint image clusters lack explicit metadata linking individual images to unique human subject IDs. Therefore, it is impossible to guarantee strict subject-level splitting (i.e., ensuring a person's fingerprint is not in both train and test splits). Due to this inherent dataset limitation, any reported high accuracy on the 8-class scenario (e.g., ~85%) was heavily inflated by data leakage.
@@ -229,10 +229,12 @@ An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerpri
 
 | Evaluation Setting | Model / Architecture | Samples / Scope | Metric / Accuracy | Baseline & Chance | Status & Audit Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; not deployed in production pipeline |
-| **Dataset Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 80 Development Participants (OOF) | **53.75%** (Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | Multi-scan 5-fold ensemble trained on 80 dev participants (`scripts/experiment6_fusion_supcon.py`); checkpoint selection is optimistic |
-| **Locked Test Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans) | **38.10%** (8/21; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21) | 101 participants total: 80 used in E2 development; 21 locked test: 8/21 = 38.10%, equal to always-O+ baseline (p = 0.5817) |
-| **Live Exploratory** | **Model A: EfficientNetB0** | 101 Participants (avg of 3 scans) | **30.69%** (Wilson 95% CI: [22.54%, 40.26%]) | Always-O+ baseline: 36.63%; Prior-matched chance: 33.54% | Exploratory single-image model averaged over 3 scans |
+| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split, public fingerprint dataset) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; **not deployed**. Subject independence not verifiable (no subject IDs). Metadata artifact classifiers achieve 44.58% (random split), shortcut features (intensity/contrast); leakage unverified. |
+| **21 Locked Test Participants** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans, 3 per person) | **38.10%** (8/21; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21); binomial p = 1.0000 | **Valid**: True locked test, exact reproduction of `final_test_predictions.csv` (21/21 top-1 match, max diff = 0.00000019). Matches always guessing O+ (8/21). Pred dist: A+=11, B+=2, AB+=0, O+=8. |
+| **80 Development Cohort (In-Sample Ensemble)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (240 scans, evaluated with full 5-checkpoint ensemble) | **40.00%** (32/80; Wilson 95% CI: [29.96%, 50.95%]) | Always-O+ baseline: 36.25% (29/80) | **In-sample dev evaluation**: Full 5-checkpoint ensemble evaluated on dev cohort. Pred dist: A+=47, O+=16, B+=17. |
+| **80 Development Cohort (Out-of-Fold Validation)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (StratifiedGroupKFold, out-of-fold checkpoints) | **53.75%** (43/80; Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | **Out-of-Fold (OOF)**: Each fold model evaluated strictly on its held-out validation fold (`fold_results.csv`). Average training accuracy across 5 folds was **35.94%**. |
+| **101 Pooled Participants (Deployed Path)** | **Model B: E2 DenseNet121 Ensemble** (deployed post-fix) | 101 Participants (80 dev + 21 locked test) | **39.60%** (40/101; Wilson 95% CI: [30.62%, 49.35%]) | Always-O+ baseline: 36.63% (37/101); binomial p = 0.5369 | **Contaminated benchmark**: Contains 80 development subjects. Pred dist: A+=58, O+=24, B+=19. |
+| **101 Pooled — Old Mismatched Pipeline (INVALID)** | **Model B: E2 DenseNet121 Ensemble** (pre-Round 14) | 101 Participants | **27.72% — INVALID** (28/101; Wilson 95% CI: [19.93%, 37.15%]) | Always-O+ baseline: 36.63% (37/101) | **Invalid**: Caused by inadvertent addition of `densenet.preprocess_input` to raw `[0, 255]` weights. Corrected in Round 14. |
 
 ### Class Imbalance & Calibration
 The deployed system includes an advisory threshold layer in the UI (70% threshold). Predictions below this threshold display an explicit **"Confirmation Recommended" / "Low Confidence"** notice, instructing users that standard serological testing is mandatory.
@@ -252,4 +254,4 @@ The deployed system includes an advisory threshold layer in the UI (70% threshol
 > **MANDATORY MEDICAL DISCLAIMER**  
 > This system is an AI-based preliminary estimation tool developed for academic research and proof-of-concept investigation. The results generated by this model **MUST BE CONFIRMED** using standard laboratory serological blood typing tests (e.g., forward and reverse ABO agglutination) before any clinical or medical administration. This system does not replace certified clinical laboratory diagnostics.
 
-**Current evidence:** Model A (EfficientNetB0, 224x224, not deployed) achieves 86.02% on a random split of 415 images. Model B (E2 DenseNet121 5-fold ensemble, deployed) achieves 53.75% out-of-fold on 80 development participants and 38.10% (8/21) on 21 locked test participants, equal to the always-O+ baseline. Clinical validity is not claimed.
+See Section 15 and `results/final_audit_results.md` for the authoritative primary evaluation summary table. Clinical validity is not claimed.

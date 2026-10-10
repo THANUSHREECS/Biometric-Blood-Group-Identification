@@ -86,7 +86,7 @@ class BloodGroupPredictor:
     def get_model_info(self):
         if self.is_ensemble_ready:
             return {
-                "name": "E2 Champion Ensemble",
+                "name": "E2 Research Ensemble",
                 "tag": "E2 Active",
                 "accuracy": "origin unknown",
                 "type": "5-Fold Feature Fusion",
@@ -171,7 +171,7 @@ class BloodGroupPredictor:
 
         is_low = confidence < self.ADVISORY_CONFIRMATION_THRESHOLD
         status = "LOW_CONFIDENCE" if is_low else "NORMAL"
-        msg = "Prediction completed successfully via E2 Champion Ensemble."
+        msg = "Prediction completed successfully via E2 Research Ensemble."
 
         adv = self._evaluate_advisory(confidence)
 
@@ -182,7 +182,7 @@ class BloodGroupPredictor:
             "message": msg,
             "probabilities": prob_dict,
             "is_low_confidence": is_low,
-            "model_name": "E2 Champion Ensemble",
+            "model_name": "E2 Research Ensemble",
             "display_image": display_img,
             "crop_metadata": crop_metas[0],
             "needs_confirmation": adv["needs_confirmation"],
