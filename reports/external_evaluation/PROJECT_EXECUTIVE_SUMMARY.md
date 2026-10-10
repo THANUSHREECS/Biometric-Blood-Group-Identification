@@ -1,7 +1,7 @@
 # Biometric Blood Group Identification System
 ## Executive Project Summary & Final Report
 
-**Academic Year:** 2025–2026  
+**Academic Year:** 2025â€“2026  
 **Evaluation Phase:** Final External Demonstration (200 Marks)  
 **System Type:** AI-Assisted Research Prototype (Non-Clinical)  
 **Target Domain:** Biometric Pattern Recognition & Deep Learning Classification  
@@ -62,4 +62,4 @@ During the final pre-evaluation readiness phase, several critical audits and pip
    - `FINAL_DEMO_CHECKLIST.md`
 
 ## 7. Conclusion
-The Biometric Blood Group Identification system is a technically complex, end-to-end Machine Learning engineering project. While the underlying biological hypothesis yielded limited predictive power (38.10%), the software engineering execution—encompassing deep learning ensembles, 3D feature fusion, hardware driver bridging, strict pipeline deterministic matching, and full-stack web deployment—demonstrates a rigorous, high-level mastery of modern AI systems engineering. The project is fully prepared for final external evaluation.
+The Biometric Blood Group Identification system is a technically complex, end-to-end Machine Learning engineering project. While the underlying biological hypothesis yielded limited predictive power (38.10%), the software engineering executionâ€”encompassing deep learning ensembles, 3D feature fusion, hardware driver bridging, strict pipeline deterministic matching, and full-stack web deploymentâ€”demonstrates a rigorous, high-level mastery of modern AI systems engineering. The project is fully prepared for final external evaluation.

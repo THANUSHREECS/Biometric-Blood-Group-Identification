@@ -25,7 +25,7 @@ To determine if the E2 Champion model's development performance (0.42 Macro F1) 
 Yes, but only marginally. The Dummy classifier achieved 0.10 Macro F1. The Linear SVM improved this to 0.24.
 
 **2. Does it improve Macro F1 over the E2 development reference?**
-**No. It massively underperforms.** The E2 model achieved 0.42 Macro F1. The Linear SVM collapsed to 0.24. This catastrophic drop mathematically proves that the E2 model's 1.5M parameter classification head was heavily memorizing the spurious optical characteristics of the 64 training participants. When forced to use a simple linear boundary (which cannot memorize), the "predictive power" of the frozen DenseNet features almost entirely evaporated.
+**No. It massively underperforms.** The E2 model achieved 0.42 Macro F1. The Linear SVM collapsed to 0.24. This catastrophic drop mathematically suggests that the E2 model's 1.5M parameter classification head was heavily memorizing the spurious optical characteristics of the 64 training participants. When forced to use a simple linear boundary (which cannot memorize), the "predictive power" of the frozen DenseNet features almost entirely evaporated.
 
 **3. Which classes remain difficult to identify?**
 AB+ and A+ remain profoundly difficult. The linear models regularly yielded 0.0% precision and 0.0% recall for AB+ across nearly all folds. The models frequently defaulted to predicting O+ (the majority class) or B+.

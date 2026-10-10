@@ -5,31 +5,31 @@
 The biometric blood group identification system uses an **out-of-process 32-bit HTTP bridge architecture** to integrate the physical Mantra MFS100 optical fingerprint scanner with the 64-bit Python machine learning environment.
 
 ```
-┌────────────────────────────────────────────────────────┐
-│               Physical Mantra MFS100 Scanner           │
-└──────────────────────────┬─────────────────────────────┘
-                           │ USB Cable / Driver
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│         32-bit Bridge Service (127.0.0.1:5100)         │
-│  - Runtime: C:\Python310-32\python.exe (32-bit x86)    │
-│  - Managed Wrapper: MANTRA.MFS100.dll (v9.0.2.5)       │
-│  - Native Driver: MFS100Dll.dll (32-bit C)             │
-│  - Framework: Flask + pythonnet (clr)                  │
-└──────────────────────────┬─────────────────────────────┘
-                           │ Localhost HTTP REST API
-                           │ (Base64 BMP payload)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│          Main Clinical Flask Web Application           │
-│  - Runtime: 64-bit Python (Python 3.10)                │
-│  - Port: 127.0.0.1:5000                                │
-│  - Adapter: src/mfs100/scanner.py                      │
-│  - Central Preprocessing: PIL image standardization    │
-│  - AI Model: ResNet50 (224×224 RGB, Softmax 8-class)   │
-│  - Storage: SQLite audit database (predictions.db)     │
-│  - Clinical Documentation: ReportLab PDF Generator     │
-└────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚               Physical Mantra MFS100 Scanner           â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                           â”‚ USB Cable / Driver
+                           â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚         32-bit Bridge Service (127.0.0.1:5100)         â”‚
+â”‚  - Runtime: C:\Python310-32\python.exe (32-bit x86)    â”‚
+â”‚  - Managed Wrapper: MANTRA.MFS100.dll (v9.0.2.5)       â”‚
+â”‚  - Native Driver: MFS100Dll.dll (32-bit C)             â”‚
+â”‚  - Framework: Flask + pythonnet (clr)                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                           â”‚ Localhost HTTP REST API
+                           â”‚ (Base64 BMP payload)
+                           â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚          Main Clinical Flask Web Application           â”‚
+â”‚  - Runtime: 64-bit Python (Python 3.10)                â”‚
+â”‚  - Port: 127.0.0.1:5000                                â”‚
+â”‚  - Adapter: src/mfs100/scanner.py                      â”‚
+â”‚  - Central Preprocessing: PIL image standardization    â”‚
+â”‚  - AI Model: ResNet50 (224Ã—224 RGB, Softmax 8-class)   â”‚
+â”‚  - Storage: SQLite audit database (predictions.db)     â”‚
+â”‚  - Clinical Documentation: ReportLab PDF Generator     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -37,8 +37,8 @@ The biometric blood group identification system uses an **out-of-process 32-bit 
 ## 2. Why the 32-bit Bridge Architecture Was Required
 
 The Mantra MFS100 SDK distribution (`C:\Program Files\Mantra\MFS100\Driver\MFS100Test\`) provides:
-1. `MANTRA.MFS100.dll` — 32-bit .NET managed wrapper
-2. `MFS100Dll.dll` — 32-bit Win32 native C library
+1. `MANTRA.MFS100.dll` â€” 32-bit .NET managed wrapper
+2. `MFS100Dll.dll` â€” 32-bit Win32 native C library
 
 Loading a 32-bit native or managed DLL directly into a 64-bit Python process produces:
 `[WinError 193] %1 is not a valid Win32 application`
@@ -116,8 +116,8 @@ You can switch between Mock Mode and Physical Hardware at any time directly from
 ## 6. Biometric AI Pipeline Verification
 
 Captured images from the physical MFS100 scanner follow the exact same verified clinical pipeline as uploaded images:
-1. **Raw Acquisition**: 316×354 8-bit grayscale BMP from physical scanner.
-2. **Standardization**: Converted to 224×224 RGB standardized tensor via `src/preprocessing.py`.
+1. **Raw Acquisition**: 316Ã—354 8-bit grayscale BMP from physical scanner.
+2. **Standardization**: Converted to 224Ã—224 RGB standardized tensor via `src/preprocessing.py`.
 3. **Inference**: Evaluated by the trained deep neural network model (`models/blood_group_resnet50.keras`).
 4. **Reliability Check**: Confidence score evaluated against clinical threshold (60.0%). Low-confidence predictions flag an alert.
 5. **Audit Trail**: Every transaction recorded in SQLite database (`predictions.db`).
@@ -140,4 +140,4 @@ OK
 Hardware communication confirmed:
 - Physical device detected: **Mantra MFS100**
 - Serial Number: **11215389**
-- Dimensions: **316 × 354**
+- Dimensions: **316 Ã— 354**

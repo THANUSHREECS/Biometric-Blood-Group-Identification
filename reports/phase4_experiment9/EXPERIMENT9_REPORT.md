@@ -38,7 +38,7 @@ The minority classes (AB+ and A+) remain almost impossible to classify. The Line
 Yes. H0 (Quality/Contrast) achieved only 27.50% accuracy (Macro F1 0.17), which is worse than the Dummy classifier on accuracy. H1 (Orientation) performed noticeably better, indicating that whatever microscopic biological structure exists lies in macroscopic ridge flow rather than lighting variance.
 
 **6. Is there reproducible evidence of predictive information?**
-There is **no evidence** of robust, clinically useful predictive information. While H1 mathematically beats a naive majority guess by ~7%, an accuracy of 36% on a 4-class problem is functionally equivalent to random noise. The fact that handcrafted features utterly fail to reach the 53% accuracy seen in the E2 CNN unequivocally proves that the E2 model was heavily memorizing non-biological image artifacts.
+There is **no evidence** of robust, clinically useful predictive information. While H1 mathematically beats a naive majority guess by ~7%, an accuracy of 36% on a 4-class problem is functionally equivalent to random noise. The fact that handcrafted features utterly fail to reach the 53% accuracy seen in the E2 CNN strongly suggests that the E2 model was heavily memorizing non-biological image artifacts.
 
 **7. Could acquisition quality or scanner artifacts explain the result?**
 Because H0 (Quality) performed identically to random guessing, acquisition quality itself (sharpness/contrast) is not the sole confounding variable. However, because H1 (HOG) barely crested 36%, the scanner artifacts were successfully stripped away, leaving behind a biological ridge signal that is fundamentally non-predictive of ABO blood types.

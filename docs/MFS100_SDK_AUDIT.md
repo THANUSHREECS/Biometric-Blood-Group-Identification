@@ -1,6 +1,6 @@
-﻿# MFS100 SDK Audit Report
+ï»¿# MFS100 SDK Audit Report
 
-**Project:** Blood Group Prediction — MFS100 Integration
+**Project:** Blood Group Prediction â€” MFS100 Integration
 **Audit Date:** 2026-09-04
 **Auditor:** Automated SDK Inspection
 **Status:** Complete

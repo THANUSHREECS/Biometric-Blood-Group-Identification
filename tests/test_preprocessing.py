@@ -74,7 +74,7 @@ class TestPreprocessingPipeline(unittest.TestCase):
             self.assertEqual(tensor.dtype, np.float32)
 
     def test_enhance_mfs100_ridge_contrast(self):
-        from src.preprocessing import enhance_mfs100_ridge_contrast, preprocess_for_ensemble
+        from src.preprocessing import enhance_mfs100_ridge_contrast, transform_c5
         # Create low-contrast synthetic image simulating MFS100 gray ridges
         arr = np.full((354, 316), 200, dtype=np.uint8)
         arr[50:300:10, 50:250] = 120  # simulated gray ridges
@@ -87,17 +87,17 @@ class TestPreprocessingPipeline(unittest.TestCase):
         # Contrast standard deviation should increase
         self.assertGreater(float(np.std(enh_arr)), float(np.std(arr)))
 
-    def test_preprocess_for_ensemble_source_aware(self):
-        from src.preprocessing import preprocess_for_ensemble
+    def test_transform_c5_source_aware(self):
+        from src.preprocessing import transform_c5
         sample_path = os.path.join(self.sample_dir, "A+.bmp")
         if os.path.exists(sample_path):
             # Upload source must NOT apply MFS100 enhancement or cropping
-            up_res = preprocess_for_ensemble(sample_path, source="upload")
+            up_res = transform_c5(sample_path, source="upload")
             self.assertFalse(up_res["crop_metadata"]["crop_applied"])
             self.assertFalse(up_res["crop_metadata"]["enhancement_applied"])
 
             # MFS100 source MUST set enhancement_applied=True
-            mfs_res = preprocess_for_ensemble(sample_path, source="mfs100")
+            mfs_res = transform_c5(sample_path, source="mfs100")
             self.assertTrue(mfs_res["crop_metadata"]["enhancement_applied"])
 
 if __name__ == "__main__":

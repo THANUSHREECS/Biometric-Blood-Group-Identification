@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-05 12:26 IST  
 **Environment:** Windows 11, 64-bit Python 3.10.11 (Flask App) + 32-bit Python 3.10.11 (MFS100 HTTP Bridge)  
-**Model Architecture:** Champion Ensemble V2 (ResNet50: 58%, VGG16: 38%, EfficientNetB0: 4%) — Frozen (Zero Retraining)  
+**Model Architecture:** Champion Ensemble V2 (ResNet50: 58%, VGG16: 38%, EfficientNetB0: 4%) â€” Frozen (Zero Retraining)  
 **Locked Test Set:** Untouched (898 images in `outputs/dataset_manifest.csv` un-evaluated)  
 
 ---
@@ -14,7 +14,7 @@
 | **Scanner Model** | Mantra MFS100 Optical Fingerprint Sensor | Connected |
 | **Serial Number** | `11215389` | Active |
 | **Make / Vendor** | MANTRA / Mantra Softech India Pvt. Ltd. | Verified |
-| **Sensor Resolution** | 316 × 354 pixels, 500 DPI | Operational |
+| **Sensor Resolution** | 316 Ã— 354 pixels, 500 DPI | Operational |
 | **SDK Version** | `v9.0.2.5` (`MANTRA.MFS100.dll` + `MFS100Dll.dll`) | Loaded |
 | **Bridge Service** | 32-bit Out-of-process HTTP REST (`127.0.0.1:5100`) | Healthy |
 | **Main Web Server** | 64-bit Flask (`127.0.0.1:5000`) | Online |
@@ -28,16 +28,16 @@
 
 | Scan # | Prediction | 8-Class Conf | NFIQ | Quality | Crop Bounding Box | Crop Applied | ABO Group | Rh Factor | Rh Margin | Rh Uncertainty | Consensus Rec.? |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **1** | O+ | 49.4% | 2 | 79/100 | `[42, 0, 307, 354]` | ✅ Yes | **O** (85.2%) | **+** | 0.4805 | ⚠️ **True** (conf < 65%) | **True** (NFIQ 2) |
-| **2** | O+ | 61.5% | 1 | 83/100 | `[33, 0, 307, 354]` | ✅ Yes | **O** (88.1%) | **+** | 0.6014 | ⚠️ **True** (conf < 65%) | False |
-| **3** | O+ | 67.5% | 1 | 85/100 | `[32, 0, 307, 354]` | ✅ Yes | **O** (91.4%) | **+** | 0.6641 | False | False |
-| **4** | O+ | 68.6% | 1 | 84/100 | `[32, 0, 307, 354]` | ✅ Yes | **O** (92.0%) | **+** | 0.6738 | False | False |
-| **5** | O+ | 68.6% | 1 | 84/100 | `[32, 0, 307, 354]` | ✅ Yes | **O** (92.1%) | **+** | 0.6745 | False | False |
+| **1** | O+ | 49.4% | 2 | 79/100 | `[42, 0, 307, 354]` | âœ… Yes | **O** (85.2%) | **+** | 0.4805 | âš ï¸ **True** (conf < 65%) | **True** (NFIQ 2) |
+| **2** | O+ | 61.5% | 1 | 83/100 | `[33, 0, 307, 354]` | âœ… Yes | **O** (88.1%) | **+** | 0.6014 | âš ï¸ **True** (conf < 65%) | False |
+| **3** | O+ | 67.5% | 1 | 85/100 | `[32, 0, 307, 354]` | âœ… Yes | **O** (91.4%) | **+** | 0.6641 | False | False |
+| **4** | O+ | 68.6% | 1 | 84/100 | `[32, 0, 307, 354]` | âœ… Yes | **O** (92.0%) | **+** | 0.6738 | False | False |
+| **5** | O+ | 68.6% | 1 | 84/100 | `[32, 0, 307, 354]` | âœ… Yes | **O** (92.1%) | **+** | 0.6745 | False | False |
 
 ### Analysis of Section A:
 1. **Consistency:** 5 / 5 = **100% agreement** on O+.
 2. **First-Impression Placement Drift:** Scan 1 had NFIQ 2 (Quality 79) and lower confidence (49.4%), triggering both the **Rh Uncertainty Advisory** and the **Smart Consensus Recommendation**.
-3. **Convergence:** As the finger settled on Scans 2–5, NFIQ stabilized at 1 (Quality 83–85), crop boundaries locked stably to `[32, 0, 307, 354]`, and confidence reached 68.6% with zero Rh uncertainty.
+3. **Convergence:** As the finger settled on Scans 2â€“5, NFIQ stabilized at 1 (Quality 83â€“85), crop boundaries locked stably to `[32, 0, 307, 354]`, and confidence reached 68.6% with zero Rh uncertainty.
 
 ---
 
@@ -48,9 +48,9 @@
 
 | Impression | Blood Group | Confidence | Derived ABO Group | Crop Applied |
 |:---:|:---:|:---:|:---:|:---:|
-| **Impression 1** | O+ | 73.3% | O | ✅ Yes |
-| **Impression 2** | O+ | 76.1% | O | ✅ Yes |
-| **Impression 3** | O+ | 75.1% | O | ✅ Yes |
+| **Impression 1** | O+ | 73.3% | O | âœ… Yes |
+| **Impression 2** | O+ | 76.1% | O | âœ… Yes |
+| **Impression 3** | O+ | 75.1% | O | âœ… Yes |
 
 - **Final Consensus Prediction:** **O+**
 - **Consensus Confidence:** **74.86%**
@@ -81,7 +81,7 @@
 | **Right Index Finger** | **O+** | **92.55%** | 1 | 94/100 | `[5, 0, 314, 354]` | **O** | **+** | 0.9148 | False |
 | **Right Middle Finger** | **O+** | **92.20%** | 1 | 95/100 | `[6, 0, 315, 354]` | **O** | **+** | 0.9109 | False |
 
-- **Observation:** All three fingers (Thumb, Index, Middle) from the subject consistently classified as **O+** with very high ridge quality (Quality 94–95, NFIQ 1) and $>92\%$ confidence.
+- **Observation:** All three fingers (Thumb, Index, Middle) from the subject consistently classified as **O+** with very high ridge quality (Quality 94â€“95, NFIQ 1) and $>92\%$ confidence.
 - Note: Different fingers on the same individual share phenotypic dermatoglyphic traits (arch/whorl/loop frequencies), yielding harmonious ABO typing across digits.
 
 ---
@@ -93,7 +93,7 @@
   *Consensus Prompt:* Hidden (`False`).
 - **Suboptimal Placement (Observed in Scan 1):** Quality: 79/100, NFIQ: 2, Pressure: `MODERATE`.  
   *Advice:* Automatically displayed placement guide.  
-  *Consensus Prompt:* **Triggered** (`True`) — Prompted user to switch to 3-Scan Consensus mode.
+  *Consensus Prompt:* **Triggered** (`True`) â€” Prompted user to switch to 3-Scan Consensus mode.
 - **Medical Disclaimer Gating:** Both single and consensus cards strictly present results as AI preliminary estimations with zero false claims of medical certainty.
 
 ---
@@ -102,18 +102,18 @@
 
 - **Total Reports Generated in System:** 174 reports.
 - **Sample Validated Reports:**
-  1. `reports/blood_group_report_171_20260905_122358.pdf` (151 KB) — 3-Scan Consensus Report
-  2. `reports/blood_group_report_172_20260905_122416.pdf` (151 KB) — Index Finger Physical Scan
-  3. `reports/blood_group_report_174_20260905_122439.pdf` (149 KB) — Normal Physical MFS100 Scan
+  1. `reports/blood_group_report_171_20260905_122358.pdf` (151 KB) â€” 3-Scan Consensus Report
+  2. `reports/blood_group_report_172_20260905_122416.pdf` (151 KB) â€” Index Finger Physical Scan
+  3. `reports/blood_group_report_174_20260905_122439.pdf` (149 KB) â€” Normal Physical MFS100 Scan
 - **PDF Elements Verified:**
-  - ✅ Embedded 224×224 fingerprint impression thumbnail.
-  - ✅ Primary Estimated Blood Group (`O+`) in high-contrast header card.
-  - ✅ Derived ABO Group (`O`) and Rh Factor (`+`) in diagnostic metadata.
-  - ✅ Input Source: `Mantra MFS100 Scanner` / `MFS100 Consensus (3 Impressions)`.
-  - ✅ Complete 8-class probability breakdown table.
-  - ✅ Timestamp, Report ID, and Model Name (`Champion Ensemble V2`).
-  - ✅ Prominent Medical Serological Disclaimer Box in red border.
-  - ✅ Yellow Rh Uncertainty Banner triggered when `rh_uncertainty` is true.
+  - âœ… Embedded 224Ã—224 fingerprint impression thumbnail.
+  - âœ… Primary Estimated Blood Group (`O+`) in high-contrast header card.
+  - âœ… Derived ABO Group (`O`) and Rh Factor (`+`) in diagnostic metadata.
+  - âœ… Input Source: `Mantra MFS100 Scanner` / `MFS100 Consensus (3 Impressions)`.
+  - âœ… Complete 8-class probability breakdown table.
+  - âœ… Timestamp, Report ID, and Model Name (`Champion Ensemble V2`).
+  - âœ… Prominent Medical Serological Disclaimer Box in red border.
+  - âœ… Yellow Rh Uncertainty Banner triggered when `rh_uncertainty` is true.
 
 ---
 
@@ -159,7 +159,7 @@ Uploaded authentic sample images from `data/sample/`:
    - Crop Applied: `False`
    - ABO Group: `O` | Rh Factor: `-`
    - Rh Uncertainty: **True**
-   - Advisory Message: *"Rh factor (±) determination is uncertain (narrow Rh probability margin (17.4%); moderate 8-class confidence (53.6%); predicted Rh-negative requires serological validation due to weak ridge-Rh correlation). ABO group appears to be 'O' (89.8% confidence). Standard serological laboratory blood typing is required to confirm Rh factor."*
+   - Advisory Message: *"Rh factor (Â±) determination is uncertain (narrow Rh probability margin (17.4%); moderate 8-class confidence (53.6%); predicted Rh-negative requires serological validation due to weak ridge-Rh correlation). ABO group appears to be 'O' (89.8% confidence). Standard serological laboratory blood typing is required to confirm Rh factor."*
 
 ---
 
@@ -208,14 +208,14 @@ tests\test_report.py ..                                                  [100%]
 
 | Test Category | Criterion | Status |
 |---|---|:---:|
-| **Physical MFS100 Capture** | 5 consecutive scans on live hardware | ✅ PASS |
-| **Consistency** | Repeatability across impressions | ✅ PASS (100% on O+) |
-| **3-Scan Consensus** | Soft-voting multi-scan noise reduction | ✅ PASS (100% agreement) |
-| **ABO/Rh Decomposition** | Derived ABO & Rh without model modification | ✅ PASS |
-| **Rh Uncertainty Guard** | Advisory triggers on narrow margin & Rh- | ✅ PASS |
-| **Quality Guidance** | NFIQ & quality score feedback | ✅ PASS |
-| **Upload Regression** | Bypasses crop, preserves upload pipeline | ✅ PASS |
-| **PDF Reporting** | Formal reports with disclaimers & ABO data | ✅ PASS |
-| **Database Audit** | SQLite logging without PII | ✅ PASS |
-| **Full Test Suite** | 44/44 unit and integration tests | ✅ PASS (45.06s) |
-| **Model Constraints** | Zero retraining, locked weights, test set untouched | ✅ FULLY COMPLIANT |
+| **Physical MFS100 Capture** | 5 consecutive scans on live hardware | âœ… PASS |
+| **Consistency** | Repeatability across impressions | âœ… PASS (100% on O+) |
+| **3-Scan Consensus** | Soft-voting multi-scan noise reduction | âœ… PASS (100% agreement) |
+| **ABO/Rh Decomposition** | Derived ABO & Rh without model modification | âœ… PASS |
+| **Rh Uncertainty Guard** | Advisory triggers on narrow margin & Rh- | âœ… PASS |
+| **Quality Guidance** | NFIQ & quality score feedback | âœ… PASS |
+| **Upload Regression** | Bypasses crop, preserves upload pipeline | âœ… PASS |
+| **PDF Reporting** | Formal reports with disclaimers & ABO data | âœ… PASS |
+| **Database Audit** | SQLite logging without PII | âœ… PASS |
+| **Full Test Suite** | 44/44 unit and integration tests | âœ… PASS (45.06s) |
+| **Model Constraints** | Zero retraining, locked weights, test set untouched | âœ… FULLY COMPLIANT |

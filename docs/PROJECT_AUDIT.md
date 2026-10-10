@@ -17,10 +17,10 @@ A comprehensive, non-destructive audit of the workspace, fresh fingerprint datas
 - **Classes**: Exactly 8 target classes detected (`A+`, `A-`, `AB+`, `AB-`, `B+`, `B-`, `O+`, `O-`).
 - **File Format**: 100% Windows Bitmap (`.BMP`).
 - **Color Mode**: 5,956 RGBA images (99.27%) and 44 RGB images (0.73%).
-- **Dimensions**: 5,956 images are `96 × 103` pixels; 44 images are `241 × 298` pixels.
+- **Dimensions**: 5,956 images are `96 Ã— 103` pixels; 44 images are `241 Ã— 298` pixels.
 - **Image Corruption**: 0 corrupted or unreadable images. All 6,000 files passed PIL integrity verification.
 - **Duplicates**: 11 exact duplicate clusters containing 15 redundant duplicate files. **0 cross-class duplicates**.
-- **Class Imbalance**: Significant imbalance detected. `A-` contains 1,009 samples whereas `A+` contains only 565 samples (~1.79× ratio).
+- **Class Imbalance**: Significant imbalance detected. `A-` contains 1,009 samples whereas `A+` contains only 565 samples (~1.79Ã— ratio).
 - **Physical Hardware**: **Mantra MFS100 USB fingerprint scanner is physically plugged in and recognized** (`USB\VID_2C0F&PID_1005\89D28C5E19D4`, Status: OK).
 - **Driver / SDK**: Driver package found at `C:\Program Files\Mantra\MFS100\Driver`. Official `MFS100Dll.dll` identified with image capture exports.
 - **Python / Framework**: Python 3.10.11 (64-bit), TensorFlow 2.21.0 (oneDNN CPU), Keras 3.12.4, Flask 3.1.3, scikit-learn 1.7.2, Pillow 12.3.0. Additional packages needed: `opencv-python`, `seaborn`, `reportlab`.
@@ -41,7 +41,7 @@ The raw dataset directory `dataset_blood_group` contains 8 subdirectories:
 | `B-` | B- | 5 | 741 | 12.35% |
 | `O+` | O+ | 6 | 852 | 14.20% |
 | `O-` | O- | 7 | 712 | 11.87% |
-| **Total** | **8 Classes** | — | **6,000** | **100.00%** |
+| **Total** | **8 Classes** | â€” | **6,000** | **100.00%** |
 
 ### Class Imbalance Analysis:
 - The largest class is **A-** (1,009 images), while the smallest class is **A+** (565 images).
@@ -72,7 +72,7 @@ The raw dataset directory `dataset_blood_group` contains 8 subdirectories:
 - **(96, 103)**: 5,956 images (99.27%)
 - **(241, 298)**: 44 images (0.73%)
 - **Model Target**: ResNet50 requires `(224, 224, 3)` input.
-- **Resizing**: Resizing from `96 × 103` and `241 × 298` to `224 × 224` must preserve fingerprint ridge clarity using high-quality interpolation (e.g., Lanczos or Bilinear).
+- **Resizing**: Resizing from `96 Ã— 103` and `241 Ã— 298` to `224 Ã— 224` must preserve fingerprint ridge clarity using high-quality interpolation (e.g., Lanczos or Bilinear).
 
 ### 4.2 Color Channels & Alpha Transparency (CRITICAL FINDING)
 - **Mode Distribution**:
@@ -165,21 +165,21 @@ A cryptographic SHA-256 hash was computed for all 6,000 files.
 
 ## 9. Recommended Step-by-Step Implementation Roadmap
 
-1. **Step 2 — Dataset Cleaning & Validation (`scripts/prepare_dataset.py`)**:
+1. **Step 2 â€” Dataset Cleaning & Validation (`scripts/prepare_dataset.py`)**:
    - Preserve `dataset_blood_group` into `data/raw/`.
    - Process images into `data/processed/`: handle alpha transparency compositing on white background, normalize formats.
    - Quarantine or drop the 15 redundant duplicate files.
    - Generate `outputs/dataset_report.json`.
 
-2. **Step 3 & 4 — Deduplication & Stratified Split**:
+2. **Step 3 & 4 â€” Deduplication & Stratified Split**:
    - Create 70% train (~4,190), 15% val (~897), 15% test (~898) stratified split across all 8 classes.
    - Generate `outputs/dataset_manifest.csv` with columns: `image_path,class_name,class_id,split`.
    - Save class mapping in `models/class_names.json`.
 
-3. **Step 5 — Central Preprocessing (`src/preprocessing.py`)**:
+3. **Step 5 â€” Central Preprocessing (`src/preprocessing.py`)**:
    - Implement single unified pipeline: load -> alpha composite on white -> resize to 224x224 -> RGB conversion -> ResNet50 `preprocess_input`.
 
-4. **Step 6 — ResNet50 Transfer Learning (`scripts/train_model.py`)**:
+4. **Step 6 â€” ResNet50 Transfer Learning (`scripts/train_model.py`)**:
    - ResNet50 ImageNet backbone -> GlobalAveragePooling2D -> Dense(256, relu) -> Dropout(0.4) -> Dense(8, softmax).
    - SparseCategoricalCrossentropy loss.
    - Stage 1: Freeze backbone, train classification head.
@@ -187,34 +187,34 @@ A cryptographic SHA-256 hash was computed for all 6,000 files.
    - Save best model checkpoint: `models/blood_group_resnet50.keras`.
    - Save training curves: `outputs/training_accuracy.png`, `outputs/training_loss.png`.
 
-5. **Step 7 — Real Model Evaluation (`scripts/evaluate_model.py`)**:
+5. **Step 7 â€” Real Model Evaluation (`scripts/evaluate_model.py`)**:
    - Evaluate exclusively on the untouched 15% test split.
    - Compute real accuracy, loss, precision, recall, F1-score, confusion matrix (`outputs/confusion_matrix.png`).
    - Save genuine results to `outputs/evaluation_results.json` and `outputs/training_results.json`.
 
-6. **Step 8 — Prediction Engine (`src/predictor.py`)**:
+6. **Step 8 â€” Prediction Engine (`src/predictor.py`)**:
    - `BloodGroupPredictor` class: loads model & class mapping once, returns predicted blood group, confidence score, and complete 8-class probability distribution.
    - Configurable confidence threshold (0.60) with medical advisory flag.
 
-7. **Step 9 — Flask Backend (`app.py`) & SQLite History (`src/database.py`)**:
+7. **Step 9 â€” Flask Backend (`app.py`) & SQLite History (`src/database.py`)**:
    - RESTful endpoints: `/api/status`, `/api/upload`, `/api/predict`, `/api/capture`, `/api/history`, `/api/report/<id>`.
    - SQLite DB (`data/blood_group.db`) recording prediction audit trail without sensitive PII.
 
-8. **Step 10 — Healthcare Web Interface (`templates/`, `static/`)**:
+8. **Step 10 â€” Healthcare Web Interface (`templates/`, `static/`)**:
    - Modern, responsive dashboard with MFS100 scanner status, capture button, upload zone, prediction cards, probability bar charts, and history table.
    - Prominent medical disclaimer banner on every view.
 
-9. **Step 11 — PDF Clinical Report Generation (`src/report_generator.py`)**:
+9. **Step 11 â€” PDF Clinical Report Generation (`src/report_generator.py`)**:
    - ReportLab PDF generator containing timestamp, input mode, fingerprint preview, predicted blood group, confidence, 8-class breakdown, and mandatory disclaimer.
 
-10. **Step 12-14 — MFS100 Adapter & Mock Mode (`src/mfs100/`)**:
+10. **Step 12-14 â€” MFS100 Adapter & Mock Mode (`src/mfs100/`)**:
     - Unified scanner interface (`connect`, `disconnect`, `is_connected`, `capture`, `get_device_info`).
     - Configurable `MFS100_MOCK=true/false` support.
     - Sample images in `data/sample/` for reproducible testing.
 
-11. **Step 15-17 — End-to-End Automated Testing (`tests/`)**:
+11. **Step 15-17 â€” End-to-End Automated Testing (`tests/`)**:
     - `test_preprocessing.py`, `test_predictor.py`, `test_api.py`.
     - Verification of upload flow, mock capture flow, DB logging, and PDF output.
 
-12. **Step 18 — Final Documentation & README**:
+12. **Step 18 â€” Final Documentation & README**:
     - Comprehensive B.E. major project README with architecture diagrams, dataset audit citations, genuine performance metrics, and operational manuals.

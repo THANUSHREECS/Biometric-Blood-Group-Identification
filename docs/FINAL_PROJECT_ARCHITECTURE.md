@@ -1,10 +1,10 @@
-﻿# FINAL PROJECT ARCHITECTURE
+ï»¿# FINAL PROJECT ARCHITECTURE
 ## Biometric Blood Group Identification System
 
 **Document Type:** System Architecture Reference
-**Project:** B.E. Final Year Major Project — Computer Science and Engineering (AI and ML)
+**Project:** B.E. Final Year Major Project â€” Computer Science and Engineering (AI and ML)
 **Date:** September 2026
-**Model Status:** FROZEN — Champion Ensemble V2 (85.41% locked test accuracy)
+**Model Status:** FROZEN â€” Champion Ensemble V2 (85.41% locked test accuracy)
 
 ---
 
@@ -14,21 +14,21 @@ The Biometric Blood Group Identification System is an end-to-end AI-based resear
 
 ```
 Physical Fingerprint (Mantra MFS100) OR Uploaded Image
-        ↓
+        â†“
   Image Acquisition Layer
-        ↓
+        â†“
   Centralized Preprocessing Pipeline (src/preprocessing.py)
-        ↓
+        â†“
   Champion Ensemble V2 Inference Engine (src/predictor.py)
-        ↓
+        â†“
   ABO/Rh Analytical Decomposition
-        ↓
+        â†“
   Confidence Threshold Evaluation (>= 60%)
-        ↓
+        â†“
   SQLite Audit Record (src/database.py)
-        ↓
+        â†“
   Clinical PDF Report (src/report_generator.py)
-        ↓
+        â†“
   Web Dashboard Response (Flask REST API)
 ```
 
@@ -37,43 +37,43 @@ Physical Fingerprint (Mantra MFS100) OR Uploaded Image
 ## 2. Complete Component Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                        FRONTEND LAYER (Browser)                              │
-│  templates/index.html — Clinical Dashboard                                   │
-│  templates/history.html — Audit History View                                 │
-│  static/js/app.js — UI Logic & API calls                                    │
-│  static/css/style.css — Healthcare-themed responsive design                  │
-└─────────────────────────────────┬────────────────────────────────────────────┘
-                                  │ HTTP REST (port 5000)
-┌─────────────────────────────────▼────────────────────────────────────────────┐
-│                        FLASK BACKEND (app.py)                                │
-│  GET  /                 — Dashboard HTML                                     │
-│  GET  /history          — History HTML                                       │
-│  GET  /api/status       — System health (model + scanner status)             │
-│  POST /api/upload       — Image file upload → prediction                     │
-│  POST /api/capture      — MFS100 single capture → prediction                 │
-│  POST /api/capture/consensus — 3-scan LEFT THUMB consensus                  │
-│  GET  /api/history      — Prediction audit records (JSON)                    │
-│  GET  /api/report/<id>  — Clinical PDF download                              │
-│  POST /api/scanner/mode — Toggle hardware/mock mode                          │
-│  GET  /api/scanner/status — Scanner + bridge connectivity                    │
-└──────┬──────────────────────┬──────────────────────┬──────────────────────┬──┘
-       │                      │                      │                      │
-┌──────▼──────┐  ┌───────────▼────────┐  ┌──────────▼────────┐  ┌─────────▼───┐
-│ src/        │  │ src/predictor.py   │  │ src/database.py   │  │ src/report_ │
-│ mfs100/     │  │ BloodGroupPredictor│  │ SQLite Audit DB   │  │ generator.py│
-│ scanner.py  │  │                    │  │                   │  │ ReportLab   │
-│ MFS100      │  │ Champion Ensemble  │  │ predictions table │  │ PDF engine  │
-│ Adapter     │  │ V2 Inference       │  │ CRUD operations   │  │             │
-└──────┬──────┘  └───────────┬────────┘  └──────────────────┘  └─────────────┘
-       │                      │
-┌──────▼──────┐  ┌────────────▼───────────────────────────────────────────┐
-│ src/mfs100_ │  │ src/preprocessing.py                                    │
-│ bridge/     │  │ Centralized Image Preprocessing Pipeline               │
-│ bridge.py   │  │ (shared by training, upload, MFS100, mock)             │
-│ 32-bit HTTP │  └────────────────────────────────────────────────────────┘
-│ bridge      │
-└─────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                        FRONTEND LAYER (Browser)                              â”‚
+â”‚  templates/index.html â€” Clinical Dashboard                                   â”‚
+â”‚  templates/history.html â€” Audit History View                                 â”‚
+â”‚  static/js/app.js â€” UI Logic & API calls                                    â”‚
+â”‚  static/css/style.css â€” Healthcare-themed responsive design                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                  â”‚ HTTP REST (port 5000)
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                        FLASK BACKEND (app.py)                                â”‚
+â”‚  GET  /                 â€” Dashboard HTML                                     â”‚
+â”‚  GET  /history          â€” History HTML                                       â”‚
+â”‚  GET  /api/status       â€” System health (model + scanner status)             â”‚
+â”‚  POST /api/upload       â€” Image file upload â†’ prediction                     â”‚
+â”‚  POST /api/capture      â€” MFS100 single capture â†’ prediction                 â”‚
+â”‚  POST /api/capture/consensus â€” 3-scan LEFT THUMB consensus                  â”‚
+â”‚  GET  /api/history      â€” Prediction audit records (JSON)                    â”‚
+â”‚  GET  /api/report/<id>  â€” Clinical PDF download                              â”‚
+â”‚  POST /api/scanner/mode â€” Toggle hardware/mock mode                          â”‚
+â”‚  GET  /api/scanner/status â€” Scanner + bridge connectivity                    â”‚
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”˜
+       â”‚                      â”‚                      â”‚                      â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”
+â”‚ src/        â”‚  â”‚ src/predictor.py   â”‚  â”‚ src/database.py   â”‚  â”‚ src/report_ â”‚
+â”‚ mfs100/     â”‚  â”‚ BloodGroupPredictorâ”‚  â”‚ SQLite Audit DB   â”‚  â”‚ generator.pyâ”‚
+â”‚ scanner.py  â”‚  â”‚                    â”‚  â”‚                   â”‚  â”‚ ReportLab   â”‚
+â”‚ MFS100      â”‚  â”‚ Champion Ensemble  â”‚  â”‚ predictions table â”‚  â”‚ PDF engine  â”‚
+â”‚ Adapter     â”‚  â”‚ V2 Inference       â”‚  â”‚ CRUD operations   â”‚  â”‚             â”‚
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚                      â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ src/mfs100_ â”‚  â”‚ src/preprocessing.py                                    â”‚
+â”‚ bridge/     â”‚  â”‚ Centralized Image Preprocessing Pipeline               â”‚
+â”‚ bridge.py   â”‚  â”‚ (shared by training, upload, MFS100, mock)             â”‚
+â”‚ 32-bit HTTP â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚ bridge      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -87,9 +87,9 @@ Python-based AI/ML environments run as 64-bit (x64) processes.
 
 ```
 Windows 64-bit Python (AI/ML environment)
-    ├── TensorFlow 2.21.0 (64-bit)
-    ├── Flask (64-bit)
-    └── CANNOT load 32-bit DLLs directly (WinError 193)
+    â”œâ”€â”€ TensorFlow 2.21.0 (64-bit)
+    â”œâ”€â”€ Flask (64-bit)
+    â””â”€â”€ CANNOT load 32-bit DLLs directly (WinError 193)
 ```
 
 ### 3.2 32-bit Bridge Solution
@@ -97,23 +97,23 @@ Windows 64-bit Python (AI/ML environment)
 A dedicated lightweight 32-bit Python bridge process (`src/mfs100_bridge/bridge.py`) runs under a separate 32-bit Python installation and serves as an HTTP intermediary:
 
 ```
-┌─────────────────────────────────┐       ┌──────────────────────────────────┐
-│   64-bit Flask Backend          │       │   32-bit MFS100 Bridge           │
-│   (Python 3.10.11 x64)         │       │   (C:\Python310-32\python.exe)   │
-│                                 │       │                                   │
-│   MFS100Scanner.capture() ────► │ HTTP  │ ◄─── ctypes.WinDLL(MFS100Dll)   │
-│   (src/mfs100/scanner.py)      │ :5100 │       Physical MFS100 USB SDK    │
-│                                 │◄───── │───►  scanner.capture()           │
-│   Returns: image bytes +        │       │      quality, nfiq, image bytes  │
-│   quality_meta (nfiq, score)    │       │                                   │
-└─────────────────────────────────┘       └──────────────────────────────────┘
-                                                        │
-                                          ┌─────────────▼──────────────────┐
-                                          │   Mantra MFS100 USB Hardware    │
-                                          │   Optical platen: 316x354 px    │
-                                          │   500 DPI optical sensor        │
-                                          │   SDK: MFS100Dll.dll (32-bit)   │
-                                          └────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚   64-bit Flask Backend          â”‚       â”‚   32-bit MFS100 Bridge           â”‚
+â”‚   (Python 3.10.11 x64)         â”‚       â”‚   (C:\Python310-32\python.exe)   â”‚
+â”‚                                 â”‚       â”‚                                   â”‚
+â”‚   MFS100Scanner.capture() â”€â”€â”€â”€â–º â”‚ HTTP  â”‚ â—„â”€â”€â”€ ctypes.WinDLL(MFS100Dll)   â”‚
+â”‚   (src/mfs100/scanner.py)      â”‚ :5100 â”‚       Physical MFS100 USB SDK    â”‚
+â”‚                                 â”‚â—„â”€â”€â”€â”€â”€ â”‚â”€â”€â”€â–º  scanner.capture()           â”‚
+â”‚   Returns: image bytes +        â”‚       â”‚      quality, nfiq, image bytes  â”‚
+â”‚   quality_meta (nfiq, score)    â”‚       â”‚                                   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                                        â”‚
+                                          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                          â”‚   Mantra MFS100 USB Hardware    â”‚
+                                          â”‚   Optical platen: 316x354 px    â”‚
+                                          â”‚   500 DPI optical sensor        â”‚
+                                          â”‚   SDK: MFS100Dll.dll (32-bit)   â”‚
+                                          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 3.3 Bridge Startup
@@ -140,16 +140,16 @@ When `MFS100_MOCK=true` (default) or physical hardware is unavailable:
 ## 4. Dataset Architecture
 
 ```
-dataset_blood_group/          ← Raw source fingerprint dataset
+dataset_blood_group/          â† Raw source fingerprint dataset
 data/
-  raw/                        ← Unmodified raw images (6,000 total)
-  processed/                  ← 5,985 cleaned images (15 duplicates quarantined)
+  raw/                        â† Unmodified raw images (6,000 total)
+  processed/                  â† 5,985 cleaned images (15 duplicates quarantined)
   quarantine/
-    duplicates/               ← 15 quarantined SHA-256 duplicate images
-    quarantine_manifest.json  ← Full quarantine audit map
-  sample/                     ← 8 reference images (one per class, for mock mode)
-  captured/                   ← Runtime: MFS100 and upload captures stored here
-  blood_group.db              ← SQLite prediction audit database
+    duplicates/               â† 15 quarantined SHA-256 duplicate images
+    quarantine_manifest.json  â† Full quarantine audit map
+  sample/                     â† 8 reference images (one per class, for mock mode)
+  captured/                   â† Runtime: MFS100 and upload captures stored here
+  blood_group.db              â† SQLite prediction audit database
 ```
 
 **Dataset splits (stratified, leakage-free):**
@@ -158,7 +158,7 @@ data/
 |---|---|---|
 | Training | 4,189 | Model training |
 | Validation | 898 | Hyperparameter tuning and intermediate evaluation |
-| Test (LOCKED) | 898 | Official one-time benchmark evaluation — NOT re-accessed |
+| Test (LOCKED) | 898 | Official one-time benchmark evaluation â€” NOT re-accessed |
 
 ---
 
@@ -168,29 +168,29 @@ data/
 
 ```
 Input: File path / bytes / PIL
-    ↓ load_image_to_pil()
-    ↓ composite_alpha_on_white()    ← RGBA transparent borders → white (255,255,255)
-    ↓ resize_to_target(224×224)     ← Lanczos resampling
-    ↓ Per-architecture preprocessing:
-       ResNet50: ImageEnhance.Contrast(×1.2) + resnet50.preprocess_input
+    â†“ load_image_to_pil()
+    â†“ composite_alpha_on_white()    â† RGBA transparent borders â†’ white (255,255,255)
+    â†“ resize_to_target(224Ã—224)     â† Lanczos resampling
+    â†“ Per-architecture preprocessing:
+       ResNet50: ImageEnhance.Contrast(Ã—1.2) + resnet50.preprocess_input
        VGG16:    vgg16.preprocess_input
        ENB0:     efficientnet.preprocess_input
-    ↓ Batch tensors → ensemble inference
+    â†“ Batch tensors â†’ ensemble inference
 ```
 
 ### 5.2 MFS100 Hardware Mode (source="mfs100")
 
 ```
-Input: Raw MFS100 capture (316×354, NFIQ quality check)
-    ↓ load_image_to_pil()
-    ↓ composite_alpha_on_white()
-    ↓ crop_mfs100_foreground()      ← Hardware foreground crop (removes sensor margins)
+Input: Raw MFS100 capture (316Ã—354, NFIQ quality check)
+    â†“ load_image_to_pil()
+    â†“ composite_alpha_on_white()
+    â†“ crop_mfs100_foreground()      â† Hardware foreground crop (removes sensor margins)
        4 safeguards: blank guard, region check, size floor, margin presence check
-    ↓ enhance_mfs100_ridge_contrast()
-       CLAHE (clipLimit=2.5, 8×8) + percentile stretch + bilateral filter
-    ↓ resize_to_target(224×224)
-    ↓ Per-architecture preprocessing (same as upload above)
-    ↓ Batch tensors → ensemble inference
+    â†“ enhance_mfs100_ridge_contrast()
+       CLAHE (clipLimit=2.5, 8Ã—8) + percentile stretch + bilateral filter
+    â†“ resize_to_target(224Ã—224)
+    â†“ Per-architecture preprocessing (same as upload above)
+    â†“ Batch tensors â†’ ensemble inference
 ```
 
 ---
@@ -198,35 +198,35 @@ Input: Raw MFS100 capture (316×354, NFIQ quality check)
 ## 6. Champion Ensemble V2 Inference Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    Champion Ensemble V2                                  │
-│              Locked Test Accuracy: 85.41% (767/898)                     │
-│                                                                          │
-│  ┌──────────────────────┐  ┌──────────────────────┐  ┌───────────────┐  │
-│  │ ResNet50 (Improved)  │  │      VGG16           │  │ EfficientNetB0│  │
-│  │ 277 MB checkpoint    │  │ 164 MB checkpoint    │  │ 41 MB checkpt │  │
-│  │ Weight: 0.58 (58%)  │  │ Weight: 0.38 (38%)  │  │ Weight: 0.04  │  │
-│  │ 1.2x contrast        │  │ Native VGG16         │  │ Native ENB0   │  │
-│  │ preprocessing        │  │ preprocessing        │  │ preprocessing │  │
-│  └──────────┬───────────┘  └──────────┬───────────┘  └───────┬───────┘  │
-│             │                         │                       │          │
-│  P_resnet[8] × 0.58   +  P_vgg[8] × 0.38   +  P_eff[8] × 0.04         │
-│             └─────────────────────────┴───────────────────────┘          │
-│                                       ↓                                  │
-│              Ensemble_probs[8] = weighted soft-vote average              │
-│                                       ↓                                  │
-│              predicted_class = argmax(Ensemble_probs)                   │
-│              confidence = max(Ensemble_probs)                           │
-└─────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    Champion Ensemble V2                                  â”‚
+â”‚              Locked Test Accuracy: 85.41% (767/898)                     â”‚
+â”‚                                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚ ResNet50 (Improved)  â”‚  â”‚      VGG16           â”‚  â”‚ EfficientNetB0â”‚  â”‚
+â”‚  â”‚ 277 MB checkpoint    â”‚  â”‚ 164 MB checkpoint    â”‚  â”‚ 41 MB checkpt â”‚  â”‚
+â”‚  â”‚ Weight: 0.58 (58%)  â”‚  â”‚ Weight: 0.38 (38%)  â”‚  â”‚ Weight: 0.04  â”‚  â”‚
+â”‚  â”‚ 1.2x contrast        â”‚  â”‚ Native VGG16         â”‚  â”‚ Native ENB0   â”‚  â”‚
+â”‚  â”‚ preprocessing        â”‚  â”‚ preprocessing        â”‚  â”‚ preprocessing â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚             â”‚                         â”‚                       â”‚          â”‚
+â”‚  P_resnet[8] Ã— 0.58   +  P_vgg[8] Ã— 0.38   +  P_eff[8] Ã— 0.04         â”‚
+â”‚             â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚
+â”‚                                       â†“                                  â”‚
+â”‚              Ensemble_probs[8] = weighted soft-vote average              â”‚
+â”‚                                       â†“                                  â”‚
+â”‚              predicted_class = argmax(Ensemble_probs)                   â”‚
+â”‚              confidence = max(Ensemble_probs)                           â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Post-inference decision layers:**
 
 ```
-confidence >= 0.60 → status = NORMAL
-confidence <  0.60 → status = LOW_CONFIDENCE (advisory + recapture recommendation)
+confidence >= 0.60 â†’ status = NORMAL
+confidence <  0.60 â†’ status = LOW_CONFIDENCE (advisory + recapture recommendation)
 
-ABO/Rh Decomposition (analytics only — does NOT change prediction):
+ABO/Rh Decomposition (analytics only â€” does NOT change prediction):
   P(A)  = P(A+) + P(A-)
   P(B)  = P(B+) + P(B-)
   P(AB) = P(AB+) + P(AB-)
@@ -234,9 +234,9 @@ ABO/Rh Decomposition (analytics only — does NOT change prediction):
   top_abo = argmax of above
 
 Rh Uncertainty Advisory (does NOT change prediction):
-  rh_margin < 0.20  → advisory flag
-  confidence < 0.65 → advisory flag
-  predicted_Rh == "-" → advisory flag (weak ridge-Rh correlation)
+  rh_margin < 0.20  â†’ advisory flag
+  confidence < 0.65 â†’ advisory flag
+  predicted_Rh == "-" â†’ advisory flag (weak ridge-Rh correlation)
 ```
 
 ---
@@ -254,12 +254,12 @@ Rh Uncertainty Advisory (does NOT change prediction):
 | input_type | TEXT | 'upload', 'MFS100', 'MFS100 Consensus - Left Thumb (3 Impressions)', 'MFS100 (Mock)' |
 | image_path | TEXT | Filename of stored fingerprint image |
 | predicted_group | TEXT | Predicted blood group (e.g., 'O+') |
-| confidence | REAL | Float 0.0–1.0 |
+| confidence | REAL | Float 0.0â€“1.0 |
 | status | TEXT | 'NORMAL' or 'LOW_CONFIDENCE' |
 | notes | TEXT | Model message / advisory text |
 | finger_used | TEXT | 'LEFT_THUMB' for hardware; NULL for upload/mock |
 
-**Migration safety:** `finger_used` was added via non-destructive `ALTER TABLE` — existing records retain `NULL`.
+**Migration safety:** `finger_used` was added via non-destructive `ALTER TABLE` â€” existing records retain `NULL`.
 
 ---
 
@@ -269,7 +269,7 @@ Rh Uncertainty Advisory (does NOT change prediction):
 **Output:** `reports/blood_group_report_<id>_<timestamp>.pdf`
 
 **Report structure:**
-1. Header banner — project title
+1. Header banner â€” project title
 2. Medical disclaimer (mandatory red alert box)
 3. Examination & audit details table (Report ID, timestamp, input source, confidence, model name, LEFT THUMB row if hardware)
 4. Biometric impression + predicted blood group card (large 32pt display)
@@ -309,43 +309,43 @@ Rh Uncertainty Advisory (does NOT change prediction):
 
 ```
 major project/
-├── app.py                          ← Flask web server (main entry point)
-├── requirements.txt                ← Python dependencies
-├── README.md                       ← Project overview
-├── models/
-│   ├── resnet50_improved_blood_group.keras   ← ResNet50 (277 MB, FROZEN)
-│   ├── vgg16_blood_group.keras               ← VGG16 (164 MB, FROZEN)
-│   ├── efficientnetb0_blood_group.keras      ← EfficientNetB0 (41 MB, FROZEN)
-│   └── class_names.json                      ← 8-class label mapping
-├── outputs/
-│   ├── ensemble_weights.json        ← LOCKED: ResNet50=58%, VGG16=38%, ENB0=4%
-│   ├── FINAL_MODEL_EVALUATION.json  ← Official 85.41% benchmark record
-│   ├── dataset_manifest.csv         ← Full 5,985-image split manifest
-│   └── ab_plus_diagnostics/         ← AB+ generalization analysis outputs
-├── src/
-│   ├── config.py                    ← All paths and constants
-│   ├── predictor.py                 ← Inference engine (Champion Ensemble V2)
-│   ├── preprocessing.py             ← Centralized preprocessing pipeline
-│   ├── database.py                  ← SQLite CRUD operations
-│   ├── report_generator.py          ← PDF clinical report generator
-│   ├── mfs100/scanner.py            ← MFS100 hardware + mock adapter
-│   └── mfs100_bridge/bridge.py      ← 32-bit HTTP bridge process
-├── templates/
-│   ├── index.html                   ← Clinical dashboard UI
-│   └── history.html                 ← Audit history page
-├── static/
-│   ├── css/style.css                ← Healthcare dashboard styles
-│   └── js/app.js                    ← Frontend logic
-├── tests/                           ← 56 automated tests (all passing)
-├── data/
-│   ├── blood_group.db               ← SQLite prediction audit database
-│   ├── sample/                      ← 8 mock mode reference images
-│   └── captured/                    ← Runtime fingerprint captures
-├── reports/                         ← Generated PDF clinical reports
-└── docs/                            ← Full project documentation suite
+â”œâ”€â”€ app.py                          â† Flask web server (main entry point)
+â”œâ”€â”€ requirements.txt                â† Python dependencies
+â”œâ”€â”€ README.md                       â† Project overview
+â”œâ”€â”€ models/
+â”‚   â”œâ”€â”€ resnet50_improved_blood_group.keras   â† ResNet50 (277 MB, FROZEN)
+â”‚   â”œâ”€â”€ vgg16_blood_group.keras               â† VGG16 (164 MB, FROZEN)
+â”‚   â”œâ”€â”€ efficientnetb0_blood_group.keras      â† EfficientNetB0 (41 MB, FROZEN)
+â”‚   â””â”€â”€ class_names.json                      â† 8-class label mapping
+â”œâ”€â”€ outputs/
+â”‚   â”œâ”€â”€ ensemble_weights.json        â† LOCKED: ResNet50=58%, VGG16=38%, ENB0=4%
+â”‚   â”œâ”€â”€ FINAL_MODEL_EVALUATION.json  â† Official 85.41% benchmark record
+â”‚   â”œâ”€â”€ dataset_manifest.csv         â† Full 5,985-image split manifest
+â”‚   â””â”€â”€ ab_plus_diagnostics/         â† AB+ generalization analysis outputs
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ config.py                    â† All paths and constants
+â”‚   â”œâ”€â”€ predictor.py                 â† Inference engine (Champion Ensemble V2)
+â”‚   â”œâ”€â”€ preprocessing.py             â† Centralized preprocessing pipeline
+â”‚   â”œâ”€â”€ database.py                  â† SQLite CRUD operations
+â”‚   â”œâ”€â”€ report_generator.py          â† PDF clinical report generator
+â”‚   â”œâ”€â”€ mfs100/scanner.py            â† MFS100 hardware + mock adapter
+â”‚   â””â”€â”€ mfs100_bridge/bridge.py      â† 32-bit HTTP bridge process
+â”œâ”€â”€ templates/
+â”‚   â”œâ”€â”€ index.html                   â† Clinical dashboard UI
+â”‚   â””â”€â”€ history.html                 â† Audit history page
+â”œâ”€â”€ static/
+â”‚   â”œâ”€â”€ css/style.css                â† Healthcare dashboard styles
+â”‚   â””â”€â”€ js/app.js                    â† Frontend logic
+â”œâ”€â”€ tests/                           â† 56 automated tests (all passing)
+â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ blood_group.db               â† SQLite prediction audit database
+â”‚   â”œâ”€â”€ sample/                      â† 8 mock mode reference images
+â”‚   â””â”€â”€ captured/                    â† Runtime fingerprint captures
+â”œâ”€â”€ reports/                         â† Generated PDF clinical reports
+â””â”€â”€ docs/                            â† Full project documentation suite
 ```
 
 ---
 
-*This document is part of the B.E. Final Year Major Project — Biometric Blood Group Identification System.*
+*This document is part of the B.E. Final Year Major Project â€” Biometric Blood Group Identification System.*
 *Architecture frozen as of 2026-09-05. For academic demonstration purposes only.*

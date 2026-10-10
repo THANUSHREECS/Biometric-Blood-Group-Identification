@@ -34,21 +34,21 @@
 
 ### Key Confusion Patterns (test set)
 
-| True → Predicted | Count | Problem |
+| True â†’ Predicted | Count | Problem |
 |---|---|---|
-| A- → O+ | **60** | ⚠️ Severe: 39.5% of A- images predicted as O+ |
-| A- → AB+ | **32** | ⚠️ Major: 21.1% of A- images predicted as AB+ |
-| A- → O-  | **18** | Significant confusion |
-| B- → A+  | **16** | B- misidentified as A+ |
-| O+ → A+  | **25** | O+ misidentified as A+ |
-| AB- → O- | **38** | AB- heavily confused with O- |
-| O+ → AB+ | **23** | O+ confused with AB+ |
+| A- â†’ O+ | **60** | âš ï¸ Severe: 39.5% of A- images predicted as O+ |
+| A- â†’ AB+ | **32** | âš ï¸ Major: 21.1% of A- images predicted as AB+ |
+| A- â†’ O-  | **18** | Significant confusion |
+| B- â†’ A+  | **16** | B- misidentified as A+ |
+| O+ â†’ A+  | **25** | O+ misidentified as A+ |
+| AB- â†’ O- | **38** | AB- heavily confused with O- |
+| O+ â†’ AB+ | **23** | O+ confused with AB+ |
 
 ### Root Causes of A- Catastrophic Failure
-1. **A-** has the largest class count in training (705 samples) but worst accuracy — this rules out insufficient data
+1. **A-** has the largest class count in training (705 samples) but worst accuracy â€” this rules out insufficient data
 2. The A- confusion with O+ (60 misclassifications) suggests the model learned **low-level visual features** that overlap between A- and O+ fingerprint images
 3. This indicates the classification signal in fingerprint images is genuinely weak/ambiguous for certain blood types
-4. The baseline model **barely converged** — with only 8 epochs, the head never properly learned A- discrimination
+4. The baseline model **barely converged** â€” with only 8 epochs, the head never properly learned A- discrimination
 
 ---
 
@@ -57,12 +57,12 @@
 ### What the Baseline Did
 | Parameter | Value | Issue |
 |---|---|---|
-| Stage 1 epochs | 5 | Too few — head not converged |
+| Stage 1 epochs | 5 | Too few â€” head not converged |
 | Stage 2 epochs | 3 | Far too few for meaningful fine-tuning |
 | Total epochs | **8** | Critically undertrained |
 | Stage 1 LR | 1e-3 | Appropriate |
 | Stage 2 LR | 1e-5 | Appropriate but too short |
-| Fine-tuned layers | conv5 only | Insufficient — only top residual block |
+| Fine-tuned layers | conv5 only | Insufficient â€” only top residual block |
 | Best val accuracy | **60.02%** | Model stopped too early |
 | Early stopping | Not used in Stage 1 | Checkpoint saved suboptimally |
 
@@ -79,25 +79,25 @@ The 79% training vs 60% validation gap is:
 ### Class Distribution (Training Set)
 | Class | Train Count | Percentage | Imbalance Ratio |
 |---|---|---|---|
-| A-  | 705 | 16.8% | 1.78× (most common) |
-| O+  | 596 | 14.2% | 1.51× |
-| AB- | 532 | 12.7% | 1.35× |
-| B-  | 519 | 12.4% | 1.31× |
-| O-  | 495 | 11.8% | 1.25× |
-| AB+ | 493 | 11.8% | 1.25× |
-| B+  | 454 | 10.8% | 1.15× |
-| A+  | 395 |  9.4% | 1.00× (least common) |
+| A-  | 705 | 16.8% | 1.78Ã— (most common) |
+| O+  | 596 | 14.2% | 1.51Ã— |
+| AB- | 532 | 12.7% | 1.35Ã— |
+| B-  | 519 | 12.4% | 1.31Ã— |
+| O-  | 495 | 11.8% | 1.25Ã— |
+| AB+ | 493 | 11.8% | 1.25Ã— |
+| B+  | 454 | 10.8% | 1.15Ã— |
+| A+  | 395 |  9.4% | 1.00Ã— (least common) |
 
-**Imbalance is mild (1.78× max ratio)**. The class imbalance is NOT the primary problem — A- has the MOST training samples but worst accuracy. This confirms the issue is training duration, not data scarcity.
+**Imbalance is mild (1.78Ã— max ratio)**. The class imbalance is NOT the primary problem â€” A- has the MOST training samples but worst accuracy. This confirms the issue is training duration, not data scarcity.
 
 ### Image Resolution Concern
 | Property | Value |
 |---|---|
-| Source image size | **96×103 pixels** (majority) |
-| Model input size | 224×224 pixels |
-| Upsampling factor | ~2.3× |
+| Source image size | **96Ã—103 pixels** (majority) |
+| Model input size | 224Ã—224 pixels |
+| Upsampling factor | ~2.3Ã— |
 
-**Critical observation**: The images are being upsampled from ~96×103 to 224×224. This is a significant stretch and may introduce artifacts. Consider testing models with native 96×96 input (Custom CNN) to avoid upsampling distortion.
+**Critical observation**: The images are being upsampled from ~96Ã—103 to 224Ã—224. This is a significant stretch and may introduce artifacts. Consider testing models with native 96Ã—96 input (Custom CNN) to avoid upsampling distortion.
 
 ---
 
@@ -119,8 +119,8 @@ The 79% training vs 60% validation gap is:
 - Try mild class weighting adjustments
 
 ### Problem 4: Potential Upsampling Artifacts
-**Evidence**: Source images are 96×103, upsampled 2.3× to 224×224  
-**Solution**: Test smaller input resolution for Custom CNN (96×96 or 128×128)
+**Evidence**: Source images are 96Ã—103, upsampled 2.3Ã— to 224Ã—224  
+**Solution**: Test smaller input resolution for Custom CNN (96Ã—96 or 128Ã—128)
 
 ### Problem 5: No Learning Rate Warmup
 **Evidence**: Abrupt LR changes between stages  
@@ -147,5 +147,5 @@ This project investigates whether fingerprint ridge patterns encode blood group 
 4. **Monitor per-class performance**: Use validation macro-F1 as primary metric (not just accuracy)
 5. **Ensemble**: Combine top 2-3 models if individual performance plateaus
 
-**Expected realistic improvement**: From 57.57% → 70-80% with proper training.  
+**Expected realistic improvement**: From 57.57% â†’ 70-80% with proper training.  
 **Aspirational target**: 90%+ requires the dataset to contain strong fingerprint-blood group signal.

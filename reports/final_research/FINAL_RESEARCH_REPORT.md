@@ -26,7 +26,7 @@ A composite preprocessing pipeline (C5) was established via empirical benchmarki
 ## 6. EXPERIMENTAL METHODOLOGY
 Model development relied entirely on 5-fold participant-level cross-validation over the 80 development participants (Train + Val). All hyperparameter selection was conducted via nested validation to prevent data leakage. 
 
-## 7. SUMMARY OF EXPERIMENTS 0–10
+## 7. SUMMARY OF EXPERIMENTS 0â€“10
 - **Exp 0 (Baseline Audit):** An earlier model trained on 6,000 canonical synthetic images achieved 85.4% accuracy in-domain, but crashed to 38.09% when evaluated zero-shot on the optical MFS100 dataset.
 - **Exp 1 (Architecture):** Benchmarked CNNs (VGG, ResNet, DenseNet, EfficientNet). DenseNet121 demonstrated the strongest baseline capacity.
 - **Exp 2 (Transfer Learning):** Freezing the ImageNet backbone (T1) outperformed fine-tuning, preventing catastrophic overfitting on the micro-dataset.
@@ -61,7 +61,7 @@ The network merely defaulted to predicting the majority classes (O+ and A+).
 This research is strictly computational and exploratory. The models and methodologies documented here hold absolutely zero clinical validity. Fingerprints cannot and should not be used to medically determine ABO blood groups.
 
 ## 12. CONCLUSION
-The experiments did not demonstrate reliable generalization to unseen participants. The initially optimistic 53.75% cross-validation accuracy was an artifact of severe neural overparameterization, where the network memorized spurious optical sensor noise rather than learning a generalized biological rule. This was conclusively proven when mathematically constrained models (SVMs, handcrafted HOG features, and augmented CNNs) collapsed to random noise (21-36% accuracy). While this failure does not theoretically rule out a biological connection, it proves that macroscopic fingerprint ridges extracted via standard optical scanners do not possess a detectable, generalizable blood-group signature under these conditions.
+The experiments did not demonstrate reliable generalization to unseen participants. The initially optimistic 53.75% cross-validation accuracy was an artifact of severe neural overparameterization, where the network memorized spurious optical sensor noise rather than learning a generalized biological rule. This was conclusively supported when mathematically constrained models (SVMs, handcrafted HOG features, and augmented CNNs) collapsed to random noise (21-36% accuracy). While this failure does not theoretically rule out a biological connection, it suggests that macroscopic fingerprint ridges extracted via standard optical scanners do not possess a detectable, generalizable blood-group signature under these conditions.
 
 ## 13. FUTURE RESEARCH DIRECTIONS
 1. **Large-Scale Data Collection:** Any future attempt requires thousands of unique participant identities to prevent network memorization.
