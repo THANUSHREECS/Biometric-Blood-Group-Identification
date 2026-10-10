@@ -39,7 +39,7 @@ PROTECTED_FILES = {
     "outputs/ensemble_weights.json": "12f23f6ce7562c4852a6e9f96560d58fda4636bc8f40d02149398db46743d604",
     "src/config.py": "84bf90f74fc355d8baa0b806245eb53e4da8d624a0f8dbf4656ff0d91c4d0b6a",  # updated: Round 14 + threshold rename
     "src/preprocessing.py": "4ccbfb0bef96d33054b6de9370f3811a25aed3e54e2ac05648972b3fd6cc71c4",  # updated: Round 14 densenet.preprocess_input removal
-    "src/predictor.py": "9960beec7e7efda32a56fae5efdc5b2a809440ea4d8b3c4b666e2e80977cda37"  # updated: predictor refactor
+    "src/predictor.py": "a868b178648bd64e785d166c4328cf1ed99518d1b9e1440bd7e479052a27bf8d"  # updated: Round 21 text fix
 }
 
 EXPECTED_CLASS_MAPPING = {
