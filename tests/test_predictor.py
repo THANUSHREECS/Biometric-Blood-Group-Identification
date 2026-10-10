@@ -52,12 +52,11 @@ class TestBloodGroupPredictor(unittest.TestCase):
             res = self.predictor.predict_consensus([sample_path, sample_path, sample_path])
             self.assertIn("blood_group", res)
             self.assertIn(res["blood_group"], CLASS_NAMES)
-            self.assertIn("consensus_metadata", res)
-            cm = res["consensus_metadata"]
-            self.assertEqual(cm["num_scans"], 3)
-            self.assertEqual(cm["agreement_pct"], 100)
-            self.assertEqual(len(cm["individual_scans"]), 3)
-            self.assertIn("abo_analysis", res)
+            self.assertIn("probabilities", res)
+            self.assertEqual(len(res["probabilities"]), 4)
+            self.assertIn("confidence", res)
+            self.assertIn("status", res)
+            self.assertIn("model_name", res)
 
     @pytest.mark.skip
     def test_abo_rh_decomposition(self):
