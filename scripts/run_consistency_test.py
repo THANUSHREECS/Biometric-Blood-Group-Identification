@@ -13,7 +13,7 @@ print("Make sure 'python -m src.mfs100_bridge.bridge' and 'python app.py' are ru
 mode = input("Select Mode (1: Consistency Test, 2: Live Validation): ")
 
 os.makedirs("results", exist_ok=True)
-API_URL = "http://127.0.0.1:5000/api/predict"
+API_URL = "http://127.0.0.1:5000/api/capture"
 
 if mode == "1":
     print("Running 10-scan consistency test on Left Thumb...")

@@ -72,10 +72,10 @@ This document contains 30 potential viva questions and technically correct answe
 ## Results & Limitations
 
 **20. What was your final test accuracy?**
-**Answer:** The final test accuracy on unseen participants was 86.02% (random split, includes identity leakage) | ~0.00% (group-aware).
+**Answer:** The final test accuracy on unseen participants was 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware).
 
-**21. Isn't 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) very low?**
-**Answer:** Four-class random guessing has an expected accuracy of 25% only under uniform random prediction. While 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) is higher, observed accuracy alone does not establish meaningful biological information. Therefore, our scientific conclusion is that the tested system did not demonstrate reliable four-class blood group classification on unseen participants.
+**21. Isn't 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) very low?**
+**Answer:** Four-class random guessing has an expected accuracy of 25% only under uniform random prediction. While 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is higher, observed accuracy alone does not establish meaningful biological information. Therefore, our scientific conclusion is that the tested system did not demonstrate reliable four-class blood group classification on unseen participants.
 
 **22. Why do you think the accuracy is not higher?**
 **Answer:** Blood group markers in fingerprints may be too subtle or non-existent at a macro-ridge level. Additionally, our dataset was relatively small, making it difficult for the model to generalize across the entire population.
@@ -118,13 +118,13 @@ This document contains 30 potential viva questions and technically correct answe
 1. **No Subject IDs:** This prevents true measurement of population generalization.
 2. **Domain Shift:** Our live MFS100 scanner captures show different ridge contrast and mean intensity compared to the curated dataset.
 3. **Small Live Sample:** We primarily tested live on a single participant (O+ thumb), which drastically limits external validity.
-4. **Statistical vs. Scientific Significance:** A 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) accuracy on 4-classes is statistically better than random guessing (25%), but it completely lacks the scientific and clinical significance needed for a medical device.
+4. **Statistical vs. Scientific Significance:** A 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy on 4-classes is statistically better than random guessing (25%), but it completely lacks the scientific and clinical significance needed for a medical device.
 
-**33. How does your 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) accuracy compare to statistical baselines?**
+**33. How does your 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy compare to statistical baselines?**
 **Answer:** We computed the random baseline (25.00%) and majority-class baseline (26.95%). A bootstrap 95% confidence interval placed our accuracy between 34.86% and 41.31%. A permutation test confirmed our result is statistically better than random chance ($p < 0.001$), but the clinical utility remains negligible.
 
 **34. How did you handle model calibration and overconfidence?**
 **Answer:** The original model was highly overconfident. We performed calibration analysis, finding an uncalibrated Expected Calibration Error (ECE) of 0.4094. Applying temperature scaling on the validation set reduced the ECE to 0.2802. We also instituted a strict 70% threshold in the UI, below which the system abstains and outputs "Not Reliable" instead of a blood group.
 
 **35. What is the fundamental limitation of this project?**
-**Answer:** The primary limitation is biological plausibility: there is no proven genetic mechanism linking friction ridge patterns to ABO blood groups. Our 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) accuracy may capture latent confounding variables in the dataset (like regional demographic distributions) rather than a universal biological truth. Additionally, the data leakage issues prevent claims of broad population generalization. The system is completely unfit for clinical use.
+**Answer:** The primary limitation is biological plausibility: there is no proven genetic mechanism linking friction ridge patterns to ABO blood groups. Our 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) accuracy may capture latent confounding variables in the dataset (like regional demographic distributions) rather than a universal biological truth. Additionally, the data leakage issues prevent claims of broad population generalization. The system is completely unfit for clinical use.

@@ -227,11 +227,11 @@ An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerpri
 
 ### Baselines & Honest Metrics
 On the locked test set, without artificially inflating metrics or peeking at the test data, the model achieved:
-- **Model Accuracy:** 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) (95% CI: [34.86%, 41.31%])
+- **Model Accuracy:** 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) (95% CI: [34.86%, 41.31%])
 - **Random Baseline:** 25.00%
 - **Majority-Class Baseline:** 26.95%
 - **Macro F1:** ~0.25
-- **Permutation Test:** A statistical permutation test confirms that while 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) is better than random chance ($p < 0.001$), the clinical relevance is extremely limited.
+- **Permutation Test:** A statistical permutation test confirms that while 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is better than random chance ($p < 0.001$), the clinical relevance is extremely limited.
 
 ### Class Imbalance & Calibration
 The model exhibits class imbalance effects and was highly overconfident in its predictions. Calibration analysis revealed:
@@ -243,7 +243,7 @@ The UI has been strictly updated to enforce a **70% advisory threshold**. Predic
 1. **Data Leakage & 8-Class Claims:** Our initial 8-class accuracy metrics (~85%) are **possibly inflated and cannot be verified without subject IDs**. The lack of unique participant identifiers in the raw dataset means identical subjects were likely split across training and testing sets, resulting in identity memorization rather than blood group generalization.
 2. **Domain Shift:** Live hardware captures from the MFS100 differ statistically (ridge contrast, mean intensity) from the curated dataset samples.
 3. **Small Live Sample:** Testing strictly on a limited live sample (e.g. one participant's O+ thumb) reduces external validity and statistical power.
-4. **Statistical vs. Scientific Significance:** While the random-split 4-class accuracy of 86.02% (random split, includes identity leakage) | ~0.00% (group-aware) is statistically higher than random guessing (25%, $p < 0.001$) on leaked data, it does not establish a scientifically viable or clinically useful diagnostic tool.
+4. **Statistical vs. Scientific Significance:** While the random-split 4-class accuracy of 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is statistically higher than random guessing (25%, $p < 0.001$) on leaked data, it does not establish a scientifically viable or clinically useful diagnostic tool.
 5. **Biological Plausibility:** There is no proven biological or genetic mechanism linking friction ridge patterns definitively to ABO blood groups. The observed accuracy may capture latent confounding variables in the dataset rather than a universal biological truth.
 6. **Clinical Viability:** The system is completely unfit for any clinical decision-making.
 
