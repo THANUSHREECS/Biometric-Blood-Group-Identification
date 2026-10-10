@@ -61,7 +61,7 @@ class TestMFS100EndToEndIntegration(unittest.TestCase):
         self.assertIn("confidence", data)
         self.assertIn("prediction_id", data)
         self.assertIn("probabilities", data)
-        self.assertEqual(len(data["probabilities"]), 8)
+        self.assertEqual(len(data["probabilities"]), 4)
 
         pred_id = data["prediction_id"]
         db_rec = get_prediction_by_id(pred_id)

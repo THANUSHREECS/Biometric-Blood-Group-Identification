@@ -1,10 +1,10 @@
-ï»¿# AB+ Generalization Analysis â€” Champion Ensemble V2
+Ã¯Â»Â¿# AB+ Generalization Analysis Ã¢â‚¬â€ Champion Ensemble V2
 
-**Document Type:** Research Prototype â€” Model Generalization Investigation
+**Document Type:** Research Prototype Ã¢â‚¬â€ Model Generalization Investigation
 **Project:** Biometric Blood Group Identification System
-**Degree:** B.E. Final Year Major Project â€” Computer Science and Engineering (AI and ML)
+**Degree:** B.E. Final Year Major Project Ã¢â‚¬â€ Computer Science and Engineering (AI and ML)
 **Date:** September 2026
-**Status:** CLOSED â€” Strategy Selected: Option A (Accept current performance with documented limitation)
+**Status:** CLOSED Ã¢â‚¬â€ Strategy Selected: Option A (Accept current performance with documented limitation)
 
 ---
 
@@ -72,7 +72,7 @@ Finding: AB+ is well-represented in both splits at ~11.8%. Data imbalance is NOT
 
 ---
 
-## 4. Validation Performance â€” Champion Ensemble V2
+## 4. Validation Performance Ã¢â‚¬â€ Champion Ensemble V2
 
 ### 4.1 Overall Accuracy
 
@@ -158,32 +158,32 @@ This is a known limitation of dermatoglyphic blood group classification.
 
 ## 7. Strategy Evaluation
 
-### Option A â€” Accept Current Performance (SELECTED)
+### Option A Ã¢â‚¬â€ Accept Current Performance (SELECTED)
 No model change. Document the limitation formally.
 - 86.79% AB+ recall is academically defensible for a research prototype.
 - Confidence threshold safety net flags ~43% of wrong AB+ predictions.
 - Modifying the model without locked test set re-evaluation is academically unsound.
 - Risk: LOW
 
-### Option B â€” Reweight Ensemble Toward EfficientNetB0
+### Option B Ã¢â‚¬â€ Reweight Ensemble Toward EfficientNetB0
 Increase EfficientNetB0 weight from 4% to ~15-20%.
 - Requires new ensemble weight search and full validation re-run.
 - Cannot be validated without accessing the locked test set.
 - Risk: MEDIUM. NOT recommended for this prototype phase.
 
-### Option C â€” AB+ Targeted Training Experiment
+### Option C Ã¢â‚¬â€ AB+ Targeted Training Experiment
 Fine-tune with class-weighted cross-entropy loss emphasising AB+.
 - Any metric improvement cannot be verified without a fresh held-out evaluation set.
 - Risk: MEDIUM. NOT recommended without a fresh held-out set.
 
-### Option D â€” Collect Real MFS100 AB+ Scans
+### Option D Ã¢â‚¬â€ Collect Real MFS100 AB+ Scans
 Collect 50-100 real AB+ MFS100 scans and augment training set.
 - Risk: LOW for data collection. HIGH long-term value.
 - RECOMMENDED as future work.
 
 ---
 
-## 8. Selected Strategy â€” Option A
+## 8. Selected Strategy Ã¢â‚¬â€ Option A
 
 Decision: Accept current Champion Ensemble V2 performance with formally documented limitation.
 
@@ -199,7 +199,7 @@ The system will:
 ## 9. Impact on Left Thumb Protocol
 
 The AB+ misclassification does NOT invalidate the Left Thumb Acquisition Protocol:
-- The Left Thumb setting is acquisition metadata only â€” it does not influence the prediction.
+- The Left Thumb setting is acquisition metadata only Ã¢â‚¬â€ it does not influence the prediction.
 - The low-confidence flag (41.6%) was correctly raised, directing toward laboratory confirmation.
 - The error is caused by model generalization, not by finger selection.
 - The protocol is retained as-is per docs/MFS100_ACQUISITION_PROTOCOL.md.
@@ -236,5 +236,5 @@ The AB+ misclassification does NOT invalidate the Left Thumb Acquisition Protoco
 
 ---
 
-*This document is part of the B.E. Final Year Major Project â€” Biometric Blood Group Identification System.*
+*This document is part of the B.E. Final Year Major Project Ã¢â‚¬â€ Biometric Blood Group Identification System.*
 *Strategy selected on 2026-09-05 under validation-only constraints. For academic purposes only.*

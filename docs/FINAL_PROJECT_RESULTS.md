@@ -1,10 +1,10 @@
-ï»¿# FINAL PROJECT RESULTS
-## Biometric Blood Group Identification System â€” Champion Ensemble V2
+Ã¯Â»Â¿# FINAL PROJECT RESULTS
+## Biometric Blood Group Identification System Ã¢â‚¬â€ Champion Ensemble V2
 
 **Document Type:** Official Results and Benchmarks Report
-**Project:** B.E. Final Year Major Project â€” Computer Science and Engineering (AI and ML)
+**Project:** B.E. Final Year Major Project Ã¢â‚¬â€ Computer Science and Engineering (AI and ML)
 **Date:** September 2026
-**Model Status:** FROZEN â€” This document records final, immutable benchmark results.
+**Model Status:** FROZEN Ã¢â‚¬â€ This document records final, immutable benchmark results.
 
 ---
 
@@ -19,7 +19,7 @@
 | Total raw images | 6,000 |
 | Total cleaned (post-quarantine) | 5,985 |
 | Duplicates quarantined | 15 (11 duplicate clusters) |
-| Image resolution | Variable (standardized to 224Ã—224 for training) |
+| Image resolution | Variable (standardized to 224Ãƒâ€”224 for training) |
 
 ### 1.2 The 8 Blood Group Classes
 
@@ -33,7 +33,7 @@
 | 5 | B- | 519 | 111 | 111 | 741 |
 | 6 | O+ | 596 | 128 | 127 | 851 |
 | 7 | O- | 495 | 106 | 106 | 707 |
-| â€” | **TOTAL** | **4,189** | **898** | **898** | **5,985** |
+| Ã¢â‚¬â€ | **TOTAL** | **4,189** | **898** | **898** | **5,985** |
 
 **Split methodology:** Stratified random split (70% / 15% / 15%) with SHA-256 cryptographic deduplication to guarantee zero cross-split data leakage.
 
@@ -56,13 +56,13 @@
 
 ---
 
-## 3. Champion Ensemble V2 â€” Official Benchmark
+## 3. Champion Ensemble V2 Ã¢â‚¬â€ Official Benchmark
 
 ### 3.1 Ensemble Configuration
 
 | Sub-Model | Ensemble Weight | Parameters | Preprocessing |
 |---|---|---|---|
-| ResNet50 (Improved) | **58%** (0.58) | 24,114,312 | 1.2Ã— contrast + ResNet50 preprocess_input |
+| ResNet50 (Improved) | **58%** (0.58) | 24,114,312 | 1.2Ãƒâ€” contrast + ResNet50 preprocess_input |
 | VGG16 | **38%** (0.38) | 14,848,072 | VGG16 preprocess_input (native) |
 | EfficientNetB0 | **4%** (0.04) | 4,379,563 | EfficientNet preprocess_input (native) |
 
@@ -99,7 +99,7 @@
 | O+ | 127 | 113 | 88.98% | 84.96% | 88.98% | 86.92% |
 | O- | 106 | 88 | 83.02% | 77.19% | 83.02% | 80.00% |
 
-### 3.4 Confusion Matrix (Test Set, 8Ã—8)
+### 3.4 Confusion Matrix (Test Set, 8Ãƒâ€”8)
 
 ```
 Actual\Pred  A+   A-  AB+  AB-   B+   B-   O+   O-
@@ -118,13 +118,13 @@ O-  (106)     0    1    1    9    0    1    6   88
 ## 4. Validation Set Results
 
 > These metrics are from the validation split (not the locked test set).
-> Used for investigation only â€” not the official benchmark.
+> Used for investigation only Ã¢â‚¬â€ not the official benchmark.
 
 | Metric | Value |
 |---|---|
 | Ensemble Validation Accuracy | 86.41% |
 | AB+ Recall (Ensemble, validation) | 86.79% (92/106) |
-| AB+ â†’ O- confusion (validation) | 6.60% of AB+ samples (7/106) |
+| AB+ Ã¢â€ â€™ O- confusion (validation) | 6.60% of AB+ samples (7/106) |
 
 ---
 
@@ -137,7 +137,7 @@ O-  (106)     0    1    1    9    0    1    6   88
 | EfficientNetB0 (4% weight) | 70.60% | 70.75% |
 | **Ensemble (Combined)** | **86.41%** | **86.79%** |
 
-Ensemble outperforms every individual sub-model by 5.45â€“15.81 percentage points.
+Ensemble outperforms every individual sub-model by 5.45Ã¢â‚¬â€œ15.81 percentage points.
 
 ---
 
@@ -150,7 +150,7 @@ Real-world testing conducted on 2026-09-04 and 2026-09-05 using the physical Man
 | BG-000185 | Left Thumb | O+ | O+ | 94.59% | NORMAL | CORRECT |
 | BG-000188 | Other finger | O- | AB+ | 44.02% | LOW_CONFIDENCE | INCORRECT (expected) |
 | 2026-09-05 real scan | Left Thumb | O- | AB+ | 41.6% | LOW_CONFIDENCE | INCORRECT (AB+ limitation) |
-| 2026-09-05 consensus | Left Thumb | O- | â€” | 59.12% | LOW_CONFIDENCE | â€” |
+| 2026-09-05 consensus | Left Thumb | O- | Ã¢â‚¬â€ | 59.12% | LOW_CONFIDENCE | Ã¢â‚¬â€ |
 
 **Key finding:** LOW_CONFIDENCE status (< 60% threshold) correctly flagged all incorrect predictions in real-world testing.
 
@@ -160,7 +160,7 @@ Real-world testing conducted on 2026-09-04 and 2026-09-05 using the physical Man
 
 | Prediction Type | Mean Confidence | Median Confidence | Fraction Flagged LOW_CONFIDENCE |
 |---|---|---|---|
-| Correct AB+ (validation) | 79.23% | 87.30% | â€” |
+| Correct AB+ (validation) | 79.23% | 87.30% | Ã¢â‚¬â€ |
 | Incorrect AB+ (validation) | 63.94% | 68.98% | **42.86%** |
 
 The 60% confidence threshold acts as a safety net, correctly flagging nearly 43% of wrong AB+ predictions as LOW_CONFIDENCE.
@@ -225,6 +225,6 @@ This system has NOT undergone formal clinical validation. It is an academic rese
 
 ---
 
-*This document is part of the B.E. Final Year Major Project â€” Biometric Blood Group Identification System.*
+*This document is part of the B.E. Final Year Major Project Ã¢â‚¬â€ Biometric Blood Group Identification System.*
 *All reported metrics reflect genuine evaluation on locked data. For academic purposes only.*
 *Laboratory blood typing confirmation is mandatory for any medical use.*

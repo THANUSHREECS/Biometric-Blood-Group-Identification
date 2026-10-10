@@ -11,7 +11,7 @@ choices for the blood group classification model comparison experiment.
 |---|---|
 | **MobileNetV2** | Fewest parameters, fastest CPU training, supported on small-scale tasks |
 | **EfficientNetB0** | State-of-art accuracy/parameter tradeoff, good generalization |
-| **Custom CNN** | Baseline reference; trained on native 96Ã—96 resolution to avoid upsampling |
+| **Custom CNN** | Baseline reference; trained on native 96Ãƒâ€”96 resolution to avoid upsampling |
 | **DenseNet121** | Feature reuse via dense connections; often effective on small datasets |
 | **ResNet50 (improved)** | Same as baseline but with more epochs + deeper fine-tuning |
 | **VGG16/19** | Larger models; included for completeness but likely CPU-limited |
@@ -32,10 +32,10 @@ choices for the blood group classification model comparison experiment.
 ### Central Preprocessing Pipeline
 ```
 Image file (BMP/PNG/JPEG/RGBA)
-  â†“ load_image_to_pil()
-  â†“ composite_alpha_on_white()   # RGBA â†’ RGB on white background
-  â†“ resize_to_target()           # Lanczos resampling
-  â†“ model-specific preprocess_input()
+  Ã¢â€ â€œ load_image_to_pil()
+  Ã¢â€ â€œ composite_alpha_on_white()   # RGBA Ã¢â€ â€™ RGB on white background
+  Ã¢â€ â€œ resize_to_target()           # Lanczos resampling
+  Ã¢â€ â€œ model-specific preprocess_input()
 ```
 
 ### Architecture-Specific Preprocessing
@@ -62,11 +62,11 @@ photometric augmentations are used.
 
 | Augmentation | Value | Justification |
 |---|---|---|
-| RandomRotation | Â±3% (â‰ˆÂ±10.8Â°) | Minor scanner angle variation |
+| RandomRotation | Ã‚Â±3% (Ã¢â€°Ë†Ã‚Â±10.8Ã‚Â°) | Minor scanner angle variation |
 | RandomTranslation | 3% H + 3% W | Minor finger placement offset |
 | RandomZoom | 3% | Minor scanner zoom variation |
-| RandomBrightness | Â±5% | Scanner illumination variation |
-| RandomContrast | Â±5% | Scanner sensitivity variation |
+| RandomBrightness | Ã‚Â±5% | Scanner illumination variation |
+| RandomContrast | Ã‚Â±5% | Scanner sensitivity variation |
 | Horizontal flip | **NO** | No scientific justification for fingerprints |
 | Vertical flip | **NO** | No scientific justification for fingerprints |
 | Heavy rotation | **NO** | Would destroy ridge direction information |
@@ -81,7 +81,7 @@ photometric augmentations are used.
 ### Strategy B: Mild Dampened Balanced Weights (Default)
 Formula: `weight = 0.6 * (balanced_weight - 1.0) + 1.0`
 
-Class imbalance ratio is mild (max 1.78Ã— for A- vs A+), so mild dampening
+Class imbalance ratio is mild (max 1.78Ãƒâ€” for A- vs A+), so mild dampening
 prevents gradient spikes while still addressing imbalance.
 
 | Class | Train Count | Balanced Weight | Mild Weight |
@@ -121,8 +121,8 @@ prevents gradient spikes while still addressing imbalance.
 
 | Architecture | Stage 2: Layers Unfrozen | Rationale |
 |---|---|---|
-| MobileNetV2 | Last 30 layers | Small dataset â†’ avoid overfitting |
-| EfficientNetB0 | Last 50 layers | Compound scaling â†’ more relevant high-level features |
+| MobileNetV2 | Last 30 layers | Small dataset Ã¢â€ â€™ avoid overfitting |
+| EfficientNetB0 | Last 50 layers | Compound scaling Ã¢â€ â€™ more relevant high-level features |
 | DenseNet121 | Last dense block (~50 layers) | Dense connections need careful unfreezing |
 | ResNet50 | conv4 + conv5 blocks | Improved over baseline (baseline only used conv5) |
 | VGG16/19 | block4 + block5 | VGG benefits from unfreezing more blocks |
@@ -139,10 +139,10 @@ ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=3, min_lr=1e-7)
 ## Baseline Comparison
 
 ### Why the baseline failed:
-1. **8 total epochs** â€” severe underfitting
-2. **Only conv5 fine-tuned** â€” insufficient backbone adaptation
-3. **Stage 2 only 3 epochs at 1e-5** â€” not enough time to improve
-4. **EarlyStopping not used in Stage 1** â€” head not properly converged
+1. **8 total epochs** Ã¢â‚¬â€ severe underfitting
+2. **Only conv5 fine-tuned** Ã¢â‚¬â€ insufficient backbone adaptation
+3. **Stage 2 only 3 epochs at 1e-5** Ã¢â‚¬â€ not enough time to improve
+4. **EarlyStopping not used in Stage 1** Ã¢â‚¬â€ head not properly converged
 
 ### Improvements in this framework:
 - 20 epochs per stage (with EarlyStopping patience=7)

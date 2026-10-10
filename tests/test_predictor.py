@@ -12,7 +12,7 @@ class TestBloodGroupPredictor(unittest.TestCase):
 
     def test_predictor_ready(self):
         self.assertTrue(self.predictor.is_model_ready())
-        self.assertEqual(len(self.predictor.class_names), 8)
+        self.assertEqual(len(self.predictor.class_names), 4)
 
     def test_prediction_output_structure(self):
         sample_path = os.path.join(SAMPLE_IMAGE_DIR, "O+.bmp")
@@ -28,7 +28,7 @@ class TestBloodGroupPredictor(unittest.TestCase):
             self.assertIn("status", res)
             self.assertIn(res["status"], ["NORMAL", "LOW_CONFIDENCE"])
             self.assertIn("probabilities", res)
-            self.assertEqual(len(res["probabilities"]), 8)
+            self.assertEqual(len(res["probabilities"]), 4)
 
             # Probabilities should sum closely to 1.0
             prob_sum = sum(res["probabilities"].values())

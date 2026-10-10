@@ -26,7 +26,7 @@ A composite preprocessing pipeline (C5) was established via empirical benchmarki
 ## 6. EXPERIMENTAL METHODOLOGY
 Model development relied entirely on 5-fold participant-level cross-validation over the 80 development participants (Train + Val). All hyperparameter selection was conducted via nested validation to prevent data leakage. 
 
-## 7. SUMMARY OF EXPERIMENTS 0â€“10
+## 7. SUMMARY OF EXPERIMENTS 0Ã¢â‚¬â€œ10
 - **Exp 0 (Baseline Audit):** An earlier model trained on 6,000 canonical synthetic images achieved 85.4% accuracy in-domain, but crashed to 38.09% when evaluated zero-shot on the optical MFS100 dataset.
 - **Exp 1 (Architecture):** Benchmarked CNNs (VGG, ResNet, DenseNet, EfficientNet). DenseNet121 demonstrated the strongest baseline capacity.
 - **Exp 2 (Transfer Learning):** Freezing the ImageNet backbone (T1) outperformed fine-tuning, preventing catastrophic overfitting on the micro-dataset.

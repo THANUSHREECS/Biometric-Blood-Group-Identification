@@ -19,7 +19,7 @@
 - **Finding:** Trained a new E7 Group-Aware Logistic Regression on DenseNet features (`scripts/e7_training.py`). The dataset consists of exactly 4 clusters (1 per blood group). Therefore, a group-aware split is physically impossible without dropping an entire class. Accuracy on the held-out class drops to **0.00%**, proving the model only learned 4 identities, not blood groups.
 
 ## 2. Cluster Facts
-- **Finding:** A "cluster" in this dataset definitively represents a single continuous capture session of one person/finger. The high frame count (851 for one class) implies these are frames extracted from a video or rapid-fire captures of the same thumb.
+- **Finding:** A "cluster" in this dataset represents a single continuous capture session of one person/finger. The high frame count (851 for one class) implies these are frames extracted from a video or rapid-fire captures of the same thumb.
 
 ## 3. Similarity Check
 - **Finding:** Plotted embedding similarity distributions (`results/similarity_distributions.png`). The test images frequently match training images of the same cluster, confirming leakage.

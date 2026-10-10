@@ -17,7 +17,7 @@ The classification head used a `Dense(512)` layer. This means the first layer of
 Attempting to fit 1.5 million parameters on exactly 64 training examples (participants) guarantees that the model will simply memorize the training set.
 
 ## D. SPURIOUS CORRELATIONS (MEMORIZATION)
-Because the network is vastly overparameterized relative to the participant count, it did not learn biological blood group rules. Instead, it memorized specific optical artifactsâ€”such as the unique lighting variance, sensor pressure distortion, or individual ridge minutiae specific to those 64 training thumbs. 
+Because the network is vastly overparameterized relative to the participant count, it did not learn biological blood group rules. Instead, it memorized specific optical artifactsÃ¢â‚¬â€such as the unique lighting variance, sensor pressure distortion, or individual ridge minutiae specific to those 64 training thumbs. 
 When presented with 21 entirely new thumbs, the learned mapping was useless, resulting in the model heavily collapsing to majority/random predictions (A+ and O+).
 
 ## E. VALIDATION INSTABILITY

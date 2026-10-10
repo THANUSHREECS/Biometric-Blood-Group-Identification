@@ -17,7 +17,7 @@
 ## 5. Demonstrate Preprocessing and Inference
 "I will now demonstrate the system. *(Perform a capture or upload an image)*. 
 As the image is captured, it undergoes our C5 preprocessing pipeline. This involves foreground cropping to remove empty sensor space, alpha compositing, CLAHE ridge enhancement to improve contrast, and resizing. 
-It is then passed to our E2 Champion Modelâ€”a frozen DenseNet121 feature extractor using a 5-checkpoint ensemble to make the final prediction based on three distinct scans."
+It is then passed to our E2 Champion ModelÃ¢â‚¬â€a frozen DenseNet121 feature extractor using a 5-checkpoint ensemble to make the final prediction based on three distinct scans."
 
 ## 6. Show the Probability Distribution
 "On the dashboard, you can see the 4-Class Probability Distribution. The model assigns a confidence score to A+, B+, AB+, and O+. The ensemble averages these probabilities to produce a consensus prediction."

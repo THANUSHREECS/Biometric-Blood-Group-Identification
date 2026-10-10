@@ -28,10 +28,10 @@ Through systematic diagnostic analysis and controlled validation-only experiment
 
 ### Phase C: Higher Input Resolution Benchmark
 
-| Model | 224Ã—224 Val Accuracy | 256Ã—256 Val Accuracy | Net Impact | Decision |
+| Model | 224Ãƒâ€”224 Val Accuracy | 256Ãƒâ€”256 Val Accuracy | Net Impact | Decision |
 |---|:---:|:---:|:---:|:---:|
-| **ResNet50** | **79.73%** | 76.39% | -3.34% | **Retain 224Ã—224** |
-| **VGG16** | **78.62%** | 76.73% | -1.89% | **Retain 224Ã—224** |
+| **ResNet50** | **79.73%** | 76.39% | -3.34% | **Retain 224Ãƒâ€”224** |
+| **VGG16** | **78.62%** | 76.73% | -1.89% | **Retain 224Ãƒâ€”224** |
 
 **Rationale**: Raw fingerprint bitmaps in this dataset are natively $\sim 96 \times 103$ pixels. Upscaling beyond $224 \times 224$ (e.g. to $256 \times 256$) produces noticeable interpolation blur and artificial gradients that degrade ridge minutiae clarity. Standard $224 \times 224$ matched to the backbone receptive field is optimal.
 
@@ -44,8 +44,8 @@ Evaluated on the exact same 898 validation images:
 | Preprocessing Pipeline | ResNet50 Val Acc | ResNet50 Macro F1 | VGG16 Val Acc | Finding |
 |---|:---:|:---:|:---:|---|
 | **Exp 1: Baseline** (Alpha on white + Resize) | 79.73% | 0.7993 | **78.62%** | Reference standard |
-| **Exp 2: Mild Contrast (1.2Ã—)** | **80.96%** | **0.8115** | 77.95% | **+1.23% gain on ResNet50** |
-| **Exp 3: Tuned CLAHE** (clip=2.0, grid=8Ã—8) | 80.40% | 0.8060 | 78.40% | +0.67% gain on ResNet50 |
+| **Exp 2: Mild Contrast (1.2Ãƒâ€”)** | **80.96%** | **0.8115** | 77.95% | **+1.23% gain on ResNet50** |
+| **Exp 3: Tuned CLAHE** (clip=2.0, grid=8Ãƒâ€”8) | 80.40% | 0.8060 | 78.40% | +0.67% gain on ResNet50 |
 | **Exp 4: Mild Sharpening** (UnsharpMask) | 78.73% | 0.7908 | 77.06% | Artificial edge noise hurts both |
 
 **Decision**: Integrate Mild Contrast Enhancement ($1.2\times$) specifically into the ResNet50 inference branch, lifting single-model performance above $80.9\%$.
@@ -75,7 +75,7 @@ Evaluated on the exact same 898 validation images:
 Using a fine-grained simplex search (step = $0.02$) with contrast-enhanced ResNet50 feature extraction:
 
 - **Weights**:
-  - **ResNet50 (1.2Ã— Contrast)**: **0.58**
+  - **ResNet50 (1.2Ãƒâ€” Contrast)**: **0.58**
   - **VGG16**: **0.38**
   - **EfficientNetB0**: **0.04**
 - **Optimal Temperature**: $T = 1.00$

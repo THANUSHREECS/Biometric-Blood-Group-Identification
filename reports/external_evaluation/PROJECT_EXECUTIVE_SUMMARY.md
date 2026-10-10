@@ -1,7 +1,7 @@
 # Biometric Blood Group Identification System
 ## Executive Project Summary & Final Report
 
-**Academic Year:** 2025â€“2026  
+**Academic Year:** 2025Ã¢â‚¬â€œ2026  
 **Evaluation Phase:** Final External Demonstration (200 Marks)  
 **System Type:** AI-Assisted Research Prototype (Non-Clinical)  
 **Target Domain:** Biometric Pattern Recognition & Deep Learning Classification  
@@ -13,7 +13,7 @@ This major project investigates the novel hypothesis of utilizing fingerprint mi
 
 **Final Project Scope:**
 - **Target Classes:** Restricted to 4 major ABO-Positive groups (A+, B+, AB+, O+). Rh-negative groups were excluded to maintain statistical viability given the dataset distribution.
-- **Scientific Framing:** The project does not claim that fingerprints definitively determine blood groups. Instead, it tests for statistical associations using deep learning.
+- **Scientific Framing:** The project does not claim that fingerprints determine blood groups. Instead, it tests for statistical associations using deep learning.
 - **Medical Disclaimer:** The system is explicitly labeled as non-clinical and mandates that predictions not be used for medical or transfusion decisions.
 
 ## 2. Deep Learning Architecture (The E2 Champion Model)
@@ -62,4 +62,4 @@ During the final pre-evaluation readiness phase, several critical audits and pip
    - `FINAL_DEMO_CHECKLIST.md`
 
 ## 7. Conclusion
-The Biometric Blood Group Identification system is a technically complex, end-to-end Machine Learning engineering project. While the underlying biological hypothesis yielded limited predictive power (38.10%), the software engineering executionâ€”encompassing deep learning ensembles, 3D feature fusion, hardware driver bridging, strict pipeline deterministic matching, and full-stack web deploymentâ€”demonstrates a rigorous, high-level mastery of modern AI systems engineering. The project is fully prepared for final external evaluation.
+The Biometric Blood Group Identification system is a technically complex, end-to-end Machine Learning engineering project. While the underlying biological hypothesis yielded limited predictive power (38.10%), the software engineering executionÃ¢â‚¬â€encompassing deep learning ensembles, 3D feature fusion, hardware driver bridging, strict pipeline deterministic matching, and full-stack web deploymentÃ¢â‚¬â€demonstrates a rigorous, high-level mastery of modern AI systems engineering. The project is fully prepared for final external evaluation.

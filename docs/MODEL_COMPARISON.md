@@ -2,7 +2,7 @@
 
 **Generated**: 2026-09-06 11:50
 
-> âš ï¸ **Test set is LOCKED** â€” no test accuracy appears in this table.
+> Ã¢Å¡Â Ã¯Â¸ **Test set is LOCKED** Ã¢â‚¬â€ no test accuracy appears in this table.
 > Model selection is based exclusively on validation performance.
 > Only the final selected model will be evaluated on the test set.
 
@@ -10,18 +10,18 @@
 
 | Model | Best Val Accuracy | Macro F1 | Training Time | Parameters | Notes |
 |---|---|---|---|---|---|
-| **resnet50_baseline** (locked) | 60.02% | 56.91% | â€” | â€” | Original 8-epoch baseline (test acc: 57.57%) |
-| **resnet50 ðŸ†** | 88.08% | 88.01% | 85.6 min | 24,114,312 | [full] Longâ€‘epoch ResNet50 experiment |
-| **efficientnetb0** | 87.42% | 87.58% | 48.4 min | 4,379,563 | [full] Longâ€‘epoch EfficientNetB0 experiment |
+| **resnet50_baseline** (locked) | 60.02% | 56.91% | Ã¢â‚¬â€ | Ã¢â‚¬â€ | Original 8-epoch baseline (test acc: 57.57%) |
+| **resnet50 Ã°Å¸â€ ** | 88.08% | 88.01% | 85.6 min | 24,114,312 | [full] LongÃ¢â‚¬â€˜epoch ResNet50 experiment |
+| **efficientnetb0** | 87.42% | 87.58% | 48.4 min | 4,379,563 | [full] LongÃ¢â‚¬â€˜epoch EfficientNetB0 experiment |
 | **ensemble_v2** | 86.41% | 86.63% | 2.0 min | 43,341,947 | [Phase F/G Champion] Optimized Ensemble V2 reaches 86.41% val acc, 0.8663 Macro F1 |
 | **ensemble_3way** | 85.19% | 85.47% | 2.0 min | 43,341,947 | [Phase F] Initial 3-way soft-voting ensemble reaches 85.19% val acc |
 | **ensemble_4way** | 83.96% | 84.15% | 2.5 min | 50,643,907 | [Phase G] Adding DenseNet121 hurts accuracy (-0.56%); excluded from final ensemble |
-| **densenet121** | 82.52% | 82.76% | 308.9 min | 7,301,960 | [full] Longâ€‘epoch DenseNet121 experiment |
+| **densenet121** | 82.52% | 82.76% | 308.9 min | 7,301,960 | [full] LongÃ¢â‚¬â€˜epoch DenseNet121 experiment |
 | **vgg16** | 78.62% | 78.81% | 82.8 min | 14,848,072 | [pilot] best_epoch=5 |
 | **mobilenetv2** | 43.10% | 38.62% | 7.5 min | 2,587,976 | [pilot] best_epoch=6 |
 | **custom_cnn** | 16.82% | 3.62% | 2.0 min | 457,704 | [pilot] best_epoch=2 |
 
-ðŸ† **Recommended Model**: `resnet50`
+Ã°Å¸â€  **Recommended Model**: `resnet50`
   - Best Val Accuracy: 79.73%
   - Val Macro F1: 79.93%
 

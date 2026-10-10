@@ -111,7 +111,7 @@ This document contains 30 potential viva questions and technically correct answe
 ## Rigorous Evaluation Audit (Final Phase Updates)
 
 **31. Did your final evaluation include a data leakage audit? What were the findings?**
-**Answer:** Yes. We audited our dataset splits and found that the raw image clusters lack explicit metadata linking individual images to unique human subject IDs. Therefore, strict subject-level splitting could not be definitively guaranteed. Because of this, our initial 8-class accuracy claims (~85%) are possibly inflated and cannot be verified without subject IDs.
+**Answer:** Yes. We audited our dataset splits and found that the raw image clusters lack explicit metadata linking individual images to unique human subject IDs. Therefore, strict subject-level splitting could not be guaranteed. Because of this, our initial 8-class accuracy claims (~85%) are possibly inflated and cannot be verified without subject IDs.
 
 **32. What are the primary "Threats to Validity" in your research?**
 **Answer:** There are four major threats to validity:

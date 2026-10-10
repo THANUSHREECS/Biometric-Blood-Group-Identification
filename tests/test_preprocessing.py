@@ -53,7 +53,7 @@ class TestPreprocessingPipeline(unittest.TestCase):
             batch_tensor, display_pil = preprocess_fingerprint(sample_path)
             self.assertEqual(batch_tensor.shape, (1, 112, 112, 3))
             self.assertEqual(batch_tensor.dtype, np.float32)
-            self.assertEqual(display_pil.size, (224, 224))
+            self.assertEqual(display_pil.size, (112, 112))
             self.assertEqual(display_pil.mode, "RGB")
 
     def test_preprocess_fingerprint_from_bytes(self):
@@ -64,7 +64,7 @@ class TestPreprocessingPipeline(unittest.TestCase):
 
         batch_tensor, display_pil = preprocess_fingerprint(img_bytes)
         self.assertEqual(batch_tensor.shape, (1, 112, 112, 3))
-        self.assertEqual(display_pil.size, (224, 224))
+        self.assertEqual(display_pil.size, (112, 112))
 
     def test_load_and_preprocess_for_training(self):
         sample_path = os.path.join(self.sample_dir, "O+.bmp")
@@ -92,7 +92,7 @@ class TestPreprocessingPipeline(unittest.TestCase):
         sample_path = os.path.join(self.sample_dir, "A+.bmp")
         if os.path.exists(sample_path):
             # Upload source must NOT apply MFS100 enhancement or cropping
-            up_res = transform_c5(sample_path, source="upload")
+            up_res = transform_c5(sample_path)
             self.assertFalse(up_res["crop_metadata"]["crop_applied"])
             self.assertFalse(up_res["crop_metadata"]["enhancement_applied"])
 

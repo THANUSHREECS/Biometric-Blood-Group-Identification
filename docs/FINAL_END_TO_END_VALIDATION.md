@@ -1,4 +1,4 @@
-ï»¿# FINAL END-TO-END SYSTEM VALIDATION REPORT
+Ã¯Â»Â¿# FINAL END-TO-END SYSTEM VALIDATION REPORT
 ## Biometric Blood Group Identification System
 
 **Document Type:** Final Validation and Demo Readiness Report

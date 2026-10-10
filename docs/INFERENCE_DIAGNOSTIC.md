@@ -3,7 +3,7 @@
 **Project**: Biometric Blood Group Identification System  
 **Date**: 2026-09-04  
 **Status**: Completed Diagnostic Investigation & Integrity Reconciliation  
-**Test Set Policy**: **STRICTLY LOCKED** â€” No further test set evaluations permitted.
+**Test Set Policy**: **STRICTLY LOCKED** Ã¢â‚¬â€ No further test set evaluations permitted.
 
 ---
 
@@ -21,7 +21,7 @@ A thorough audit of all experiment scripts, validation logs, and output artifact
 | **ResNet50 Weight** | **0.50** (50%) | **0.58** (58%) |
 | **VGG16 Weight** | **0.35** (35%) | **0.38** (38%) |
 | **EfficientNetB0 Weight** | **0.15** (15%) | **0.04** (4%) |
-| **ResNet50 Preprocessing** | Standard `resnet50.preprocess_input` (No contrast adjustment) | `1.2Ã— Contrast` + `resnet50.preprocess_input` |
+| **ResNet50 Preprocessing** | Standard `resnet50.preprocess_input` (No contrast adjustment) | `1.2Ãƒâ€” Contrast` + `resnet50.preprocess_input` |
 | **VGG16 Preprocessing** | Standard `vgg16.preprocess_input` | Standard `vgg16.preprocess_input` |
 | **EffNetB0 Preprocessing**| Standard `efficientnet.preprocess_input` | Standard `efficientnet.preprocess_input` |
 | **Validation Metric** | Val Acc: **85.19%**, Val Macro F1: **0.8547** | Val Acc: **86.41%**, Val Macro F1: **0.8663** |
@@ -42,7 +42,7 @@ A thorough audit of all experiment scripts, validation logs, and output artifact
 - **Artifact**: Preserved in `outputs/final_evaluation_results.json`.
 
 #### Q2: Which weights produced the latest 85.41% result?
-- **Configuration**: **58% ResNet50 (with 1.2Ã— contrast) / 38% VGG16 / 4% EfficientNetB0**.
+- **Configuration**: **58% ResNet50 (with 1.2Ãƒâ€” contrast) / 38% VGG16 / 4% EfficientNetB0**.
 - **Execution**: Evaluated on the 898 test samples on `2026-09-04T19:23:52` via `scripts/evaluate_champion_v2.py`.
 - **Artifact**: Preserved in `outputs/FINAL_MODEL_EVALUATION.json`.
 
@@ -53,7 +53,7 @@ A thorough audit of all experiment scripts, validation logs, and output artifact
 
 #### Q4: Were the 58 / 38 / 4 weights selected using validation data only?
 - **YES. Strictly validation data only.**
-- In `scripts/optimize_ensemble_v2.py` lines 37â€“40:
+- In `scripts/optimize_ensemble_v2.py` lines 37Ã¢â‚¬â€œ40:
   ```python
   def load_val_data():
       df = pd.read_csv(DATASET_MANIFEST_PATH)
@@ -67,7 +67,7 @@ A thorough audit of all experiment scripts, validation logs, and output artifact
 ## 2. Correction of the Test-Set History
 
 ### Formal Acknowledgment of Multiple Test Evaluations
-The previous project documentation claimed: *"Single Final Test Run â€” The locked test split was evaluated exactly once"*.
+The previous project documentation claimed: *"Single Final Test Run Ã¢â‚¬â€ The locked test split was evaluated exactly once"*.
 
 **This statement is now explicitly corrected:**
 - **Test Evaluation #1** (`2026-09-04T14:46:16`): Conducted via `scripts/evaluate_final_model.py` with weights `(0.50, 0.35, 0.15)` without contrast enhancement.
@@ -92,7 +92,7 @@ Both evaluations evaluated the locked 898 test set samples and both achieved **8
 
 ### Concrete Code Alignment Evidence
 
-#### Training / Evaluation Function (`scripts/evaluate_champion_v2.py` lines 83â€“91)
+#### Training / Evaluation Function (`scripts/evaluate_champion_v2.py` lines 83Ã¢â‚¬â€œ91)
 ```python
 for p in b_paths:
     with Image.open(p) as img:
@@ -104,7 +104,7 @@ for p in b_paths:
     b_imgs.append(prep_fn(arr))
 ```
 
-#### Production Inference Pipeline (`src/preprocessing.py` lines 147â€“167)
+#### Production Inference Pipeline (`src/preprocessing.py` lines 147Ã¢â‚¬â€œ167)
 ```python
 raw_pil = load_image_to_pil(image_input)
 rgb_pil = composite_alpha_on_white(raw_pil)
@@ -139,11 +139,11 @@ We audited the capture files in `data/captured/` and compared their signatures:
 | Dimension / Attribute | Mock Emulation Capture | Physical MFS100 Scanner Capture |
 |---|---|---|
 | **Source** | Read from `data/sample/<class>.bmp` | Streamed from native SDK `AutoCapture()` |
-| **Width Ã— Height** | `96 Ã— 103` px (or `241 Ã— 298` for O-) | **`316 Ã— 354` px** |
+| **Width Ãƒâ€” Height** | `96 Ãƒâ€” 103` px (or `241 Ãƒâ€” 298` for O-) | **`316 Ãƒâ€” 354` px** |
 | **Color Mode** | 3-channel RGB (`Mode: RGB`) | **1-channel 8-bit Grayscale (`Mode: L`)** |
 | **Byte Size on Disk** | 29,718 bytes (or 215,806 bytes) | **112,942 bytes** ($316 \times 354 + 1078$ header) |
 | **Hardware Serial** | N/A (Emulated) | **`11215389`** (MANTRA MFS100) |
-| **Quality & NFIQ** | Fixed mock constants | Dynamic sensor feedback (Quality: 75â€“85, NFIQ: 1) |
+| **Quality & NFIQ** | Fixed mock constants | Dynamic sensor feedback (Quality: 75Ã¢â‚¬â€œ85, NFIQ: 1) |
 
 **Conclusion**: Physical captures (e.g. `data/captured/capture_1788528658550.bmp`) are confirmed **genuine hardware captures from the physical Mantra MFS100 device**.
 
@@ -155,7 +155,7 @@ Measurements taken from `data/captured/capture_1788528658550.bmp` (Physical MFS1
 
 | Feature | Physical MFS100 Capture | Dataset Training Images | Discrepancy & Inference Impact |
 |---|---|---|---|
-| **Resolution** | `316 Ã— 354` px | `96 Ã— 103` px | Physical sensor has $\sim 3.3\times$ higher native linear resolution. |
+| **Resolution** | `316 Ãƒâ€” 354` px | `96 Ãƒâ€” 103` px | Physical sensor has $\sim 3.3\times$ higher native linear resolution. |
 | **Aspect Ratio (W / H)**| `0.8927` | `0.9320` | Closely aligned ($\Delta < 4\%$). When resized to $224 \times 224$, distortion is minimal. |
 | **Color Channels** | 1-channel Grayscale (`Mode: L`, 8-bit) | 3-channel RGB (`Mode: RGB`, 24-bit) | Dataset stores grayscale ridges inside 3 identical RGB channels. Our pipeline converts `Mode: L` $\to$ `RGB` before inference. |
 | **Pixel Range** | $[0, 250]$ | $[0, 255]$ | Both span the full dynamic range. |
@@ -173,5 +173,5 @@ Measurements taken from `data/captured/capture_1788528658550.bmp` (Physical MFS1
 
 1. **Determinism**: 10 repeated inferences on the same input image yielded max probability variance strictly equal to $0.0$ (bit-identical).
 2. **Byte / Path Invariance**: Loading an image from raw BMP bytes vs. a file path produces identical probability distributions.
-3. **Automated Unit Tests**: All 38 tests in the regression suite pass (`Ran 38 tests in 28.549s â€” OK`).
+3. **Automated Unit Tests**: All 38 tests in the regression suite pass (`Ran 38 tests in 28.549s Ã¢â‚¬â€ OK`).
 4. **Test Set Lock**: The test set is completely frozen.

@@ -2,7 +2,7 @@
 
 > **Final Year B.E. Major Project**  
 > **Department:** Computer Science & Engineering (Artificial Intelligence & Machine Learning)  
-> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) â†’ Deep Transfer Learning (ResNet50) â†’ Blood Group Classification (8 Classes)
+> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) Ã¢â€ â€™ Deep Transfer Learning (ResNet50) Ã¢â€ â€™ Blood Group Classification (8 Classes)
 
 ---
 
@@ -59,7 +59,7 @@ The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitm
 | **B-** | 5 | 741 | 741 | 519 | 111 | 111 |
 | **O+** | 6 | 852 | 851 | 596 | 128 | 127 |
 | **O-** | 7 | 712 | 707 | 495 | 106 | 106 |
-| **TOTAL** | â€” | **6,000** | **5,985** | **4,189** | **898** | **898** |
+| **TOTAL** | Ã¢â‚¬â€ | **6,000** | **5,985** | **4,189** | **898** | **898** |
 
 ---
 
@@ -93,15 +93,15 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 A single centralized pipeline governs all image inputs:
 ```
 Fingerprint Source (File / Bytes / MFS100 / PIL)
-               â†“
+               Ã¢â€ â€œ
     Alpha Compositing onto White (255, 255, 255)
-               â†“
+               Ã¢â€ â€œ
     3-Channel RGB Conversion
-               â†“
+               Ã¢â€ â€œ
     Lanczos Resize to (224, 224)
-               â†“
+               Ã¢â€ â€œ
     ResNet50 preprocess_input (ImageNet Mean Subtraction)
-               â†“
+               Ã¢â€ â€œ
     Batch Tensor (1, 224, 224, 3)
 ```
 
@@ -153,15 +153,15 @@ python app.py
 Access the application at `http://127.0.0.1:5000`.
 
 ### Endpoints:
-- `GET /` â€” Clinical web dashboard.
-- `GET /history` â€” SQLite audit log page.
-- `GET /api/status` â€” Model, scanner, and system health status.
-- `POST /api/upload` â€” Upload fingerprint image for classification.
-- `POST /api/capture` â€” Trigger MFS100 / mock capture and classification.
-- `GET /api/history` â€” Fetch recent prediction records.
-- `GET /api/report/<id>` â€” Download formal clinical PDF report.
-- `POST /api/scanner/connect` â€” Probe and connect to scanner.
-- `POST /api/scanner/disconnect` â€” Disconnect scanner.
+- `GET /` Ã¢â‚¬â€ Clinical web dashboard.
+- `GET /history` Ã¢â‚¬â€ SQLite audit log page.
+- `GET /api/status` Ã¢â‚¬â€ Model, scanner, and system health status.
+- `POST /api/upload` Ã¢â‚¬â€ Upload fingerprint image for classification.
+- `POST /api/capture` Ã¢â‚¬â€ Trigger MFS100 / mock capture and classification.
+- `GET /api/history` Ã¢â‚¬â€ Fetch recent prediction records.
+- `GET /api/report/<id>` Ã¢â‚¬â€ Download formal clinical PDF report.
+- `POST /api/scanner/connect` Ã¢â‚¬â€ Probe and connect to scanner.
+- `POST /api/scanner/disconnect` Ã¢â‚¬â€ Disconnect scanner.
 
 ---
 
@@ -208,13 +208,13 @@ Run the full suite of unit and integration tests:
 python -m pytest tests/
 ```
 The test suite evaluates:
-1. `tests/test_dataset_prep.py` â€” Manifest, split distribution, class mappings.
-2. `tests/test_preprocessing.py` â€” Alpha compositing, RGB normalization, tensor shapes.
-3. `tests/test_predictor.py` â€” Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
-4. `tests/test_database.py` â€” SQLite database initialization, insertion, and retrieval.
-5. `tests/test_mfs100.py` â€” MFS100 mock capture, sample rotation, device info.
-6. `tests/test_report.py` â€” ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
-7. `tests/test_api.py` â€” Flask API endpoints and HTML template rendering.
+1. `tests/test_dataset_prep.py` Ã¢â‚¬â€ Manifest, split distribution, class mappings.
+2. `tests/test_preprocessing.py` Ã¢â‚¬â€ Alpha compositing, RGB normalization, tensor shapes.
+3. `tests/test_predictor.py` Ã¢â‚¬â€ Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
+4. `tests/test_database.py` Ã¢â‚¬â€ SQLite database initialization, insertion, and retrieval.
+5. `tests/test_mfs100.py` Ã¢â‚¬â€ MFS100 mock capture, sample rotation, device info.
+6. `tests/test_report.py` Ã¢â‚¬â€ ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
+7. `tests/test_api.py` Ã¢â‚¬â€ Flask API endpoints and HTML template rendering.
 
 ---
 
@@ -244,7 +244,7 @@ The UI has been strictly updated to enforce a **70% advisory threshold**. Predic
 2. **Domain Shift:** Live hardware captures from the MFS100 differ statistically (ridge contrast, mean intensity) from the curated dataset samples.
 3. **Small Live Sample:** Testing strictly on a limited live sample (e.g. one participant's O+ thumb) reduces external validity and statistical power.
 4. **Statistical vs. Scientific Significance:** While the random-split 4-class accuracy of 86.0% on a random split. Subject independence cannot be verified (no subject IDs). Dataset artifacts are possible. | Subject independence cannot be verified. (group-aware) is statistically higher than random guessing (25%, $p < 0.001$) on leaked data, it does not establish a scientifically viable or clinically useful diagnostic tool.
-5. **Biological Plausibility:** There is no supported biological or genetic mechanism linking friction ridge patterns definitively to ABO blood groups. The observed accuracy may capture latent confounding variables in the dataset rather than a universal biological truth.
+5. **Biological Plausibility:** There is no supported biological or genetic mechanism linking friction ridge patterns to ABO blood groups (no signal detected at n=101; strongly predictive model excluded; weak effects cannot be excluded). The observed accuracy may capture latent confounding variables in the dataset rather than a universal biological truth.
 6. **Clinical Viability:** The system is completely unfit for any clinical decision-making.
 
 ---

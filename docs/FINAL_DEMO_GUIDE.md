@@ -1,8 +1,8 @@
-ï»¿# FINAL DEMO GUIDE
-## Biometric Blood Group Identification System â€” Step-by-Step Demonstration Procedure
+Ã¯Â»Â¿# FINAL DEMO GUIDE
+## Biometric Blood Group Identification System Ã¢â‚¬â€ Step-by-Step Demonstration Procedure
 
 **Document Type:** Demonstration Procedure Guide
-**Project:** B.E. Final Year Major Project â€” Computer Science and Engineering (AI and ML)
+**Project:** B.E. Final Year Major Project Ã¢â‚¬â€ Computer Science and Engineering (AI and ML)
 **Date:** September 2026
 **Audience:** Evaluators, Viva Panel, Project Demonstration
 
@@ -18,7 +18,7 @@
 
 ---
 
-## STEP A â€” Start the MFS100 32-bit Bridge
+## STEP A Ã¢â‚¬â€ Start the MFS100 32-bit Bridge
 
 Open **Terminal 1** (Command Prompt or PowerShell):
 
@@ -37,7 +37,7 @@ C:\Python310-32\python.exe -m src.mfs100_bridge.bridge
 
 ---
 
-## STEP B â€” Start the Flask Backend
+## STEP B Ã¢â‚¬â€ Start the Flask Backend
 
 Open **Terminal 2** (separate window):
 
@@ -54,11 +54,11 @@ python app.py
  * Running on http://127.0.0.1:5000
 ```
 
-> Model loading takes 30â€“60 seconds. Wait for the "Running on" line.
+> Model loading takes 30Ã¢â‚¬â€œ60 seconds. Wait for the "Running on" line.
 
 ---
 
-## STEP C â€” Open the Clinical Dashboard
+## STEP C Ã¢â‚¬â€ Open the Clinical Dashboard
 
 Open a browser and navigate to:
 ```
@@ -73,7 +73,7 @@ The clinical dashboard will load with:
 
 ---
 
-## STEP D â€” Verify Scanner Status
+## STEP D Ã¢â‚¬â€ Verify Scanner Status
 
 On the dashboard, check the **System Status** panel:
 - **Model:** Champion Ensemble V2 | 85.41% | Active
@@ -89,16 +89,16 @@ If running without physical hardware:
 
 ---
 
-## STEP E â€” Select Real MFS100 Mode
+## STEP E Ã¢â‚¬â€ Select Real MFS100 Mode
 
 Ensure the scanner toggle is set to **Physical MFS100** (not Mock Mode).
 
 The dashboard will display the **LEFT THUMB protocol instruction:**
-> "Standard Acquisition Finger: LEFT THUMB â€” Place your LEFT THUMB centrally on the MFS100 sensor platen."
+> "Standard Acquisition Finger: LEFT THUMB Ã¢â‚¬â€ Place your LEFT THUMB centrally on the MFS100 sensor platen."
 
 ---
 
-## STEP F â€” Follow LEFT THUMB Protocol
+## STEP F Ã¢â‚¬â€ Follow LEFT THUMB Protocol
 
 Before capturing, verify:
 1. **Left thumb** is selected (not other fingers)
@@ -109,7 +109,7 @@ Before capturing, verify:
 
 ---
 
-## STEP G â€” Capture Fingerprint (Single Scan)
+## STEP G Ã¢â‚¬â€ Capture Fingerprint (Single Scan)
 
 Click the **Capture Fingerprint** button on the dashboard.
 
@@ -118,9 +118,9 @@ Click the **Capture Fingerprint** button on the dashboard.
 2. Bridge invokes MFS100 SDK
 3. Scanner captures fingerprint impression
 4. Image saved to `data/captured/`
-5. Preprocessing: foreground crop â†’ CLAHE ridge enhancement â†’ 224Ã—224 resize
+5. Preprocessing: foreground crop Ã¢â€ â€™ CLAHE ridge enhancement Ã¢â€ â€™ 224Ãƒâ€”224 resize
 6. Champion Ensemble V2 inference (ResNet50 58% + VGG16 38% + ENB0 4%)
-7. Result returned to UI in ~2â€“4 seconds
+7. Result returned to UI in ~2Ã¢â‚¬â€œ4 seconds
 
 **If "Finger not placed properly" error appears:**
 - Remove and re-place the thumb centrally
@@ -129,58 +129,58 @@ Click the **Capture Fingerprint** button on the dashboard.
 
 ---
 
-## STEP H â€” Show Quality / NFIQ Information
+## STEP H Ã¢â‚¬â€ Show Quality / NFIQ Information
 
 After capture, the dashboard shows quality metadata:
-- **NFIQ Score:** 1 (Excellent) to 5 (Poor) â€” lower is better
-- **Quality Score:** 0â€“100 â€” higher is better
+- **NFIQ Score:** 1 (Excellent) to 5 (Poor) Ã¢â‚¬â€ lower is better
+- **Quality Score:** 0Ã¢â‚¬â€œ100 Ã¢â‚¬â€ higher is better
 - **Pressure Status:** OPTIMAL, TOO_LIGHT, or TOO_HEAVY
 
 **For demonstrators:** Point out that NFIQ 1 and quality > 80 indicate an excellent scan, while NFIQ 3+ or quality < 70 would trigger the consensus recommendation banner.
 
 ---
 
-## STEP I â€” Show the Prediction Result
+## STEP I Ã¢â‚¬â€ Show the Prediction Result
 
 The prediction result card displays:
 - **Blood Group** (large, prominent): e.g., O+
 - **Confidence:** e.g., 94.59%
 - **Status:** NORMAL or LOW_CONFIDENCE
 
-If **NORMAL:** Green status â€” prediction is above the 60% confidence threshold.
+If **NORMAL:** Green status Ã¢â‚¬â€ prediction is above the 60% confidence threshold.
 
-If **LOW_CONFIDENCE:** Red/amber warning â€” confidence is below 60%.
+If **LOW_CONFIDENCE:** Red/amber warning Ã¢â‚¬â€ confidence is below 60%.
 > "Low-confidence prediction (41.6% < 60%). Please recapture or confirm with standard laboratory blood typing."
 
 **Key talking point:** The model never hides uncertainty. Low-confidence results are always flagged.
 
 ---
 
-## STEP J â€” Show ABO/Rh Analysis
+## STEP J Ã¢â‚¬â€ Show ABO/Rh Analysis
 
 Below the main prediction, the analytical decomposition shows:
 - **Derived ABO Group:** e.g., O (66.2% combined probability)
-- **Rh Factor:** + or âˆ’
+- **Rh Factor:** + or Ã¢Ë†â€™
 - **ABO Probabilities:** e.g., A: 12.3%, B: 5.1%, AB: 3.2%, O: 79.4%
 
 If the Rh Uncertainty Advisory is triggered:
-> Amber banner: "Rh factor (Â±) determination is uncertain. Standard serological laboratory blood typing is required to confirm Rh factor."
+> Amber banner: "Rh factor (Ã‚Â±) determination is uncertain. Standard serological laboratory blood typing is required to confirm Rh factor."
 
 **Key talking point:** ABO/Rh decomposition is an analytical layer only. It does NOT change the model's primary 8-class prediction.
 
 ---
 
-## STEP K â€” Show Confidence Warning (If Applicable)
+## STEP K Ã¢â‚¬â€ Show Confidence Warning (If Applicable)
 
 For low-confidence scans, demonstrate:
 1. The red LOW_CONFIDENCE badge
 2. The advisory message recommending recapture
-3. The Smart NFIQ Consensus Tip (appears when quality < 80 or NFIQ â‰¥ 2):
+3. The Smart NFIQ Consensus Tip (appears when quality < 80 or NFIQ Ã¢â€°Â¥ 2):
    > "Consider enabling 3-Scan Consensus for improved accuracy"
 
 ---
 
-## STEP L â€” Run 3-Scan Consensus
+## STEP L Ã¢â‚¬â€ Run 3-Scan Consensus
 
 Check the **Enable 3-Scan LEFT THUMB Consensus** checkbox.
 
@@ -202,7 +202,7 @@ Result shows:
 
 ---
 
-## STEP M â€” Generate and View PDF Report
+## STEP M Ã¢â‚¬â€ Generate and View PDF Report
 
 Click the **Download Report** button (or navigate to the report URL).
 
@@ -223,7 +223,7 @@ The clinical PDF contains:
 
 ---
 
-## STEP N â€” Open Audit History
+## STEP N Ã¢â‚¬â€ Open Audit History
 
 Click **History** in the navigation or navigate to:
 ```
@@ -239,7 +239,7 @@ The audit page shows:
 
 ---
 
-## STEP O â€” Demonstrate Upload Mode
+## STEP O Ã¢â‚¬â€ Demonstrate Upload Mode
 
 1. Click the **Upload Image** tab on the dashboard
 2. Select a fingerprint image file (.bmp / .png / .jpg)
@@ -254,10 +254,10 @@ The audit page shows:
 
 ---
 
-## STEP P â€” Demonstrate Mock Mode
+## STEP P Ã¢â‚¬â€ Demonstrate Mock Mode
 
 1. Click the **Toggle Mock Mode** button on the dashboard
-2. Status updates to: **MOCK MODE â€” Physical Scanner Not Active**
+2. Status updates to: **MOCK MODE Ã¢â‚¬â€ Physical Scanner Not Active**
 3. Click **Capture (Mock)**
 
 The system:
@@ -276,10 +276,10 @@ The system:
 |---|---|
 | Why fingerprints? | Dermatoglyphic ridge patterns show statistical correlation with blood group phenotype in published literature. |
 | Why not 100% accurate? | Biological variation and limited training data mean probabilistic estimation, not deterministic classification. |
-| What is 85.41%? | Official one-time evaluation on 767/898 locked test images â€” honest, not fabricated. |
-| Why Champion Ensemble? | Ensemble soft-voting outperforms any single model by 5â€“28 percentage points. |
-| What is LEFT THUMB? | Acquisition protocol for demo reproducibility only â€” the model never receives finger identity. |
-| What about AB+? | AB+ has a 6.60% O- confusion rate on validation data â€” openly documented and mitigated by LOW_CONFIDENCE flagging. |
+| What is 85.41%? | Official one-time evaluation on 767/898 locked test images Ã¢â‚¬â€ honest, not fabricated. |
+| Why Champion Ensemble? | Ensemble soft-voting outperforms any single model by 5Ã¢â‚¬â€œ28 percentage points. |
+| What is LEFT THUMB? | Acquisition protocol for demo reproducibility only Ã¢â‚¬â€ the model never receives finger identity. |
+| What about AB+? | AB+ has a 6.60% O- confusion rate on validation data Ã¢â‚¬â€ openly documented and mitigated by LOW_CONFIDENCE flagging. |
 | Is this a medical device? | NO. Academic research prototype only. All results require mandatory laboratory confirmation. |
 
 ---
@@ -290,12 +290,12 @@ The system:
 |---|---|
 | Bridge not starting | Check C:\Python310-32 exists; check MFS100 driver installed |
 | "Finger not placed properly" | Re-place LEFT THUMB with firm, flat, central contact |
-| Model loading slow | Normal â€” 3 large models (482 MB total) loading from disk |
-| LOW_CONFIDENCE result | Expected behavior â€” recapture or use 3-scan consensus |
+| Model loading slow | Normal Ã¢â‚¬â€ 3 large models (482 MB total) loading from disk |
+| LOW_CONFIDENCE result | Expected behavior Ã¢â‚¬â€ recapture or use 3-scan consensus |
 | Scanner shows "disconnected" | Click Connect Scanner button; check USB cable |
 | Mock mode always on | Set environment variable MFS100_MOCK=false and restart |
 
 ---
 
-*This document is part of the B.E. Final Year Major Project â€” Biometric Blood Group Identification System.*
+*This document is part of the B.E. Final Year Major Project Ã¢â‚¬â€ Biometric Blood Group Identification System.*
 *For evaluator, viva panel, and demonstration use. September 2026.*

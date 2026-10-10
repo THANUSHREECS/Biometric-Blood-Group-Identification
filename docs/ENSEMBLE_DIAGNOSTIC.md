@@ -1,7 +1,7 @@
 # Ensemble Diagnostic Report
 
 **Generated**: 2026-09-04  
-**Scope**: Validation Split Only (898 samples) â€” Test set strictly locked.
+**Scope**: Validation Split Only (898 samples) Ã¢â‚¬â€ Test set strictly locked.
 
 ---
 

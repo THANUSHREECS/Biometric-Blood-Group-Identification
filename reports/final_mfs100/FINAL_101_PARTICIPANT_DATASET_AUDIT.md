@@ -1,6 +1,6 @@
 # FINAL 101-PARTICIPANT DATASET AUDIT
 
-**Dataset Status:** PASS â€” FINAL DATASET FROZEN
+**Dataset Status:** PASS Ã¢â‚¬â€ FINAL DATASET FROZEN
 
 The final MFS100 dataset contains 101 participants and 303 repeated left-thumb captures. Three captures from each participant are treated as repeated measurements within the same participant, not independent samples.
 
