@@ -23,7 +23,7 @@
 - **Finding:** ~~A "cluster" in this dataset represents a single continuous capture session of one person/finger.~~ **RETRACTED: cluster = class label / grouping failed.** In the Round 2-3 analysis "cluster" was used as a synonym for blood-group class (4 clusters = 4 classes). No subject-level identity information was actually available; the cluster-per-person interpretation is unverified and was used invalidly as a grouping variable.
 
 ## 3. Similarity Check
-- **Finding:** ~~Plotted embedding similarity distributions (`results/similarity_distributions.png`). The test images frequently match training images of the same cluster, confirming leakage.~~ **RETRACTED: invalid experiment (cluster = class label / grouping failed).** "Same cluster" was the same class label; within-class embedding similarity is expected and does not constitute subject-leakage evidence.
+- **Finding:** ~~Plotted embedding similarity distributions (`results/_SUPERSEDED_OLD_PIPELINE/similarity_distributions.png`). The test images frequently match training images of the same cluster, confirming leakage.~~ **RETRACTED: invalid experiment (cluster = class label / grouping failed).** "Same cluster" was the same class label; within-class embedding similarity is expected and does not constitute subject-leakage evidence.
 
 ## 4. Dataset Artifact Baseline
 - **Finding:** A trivial classifier trained on file sizes and image intensity means/stds scores **34.00%** on a random split, beating the 25% chance baseline.
@@ -34,14 +34,14 @@
 - B+ is predicted robustly (87 times, 78% recall). Previous imbalance claims were incorrect.
 
 ## 6. Pipeline & Domain Shift
-- **Domain Shift:** Live captured images have a significantly different mean intensity and standard deviation compared to the dataset (`results/domain_shift.png`).
+- **Domain Shift:** Live captured images have a significantly different mean intensity and standard deviation compared to the dataset (`results/_SUPERSEDED_OLD_PIPELINE/domain_shift.png`).
 - **Pipeline Check:** Confirmed that the live C5 predictor logic outputs the exact same numbers as the historical evaluation JSONs.
 
 ## 7. Consistency Test
 - **Finding:** Re-wrote `scripts/run_consistency_test.py` to strictly query the live backend (`http://127.0.0.1:5000/api/predict`) using physical hardware scans. It no longer simulates results.
 
-## Live-Scan Evidence
-- Compared 1218 valid live captures from `data/captured` against dataset.
+## Live-Scan Evidence (SUPERSEDED)
+- Compared 1218 valid live captures from `data/captured` against dataset (superseded: produced with the pre-fix pipeline / blank captures; archived in `results/_SUPERSEDED_OLD_PIPELINE/`).
 - The live scans exhibit significantly lower ridge contrast, leading to flattened probability distributions across the 5-fold ensemble.
 
 ## Artifact Baseline
