@@ -6,8 +6,9 @@ Features:
 - Standard REST API endpoints (/api/status, /api/upload, /api/capture, /api/history, /api/report/<id>)
 - Comprehensive input validation and secure file storage
 - SQLite audit history integration
-- Automated PDF report generation (ReportLab)
+- PDF reports generated lazily on first download (not at prediction time)
 - Mantra MFS100 hardware & mock capture integration
+- Per-request timing printed via time.perf_counter (speed-up-inference branch)
 """
 
 import os
@@ -110,7 +111,9 @@ def get_status():
 
 @app.route("/api/upload", methods=["POST"])
 def upload_and_predict():
-    """Handles fingerprint image upload, prediction, logging, and report generation."""
+    """Handles fingerprint image upload, prediction, and logging.
+    PDF report is generated lazily on first /api/report/<id> download.
+    """
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded in request"}), 400
 
@@ -122,16 +125,23 @@ def upload_and_predict():
         return jsonify({"error": f"Invalid file type. Allowed formats: {', '.join(ALLOWED_EXTENSIONS)}"}), 400
 
     try:
-        # Generate unique secure filename
+        t_req = time.perf_counter()
+
+        # --- Stage: Save uploaded file ---
+        t_save = time.perf_counter()
         ext = file.filename.rsplit(".", 1)[1].lower()
         unique_name = f"upload_{uuid.uuid4().hex[:12]}.{ext}"
         saved_path = os.path.join(CAPTURED_IMAGE_DIR, unique_name)
         file.save(saved_path)
+        print(f"[TIMING][upload] File save:        {(time.perf_counter()-t_save)*1000:.1f} ms")
 
-        # Run Prediction (source="upload" keeps standard dataset preprocessing without crop)
+        # --- Stage: Prediction (source=upload; no crop) ---
+        t_pred = time.perf_counter()
         pred_res = predictor.predict(saved_path, source="upload")
+        print(f"[TIMING][upload] predict():        {(time.perf_counter()-t_pred)*1000:.1f} ms")
 
-        # Log into SQLite
+        # --- Stage: DB insert ---
+        t_db = time.perf_counter()
         rec_id = insert_prediction(
             input_type="upload",
             image_path=unique_name,
@@ -140,25 +150,10 @@ def upload_and_predict():
             status=pred_res["status"],
             notes=pred_res["message"]
         )
+        print(f"[TIMING][upload] DB insert:        {(time.perf_counter()-t_db)*1000:.1f} ms")
 
-        # Generate Clinical PDF Report
-        pdf_path = generate_pdf_report(
-            prediction_id=rec_id,
-            timestamp=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            input_type="Upload",
-            image_path=saved_path,
-            predicted_group=pred_res["blood_group"],
-            confidence=pred_res["confidence"],
-            probabilities=pred_res["probabilities"],
-            status=pred_res["status"],
-            model_name=pred_res.get("model_name"),
-            advisory_level=pred_res.get("advisory_level"),
-            advisory_reason=pred_res.get("advisory_reason"),
-            advisory_message=pred_res.get("advisory_message"),
-            advisory_threshold=pred_res.get("advisory_threshold", ADVISORY_CONFIRMATION_THRESHOLD),
-            needs_confirmation=pred_res.get("needs_confirmation", False),
-            crop_metadata=pred_res.get("crop_metadata")
-        )
+        # PDF generation deferred to first download of /api/report/<id>
+        print(f"[TIMING][upload] TOTAL:            {(time.perf_counter()-t_req)*1000:.1f} ms")
 
         return jsonify({
             "success": True,
@@ -184,27 +179,36 @@ def upload_and_predict():
 
 @app.route("/api/capture", methods=["POST"])
 def capture_and_predict():
-    """Captures fingerprint from MFS100 (or Mock Mode) and classifies blood group."""
+    """Captures fingerprint from MFS100 (or Mock Mode) and classifies blood group.
+    PDF report is generated lazily on first /api/report/<id> download.
+    """
     try:
+        t_req = time.perf_counter()
+
         # Only accept sample_class when genuinely in mock mode
         sample_class = None
         if scanner.mock and request.is_json:
             sample_class = request.json.get("sample_class")
         
-        # Capture from scanner or mock engine with quality metadata
+        # --- Stage: Scanner capture ---
+        t_cap = time.perf_counter()
         captured_path, _, quality_meta = scanner.capture_with_meta(sample_class=sample_class)
         image_name = os.path.basename(captured_path)
+        print(f"[TIMING][capture] Scanner capture: {(time.perf_counter()-t_cap)*1000:.1f} ms")
 
-        # Run Prediction via E2 Research Ensemble with source-aware cropping and ridge enhancement for real hardware
+        # --- Stage: Prediction ---
         source = "mfs100" if not scanner.mock else "upload"
+        t_pred = time.perf_counter()
         pred_res = predictor.predict(captured_path, source=source)
+        print(f"[TIMING][capture] predict():       {(time.perf_counter()-t_pred)*1000:.1f} ms")
 
         # Determine acquisition finger metadata for real hardware only
         # (Left Thumb is the standardized acquisition protocol for physical demonstrations.)
         # The scanner does NOT verify finger identity; this is a convention-based metadata field.
         finger_used = "LEFT_THUMB" if not scanner.mock else None
 
-        # Log to Database
+        # --- Stage: DB insert ---
+        t_db = time.perf_counter()
         rec_id = insert_prediction(
             input_type="MFS100" if not scanner.mock else "MFS100 (Mock)",
             image_path=image_name,
@@ -214,31 +218,10 @@ def capture_and_predict():
             notes=pred_res["message"],
             finger_used=finger_used
         )
+        print(f"[TIMING][capture] DB insert:       {(time.perf_counter()-t_db)*1000:.1f} ms")
 
-        # Generate Report
-        # For real hardware, the input_type label includes the Left Thumb protocol note.
-        pdf_input_type_single = (
-            "Mantra MFS100 Scanner | Standard Finger: LEFT THUMB" if not scanner.mock
-            else "MFS100 (Mock Mode)"
-        )
-        generate_pdf_report(
-            prediction_id=rec_id,
-            timestamp=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            input_type=pdf_input_type_single,
-            image_path=captured_path,
-            predicted_group=pred_res["blood_group"],
-            confidence=pred_res["confidence"],
-            probabilities=pred_res["probabilities"],
-            status=pred_res["status"],
-            finger_used=finger_used,
-            model_name=pred_res.get("model_name"),
-            advisory_level=pred_res.get("advisory_level"),
-            advisory_reason=pred_res.get("advisory_reason"),
-            advisory_message=pred_res.get("advisory_message"),
-            advisory_threshold=pred_res.get("advisory_threshold", ADVISORY_CONFIRMATION_THRESHOLD),
-            needs_confirmation=pred_res.get("needs_confirmation", False),
-            crop_metadata=pred_res.get("crop_metadata")
-        )
+        # PDF generation deferred to first download of /api/report/<id>
+        print(f"[TIMING][capture] TOTAL:           {(time.perf_counter()-t_req)*1000:.1f} ms")
 
         return jsonify({
             "success": True,
@@ -268,8 +251,12 @@ def capture_and_predict():
 
 @app.route("/api/capture/consensus", methods=["POST"])
 def capture_consensus_and_predict():
-    """Performs 3 consecutive impressions and computes consensus blood group."""
+    """Performs 3 consecutive impressions and computes consensus blood group.
+    PDF report is generated lazily on first /api/report/<id> download.
+    """
     try:
+        t_req = time.perf_counter()
+
         sample_class = None
         if scanner.mock and request.is_json:
             sample_class = request.json.get("sample_class")
@@ -280,13 +267,19 @@ def capture_consensus_and_predict():
 
         num_scans = 3
         for i in range(num_scans):
+            # --- Stage: Scanner capture per scan ---
+            t_cap = time.perf_counter()
             p, _, qm = scanner.capture_with_meta(sample_class=sample_class)
+            print(f"[TIMING][consensus] Scan {i+1} capture: {(time.perf_counter()-t_cap)*1000:.1f} ms")
             captured_paths.append(p)
             captured_metas.append(qm)
             if i < num_scans - 1 and not scanner.mock:
                 time.sleep(0.4)
 
+        # --- Stage: predict_consensus (preprocessing + inference + ensembling timed internally) ---
+        t_pred = time.perf_counter()
         pred_res = predictor.predict_consensus(captured_paths, source=source)
+        print(f"[TIMING][consensus] predict_consensus(): {(time.perf_counter()-t_pred)*1000:.1f} ms")
         last_image_name = os.path.basename(captured_paths[-1])
 
         # Determine acquisition finger metadata for real hardware only
@@ -297,11 +290,9 @@ def capture_consensus_and_predict():
             "MFS100 Consensus - Left Thumb (3 Impressions)" if not scanner.mock
             else "MFS100 Mock (Consensus)"
         )
-        pdf_input_type = (
-            "MFS100 Consensus (3 Impressions) | Standard Finger: LEFT THUMB" if not scanner.mock
-            else "MFS100 Mock Consensus"
-        )
 
+        # --- Stage: DB insert ---
+        t_db = time.perf_counter()
         rec_id = insert_prediction(
             input_type=input_type_label,
             image_path=last_image_name,
@@ -311,28 +302,13 @@ def capture_consensus_and_predict():
             notes=pred_res["message"],
             finger_used=finger_used
         )
+        print(f"[TIMING][consensus] DB insert:           {(time.perf_counter()-t_db)*1000:.1f} ms")
 
-        generate_pdf_report(
-            prediction_id=rec_id,
-            timestamp=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            input_type=pdf_input_type,
-            image_path=captured_paths[-1],
-            predicted_group=pred_res["blood_group"],
-            confidence=pred_res["confidence"],
-            probabilities=pred_res["probabilities"],
-            status=pred_res["status"],
-            finger_used=finger_used,
-            model_name=pred_res.get("model_name"),
-            advisory_level=pred_res.get("advisory_level"),
-            advisory_reason=pred_res.get("advisory_reason"),
-            advisory_message=pred_res.get("advisory_message"),
-            advisory_threshold=pred_res.get("advisory_threshold", ADVISORY_CONFIRMATION_THRESHOLD),
-            needs_confirmation=pred_res.get("needs_confirmation", False),
-            crop_metadata=pred_res.get("crop_metadata")
-        )
-
+        # PDF generation deferred to first download of /api/report/<id>
         avg_qual = round(sum(m.get("quality", 75) for m in captured_metas) / len(captured_metas))
         best_nfiq = min(m.get("nfiq", 2) for m in captured_metas)
+
+        print(f"[TIMING][consensus] TOTAL:               {(time.perf_counter()-t_req)*1000:.1f} ms")
 
         return jsonify({
             "success": True,
@@ -388,18 +364,21 @@ def get_history():
 
 @app.route("/api/report/<int:prediction_id>", methods=["GET"])
 def download_report(prediction_id):
-    """Downloads the generated PDF clinical report for a given prediction ID."""
+    """Downloads the PDF clinical report for a given prediction ID.
+    PDF is generated lazily here on first download (speed-up-inference: not generated at prediction time).
+    """
     rec = get_prediction_by_id(prediction_id)
     if not rec:
         return jsonify({"error": "Prediction record not found"}), 404
 
-    # Locate report matching record ID
+    # Locate pre-existing report matching record ID
     reports = [f for f in os.listdir(REPORTS_DIR) if f.startswith(f"blood_group_report_{prediction_id}_")]
     if reports:
         report_file = os.path.join(REPORTS_DIR, reports[0])
         return send_file(report_file, as_attachment=True, download_name=f"BloodGroup_Report_{prediction_id}.pdf")
 
-    # If not already on disk, regenerate on the fly
+    # Generate on first download request
+    t_pdf = time.perf_counter()
     img_full = os.path.join(CAPTURED_IMAGE_DIR, rec["image_path"])
     pdf_path = generate_pdf_report(
         prediction_id=prediction_id,
@@ -410,6 +389,7 @@ def download_report(prediction_id):
         confidence=rec["confidence"],
         status=rec["status"]
     )
+    print(f"[TIMING][report] PDF generation (lazy): {(time.perf_counter()-t_pdf)*1000:.1f} ms")
     return send_file(pdf_path, as_attachment=True, download_name=f"BloodGroup_Report_{prediction_id}.pdf")
 
 @app.route("/api/image/<path:filename>", methods=["GET"])
