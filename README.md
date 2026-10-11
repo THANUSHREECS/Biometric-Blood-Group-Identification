@@ -2,7 +2,7 @@
 
 > **Final Year B.E. Major Project**  
 > **Department:** Computer Science & Engineering (Artificial Intelligence & Machine Learning)  
-> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) Ã¢â€ â€™ Deep Transfer Learning (ResNet50) Ã¢â€ â€™ Blood Group Classification (8 Classes)
+> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) → Deep Transfer Learning → Blood Group Classification
 
 ---
 
@@ -244,7 +244,7 @@ An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerpri
 | Evaluation Setting | Model / Architecture | Samples / Scope | Metric / Accuracy | Baseline & Chance | Status & Audit Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split, public fingerprint dataset) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; **not deployed**. Subject independence not verifiable (no subject IDs). Metadata artifact classifiers achieve 44.58% (random split), shortcut features (intensity/contrast); leakage unverified. |
-| **21 Locked Test Participants** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans, 3 per person) | **38.10%** (8/21; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21); binomial p = 1.0000 | **Valid**: True locked test, exact reproduction of `final_test_predictions.csv` (21/21 top-1 match, max diff = 0.00000019). Matches always guessing O+ (8/21). Pred dist: A+=11, B+=2, AB+=0, O+=8. |
+| **21 Locked Test Participants** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans, 3 per person) | **38.10%** (8/21; macro-F1: 0.25; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21); binomial p = 1.0000 | **Valid**: True locked test, exact reproduction of `final_test_predictions.csv` (21/21 top-1 match, max diff = 0.00000019). Matches always guessing O+ (8/21). Pred dist: A+=11, B+=2, AB+=0, O+=8. |
 | **80 Development Cohort (In-Sample Ensemble)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (240 scans, evaluated with full 5-checkpoint ensemble) | **40.00%** (32/80; Wilson 95% CI: [29.96%, 50.95%]) | Always-O+ baseline: 36.25% (29/80) | **In-sample dev evaluation**: Full 5-checkpoint ensemble evaluated on dev cohort. Pred dist: A+=47, O+=16, B+=17. |
 | **80 Development Cohort (Out-of-Fold Validation)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (StratifiedGroupKFold, out-of-fold checkpoints) | **53.75%** (43/80; Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | **Out-of-Fold (OOF)**: Each fold model evaluated strictly on its held-out validation fold (`fold_results.csv`). Average training accuracy across 5 folds was **35.94%**. |
 | **101 Pooled Participants (Deployed Path)** | **Model B: E2 DenseNet121 Ensemble** (deployed post-fix) | 101 Participants (80 dev + 21 locked test) | **39.60%** (40/101; Wilson 95% CI: [30.62%, 49.35%]) | Always-O+ baseline: 36.63% (37/101); binomial p = 0.5369 | **Contaminated benchmark**: Contains 80 development subjects. Pred dist: A+=58, O+=24, B+=19. |
@@ -254,7 +254,7 @@ An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerpri
 The deployed system includes an advisory threshold layer in the UI (70% threshold). Predictions below this threshold display an explicit **"Confirmation Recommended" / "Low Confidence"** notice, instructing users that standard serological testing is mandatory.
 
 ### Limitations & Threats to Validity
-1. **Model Distinction:** Model A (EfficientNetB0, 224x224, 86.02%) is not deployed. Model B (E2 DenseNet121 5-fold ensemble, 112x112) is deployed.
+1. **Model Distinction:** Model A (EfficientNetB0, 224x224, not deployed, leaked 86.0% random split) is not deployed. Model B (deployed E2 ensemble, 8/21 accuracy, macro-F1 0.25) is deployed.
 2. **Model Provenance & Class Order Verified:** E2 training script preserved at `scripts/experiment6_fusion_supcon.py` (copied from `scratch/experiment6_fusion_supcon.py`, 9 Oct 2026). Class orders: E2 DenseNet121 ensemble uses `['A+', 'B+', 'AB+', 'O+']` ([src/config.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/src/config.py#L7)), matching training; Model A uses `['A+', 'AB+', 'B+', 'O+']` ([scripts/evaluate_abo_positive_4class.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/scripts/evaluate_abo_positive_4class.py#L56)).
 3. **Subject Independence:** The raw dataset lacks participant IDs. Burst captures likely span train and test sets, inflating random-split performance.
 4. **Participant Partitioning & Real-World Generalization:** Of the 101 participants, 80 were used in E2 development and 21 constituted the locked test set. On the 21 locked test participants, the E2 ensemble achieves 8/21 = 38.10%, equal to the 38.10% always-O+ majority baseline.
