@@ -6,9 +6,9 @@
 | **Number of Clusters** | 4 clusters | Measured. Only 1 cluster per blood group class. |
 | **Images per Cluster** | Min: 565, Median: 676.5, Max: 851 | Measured via `dataset_manifest.csv` |
 | **Random Split Accuracy** | 86.0% on a random split | Measured. This evaluates leaked identities. |
-| **Group-Aware Accuracy (E7)** | 0.00% | Measured via GroupKFold(n=4). Since each class is exactly 1 cluster, holding out a cluster removes the entire class from training. |
+| **Group-Aware Accuracy (E7)** | ~~0.00%~~ **RETRACTED: invalid experiment (cluster = class label / grouping failed)** | GroupKFold with cluster=class label is degenerate; holding out the single cluster for a class removes all its training samples. Result is an artifact of label leakage in the grouping scheme, not evidence the model "only learned 4 identities". |
 | **Artifact Baseline** | 34.00% | Measured via Logistic Regression on metadata (size, intensity). Beats chance (25%). |
-| **Nearest Neighbor Leakage** | 54.00% | Measured. 54% of test images share their closest DenseNet embedding match with the exact same cluster in training. |
+| **Nearest Neighbor Leakage** | ~~54.00%~~ **RETRACTED: invalid experiment (cluster = class label / grouping failed)** | "Cluster" was conflated with class label; the 54% figure reflects within-class similarity, not cross-subject leakage. |
 | **Permutation p-value** | < 0.001 | Measured on the 415-sample test set using true labels. |
 | **Bootstrap 95% CI** | [82.64%, 89.16%] | Measured on the 415-sample test set (Random Split). |
 | **Predicted B+ Count** | 87 predictions | Measured. B+ recall is 78.35%. |
@@ -16,13 +16,14 @@
 | **Calibrated ECE** | 0.2802 *(SYNTHETIC — DO NOT CITE)* | Invalid: derived from synthetic simulation in Round 2 (`_SYNTHETIC_DO_NOT_CITE_evaluation_audit.py`). |
 
 ## 1. Prove or Redo E7
-- **Finding:** Trained a new E7 Group-Aware Logistic Regression on DenseNet features (`scripts/e7_training.py`). The dataset consists of exactly 4 clusters (1 per blood group). Therefore, a group-aware split is physically impossible without dropping an entire class. Accuracy on the held-out class drops to **0.00%**, proving the model only learned 4 identities, not blood groups.
+- **Finding:** ~~Trained a new E7 Group-Aware Logistic Regression on DenseNet features (`scripts/e7_training.py`). The dataset consists of exactly 4 clusters (1 per blood group). Therefore, a group-aware split is physically impossible without dropping an entire class. Accuracy on the held-out class drops to **0.00%**, proving the model only learned 4 identities, not blood groups.~~
+- **RETRACTED: invalid experiment (cluster = class label / grouping failed).** GroupKFold was applied with groups defined by the class label itself, making leave-one-group-out equivalent to leave-one-class-out. The 0.00% result and the claim "only learned 4 identities" are both artifacts of this degenerate setup.
 
 ## 2. Cluster Facts
-- **Finding:** A "cluster" in this dataset represents a single continuous capture session of one person/finger. The high frame count (851 for one class) implies these are frames extracted from a video or rapid-fire captures of the same thumb.
+- **Finding:** ~~A "cluster" in this dataset represents a single continuous capture session of one person/finger.~~ **RETRACTED: cluster = class label / grouping failed.** In the Round 2-3 analysis "cluster" was used as a synonym for blood-group class (4 clusters = 4 classes). No subject-level identity information was actually available; the cluster-per-person interpretation is unverified and was used invalidly as a grouping variable.
 
 ## 3. Similarity Check
-- **Finding:** Plotted embedding similarity distributions (`results/similarity_distributions.png`). The test images frequently match training images of the same cluster, confirming leakage.
+- **Finding:** ~~Plotted embedding similarity distributions (`results/similarity_distributions.png`). The test images frequently match training images of the same cluster, confirming leakage.~~ **RETRACTED: invalid experiment (cluster = class label / grouping failed).** "Same cluster" was the same class label; within-class embedding similarity is expected and does not constitute subject-leakage evidence.
 
 ## 4. Dataset Artifact Baseline
 - **Finding:** A trivial classifier trained on file sizes and image intensity means/stds scores **34.00%** on a random split, beating the 25% chance baseline.
