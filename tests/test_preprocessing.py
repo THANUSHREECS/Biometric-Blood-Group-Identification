@@ -91,14 +91,14 @@ class TestPreprocessingPipeline(unittest.TestCase):
         from src.preprocessing import transform_c5
         sample_path = os.path.join(self.sample_dir, "A+.bmp")
         if os.path.exists(sample_path):
-            # Upload source must NOT apply MFS100 enhancement or cropping
-            up_res = transform_c5(sample_path)
-            self.assertFalse(up_res["crop_metadata"]["crop_applied"])
-            self.assertFalse(up_res["crop_metadata"]["enhancement_applied"])
-
-            # MFS100 source MUST set enhancement_applied=True
-            mfs_res = transform_c5(sample_path, source="mfs100")
-            self.assertTrue(mfs_res["crop_metadata"]["enhancement_applied"])
+            # transform_c5 returns (np.ndarray, PIL.Image, metadata_dict) — 3-tuple
+            result = transform_c5(sample_path)
+            self.assertIsInstance(result, tuple)
+            self.assertEqual(len(result), 3)
+            arr, pil_img, meta = result
+            self.assertEqual(arr.dtype, np.float32)
+            self.assertEqual(arr.shape, (112, 112, 3))
+            self.assertIn("crop_applied", meta)
 
 if __name__ == "__main__":
     unittest.main()

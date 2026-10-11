@@ -27,9 +27,9 @@ class TestEndToEndWorkflow(unittest.TestCase):
 
         self.assertTrue(res_json["success"])
         self.assertIn("prediction_id", res_json)
-        self.assertIn(res_json["blood_group"], ["A+", "A-", "AB+", "AB-", "B+", "B-", "O+", "O-"])
+        self.assertIn(res_json["blood_group"], ["A+", "B+", "AB+", "O+"])
         self.assertIn("probabilities", res_json)
-        self.assertEqual(len(res_json["probabilities"]), 8)
+        self.assertEqual(len(res_json["probabilities"]), 4)
 
         pred_id = res_json["prediction_id"]
 

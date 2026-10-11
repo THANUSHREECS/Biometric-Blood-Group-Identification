@@ -1,13 +1,18 @@
 # FOUR-CLASS TEST RESULTS (FINAL VERIFICATION)
 
 ## 1. SCIENTIFIC REPORTING
-The active Flask application functions as a faithful inference wrapper around the E2 Champion model. The application preserves the frozen Phase 3 evaluation metrics. 
+The active Flask application functions as a faithful inference wrapper around the **Model B: E2 DenseNet121 Ensemble** (deployed). The application preserves the frozen Phase 3 evaluation metrics. 
 
-**Official Frozen Test Results (21 unseen test participants):**
-- **Accuracy:** origin unknown
+**Deployed Model Results (Model B: E2 DenseNet121 5-fold ensemble, 21 unseen test participants):**
+- **Architecture:** 3-scan feature fusion ensemble (Lanczos 112×112, raw float32 [0, 255])
+- **Accuracy:** 38.10% (8/21; matches always-O+ majority baseline)
 - **Macro F1 Score:** 0.2500
 - **Weighted F1:** 0.3274
 - **Balanced Accuracy:** 0.3062
+
+**Comparative Research Baseline (Model A: EfficientNetB0, not deployed):**
+- **Dataset / Test:** 415 test images (random image split on public dataset, single scan 224×224)
+- **Accuracy:** 86.02% on a random split; subject independence unverifiable; shortcut features possible. Standalone research model; not deployed in application.
 
 ## 2. SCIENTIFIC CONCLUSION
 Based on the failure of the model to generalize beyond its training set while using strict participant-level splitting and authentic MFS100 optical captures:

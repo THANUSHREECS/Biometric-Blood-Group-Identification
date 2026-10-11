@@ -246,28 +246,34 @@ def enhance_mfs100_ridge_contrast(pil_img):
 
 def transform_c5(image_input):
     """
-    Exact documented C5 preprocessing pipeline for the E2 4-class model.
-    1. Composite alpha on white.
-    2. Crop MFS100 foreground.
-    3. CLAHE ridge enhancement.
-    4. Resize to 112x112.
-    Returns:
-        np.ndarray: shape (112, 112, 3), dtype float32.
-        PIL.Image: Display image.
-        dict: Crop metadata.
+    E2 training-matched preprocessing pipeline (Round 14 fix).
+    Steps: alpha composite -> crop MFS100 foreground -> CLAHE enhancement -> resize 112x112
+    Returns raw float32 [0, 255] array -- NO preprocess_input, matching
+    scratch/experiment6_fusion_supcon.py lines 45-51 and scratch/final_evaluation_e2.py lines 30-36.
     """
     raw_pil = load_image_to_pil(image_input)
     rgb_pil = composite_alpha_on_white(raw_pil)
     cropped_pil, crop_meta = crop_mfs100_foreground(rgb_pil)
     enhanced_pil = enhance_mfs100_ridge_contrast(cropped_pil)
     resized_pil = resize_to_target(enhanced_pil, target_size=(112, 112))
-    
-    # CRITICAL BUG FIX: ImageNet Preprocessing was missing in the deployed C5 pipeline.
-    # The E2 DenseNet121 model was trained on preprocess_input (scale + ImageNet norm),
-    # but the deployment passed raw 0-255 pixels, destroying predictions.
+    img_array = np.array(resized_pil, dtype=np.float32)   # raw [0, 255], no preprocess_input
+    return img_array, resized_pil, crop_meta
+
+
+def transform_c5_legacy_with_preprocess_input(image_input):
+    """
+    LEGACY / UNUSED. This was the deployed version before Round 14 fix.
+    It incorrectly applied densenet.preprocess_input, shifting activations and
+    causing ~85% A+ collapse on 21 locked test participants (5/21 = 23.81%).
+    Kept for reference only. Do NOT use for E2 inference.
+    """
+    raw_pil = load_image_to_pil(image_input)
+    rgb_pil = composite_alpha_on_white(raw_pil)
+    cropped_pil, crop_meta = crop_mfs100_foreground(rgb_pil)
+    enhanced_pil = enhance_mfs100_ridge_contrast(cropped_pil)
+    resized_pil = resize_to_target(enhanced_pil, target_size=(112, 112))
     img_array = np.array(resized_pil, dtype=np.float32)
     img_array = tf.keras.applications.densenet.preprocess_input(img_array)
-    
     return img_array, resized_pil, crop_meta
 
 

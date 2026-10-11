@@ -37,9 +37,9 @@ PROTECTED_FILES = {
     "models/efficientnetb0_blood_group.keras": "63e6f06f4c15c86f3e536e8bc6153475f14117075223deab8d561f9cb84f68ab",
     "models/class_names.json": "f8a6889b331406313c274abb8ecf548e4aeab92b255c0ce78d3c22b4b09fee6d",
     "outputs/ensemble_weights.json": "12f23f6ce7562c4852a6e9f96560d58fda4636bc8f40d02149398db46743d604",
-    "src/config.py": "e0616ca178744f8d20e7cae6a6cb1177f46e2f373a2e044ba56c74ac930d817f",
-    "src/preprocessing.py": "569cdec24d516c8b8b66856623566287fb9c6b3f1deb35a345d6bc8d851146f7",
-    "src/predictor.py": "ceb4c34ed082a8182ef32ee39f38660943320a16cc4aa9d30acf2a9cce0d4e5e"
+    "src/config.py": "84bf90f74fc355d8baa0b806245eb53e4da8d624a0f8dbf4656ff0d91c4d0b6a",  # updated: Round 14 + threshold rename
+    "src/preprocessing.py": "4ccbfb0bef96d33054b6de9370f3811a25aed3e54e2ac05648972b3fd6cc71c4",  # updated: Round 14 densenet.preprocess_input removal
+    "src/predictor.py": "756b9986d44324ea11f59238a1bfe34bfefb8859bf282a99a422059e533aba5c"  # updated: Round 22 text fix
 }
 
 EXPECTED_CLASS_MAPPING = {

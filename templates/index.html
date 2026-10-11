@@ -206,7 +206,7 @@
             <section class="card result-card">
                 <div class="card-header">
                     <h2>Experimental Association Estimate</h2>
-                    <span class="badge badge-primary" id="model-tag">E2 Champion Ensemble (86.02% (random split, includes identity leakage) | ~0.00% (group-aware))</span>
+                    <span class="badge badge-primary" id="model-tag">E2 Research Ensemble (Research Prototype &mdash; On 21 held-out participants this model matched always guessing O+ (8/21). It is not a blood-typing tool.)</span>
                 </div>
 
                 <div class="result-placeholder" id="result-placeholder">
@@ -333,7 +333,7 @@
                 </div>
                 <div class="pipeline-step">
                     <div class="step-num">3</div>
-                    <h4>E2 Champion Inference</h4>
+                    <h4>E2 Ensemble Inference</h4>
                     <p>Frozen DenseNet121 feature extraction + 3-scan feature concatenation + Dense(512) classification head.</p>
                 </div>
                 <div class="pipeline-step">
@@ -347,7 +347,7 @@
 
     <!-- Footer -->
     <footer class="app-footer">
-        <p>B.E. Final Year Major Project • Computer Science & Engineering (AI & ML) • Academic Year 2025–2026 | Model A: EfficientNetB0 (not deployed) = 86.02% on 415 random-split images. Model B: E2 DenseNet121 ensemble (deployed, training script recovered at scripts/experiment6_fusion_supcon.py). 101 participants: 80 used in E2 development; 21 locked test: 8/21 = 38.10%, equal to always-O+ baseline. Deployed class order matches E2 training ['A+', 'B+', 'AB+', 'O+'].</p>
+        <p>B.E. Final Year Major Project • Computer Science & Engineering (AI & ML) • Academic Year 2025–2026 | Model A: EfficientNetB0 (not deployed; 86.0% on a random split; subject independence unverifiable; shortcut features possible). Model B: E2 DenseNet121 ensemble (deployed, training script at scripts/experiment6_fusion_supcon.py; 8/21 accuracy, macro-F1 0.25, matching always-O+ baseline). Deployed class order matches E2 training ['A+', 'B+', 'AB+', 'O+'].</p>
     </footer>
 
     <script src="/static/js/app.js"></script>

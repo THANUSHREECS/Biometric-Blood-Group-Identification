@@ -86,9 +86,9 @@ class BloodGroupPredictor:
     def get_model_info(self):
         if self.is_ensemble_ready:
             return {
-                "name": "E2 Champion Ensemble",
+                "name": "E2 Research Ensemble",
                 "tag": "E2 Active",
-                "accuracy": "origin unknown",
+                "accuracy": "8/21 on 21 held-out participants",
                 "type": "5-Fold Feature Fusion",
                 "classes": self.class_names,
                 "ADVISORY_CONFIRMATION_THRESHOLD": self.ADVISORY_CONFIRMATION_THRESHOLD,
@@ -109,8 +109,8 @@ class BloodGroupPredictor:
             advisory_reason = "LOW_CONFIDENCE"
             advisory_message = (
                 "Prediction confidence is below the validation-selected advisory threshold. "
-                "This model is a research prototype with origin unknown real-world accuracy and MUST NOT be used "
-                "for medical decisions. Confirm blood group using standard serological testing."
+                "On 21 held-out participants this research model matched always guessing O+ (8/21). It is not a blood-typing tool. "
+                "Confirm blood group using standard serological testing."
             )
         else:
             needs_confirmation = False
@@ -118,7 +118,7 @@ class BloodGroupPredictor:
             advisory_reason = "NONE"
             advisory_message = (
                 "Advisory threshold passed. This does not constitute medical verification. "
-                "This model is a research prototype with origin unknown real-world accuracy."
+                "On 21 held-out participants this research model matched always guessing O+ (8/21). It is not a blood-typing tool."
             )
 
         return {
@@ -171,7 +171,7 @@ class BloodGroupPredictor:
 
         is_low = confidence < self.ADVISORY_CONFIRMATION_THRESHOLD
         status = "LOW_CONFIDENCE" if is_low else "NORMAL"
-        msg = "Prediction completed successfully via E2 Champion Ensemble."
+        msg = "Prediction completed successfully via E2 Research Ensemble."
 
         adv = self._evaluate_advisory(confidence)
 
@@ -182,7 +182,7 @@ class BloodGroupPredictor:
             "message": msg,
             "probabilities": prob_dict,
             "is_low_confidence": is_low,
-            "model_name": "E2 Champion Ensemble",
+            "model_name": "E2 Research Ensemble",
             "display_image": display_img,
             "crop_metadata": crop_metas[0],
             "needs_confirmation": adv["needs_confirmation"],

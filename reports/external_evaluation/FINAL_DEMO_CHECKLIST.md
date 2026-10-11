@@ -18,7 +18,7 @@ Use this checklist to ensure a flawless demonstration during the external evalua
 - [ ] Start the Flask server: `python app.py`.
 - [ ] Open the dashboard in a modern browser: `http://127.0.0.1:5000`.
 - [ ] Verify the UI loads correctly and the medical disclaimer is visible.
-- [ ] Verify the model tag reads "E2 Champion Ensemble (38.10%)".
+- [ ] Verify the model tag reads "E2 Research Ensemble" with the research prototype advisory badge.
 
 ## 4. Software & Mock Testing Verification
 - [ ] Set scanner mode to "Mock Mode".

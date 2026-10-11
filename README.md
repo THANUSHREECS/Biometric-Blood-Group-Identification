@@ -2,11 +2,25 @@
 
 > **Final Year B.E. Major Project**  
 > **Department:** Computer Science & Engineering (Artificial Intelligence & Machine Learning)  
-> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) Ã¢â€ â€™ Deep Transfer Learning (ResNet50) Ã¢â€ â€™ Blood Group Classification (8 Classes)
+> **System Architecture:** Optical Fingerprint Sensor (Mantra MFS100) → Deep Transfer Learning → Blood Group Classification
 
 ---
 
-## 1. Project Overview
+## Current System
+
+- **Deployed Architecture**: E2 DenseNet121 3-Scan Feature Fusion Ensemble (5 cross-validation checkpoints with soft-voting).
+- **Input Dimensions**: 3 fingerprint impressions per participant, resized to 112×112 using Lanczos interpolation.
+- **Classification Scope**: 4 classes (`A+`, `B+`, `AB+`, `O+`).
+- **Participant Split & Provenance**: Trained on 80 development participants from the MFS100 dataset (`data/mfs100_final`); evaluated on 21 held-out locked-test participants (accuracy: **8/21 = 38.10%**, macro-F1: **0.2500**, matching always guessing O+ majority baseline).
+- **Preprocessing**: C5 deterministic pipeline (solid white alpha compositing → MFS100 foreground crop → CLAHE ridge contrast enhancement → Lanczos `(112, 112)` resize → raw `[0, 255]` float32 arrays; no ImageNet `preprocess_input`).
+- **Hardware Integration**: Mantra MFS100 500 DPI optical fingerprint sensor via 32-bit Python-to-.NET bridge (`src/mfs100_bridge/bridge.py`).
+- **Advisory Warning Layer**: Validation-selected threshold ($\tau = 0.70$) recommending standard serological confirmation for low-confidence classifications.
+
+---
+
+## Legacy (earlier dataset-based phases, not the deployed model)
+
+### 1. Project Overview
 
 The **Biometric Blood Group Identification System** is an end-to-end medical research prototype designed to investigate the feasibility of classifying human ABO/Rh blood groups directly from optical fingerprint impressions. 
 
@@ -25,7 +39,7 @@ The platform integrates:
 
 ---
 
-## 2. Problem Statement
+### 2. Problem Statement
 
 In emergency trauma response, disaster medicine, and remote rural clinics, rapid blood typing is critical for emergency transfusions. Standard serological blood typing (agglutination tests using anti-A, anti-B, and anti-D serums) requires venous blood extraction, clinical reagents, laboratory centrifuges, and trained phlebotomists. 
 
@@ -33,7 +47,7 @@ This project explores an AI-assisted non-invasive diagnostic methodology using o
 
 ---
 
-## 3. Objectives
+### 3. Objectives
 
 1. **Clean & Validate Fresh Datasets**: Clean, normalize, and validate uncleaned fingerprint datasets, quarantining redundant duplicates and handling transparency channels.
 2. **Eliminate Data Leakage**: Perform stratified splitting (70% train, 15% validation, 15% test) with cryptographic hash verification ensuring .
@@ -45,7 +59,7 @@ This project explores an AI-assisted non-invasive diagnostic methodology using o
 
 ---
 
-## 4. Dataset Overview & Fresh Audit
+### 4. Dataset Overview & Fresh Audit
 
 The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitmap (`.BMP`) format:
 
@@ -59,11 +73,11 @@ The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitm
 | **B-** | 5 | 741 | 741 | 519 | 111 | 111 |
 | **O+** | 6 | 852 | 851 | 596 | 128 | 127 |
 | **O-** | 7 | 712 | 707 | 495 | 106 | 106 |
-| **TOTAL** | Ã¢â‚¬â€ | **6,000** | **5,985** | **4,189** | **898** | **898** |
+| **TOTAL** | — | **6,000** | **5,985** | **4,189** | **898** | **898** |
 
 ---
 
-## 5. Dataset Cleaning & Duplicate Quarantine
+### 5. Dataset Cleaning & Duplicate Quarantine
 
 ### Alpha Transparency Handling
 5,956 of the 6,000 images are 32-bit RGBA BMPs. Approximately 7.89% of pixels are transparent borders (`alpha == 0`) with raw black `(0, 0, 0)` RGB values.
@@ -78,7 +92,7 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 
 ---
 
-## 6. Dataset Splitting & Leakage Prevention
+### 6. Dataset Splitting & Leakage Prevention
 
 - **Split Ratio**: 70% Training (~4,189), 15% Validation (~898), 15% Testing (~898).
 - **Stratification**: All 8 classes maintain proportional representation across splits.
@@ -88,26 +102,26 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 
 ---
 
-## 7. Central Preprocessing Pipeline (`src/preprocessing.py`)
+### 7. Central Preprocessing Pipeline (`src/preprocessing.py`)
 
 A single centralized pipeline governs all image inputs:
 ```
 Fingerprint Source (File / Bytes / MFS100 / PIL)
-               Ã¢â€ â€œ
+               ↓
     Alpha Compositing onto White (255, 255, 255)
-               Ã¢â€ â€œ
+               ↓
     3-Channel RGB Conversion
-               Ã¢â€ â€œ
+               ↓
     Lanczos Resize to (224, 224)
-               Ã¢â€ â€œ
+               ↓
     ResNet50 preprocess_input (ImageNet Mean Subtraction)
-               Ã¢â€ â€œ
+               ↓
     Batch Tensor (1, 224, 224, 3)
 ```
 
 ---
 
-## 8. Deep Learning Architecture (`scripts/train_model.py`)
+### 8. Deep Learning Architecture (`scripts/train_model.py`)
 
 - **Backbone**: `tf.keras.applications.ResNet50(include_top=False, weights='imagenet')`
 - **Top Head**:
@@ -124,7 +138,7 @@ Fingerprint Source (File / Bytes / MFS100 / PIL)
 
 ---
 
-## 9. Model Evaluation (`scripts/evaluate_model.py`)
+### 9. Model Evaluation (`scripts/evaluate_model.py`)
 
 - Tested exclusively on the untouched 898-image test set.
 - Generates publication-ready confusion matrix: `outputs/confusion_matrix.png`.
@@ -133,7 +147,7 @@ Fingerprint Source (File / Bytes / MFS100 / PIL)
 
 ---
 
-## 10. Mantra MFS100 Integration & Mock Mode
+### 10. Mantra MFS100 Integration & Mock Mode
 
 The physical **Mantra MFS100 Optical Fingerprint Scanner** is supported via a unified adapter in `src/mfs100/scanner.py`.
 
@@ -144,7 +158,7 @@ The physical **Mantra MFS100 Optical Fingerprint Scanner** is supported via a un
 
 ---
 
-## 11. Web Application & REST API
+### 11. Web Application & REST API
 
 Run the Flask server:
 ```bash
@@ -153,19 +167,19 @@ python app.py
 Access the application at `http://127.0.0.1:5000`.
 
 ### Endpoints:
-- `GET /` Ã¢â‚¬â€ Clinical web dashboard.
-- `GET /history` Ã¢â‚¬â€ SQLite audit log page.
-- `GET /api/status` Ã¢â‚¬â€ Model, scanner, and system health status.
-- `POST /api/upload` Ã¢â‚¬â€ Upload fingerprint image for classification.
-- `POST /api/capture` Ã¢â‚¬â€ Trigger MFS100 / mock capture and classification.
-- `GET /api/history` Ã¢â‚¬â€ Fetch recent prediction records.
-- `GET /api/report/<id>` Ã¢â‚¬â€ Download formal clinical PDF report.
-- `POST /api/scanner/connect` Ã¢â‚¬â€ Probe and connect to scanner.
-- `POST /api/scanner/disconnect` Ã¢â‚¬â€ Disconnect scanner.
+- `GET /` — Clinical web dashboard.
+- `GET /history` — SQLite audit log page.
+- `GET /api/status` — Model, scanner, and system health status.
+- `POST /api/upload` — Upload fingerprint image for classification.
+- `POST /api/capture` — Trigger MFS100 / mock capture and classification.
+- `GET /api/history` — Fetch recent prediction records.
+- `GET /api/report/<id>` — Download formal clinical PDF report.
+- `POST /api/scanner/connect` — Probe and connect to scanner.
+- `POST /api/scanner/disconnect` — Disconnect scanner.
 
 ---
 
-## 12. SQLite Audit Trail & PDF Reports
+### 12. SQLite Audit Trail & PDF Reports
 
 - **Database**: `data/blood_group.db` with table `predictions`.
 - **PDF Report**: Generated using ReportLab (`src/report_generator.py`), including:
@@ -179,7 +193,7 @@ Access the application at `http://127.0.0.1:5000`.
 
 ---
 
-## 13. ABO/Rh Analytical Decomposition & Rh Uncertainty Advisory
+### 13. ABO/Rh Analytical Decomposition & Rh Uncertainty Advisory
 
 Following empirical findings from live Mantra MFS100 stress tests (where dermatoglyphic we investigate if ridge patterns correlate with ABO classes, but biological links to Rh factor are weak):
 
@@ -201,26 +215,26 @@ Following empirical findings from live Mantra MFS100 stress tests (where dermato
 
 ---
 
-## 14. Running Automated Tests
+### 14. Running Automated Tests
 
 Run the full suite of unit and integration tests:
 ```bash
 python -m pytest tests/
 ```
 The test suite evaluates:
-1. `tests/test_dataset_prep.py` Ã¢â‚¬â€ Manifest, split distribution, class mappings.
-2. `tests/test_preprocessing.py` Ã¢â‚¬â€ Alpha compositing, RGB normalization, tensor shapes.
-3. `tests/test_predictor.py` Ã¢â‚¬â€ Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
-4. `tests/test_database.py` Ã¢â‚¬â€ SQLite database initialization, insertion, and retrieval.
-5. `tests/test_mfs100.py` Ã¢â‚¬â€ MFS100 mock capture, sample rotation, device info.
-6. `tests/test_report.py` Ã¢â‚¬â€ ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
-7. `tests/test_api.py` Ã¢â‚¬â€ Flask API endpoints and HTML template rendering.
+1. `tests/test_dataset_prep.py` — Manifest, split distribution, class mappings.
+2. `tests/test_preprocessing.py` — Alpha compositing, RGB normalization, tensor shapes.
+3. `tests/test_predictor.py` — Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
+4. `tests/test_database.py` — SQLite database initialization, insertion, and retrieval.
+5. `tests/test_mfs100.py` — MFS100 mock capture, sample rotation, device info.
+6. `tests/test_report.py` — ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
+7. `tests/test_api.py` — Flask API endpoints and HTML template rendering.
 
 ---
 
 ## 15. Rigorous Scientific Evaluation Audit (Final Phase)
 
-To ensure the utmost honesty and scientific rigor in evaluating this research prototype, a comprehensive final audit was conducted restricting the evaluation to a strict 4-class scenario (A+, B+, AB+, O+) using the E2 Champion DenseNet121 model.
+To ensure the utmost honesty and scientific rigor in evaluating this research prototype, a comprehensive final audit was conducted restricting the evaluation to a strict 4-class scenario (A+, B+, AB+, O+) using the E2 Research DenseNet121 model.
 
 ### Data Leakage & Subject-Level Splitting
 An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerprint image clusters lack explicit metadata linking individual images to unique human subject IDs. Therefore, it is impossible to guarantee strict subject-level splitting (i.e., ensuring a person's fingerprint is not in both train and test splits). Due to this inherent dataset limitation, any reported high accuracy on the 8-class scenario (e.g., ~85%) was heavily inflated by data leakage.
@@ -229,18 +243,20 @@ An audit of the dataset (`dataset_manifest.csv`) revealed that the raw fingerpri
 
 | Evaluation Setting | Model / Architecture | Samples / Scope | Metric / Accuracy | Baseline & Chance | Status & Audit Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; not deployed in production pipeline |
-| **Dataset Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 80 Development Participants (OOF) | **53.75%** (Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | Multi-scan 5-fold ensemble trained on 80 dev participants (`scripts/experiment6_fusion_supcon.py`); checkpoint selection is optimistic |
-| **Locked Test Benchmark** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans) | **38.10%** (8/21; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21) | 101 participants total: 80 used in E2 development; 21 locked test: 8/21 = 38.10%, equal to always-O+ baseline (p = 0.5817) |
-| **Live Exploratory** | **Model A: EfficientNetB0** | 101 Participants (avg of 3 scans) | **30.69%** (Wilson 95% CI: [22.54%, 40.26%]) | Always-O+ baseline: 36.63%; Prior-matched chance: 33.54% | Exploratory single-image model averaged over 3 scans |
+| **Random Split (Dataset)** | **Model A: EfficientNetB0** (not deployed) | 415 test images (random image split, public fingerprint dataset) | **86.02%** (95% CI: [82.65%, 88.92%]) | Majority baseline: 30.6% | Standalone single-image model; **not deployed**. Subject independence not verifiable (no subject IDs). Metadata artifact classifiers achieve 44.58% (random split), shortcut features (intensity/contrast); leakage unverified. |
+| **21 Locked Test Participants** | **Model B: E2 DenseNet121 Ensemble** (deployed) | 21 Locked Test Participants (63 scans, 3 per person) | **38.10%** (8/21; macro-F1: 0.25; Wilson 95% CI: [20.75%, 59.12%]) | Always-O+ baseline: 38.10% (8/21); binomial p = 1.0000 | **Valid**: True locked test, exact reproduction of `final_test_predictions.csv` (21/21 top-1 match, max diff = 0.00000019). Matches always guessing O+ (8/21). Pred dist: A+=11, B+=2, AB+=0, O+=8. |
+| **80 Development Cohort (In-Sample Ensemble)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (240 scans, evaluated with full 5-checkpoint ensemble) | **40.00%** (32/80; Wilson 95% CI: [29.96%, 50.95%]) | Always-O+ baseline: 36.25% (29/80) | **In-sample dev evaluation**: Full 5-checkpoint ensemble evaluated on dev cohort. Pred dist: A+=47, O+=16, B+=17. |
+| **80 Development Cohort (Out-of-Fold Validation)** | **Model B: E2 DenseNet121 Ensemble** | 80 Development Participants (StratifiedGroupKFold, out-of-fold checkpoints) | **53.75%** (43/80; Wilson 95% CI: [42.90%, 64.25%]) | Always-O+ baseline: 36.25% (29/80) | **Out-of-Fold (OOF)**: Each fold model evaluated strictly on its held-out validation fold (`fold_results.csv`). Average training accuracy across 5 folds was **35.94%**. |
+| **101 Pooled Participants (Deployed Path)** | **Model B: E2 DenseNet121 Ensemble** (deployed post-fix) | 101 Participants (80 dev + 21 locked test) | **39.60%** (40/101; Wilson 95% CI: [30.62%, 49.35%]) | Always-O+ baseline: 36.63% (37/101); binomial p = 0.5369 | **Contaminated benchmark**: Contains 80 development subjects. Pred dist: A+=58, O+=24, B+=19. |
+| **101 Pooled — Old Mismatched Pipeline (INVALID)** | **Model B: E2 DenseNet121 Ensemble** (pre-Round 14) | 101 Participants | **27.72% — INVALID** (28/101; Wilson 95% CI: [19.93%, 37.15%]) | Always-O+ baseline: 36.63% (37/101) | **Invalid**: Caused by inadvertent addition of `densenet.preprocess_input` to raw `[0, 255]` weights. Corrected in Round 14. |
 
 ### Class Imbalance & Calibration
 The deployed system includes an advisory threshold layer in the UI (70% threshold). Predictions below this threshold display an explicit **"Confirmation Recommended" / "Low Confidence"** notice, instructing users that standard serological testing is mandatory.
 
 ### Limitations & Threats to Validity
-1. **Model Distinction:** Model A (EfficientNetB0, 224x224, 86.02%) is not deployed. Model B (E2 DenseNet121 5-fold ensemble, 112x112) is deployed.
+1. **Model Distinction:** Model A (EfficientNetB0, 224x224, not deployed; 86.0% on a random split; subject independence unverifiable; shortcut features possible) is not deployed. Model B (deployed E2 ensemble, 8/21 accuracy, macro-F1 0.25) is deployed.
 2. **Model Provenance & Class Order Verified:** E2 training script preserved at `scripts/experiment6_fusion_supcon.py` (copied from `scratch/experiment6_fusion_supcon.py`, 9 Oct 2026). Class orders: E2 DenseNet121 ensemble uses `['A+', 'B+', 'AB+', 'O+']` ([src/config.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/src/config.py#L7)), matching training; Model A uses `['A+', 'AB+', 'B+', 'O+']` ([scripts/evaluate_abo_positive_4class.py](file:///c:/Users/thanu/OneDrive%20-%20Don%20Bosco%20Institute%20of%20Technology/major%20project/scripts/evaluate_abo_positive_4class.py#L56)).
-3. **Subject Independence:** The raw dataset lacks participant IDs. Burst captures likely span train and test sets, inflating random-split performance.
+3. **Subject Independence:** The raw dataset lacks participant IDs. Burst captures may span train and test sets, inflating random-split performance.
 4. **Participant Partitioning & Real-World Generalization:** Of the 101 participants, 80 were used in E2 development and 21 constituted the locked test set. On the 21 locked test participants, the E2 ensemble achieves 8/21 = 38.10%, equal to the 38.10% always-O+ majority baseline.
 5. **Biological Plausibility:** There is no established genetic or physiological mechanism linking macroscopic epidermal ridge patterns to ABO blood groups. Our empirical data on 21 locked test participants show no detectable signal above majority chance.
 6. **Clinical Viability:** The system is completely unfit for clinical decision-making.
@@ -252,4 +268,4 @@ The deployed system includes an advisory threshold layer in the UI (70% threshol
 > **MANDATORY MEDICAL DISCLAIMER**  
 > This system is an AI-based preliminary estimation tool developed for academic research and proof-of-concept investigation. The results generated by this model **MUST BE CONFIRMED** using standard laboratory serological blood typing tests (e.g., forward and reverse ABO agglutination) before any clinical or medical administration. This system does not replace certified clinical laboratory diagnostics.
 
-**Current evidence:** Model A (EfficientNetB0, 224x224, not deployed) achieves 86.02% on a random split of 415 images. Model B (E2 DenseNet121 5-fold ensemble, deployed) achieves 53.75% out-of-fold on 80 development participants and 38.10% (8/21) on 21 locked test participants, equal to the always-O+ baseline. Clinical validity is not claimed.
+See Section 15 and `results/final_audit_results.md` for the authoritative primary evaluation summary table. Clinical validity is not claimed.
