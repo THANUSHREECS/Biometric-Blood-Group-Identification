@@ -73,7 +73,7 @@ The fresh dataset contains **6,000 raw fingerprint impressions** in Windows Bitm
 | **B-** | 5 | 741 | 741 | 519 | 111 | 111 |
 | **O+** | 6 | 852 | 851 | 596 | 128 | 127 |
 | **O-** | 7 | 712 | 707 | 495 | 106 | 106 |
-| **TOTAL** | Ã¢â‚¬â€ | **6,000** | **5,985** | **4,189** | **898** | **898** |
+| **TOTAL** | — | **6,000** | **5,985** | **4,189** | **898** | **898** |
 
 ---
 
@@ -107,15 +107,15 @@ Cryptographic SHA-256 analysis identified **11 duplicate clusters** containing *
 A single centralized pipeline governs all image inputs:
 ```
 Fingerprint Source (File / Bytes / MFS100 / PIL)
-               Ã¢â€ â€œ
+               ↓
     Alpha Compositing onto White (255, 255, 255)
-               Ã¢â€ â€œ
+               ↓
     3-Channel RGB Conversion
-               Ã¢â€ â€œ
+               ↓
     Lanczos Resize to (224, 224)
-               Ã¢â€ â€œ
+               ↓
     ResNet50 preprocess_input (ImageNet Mean Subtraction)
-               Ã¢â€ â€œ
+               ↓
     Batch Tensor (1, 224, 224, 3)
 ```
 
@@ -167,15 +167,15 @@ python app.py
 Access the application at `http://127.0.0.1:5000`.
 
 ### Endpoints:
-- `GET /` Ã¢â‚¬â€ Clinical web dashboard.
-- `GET /history` Ã¢â‚¬â€ SQLite audit log page.
-- `GET /api/status` Ã¢â‚¬â€ Model, scanner, and system health status.
-- `POST /api/upload` Ã¢â‚¬â€ Upload fingerprint image for classification.
-- `POST /api/capture` Ã¢â‚¬â€ Trigger MFS100 / mock capture and classification.
-- `GET /api/history` Ã¢â‚¬â€ Fetch recent prediction records.
-- `GET /api/report/<id>` Ã¢â‚¬â€ Download formal clinical PDF report.
-- `POST /api/scanner/connect` Ã¢â‚¬â€ Probe and connect to scanner.
-- `POST /api/scanner/disconnect` Ã¢â‚¬â€ Disconnect scanner.
+- `GET /` — Clinical web dashboard.
+- `GET /history` — SQLite audit log page.
+- `GET /api/status` — Model, scanner, and system health status.
+- `POST /api/upload` — Upload fingerprint image for classification.
+- `POST /api/capture` — Trigger MFS100 / mock capture and classification.
+- `GET /api/history` — Fetch recent prediction records.
+- `GET /api/report/<id>` — Download formal clinical PDF report.
+- `POST /api/scanner/connect` — Probe and connect to scanner.
+- `POST /api/scanner/disconnect` — Disconnect scanner.
 
 ---
 
@@ -222,13 +222,13 @@ Run the full suite of unit and integration tests:
 python -m pytest tests/
 ```
 The test suite evaluates:
-1. `tests/test_dataset_prep.py` Ã¢â‚¬â€ Manifest, split distribution, class mappings.
-2. `tests/test_preprocessing.py` Ã¢â‚¬â€ Alpha compositing, RGB normalization, tensor shapes.
-3. `tests/test_predictor.py` Ã¢â‚¬â€ Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
-4. `tests/test_database.py` Ã¢â‚¬â€ SQLite database initialization, insertion, and retrieval.
-5. `tests/test_mfs100.py` Ã¢â‚¬â€ MFS100 mock capture, sample rotation, device info.
-6. `tests/test_report.py` Ã¢â‚¬â€ ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
-7. `tests/test_api.py` Ã¢â‚¬â€ Flask API endpoints and HTML template rendering.
+1. `tests/test_dataset_prep.py` — Manifest, split distribution, class mappings.
+2. `tests/test_preprocessing.py` — Alpha compositing, RGB normalization, tensor shapes.
+3. `tests/test_predictor.py` — Thread-safe predictor, probability summation, ABO decomposition, and Rh uncertainty rules.
+4. `tests/test_database.py` — SQLite database initialization, insertion, and retrieval.
+5. `tests/test_mfs100.py` — MFS100 mock capture, sample rotation, device info.
+6. `tests/test_report.py` — ReportLab clinical PDF generation with ABO breakdown and Rh uncertainty banners.
+7. `tests/test_api.py` — Flask API endpoints and HTML template rendering.
 
 ---
 
