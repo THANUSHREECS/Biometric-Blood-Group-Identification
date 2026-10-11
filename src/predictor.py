@@ -88,7 +88,7 @@ class BloodGroupPredictor:
             return {
                 "name": "E2 Research Ensemble",
                 "tag": "E2 Active",
-                "accuracy": "origin unknown",
+                "accuracy": "8/21 on 21 held-out participants",
                 "type": "5-Fold Feature Fusion",
                 "classes": self.class_names,
                 "ADVISORY_CONFIRMATION_THRESHOLD": self.ADVISORY_CONFIRMATION_THRESHOLD,
