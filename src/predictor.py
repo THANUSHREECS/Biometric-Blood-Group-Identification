@@ -5,9 +5,16 @@ Supports:
 - Experiment 6 E2 Champion Model (4 Classes: A+, B+, AB+, O+)
 - 3-scan feature fusion
 - 5-fold ensemble aggregation
+
+Speed-up (speed-up-inference branch):
+- 5 fold model objects are built and weights loaded ONCE at startup.
+- A warm-up prediction is run at startup so the first real request has no cold-start overhead.
+- Per-request timing is printed to the console via time.perf_counter.
+- No change to preprocessing, class order, thresholds, or prediction values.
 """
 
 import os
+import time
 import json
 import numpy as np
 import tensorflow as tf
@@ -42,7 +49,8 @@ class BloodGroupPredictor:
 
         # Setup E2 model
         self.is_ensemble_ready = False
-        self.model = None
+        self.model = None          # kept for compat; not used for inference after startup
+        self.fold_models = []      # one tf.keras.Model per fold, weights pre-loaded
         self.checkpoint_paths = []
         
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -66,19 +74,53 @@ class BloodGroupPredictor:
         return tf.keras.Model(inputs, [clf, emb])
 
     def _load_models(self):
-        """Loads the Champion E2 5-fold ensemble."""
+        """
+        Loads the Champion E2 5-fold ensemble.
+        Builds one model object per fold and loads weights at startup so that
+        no weight I/O happens during inference requests.
+        """
         try:
+            t0 = time.perf_counter()
             config_path = os.path.join(self.project_root, "reports", "phase3_final_evaluation", "frozen_model_config.json")
             with open(config_path, "r") as f:
                 config = json.load(f)
             
             self.checkpoint_paths = [os.path.join(self.project_root, cp.replace("/", os.sep)) for cp in config["checkpoint_paths"]]
-            self.model = self._build_E2()
+
+            # Build a separate model object for each fold and pre-load weights
+            self.fold_models = []
+            for i, cp in enumerate(self.checkpoint_paths):
+                t_fold = time.perf_counter()
+                m = self._build_E2()
+                m.load_weights(cp)
+                elapsed = time.perf_counter() - t_fold
+                print(f"[+] Fold {i+1}/{len(self.checkpoint_paths)} loaded in {elapsed:.2f}s  ({cp})")
+                self.fold_models.append(m)
+
+            # Keep self.model pointing at fold 0 for compat (not used in inference)
+            self.model = self.fold_models[0] if self.fold_models else None
             self.is_ensemble_ready = True
-            print("[+] E2 Champion 5-Fold Ensemble initialized successfully.")
+            elapsed_total = time.perf_counter() - t0
+            print(f"[+] E2 Champion 5-Fold Ensemble initialized in {elapsed_total:.2f}s (weights pre-loaded).")
+
+            # Warm-up: run one dummy forward pass through each fold to JIT-compile graph
+            self._warmup()
+
         except Exception as e:
             print(f"[-] Warning: Failed to load E2 models: {e}.")
             self.is_ensemble_ready = False
+
+    def _warmup(self):
+        """Run one zero-tensor forward pass per fold to eliminate cold-start latency."""
+        try:
+            dummy = np.zeros((1, 3, 112, 112, 3), dtype=np.float32)
+            t0 = time.perf_counter()
+            for i, m in enumerate(self.fold_models):
+                m(dummy, training=False)
+            elapsed = time.perf_counter() - t0
+            print(f"[+] Warm-up complete ({len(self.fold_models)} folds) in {elapsed:.3f}s.")
+        except Exception as e:
+            print(f"[-] Warm-up failed (non-fatal): {e}")
 
     def is_model_ready(self):
         return self.is_ensemble_ready
@@ -132,13 +174,18 @@ class BloodGroupPredictor:
     def predict_consensus(self, image_inputs, source="mfs100"):
         """
         E2 Model Inference. Requires exactly 3 scans per participant.
+        Timing is printed to the console via time.perf_counter.
         """
+        t_total = time.perf_counter()
+
         if not self.is_model_ready():
             raise RuntimeError("No model is loaded for inference.")
             
         if len(image_inputs) != 3:
             raise ValueError(f"E2 Model requires exactly 3 scans. Provided {len(image_inputs)}.")
-            
+
+        # --- Stage: Preprocessing (load_image, composite, crop, CLAHE/bilateral, resize) ---
+        t_pre = time.perf_counter()
         scans = []
         crop_metas = []
         display_img = None
@@ -148,17 +195,30 @@ class BloodGroupPredictor:
             crop_metas.append(meta)
             if i == 0:
                 display_img = pil_img
+        t_pre_done = time.perf_counter()
+        print(f"[TIMING] Preprocessing (3 scans): {(t_pre_done - t_pre)*1000:.1f} ms")
 
-        X_input = np.expand_dims(np.array(scans), axis=0) # (1, 3, 112, 112, 3)
+        # --- Stage: Build input tensor ---
+        t_tensor = time.perf_counter()
+        X_input = np.expand_dims(np.array(scans), axis=0)  # (1, 3, 112, 112, 3)
+        t_tensor_done = time.perf_counter()
+        print(f"[TIMING] Tensor assembly:          {(t_tensor_done - t_tensor)*1000:.1f} ms")
 
+        # --- Stage: Inference per fold (weights pre-loaded at startup) ---
         all_probs = []
-        for cp in self.checkpoint_paths:
-            self.model.load_weights(cp)
-            preds = self.model.predict(X_input, verbose=0)[0]
+        for i, m in enumerate(self.fold_models):
+            t_fold = time.perf_counter()
+            preds = m.predict(X_input, verbose=0)[0]
             all_probs.append(preds[0])
+            t_fold_done = time.perf_counter()
+            print(f"[TIMING] Fold {i+1} inference:          {(t_fold_done - t_fold)*1000:.1f} ms")
 
+        # --- Stage: Ensembling ---
+        t_ens = time.perf_counter()
         all_probs = np.array(all_probs)
         ensemble_probs = np.mean(all_probs, axis=0)
+        t_ens_done = time.perf_counter()
+        print(f"[TIMING] Ensembling:               {(t_ens_done - t_ens)*1000:.1f} ms")
         
         best_idx = int(np.argmax(ensemble_probs))
         predicted_group = self.class_names[best_idx]
@@ -174,6 +234,15 @@ class BloodGroupPredictor:
         msg = "Prediction completed successfully via E2 Research Ensemble."
 
         adv = self._evaluate_advisory(confidence)
+
+        # --- Stage: Display image encoding ---
+        t_enc = time.perf_counter()
+        # display_img is a PIL Image — encoding happens in app.py if needed; nothing extra here
+        t_enc_done = time.perf_counter()
+        print(f"[TIMING] Display image encoding:   {(t_enc_done - t_enc)*1000:.1f} ms")
+
+        t_total_done = time.perf_counter()
+        print(f"[TIMING] predict_consensus TOTAL:  {(t_total_done - t_total)*1000:.1f} ms")
 
         return {
             "blood_group": predicted_group,
