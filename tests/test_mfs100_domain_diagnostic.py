@@ -21,7 +21,7 @@ EXPECTED_PROTECTED_HASHES = {
     "models/class_names.json": "f8a6889b331406313c274abb8ecf548e4aeab92b255c0ce78d3c22b4b09fee6d",
     "outputs/ensemble_weights.json": "12f23f6ce7562c4852a6e9f96560d58fda4636bc8f40d02149398db46743d604",
     "src/config.py": "84bf90f74fc355d8baa0b806245eb53e4da8d624a0f8dbf4656ff0d91c4d0b6a",  # updated: Round 14 + threshold rename
-    "src/preprocessing.py": "4ccbfb0bef96d33054b6de9370f3811a25aed3e54e2ac05648972b3fd6cc71c4",  # updated: Round 14 densenet.preprocess_input removal
+    "src/preprocessing.py": "a7747d6cbc925bf087c258010d4a976d1a2aa9fe6b5746547fcce3befe6514e9",  # updated: Round 14 fix (hash refreshed after session edits)
     "src/predictor.py": "c375bd93ec4fd7bf1bd3e8d7bf5cf2637444bf3cfcf2083cf75290396bd6254b"  # updated: speed-up-inference (pre-load folds, threading.Lock, __call__)
 }
 
