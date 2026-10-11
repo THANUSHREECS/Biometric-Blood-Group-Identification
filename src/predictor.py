@@ -16,6 +16,7 @@ Speed-up (speed-up-inference branch):
 import os
 import time
 import json
+import threading
 import numpy as np
 import tensorflow as tf
 
@@ -54,6 +55,10 @@ class BloodGroupPredictor:
         self.checkpoint_paths = []
         
         self.project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+        # Inference lock: prevents concurrent requests from interleaving
+        # weight states across the 5 shared fold model objects.
+        self._inference_lock = threading.Lock()
         
         self._load_models()
 
@@ -205,13 +210,18 @@ class BloodGroupPredictor:
         print(f"[TIMING] Tensor assembly:          {(t_tensor_done - t_tensor)*1000:.1f} ms")
 
         # --- Stage: Inference per fold (weights pre-loaded at startup) ---
+        # Use direct __call__ (same code path as warm-up) to avoid per-call tf.function retracing.
+        # m.predict() traces a *different* tf.function than m(x, training=False) and would add
+        # ~10s retracing overhead on every request after the first.
+        # threading.Lock: fold models are shared objects; concurrent requests must not interleave.
         all_probs = []
-        for i, m in enumerate(self.fold_models):
-            t_fold = time.perf_counter()
-            preds = m.predict(X_input, verbose=0)[0]
-            all_probs.append(preds[0])
-            t_fold_done = time.perf_counter()
-            print(f"[TIMING] Fold {i+1} inference:          {(t_fold_done - t_fold)*1000:.1f} ms")
+        with self._inference_lock:
+            for i, m in enumerate(self.fold_models):
+                t_fold = time.perf_counter()
+                preds = m(X_input, training=False)   # [clf_tensor, emb_tensor]
+                all_probs.append(preds[0].numpy()[0])
+                t_fold_done = time.perf_counter()
+                print(f"[TIMING] Fold {i+1} inference:          {(t_fold_done - t_fold)*1000:.1f} ms")
 
         # --- Stage: Ensembling ---
         t_ens = time.perf_counter()
