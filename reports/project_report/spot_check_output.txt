@@ -1,0 +1,88 @@
+================================================================================
+INDEPENDENT SPOT-CHECK OF 10 RANDOMLY SAMPLED INVENTORY ROWS (SEED=2026)
+Criteria: Strict exclusion of 'not applicable' rows; direct artifact reading
+================================================================================
+
+--- Spot-Check #1 (Row 0): [ORIG-01] ---
+Group       : Original-Dataset Models
+Source File : outputs/original_6000_models_audit_results.json
+Source Field: abo_positive_4class
+CSV Values  : Acc=0.8602, BalAcc=0.8598, MacroF1=0.8581
+Raw Artifact: Acc=0.8602, BalAcc=0.8598, MacroF1=0.8581
+MATCH [PASS] (Acc Diff: 0.000041, BalAcc Diff: 0.000004, MacroF1 Diff: 0.000047)
+
+--- Spot-Check #2 (Row 20): [MFS100-DEV-SCAN-05] ---
+Group       : MFS100 Individual Models
+Source File : reports/model_fusion/all_models_eval_data.json
+Source Field: models['VGG16']['scan']
+CSV Values  : Acc=0.3125, BalAcc=0.3104, MacroF1=0.2329
+Raw Artifact: Acc=0.3125, BalAcc=0.3104, MacroF1=0.2329
+MATCH [PASS] (Acc Diff: 0.000000, BalAcc Diff: 0.000010, MacroF1 Diff: 0.000019)
+
+--- Spot-Check #3 (Row 26): [MFS100-LOCK21-EFFB0] ---
+Group       : MFS100 Individual Models
+Source File : reports/efficientnet_e2_ensemble_experiment/locked_test_metrics.json
+Source Field: efficientnet_b0
+CSV Values  : Acc=0.2857, BalAcc=0.2062, MacroF1=0.1587
+Raw Artifact: Acc=0.2857, BalAcc=0.2062, MacroF1=0.1587
+MATCH [PASS] (Acc Diff: 0.000014, BalAcc Diff: 0.000050, MacroF1 Diff: 0.000004)
+
+--- Spot-Check #4 (Row 30): [E2-DEV-SCAN] ---
+Group       : E2 Variants & Ensembles
+Source File : reports/model_fusion/all_models_eval_data.json
+Source Field: models['E2 Ensemble (OOF)']['scan']
+CSV Values  : Acc=0.5375, BalAcc=0.4715, MacroF1=0.4772
+Raw Artifact: Acc=0.5375, BalAcc=0.4715, MacroF1=0.4772
+MATCH [PASS] (Acc Diff: 0.000000, BalAcc Diff: 0.000040, MacroF1 Diff: 0.000031)
+
+--- Spot-Check #5 (Row 57): [EXP-06B ARM A] ---
+Group       : EXP-03 to EXP-06D Hyperparameter Ablations
+Source File : reports/accuracy_improvement/exp06b/statistical_analysis_results.json
+Source Field: summary[arm_id='arm_a']
+CSV Values  : Acc=0.4625, BalAcc=0.4638, MacroF1=0.4438
+Raw Artifact: Acc=0.4625, BalAcc=0.4638, MacroF1=0.4438
+MATCH [PASS] (Acc Diff: 0.000000, BalAcc Diff: 0.000019, MacroF1 Diff: 0.000016)
+
+--- Spot-Check #6 (Row 61): [EXP-06C CONFIG A] ---
+Group       : EXP-03 to EXP-06D Hyperparameter Ablations
+Source File : reports/accuracy_improvement/exp06c/statistical_analysis_results.json
+Source Field: configurations[config_id='config_a']
+CSV Values  : Acc=0.5375, BalAcc=0.5347, MacroF1=0.5487
+Raw Artifact: Acc=0.5375, BalAcc=0.5347, MacroF1=0.5487
+MATCH [PASS] (Acc Diff: 0.000000, BalAcc Diff: 0.000028, MacroF1 Diff: 0.000015)
+
+--- Spot-Check #7 (Row 99): [AUDIT-PHASE2-RULE-A-SEED_43] ---
+Group       : Leakage Audit Diagnostics & Experiments
+Source File : experiments/leakage_audit/phase2_selection_rules_comparison.json
+Source Field: clean_rule_a_inner_val.seed_43.overall
+CSV Values  : Acc=0.3000, BalAcc=0.2853, MacroF1=0.2864
+Raw Artifact: Acc=0.3000, BalAcc=0.2853, MacroF1=0.2864
+MATCH [PASS] (Acc Diff: 0.000000, BalAcc Diff: 0.000031, MacroF1 Diff: 0.000002)
+
+--- Spot-Check #8 (Row 125): [AUDIT-EXP3-ABL-GROUP_II_ALPHA_BORDER-RANDOM_FOREST-TRUE] ---
+Group       : Leakage Audit Diagnostics & Experiments
+Source File : experiments/leakage_audit/exp3_trivial_ablation_results.json
+Source Field: groups['group_ii_alpha_border']['random_forest']['true']['summary']
+CSV Values  : Acc=0.3876, BalAcc=0.3841, MacroF1=0.3805
+Raw Artifact: Acc=0.3876, BalAcc=0.3841, MacroF1=0.3805
+MATCH [PASS] (Acc Diff: 0.000025, BalAcc Diff: 0.000012, MacroF1 Diff: 0.000007)
+
+--- Spot-Check #9 (Row 130): [AUDIT-EXP3-ABL-GROUP_III_INTENSITY_HIST_MOMENTS-RANDOM_FOREST-SHUFFLED] ---
+Group       : Leakage Audit Diagnostics & Experiments
+Source File : experiments/leakage_audit/exp3_trivial_ablation_results.json
+Source Field: groups['group_iii_intensity_hist_moments']['random_forest']['shuffled']['summary']
+CSV Values  : Acc=0.2583, BalAcc=0.2573, MacroF1=0.2539
+Raw Artifact: Acc=0.2583, BalAcc=0.2573, MacroF1=0.2539
+MATCH [PASS] (Acc Diff: 0.000036, BalAcc Diff: 0.000034, MacroF1 Diff: 0.000029)
+
+--- Spot-Check #10 (Row 143): [P3-ARCH-VGG16-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/vgg16_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.5238, BalAcc=0.3750, MacroF1=0.3100
+Raw Artifact: Acc=0.5238, BalAcc=0.3750, MacroF1=0.3100
+MATCH [PASS] (Acc Diff: 0.000010, BalAcc Diff: 0.000000, MacroF1 Diff: 0.000000)
+
+================================================================================
+VERIFICATION RESULT: 10/10 rows independently spot-checked and verified with zero discrepancy!
+================================================================================

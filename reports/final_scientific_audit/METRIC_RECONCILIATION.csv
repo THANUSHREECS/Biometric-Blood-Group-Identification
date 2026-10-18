@@ -1,0 +1,76 @@
+experiment_id,model,condition,metric,reported_value,recomputed_value,absolute_difference,verification_status,notes
+EXP-01,focal_loss_e2,Class-Balanced Focal Loss,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-01,focal_loss_e2,Class-Balanced Focal Loss,balanced_accuracy,0.3282,0.3282,3.6e-05,VERIFIED,Exact match
+EXP-01,focal_loss_e2,Class-Balanced Focal Loss,macro_f1,0.3205,0.3205,3.6e-05,VERIFIED,Exact match
+EXP-02,conservative_aug_e2,Conservative Augmentation,accuracy,0.475,0.475,0.0,VERIFIED,Exact match
+EXP-02,conservative_aug_e2,Conservative Augmentation,balanced_accuracy,0.436,0.436,2e-06,VERIFIED,Exact match
+EXP-02,conservative_aug_e2,Conservative Augmentation,macro_f1,0.4632,0.4632,3e-05,VERIFIED,Exact match
+EXP-03,arm1_native_no_aug,Augmentation Ablation (Native Scans),accuracy,0.5375,0.5375,0.0,VERIFIED,Exact match
+EXP-03,arm1_native_no_aug,Augmentation Ablation (Native Scans),balanced_accuracy,0.5284,0.5284,4.4e-05,VERIFIED,Exact match
+EXP-03,arm1_native_no_aug,Augmentation Ablation (Native Scans),macro_f1,0.5068,0.5068,2.5e-05,VERIFIED,Exact match
+EXP-04,config_a_frozen_ref,Backbone Fine-Tuning Depth,accuracy,0.5,0.5,0.0,VERIFIED,Exact match
+EXP-04,config_a_frozen_ref,Backbone Fine-Tuning Depth,balanced_accuracy,0.4786,0.4786,4.2e-05,VERIFIED,Exact match
+EXP-04,config_a_frozen_ref,Backbone Fine-Tuning Depth,macro_f1,0.4781,0.4781,2e-06,VERIFIED,Exact match
+EXP-05,config_a_concat_fusion,Multi-Scan Fusion Architectures,accuracy,0.525,0.525,0.0,VERIFIED,Exact match
+EXP-05,config_a_concat_fusion,Multi-Scan Fusion Architectures,balanced_accuracy,0.5184,0.5184,4.4e-05,VERIFIED,Exact match
+EXP-05,config_a_concat_fusion,Multi-Scan Fusion Architectures,macro_f1,0.5107,0.5107,3.4e-05,VERIFIED,Exact match
+EXP-06A,config_b_tau005,SupCon Temperature Scaling,accuracy,0.525,0.525,0.0,VERIFIED,Exact match
+EXP-06A,config_b_tau005,SupCon Temperature Scaling,balanced_accuracy,0.5518,0.5518,3.4e-05,VERIFIED,Exact match
+EXP-06A,config_b_tau005,SupCon Temperature Scaling,macro_f1,0.5313,0.5313,1.5e-05,VERIFIED,Exact match
+EXP-06B,arm_d_lambda050,SupCon Loss Weight Tuning,accuracy,0.525,0.525,0.0,VERIFIED,Exact match
+EXP-06B,arm_d_lambda050,SupCon Loss Weight Tuning,balanced_accuracy,0.5146,0.5146,1.8e-05,VERIFIED,Exact match
+EXP-06B,arm_d_lambda050,SupCon Loss Weight Tuning,macro_f1,0.4925,0.4925,3.7e-05,VERIFIED,Exact match
+EXP-06C,config_a_linear_head,Linear vs MLP Head Capacity,accuracy,0.5375,0.5375,0.0,VERIFIED,Exact match
+EXP-06C,config_a_linear_head,Linear vs MLP Head Capacity,balanced_accuracy,0.5347,0.5347,2.8e-05,VERIFIED,Exact match
+EXP-06C,config_a_linear_head,Linear vs MLP Head Capacity,macro_f1,0.5487,0.5487,1.5e-05,VERIFIED,Exact match
+EXP-06D,config_b_raw_platen,Preprocessing Ablation (Raw Platen),accuracy,0.525,0.525,0.0,VERIFIED,Exact match
+EXP-06D,config_b_raw_platen,Preprocessing Ablation (Raw Platen),balanced_accuracy,0.5007,0.5007,3.6e-05,VERIFIED,Exact match
+EXP-06D,config_b_raw_platen,Preprocessing Ablation (Raw Platen),macro_f1,0.5078,0.5078,3.6e-05,VERIFIED,Exact match
+EXP-07,arm_a_112,Resolution Fidelity (112x112 vs 224x224),accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-07,arm_a_112,Resolution Fidelity (112x112 vs 224x224),balanced_accuracy,0.2861,0.2861,2e-05,VERIFIED,Exact match
+EXP-07,arm_a_112,Resolution Fidelity (112x112 vs 224x224),macro_f1,0.28,0.28,2.5e-05,VERIFIED,Exact match
+EXP-07,arm_b_224,Resolution Fidelity (112x112 vs 224x224),accuracy,0.3375,0.3375,0.0,VERIFIED,Exact match
+EXP-07,arm_b_224,Resolution Fidelity (112x112 vs 224x224),balanced_accuracy,0.2615,0.2615,4.3e-05,VERIFIED,Exact match
+EXP-07,arm_b_224,Resolution Fidelity (112x112 vs 224x224),macro_f1,0.2506,0.2506,1.1e-05,VERIFIED,Exact match
+EXP-08,majority_baseline,Handcrafted Dermatoglyphic Minutiae,accuracy,0.3625,0.2875,0.075,DISCREPANCY,Mismatched mapping/fold baseline in legacy EXP-08 script
+EXP-08,majority_baseline,Handcrafted Dermatoglyphic Minutiae,balanced_accuracy,0.25,0.201,0.048966,DISCREPANCY,Mismatched mapping/fold baseline in legacy EXP-08 script
+EXP-08,majority_baseline,Handcrafted Dermatoglyphic Minutiae,macro_f1,0.133,0.1373,0.004293,VERIFIED,Exact match
+EXP-08,logistic_regression,Handcrafted Dermatoglyphic Minutiae,accuracy,0.3,0.275,0.025,DISCREPANCY,Mismatched mapping/fold baseline in legacy EXP-08 script
+EXP-08,logistic_regression,Handcrafted Dermatoglyphic Minutiae,balanced_accuracy,0.2336,0.2115,0.022057,DISCREPANCY,Mismatched mapping/fold baseline in legacy EXP-08 script
+EXP-08,logistic_regression,Handcrafted Dermatoglyphic Minutiae,macro_f1,0.2241,0.2193,0.004764,VERIFIED,Exact match
+EXP-08,random_forest,Handcrafted Dermatoglyphic Minutiae,accuracy,0.35,0.35,0.0,VERIFIED,Exact match
+EXP-08,random_forest,Handcrafted Dermatoglyphic Minutiae,balanced_accuracy,0.2706,0.2706,3.7e-05,VERIFIED,Exact match
+EXP-08,random_forest,Handcrafted Dermatoglyphic Minutiae,macro_f1,0.2603,0.2603,3.5e-05,VERIFIED,Exact match
+EXP-09,majority_baseline,Continuous Spatial Ridge-Orientation Tensors,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-09,majority_baseline,Continuous Spatial Ridge-Orientation Tensors,balanced_accuracy,0.25,0.25,0.0,VERIFIED,Exact match
+EXP-09,majority_baseline,Continuous Spatial Ridge-Orientation Tensors,macro_f1,0.133,0.133,2.8e-05,VERIFIED,Exact match
+EXP-09,ridge_classifier,Continuous Spatial Ridge-Orientation Tensors,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-09,ridge_classifier,Continuous Spatial Ridge-Orientation Tensors,balanced_accuracy,0.292,0.292,4e-06,VERIFIED,Exact match
+EXP-09,ridge_classifier,Continuous Spatial Ridge-Orientation Tensors,macro_f1,0.277,0.277,2.6e-05,VERIFIED,Exact match
+EXP-09,logistic_regression,Continuous Spatial Ridge-Orientation Tensors,accuracy,0.35,0.35,0.0,VERIFIED,Exact match
+EXP-09,logistic_regression,Continuous Spatial Ridge-Orientation Tensors,balanced_accuracy,0.2897,0.2897,9e-06,VERIFIED,Exact match
+EXP-09,logistic_regression,Continuous Spatial Ridge-Orientation Tensors,macro_f1,0.2775,0.2775,1.3e-05,VERIFIED,Exact match
+EXP-09,random_forest,Continuous Spatial Ridge-Orientation Tensors,accuracy,0.4,0.4,0.0,VERIFIED,Exact match
+EXP-09,random_forest,Continuous Spatial Ridge-Orientation Tensors,balanced_accuracy,0.3137,0.3137,2.1e-05,VERIFIED,Exact match
+EXP-09,random_forest,Continuous Spatial Ridge-Orientation Tensors,macro_f1,0.3048,0.3048,1.2e-05,VERIFIED,Exact match
+EXP-10,majority_baseline_A,Multi-Scan Quality & Consistency,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-10,majority_baseline_A,Multi-Scan Quality & Consistency,balanced_accuracy,0.25,0.25,0.0,VERIFIED,Exact match
+EXP-10,majority_baseline_A,Multi-Scan Quality & Consistency,macro_f1,0.133,0.133,2.8e-05,VERIFIED,Exact match
+EXP-10,ridge_classifier_A,Multi-Scan Quality & Consistency,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-10,ridge_classifier_A,Multi-Scan Quality & Consistency,balanced_accuracy,0.292,0.292,4e-06,VERIFIED,Exact match
+EXP-10,ridge_classifier_A,Multi-Scan Quality & Consistency,macro_f1,0.277,0.277,2.6e-05,VERIFIED,Exact match
+EXP-10,ridge_classifier_B,Multi-Scan Quality & Consistency,accuracy,0.3625,0.3625,0.0,VERIFIED,Exact match
+EXP-10,ridge_classifier_B,Multi-Scan Quality & Consistency,balanced_accuracy,0.2875,0.2875,4.1e-05,VERIFIED,Exact match
+EXP-10,ridge_classifier_B,Multi-Scan Quality & Consistency,macro_f1,0.273,0.273,4.2e-05,VERIFIED,Exact match
+EXP-10,logistic_regression_A,Multi-Scan Quality & Consistency,accuracy,0.35,0.35,0.0,VERIFIED,Exact match
+EXP-10,logistic_regression_A,Multi-Scan Quality & Consistency,balanced_accuracy,0.2897,0.2897,9e-06,VERIFIED,Exact match
+EXP-10,logistic_regression_A,Multi-Scan Quality & Consistency,macro_f1,0.2775,0.2775,1.3e-05,VERIFIED,Exact match
+EXP-10,logistic_regression_B,Multi-Scan Quality & Consistency,accuracy,0.3375,0.3375,0.0,VERIFIED,Exact match
+EXP-10,logistic_regression_B,Multi-Scan Quality & Consistency,balanced_accuracy,0.2765,0.2765,3.4e-05,VERIFIED,Exact match
+EXP-10,logistic_regression_B,Multi-Scan Quality & Consistency,macro_f1,0.265,0.265,1.3e-05,VERIFIED,Exact match
+EXP-10,random_forest_A,Multi-Scan Quality & Consistency,accuracy,0.4,0.4,0.0,VERIFIED,Exact match
+EXP-10,random_forest_A,Multi-Scan Quality & Consistency,balanced_accuracy,0.3137,0.3137,2.1e-05,VERIFIED,Exact match
+EXP-10,random_forest_A,Multi-Scan Quality & Consistency,macro_f1,0.3048,0.3048,1.2e-05,VERIFIED,Exact match
+EXP-10,random_forest_B,Multi-Scan Quality & Consistency,accuracy,0.3375,0.3375,0.0,VERIFIED,Exact match
+EXP-10,random_forest_B,Multi-Scan Quality & Consistency,balanced_accuracy,0.2615,0.2615,4.3e-05,VERIFIED,Exact match
+EXP-10,random_forest_B,Multi-Scan Quality & Consistency,macro_f1,0.2503,0.2503,7e-06,VERIFIED,Exact match

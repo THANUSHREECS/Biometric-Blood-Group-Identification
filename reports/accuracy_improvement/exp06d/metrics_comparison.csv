@@ -1,0 +1,3 @@
+Config ID,Config Name,Preprocessing Mode,Loss Weight (lambda),Temperature (tau),Trainable Params,Accuracy,Balanced Accuracy,Macro F1 (OOF),Fold F1 Mean (Std),A+ Recall,AB+ Recall,B+ Recall,O+ Recall,Runtime (min)
+config_a,Config A: Reference (Enhanced C5: Crop + CLAHE + Bilateral Filter),enhanced,0.5,0.05,"1,968,772",46.25%,45.86%,0.4456,0.4317 (+/-0.1044),42.11% (8/19),42.86% (3/7),64.00% (16/25),34.48% (10/29),154.89
+config_b,"Config B: Candidate (Raw Platen C5: Crop Only, No CLAHE/Bilateral Filter)",raw,0.5,0.05,"1,968,772",52.50%,50.07%,0.5078,0.4771 (+/-0.1099),47.37% (9/19),42.86% (3/7),48.00% (12/25),62.07% (18/29),194.97

@@ -1,0 +1,5 @@
+Arm ID,Arm Name,Loss Weight (lambda),Temperature (tau),Trainable Params,Accuracy,Balanced Accuracy,Macro F1 (OOF),Fold F1 Mean (Std),A+ Recall,AB+ Recall,B+ Recall,O+ Recall,Runtime (min)
+arm_a,Arm A: Reduced Loss Weight (lambda=0.05),0.05,0.05,"1,968,772",46.25%,46.38%,0.4438,0.4607 (+/-0.0752),26.32% (5/19),57.14% (4/7),40.00% (10/25),62.07% (18/29),77.83
+arm_b,Arm B: Reference Loss Weight (lambda=0.10),0.1,0.05,"1,968,772",47.50%,48.47%,0.4789,0.4799 (+/-0.0744),42.11% (8/19),57.14% (4/7),36.00% (9/25),58.62% (17/29),108.16
+arm_c,Arm C: Moderate Loss Weight (lambda=0.20),0.2,0.05,"1,968,772",45.00%,43.99%,0.4404,0.4370 (+/-0.0717),36.84% (7/19),42.86% (3/7),48.00% (12/25),48.28% (14/29),135.42
+arm_d,Arm D: Heavy Loss Weight (lambda=0.50),0.5,0.05,"1,968,772",52.50%,51.46%,0.4925,0.5035 (+/-0.1007),36.84% (7/19),57.14% (4/7),36.00% (9/25),75.86% (22/29),173.21

@@ -1,0 +1,93 @@
+{
+  "candidate": "EXP-06C Config A",
+  "cohort": "PRIMARY_LOCKED_21",
+  "num_participants": 21,
+  "num_correct": 7,
+  "accuracy": 0.3333333333333333,
+  "balanced_accuracy": 0.3125,
+  "macro_precision": 0.15625,
+  "macro_recall": 0.3125,
+  "macro_f1": 0.20833333333333331,
+  "bootstrap_ci_95": {
+    "macro_f1": {
+      "mean": 0.1958938031677055,
+      "ci_95": [
+        0.07491071428571429,
+        0.34814814814814815
+      ]
+    },
+    "accuracy": {
+      "mean": 0.33269047619047615,
+      "ci_95": [
+        0.14285714285714285,
+        0.5238095238095238
+      ]
+    },
+    "balanced_accuracy": {
+      "mean": 0.3045389902921153,
+      "ci_95": [
+        0.125,
+        0.5
+      ]
+    }
+  },
+  "per_class": {
+    "A+": {
+      "support": 5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "AB+": {
+      "support": 2,
+      "precision": 0.25,
+      "recall": 0.5,
+      "f1": 0.3333333333333333
+    },
+    "B+": {
+      "support": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "O+": {
+      "support": 8,
+      "precision": 0.375,
+      "recall": 0.75,
+      "f1": 0.5
+    }
+  },
+  "confusion_matrix": [
+    [
+      0,
+      1,
+      0,
+      4
+    ],
+    [
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      5
+    ],
+    [
+      0,
+      1,
+      1,
+      6
+    ]
+  ],
+  "canonical_classes": [
+    "A+",
+    "AB+",
+    "B+",
+    "O+"
+  ],
+  "timestamp": "2026-10-16T16:38:44.040537Z"
+}

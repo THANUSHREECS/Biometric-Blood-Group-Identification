@@ -1,0 +1,355 @@
+{
+  "majority_baseline": {
+    "model_name": "Majority-Class Zero-Intelligence Classifier",
+    "accuracy": 0.3625,
+    "balanced_accuracy": 0.25,
+    "macro_f1": 0.13302752293577982,
+    "cohen_kappa": 0.0,
+    "per_class_recall": {
+      "A+": 0.0,
+      "AB+": 0.0,
+      "B+": 0.0,
+      "O+": 1.0
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        19
+      ],
+      [
+        0,
+        0,
+        0,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        25
+      ],
+      [
+        0,
+        0,
+        0,
+        29
+      ]
+    ],
+    "fold_summary": {
+      "accuracy_mean": 0.3625,
+      "accuracy_std": 0.024999999999999998,
+      "balanced_accuracy_mean": 0.25,
+      "balanced_accuracy_std": 0.0,
+      "macro_f1_mean": 0.1329004329004329,
+      "macro_f1_std": 0.006926406926406925
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.25,
+        "macro_f1": 0.13636363636363635
+      },
+      {
+        "fold": 2,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.25,
+        "macro_f1": 0.13636363636363635
+      },
+      {
+        "fold": 3,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.25,
+        "macro_f1": 0.13636363636363635
+      },
+      {
+        "fold": 4,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.25,
+        "macro_f1": 0.13636363636363635
+      },
+      {
+        "fold": 5,
+        "n_val": 16,
+        "accuracy": 0.3125,
+        "balanced_accuracy": 0.25,
+        "macro_f1": 0.11904761904761904
+      }
+    ]
+  },
+  "ridge_classifier": {
+    "model_name": "Ridge Classifier (alpha=10.0, balanced)",
+    "accuracy": 0.3625,
+    "balanced_accuracy": 0.29199637023593467,
+    "macro_f1": 0.27702613407341325,
+    "cohen_kappa": 0.08314606741573038,
+    "per_class_recall": {
+      "A+": 0.2631578947368421,
+      "AB+": 0.0,
+      "B+": 0.56,
+      "O+": 0.3448275862068966
+    },
+    "confusion_matrix": [
+      [
+        5,
+        1,
+        6,
+        7
+      ],
+      [
+        2,
+        0,
+        4,
+        1
+      ],
+      [
+        4,
+        0,
+        14,
+        7
+      ],
+      [
+        8,
+        1,
+        10,
+        10
+      ]
+    ],
+    "fold_summary": {
+      "accuracy_mean": 0.3625,
+      "accuracy_std": 0.082915619758885,
+      "balanced_accuracy_mean": 0.2875,
+      "balanced_accuracy_std": 0.06744339190099437,
+      "macro_f1_mean": 0.2697183372183372,
+      "macro_f1_std": 0.06518257167991516
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.30833333333333335,
+        "macro_f1": 0.29292929292929293
+      },
+      {
+        "fold": 2,
+        "n_val": 16,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.3875,
+        "macro_f1": 0.3666666666666667
+      },
+      {
+        "fold": 3,
+        "n_val": 16,
+        "accuracy": 0.3125,
+        "balanced_accuracy": 0.2375,
+        "macro_f1": 0.23333333333333334
+      },
+      {
+        "fold": 4,
+        "n_val": 16,
+        "accuracy": 0.25,
+        "balanced_accuracy": 0.19166666666666665,
+        "macro_f1": 0.17094017094017094
+      },
+      {
+        "fold": 5,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.3125,
+        "macro_f1": 0.2847222222222222
+      }
+    ]
+  },
+  "logistic_regression": {
+    "model_name": "L2 Logistic Regression (C=0.1, balanced)",
+    "accuracy": 0.35,
+    "balanced_accuracy": 0.28969147005444645,
+    "macro_f1": 0.27748673740053054,
+    "cohen_kappa": 0.07308377896613194,
+    "per_class_recall": {
+      "A+": 0.3684210526315789,
+      "AB+": 0.0,
+      "B+": 0.48,
+      "O+": 0.3103448275862069
+    },
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        6,
+        6
+      ],
+      [
+        2,
+        0,
+        4,
+        1
+      ],
+      [
+        4,
+        2,
+        12,
+        7
+      ],
+      [
+        8,
+        1,
+        11,
+        9
+      ]
+    ],
+    "fold_summary": {
+      "accuracy_mean": 0.35,
+      "accuracy_std": 0.1159202311936963,
+      "balanced_accuracy_mean": 0.2883333333333333,
+      "balanced_accuracy_std": 0.0976956725983523,
+      "macro_f1_mean": 0.2726695526695527,
+      "macro_f1_std": 0.08191976144779312
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "n_val": 16,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.42083333333333334,
+        "macro_f1": 0.38636363636363635
+      },
+      {
+        "fold": 2,
+        "n_val": 16,
+        "accuracy": 0.4375,
+        "balanced_accuracy": 0.3458333333333333,
+        "macro_f1": 0.3214285714285714
+      },
+      {
+        "fold": 3,
+        "n_val": 16,
+        "accuracy": 0.1875,
+        "balanced_accuracy": 0.14583333333333331,
+        "macro_f1": 0.15
+      },
+      {
+        "fold": 4,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.31666666666666665,
+        "macro_f1": 0.2875
+      },
+      {
+        "fold": 5,
+        "n_val": 16,
+        "accuracy": 0.25,
+        "balanced_accuracy": 0.21250000000000002,
+        "macro_f1": 0.21805555555555556
+      }
+    ]
+  },
+  "random_forest": {
+    "model_name": "Random Forest (n=100, depth=4, balanced)",
+    "accuracy": 0.4,
+    "balanced_accuracy": 0.31372050816696917,
+    "macro_f1": 0.30481246552675123,
+    "cohen_kappa": 0.13161465400271377,
+    "per_class_recall": {
+      "A+": 0.2631578947368421,
+      "AB+": 0.0,
+      "B+": 0.44,
+      "O+": 0.5517241379310345
+    },
+    "confusion_matrix": [
+      [
+        5,
+        0,
+        2,
+        12
+      ],
+      [
+        2,
+        0,
+        4,
+        1
+      ],
+      [
+        6,
+        2,
+        11,
+        6
+      ],
+      [
+        5,
+        1,
+        7,
+        16
+      ]
+    ],
+    "fold_summary": {
+      "accuracy_mean": 0.4,
+      "accuracy_std": 0.1159202311936963,
+      "balanced_accuracy_mean": 0.31333333333333335,
+      "balanced_accuracy_std": 0.0778798932830405,
+      "macro_f1_mean": 0.29231601731601725,
+      "macro_f1_std": 0.057046502931623604
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "n_val": 16,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.3833333333333333,
+        "macro_f1": 0.3492063492063492
+      },
+      {
+        "fold": 2,
+        "n_val": 16,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.4083333333333333,
+        "macro_f1": 0.3484848484848485
+      },
+      {
+        "fold": 3,
+        "n_val": 16,
+        "accuracy": 0.25,
+        "balanced_accuracy": 0.19583333333333333,
+        "macro_f1": 0.19365079365079363
+      },
+      {
+        "fold": 4,
+        "n_val": 16,
+        "accuracy": 0.375,
+        "balanced_accuracy": 0.31666666666666665,
+        "macro_f1": 0.28968253968253965
+      },
+      {
+        "fold": 5,
+        "n_val": 16,
+        "accuracy": 0.3125,
+        "balanced_accuracy": 0.2625,
+        "macro_f1": 0.28055555555555556
+      }
+    ]
+  },
+  "metadata": {
+    "experiment": "EXP-09-ORIENTATION-TENSOR",
+    "cohort": "Dev-80 (240 scans)",
+    "feature_dim": 920,
+    "spatial_grid": [
+      23,
+      20
+    ],
+    "canonical_classes": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "runtime_seconds": 4.948822736740112,
+    "timestamp": "2026-10-18 11:11:58"
+  }
+}

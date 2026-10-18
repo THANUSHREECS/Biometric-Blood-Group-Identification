@@ -1,0 +1,88 @@
+================================================================================
+SPOT-CHECK OF 10 RANDOMLY SAMPLED CHANGED / LOCKED ROWS (SEED=777)
+Sampling pool: Disagreement rows, locked test rows, architecture benchmark rows
+================================================================================
+
+--- Spot-Check #1: [DAY27-LOCKED-TEST-21] ---
+Group       : Locked Test Final Evaluations
+Source File : reports/phase3_final_evaluation/FINAL_TEST_REPORT.md
+Source Field: Section 5: Day 27 Baseline Accuracy / Macro F1
+CSV Values  : Acc=0.3809, BalAcc=N/A, MacroF1=0.3125
+Raw Artifact: Acc=0.3809, BalAcc=N/A, MacroF1=0.3125
+MATCH [PASS] (Acc Diff: 0.000000, MacroF1 Diff: 0.000000)
+
+--- Spot-Check #2: [DAY27-LOCKED-ZERO-SHOT-PART-21] ---
+Group       : Day 27 Locked Cohort Zero-Shot
+Source File : reports/final_mfs100/final_zero_shot_participant_predictions.csv
+Source Field: participant_id, true_label, final_prediction (filtered to TEST split)
+CSV Values  : Acc=0.3333, BalAcc=0.2375, MacroF1=0.1875
+Raw Artifact: Acc=0.3333, BalAcc=0.2375, MacroF1=0.1875
+MATCH [PASS] (Acc Diff: 0.000033, BalAcc Diff: 0.000000, MacroF1 Diff: 0.000000)
+
+--- Spot-Check #3: [DAY27-LOCKED-ZERO-SHOT-SCAN-63] ---
+Group       : Day 27 Locked Cohort Zero-Shot
+Source File : reports/final_mfs100/final_zero_shot_scan_predictions.csv
+Source Field: participant_id, true_label, predicted_class (filtered to TEST split)
+CSV Values  : Acc=0.3492, BalAcc=0.2417, MacroF1=0.1792
+Raw Artifact: Acc=0.3492, BalAcc=0.2417, MacroF1=0.1792
+MATCH [PASS] (Acc Diff: 0.000006, BalAcc Diff: 0.000033, MacroF1 Diff: 0.000002)
+
+--- Spot-Check #4: [P3-ARCH-CONVNEXT-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/convnext_tiny_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.3333, BalAcc=0.3896, MacroF1=0.3268
+Raw Artifact: Acc=0.3333, BalAcc=0.3896, MacroF1=0.3268
+MATCH [PASS] (Acc Diff: 0.000033, BalAcc Diff: 0.000017, MacroF1 Diff: 0.000040)
+
+--- Spot-Check #5: [P3-ARCH-CUSTOMCNN-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/custom_cnn_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.2857, BalAcc=0.1875, MacroF1=0.1200
+Raw Artifact: Acc=0.2857, BalAcc=0.1875, MacroF1=0.1200
+MATCH [PASS] (Acc Diff: 0.000014, BalAcc Diff: 0.000000, MacroF1 Diff: 0.000000)
+
+--- Spot-Check #6: [P3-ARCH-DENSE121-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/densenet121_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.5238, BalAcc=0.3937, MacroF1=0.3750
+Raw Artifact: Acc=0.5238, BalAcc=0.3937, MacroF1=0.3750
+MATCH [PASS] (Acc Diff: 0.000010, BalAcc Diff: 0.000050, MacroF1 Diff: 0.000000)
+
+--- Spot-Check #7: [P3-ARCH-EFFB0-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/efficientnet_b0_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.1905, BalAcc=0.1458, MacroF1=0.1250
+Raw Artifact: Acc=0.1905, BalAcc=0.1458, MacroF1=0.1250
+MATCH [PASS] (Acc Diff: 0.000024, BalAcc Diff: 0.000033, MacroF1 Diff: 0.000000)
+
+--- Spot-Check #8: [P3-ARCH-EFFV2B0-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/efficientnetv2_b0_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.3333, BalAcc=0.2375, MacroF1=0.1929
+Raw Artifact: Acc=0.3333, BalAcc=0.2375, MacroF1=0.1929
+MATCH [PASS] (Acc Diff: 0.000033, BalAcc Diff: 0.000000, MacroF1 Diff: 0.000035)
+
+--- Spot-Check #9: [P3-ARCH-RESNET50-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/resnet50_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.2381, BalAcc=0.1667, MacroF1=0.1357
+Raw Artifact: Acc=0.2381, BalAcc=0.1667, MacroF1=0.1357
+MATCH [PASS] (Acc Diff: 0.000005, BalAcc Diff: 0.000033, MacroF1 Diff: 0.000014)
+
+--- Spot-Check #10: [P3-ARCH-VGG16-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/vgg16_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+CSV Values  : Acc=0.5238, BalAcc=0.3750, MacroF1=0.3100
+Raw Artifact: Acc=0.5238, BalAcc=0.3750, MacroF1=0.3100
+MATCH [PASS] (Acc Diff: 0.000010, BalAcc Diff: 0.000000, MacroF1 Diff: 0.000000)
+
+================================================================================
+RESULT: 10/10 changed rows independently spot-checked and verified with zero discrepancy!
+================================================================================

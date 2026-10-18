@@ -1,0 +1,77 @@
+{
+  "experiment_id": "EXP-01",
+  "name": "Class-Balanced Categorical Focal Loss (gamma=2.0) for E2",
+  "cohort": "DEVELOPMENT_80",
+  "num_participants": 80,
+  "num_correct": 29,
+  "accuracy": 0.3625,
+  "balanced_accuracy": 0.32816437645838736,
+  "macro_precision": 0.3472222222222222,
+  "macro_recall": 0.32816437645838736,
+  "macro_f1": 0.32053609141044614,
+  "always_o_plus_baseline": 0.3625,
+  "per_class": {
+    "A+": {
+      "support": 19,
+      "precision": 0.3888888888888889,
+      "recall": 0.3684210526315789,
+      "f1": 0.3783783783783784
+    },
+    "AB+": {
+      "support": 7,
+      "precision": 0.0625,
+      "recall": 0.14285714285714285,
+      "f1": 0.08695652173913043
+    },
+    "B+": {
+      "support": 25,
+      "precision": 0.4375,
+      "recall": 0.56,
+      "f1": 0.49122807017543857
+    },
+    "O+": {
+      "support": 29,
+      "precision": 0.5,
+      "recall": 0.2413793103448276,
+      "f1": 0.32558139534883723
+    }
+  },
+  "confusion_matrix": [
+    [
+      7,
+      4,
+      6,
+      2
+    ],
+    [
+      1,
+      1,
+      4,
+      1
+    ],
+    [
+      2,
+      5,
+      14,
+      4
+    ],
+    [
+      8,
+      6,
+      8,
+      7
+    ]
+  ],
+  "true_class_distribution": {
+    "O+": 29,
+    "B+": 25,
+    "A+": 19,
+    "AB+": 7
+  },
+  "predicted_class_distribution": {
+    "B+": 32,
+    "A+": 18,
+    "AB+": 16,
+    "O+": 14
+  }
+}

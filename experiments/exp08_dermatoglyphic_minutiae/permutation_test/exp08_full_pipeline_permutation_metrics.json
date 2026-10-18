@@ -1,0 +1,40 @@
+{
+  "logistic_regression": {
+    "model_key": "logistic_regression",
+    "n_permutations": 1000,
+    "observed_accuracy": 0.275,
+    "observed_balanced_accuracy": 0.2115426497277677,
+    "observed_macro_f1": 0.2193364073777065,
+    "null_balanced_accuracy_mean": 0.2430480528908478,
+    "null_balanced_accuracy_std": 0.05880595938719711,
+    "null_balanced_accuracy_median": 0.2405431682654913,
+    "null_balanced_accuracy_p95": 0.34462470832253045,
+    "null_balanced_accuracy_max": 0.45955924293492356,
+    "count_balanced_accuracy_ge_observed": 696,
+    "p_value_balanced_accuracy": 0.6963036963036963,
+    "null_macro_f1_mean": 0.2386635214290777,
+    "null_macro_f1_std": 0.05404827888560233,
+    "null_macro_f1_p95": 0.3287332063776065,
+    "count_macro_f1_ge_observed": 625,
+    "p_value_macro_f1": 0.6253746253746254
+  },
+  "random_forest": {
+    "model_key": "random_forest",
+    "n_permutations": 1000,
+    "observed_accuracy": 0.35,
+    "observed_balanced_accuracy": 0.27056261343012705,
+    "observed_macro_f1": 0.26026513169370313,
+    "null_balanced_accuracy_mean": 0.23624490018148822,
+    "null_balanced_accuracy_std": 0.054472512633447275,
+    "null_balanced_accuracy_median": 0.23277547316567282,
+    "null_balanced_accuracy_p95": 0.33087321752657506,
+    "null_balanced_accuracy_max": 0.4320404459424423,
+    "count_balanced_accuracy_ge_observed": 253,
+    "p_value_balanced_accuracy": 0.25374625374625376,
+    "null_macro_f1_mean": 0.22956441835093808,
+    "null_macro_f1_std": 0.05528295040825055,
+    "null_macro_f1_p95": 0.32493249892260273,
+    "count_macro_f1_ge_observed": 281,
+    "p_value_macro_f1": 0.2817182817182817
+  }
+}

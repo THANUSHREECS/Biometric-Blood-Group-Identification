@@ -1,0 +1,182 @@
+{
+  "prod_model": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\abo_positive_4class\\best_model.keras",
+    "size_bytes": 32642427,
+    "sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9"
+  },
+  "orig_e2_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_1_best.weights.h5",
+    "size_bytes": 52910112,
+    "sha256": "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d"
+  },
+  "orig_e2_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_2_best.weights.h5",
+    "size_bytes": 52910112,
+    "sha256": "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede"
+  },
+  "orig_e2_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_3_best.weights.h5",
+    "size_bytes": 52910112,
+    "sha256": "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3"
+  },
+  "orig_e2_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_4_best.weights.h5",
+    "size_bytes": 52910112,
+    "sha256": "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519"
+  },
+  "orig_e2_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_5_best.weights.h5",
+    "size_bytes": 52910112,
+    "sha256": "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d"
+  },
+  "exp03_arm1_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_1_best.weights.h5",
+    "size_bytes": 52901632,
+    "sha256": "0d047b7a10153718b067e84a27a6ad2bc0486ccf1d35057a07da6e2e2d627ac5"
+  },
+  "exp03_arm1_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_2_best.weights.h5",
+    "size_bytes": 52901632,
+    "sha256": "dd94e4c44887399d700ac2de195f513a5b1db73ac561f4ff8c2345d5156f7063"
+  },
+  "exp03_arm1_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_3_best.weights.h5",
+    "size_bytes": 52901632,
+    "sha256": "f763f67068a4411dbd4a405e39248f2ead1b1b1fe228c4b1bca5da807005b3e3"
+  },
+  "exp03_arm1_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_4_best.weights.h5",
+    "size_bytes": 52901632,
+    "sha256": "589f1e52275f68ed02329b1d4a7a9c16f406ed3868b8afeef9706ebace61b496"
+  },
+  "exp03_arm1_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_5_best.weights.h5",
+    "size_bytes": 52901632,
+    "sha256": "848aea5498e469871d5fdcd136d849f971c9c3c485a4c66afb2505d3b0a46776"
+  },
+  "exp05_config_a_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_1_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "52bd4a65becdb6146a338f1a55fe73b6b4722ef4ba93d8a924b5d1a0081bd95a"
+  },
+  "exp05_config_a_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_2_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "a3935aca244e471a98166684be75d7ba00736c05a59212eca43db4ddb2ccdf36"
+  },
+  "exp05_config_a_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_3_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "ba355773dd0b23bcde90300b29e4fb4e7cc0dbd2d99d9f115cf84ab15bc4a6b8"
+  },
+  "exp05_config_a_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_4_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "0a2f7a859f3b956564a04211945ee92c7cea9437e7822ecc37a0e376862e8cce"
+  },
+  "exp05_config_a_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_5_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "d1404d789c04dfeb09b27564f67c78e7b3cb722a06766999d4efa7493fb268dc"
+  },
+  "exp06a_config_a_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_1_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "069325542cb050101b47c44f614194836238acb40581672bf3d7dc70876b7eb6"
+  },
+  "exp06a_config_a_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_2_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "d049073c9064c4341e99287ef0ec2bfea2b3de859de0b9234ec4d42ddaf1e4c9"
+  },
+  "exp06a_config_a_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_3_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "a22266418809f97e16f3028d947fb8f23bd616b73d5ac0a3020663089251fe4d"
+  },
+  "exp06a_config_a_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_4_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "986dc12ea6296fe351d30e7b7d0441d31656a51353086e0ea4460400844918bf"
+  },
+  "exp06a_config_a_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_5_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "eabeddf5a9f9a1e875872e777e0d5392401a80860ef03ddfac6fd2654b13d8ad"
+  },
+  "exp06a_config_b_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_1_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "cda89fa6650457e9a182a2417d64c960a6efbc95eb2c004c444bfe3add25bb5a"
+  },
+  "exp06a_config_b_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_2_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "0280f43e201492581ad4612e99a5cadd17f8e585f241dd4424b0273ff85bf27d"
+  },
+  "exp06a_config_b_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_3_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "af880fbb01c7097b48ffacc09191e467babdf6ca44671e2b994557bea1778989"
+  },
+  "exp06a_config_b_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_4_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "28222a09aafc569785e37565db526ae9f47b46d47a61672f5e1e4a2d88957d20"
+  },
+  "exp06a_config_b_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_5_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "4265c32da9fb6779faceff9c29bf7a27a357054938eaf4e3822e70dc5c854e01"
+  },
+  "exp06a_config_c_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_1_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "15ba772bc166f3e5f426d8bdd09ee9dded4a2464b5c04e795085514385fdd279"
+  },
+  "exp06a_config_c_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_2_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "2897c807f0cbe9a2b1c8efa9a00ba2cf3c8070ed07e56e9b050c08779a8e2cea"
+  },
+  "exp06a_config_c_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_3_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "eda25bacb0bccefd48abc9b09cfc71557ecf8413e66c0f1bcd138e80940a536d"
+  },
+  "exp06a_config_c_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_4_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "a30619f1f342a7a66cf6b86779e903ca735436fcbebbfb49ca7da0c0a6c62b60"
+  },
+  "exp06a_config_c_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_5_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "077f589c491f796dba64b6d15ef40b36d4f5bd8d53bcbcbfdcaf7a63f9f70754"
+  },
+  "exp06a_config_d_f1": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_1_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "c72f4192ec3e3aa2b20ca0f00bc5e25ed9b27edb9d61f8fabf68ef5a8e1c9c4f"
+  },
+  "exp06a_config_d_f2": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_2_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "e603200f133d4ebf3652e60abdab2fb825e644af9883a124c83b7f8aea867841"
+  },
+  "exp06a_config_d_f3": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_3_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "65f53caea11b1ec1b7bb9e2b45bf60482ce37d202f546374eb97d1cc2b7d64d8"
+  },
+  "exp06a_config_d_f4": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_4_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "f62ff1ad0aad4de98086d1377a1d2947a0fd6a0e1cb82d020693a6475fbd822d"
+  },
+  "exp06a_config_d_f5": {
+    "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_5_best.weights.h5",
+    "size_bytes": 52899216,
+    "sha256": "ecc5ec2890e847ce5112ae0353ac7f0945213142c214c495ba09091309589a25"
+  }
+}

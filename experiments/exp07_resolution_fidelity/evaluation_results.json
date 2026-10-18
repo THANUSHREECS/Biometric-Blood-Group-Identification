@@ -1,0 +1,239 @@
+{
+  "arm_a_112": {
+    "condition": "Arm A (112x112)",
+    "n_participants": 80,
+    "correct_predictions": 29,
+    "accuracy": 0.3625,
+    "accuracy_ci_95": [
+      0.26570810692963076,
+      0.4718918298092901
+    ],
+    "primary_balanced_accuracy": 0.2860798548094374,
+    "macro_f1": 0.2800245098039216,
+    "cohen_kappa": 0.07734056987788329,
+    "majority_class": "O+",
+    "majority_baseline_accuracy": 0.3625,
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.26666666666666666,
+        "recall": 0.21052631578947367,
+        "f1": 0.23529411764705882,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.5,
+        "recall": 0.52,
+        "f1": 0.5098039215686274,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.34285714285714286,
+        "recall": 0.41379310344827586,
+        "f1": 0.375,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        4,
+        5,
+        1,
+        9
+      ],
+      [
+        2,
+        13,
+        1,
+        9
+      ],
+      [
+        1,
+        1,
+        0,
+        5
+      ],
+      [
+        8,
+        7,
+        2,
+        12
+      ]
+    ],
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_confusion_matrix": [
+      [
+        4,
+        1,
+        5,
+        9
+      ],
+      [
+        1,
+        0,
+        1,
+        5
+      ],
+      [
+        2,
+        1,
+        13,
+        9
+      ],
+      [
+        8,
+        2,
+        7,
+        12
+      ]
+    ]
+  },
+  "arm_b_224": {
+    "condition": "Arm B (224x224)",
+    "n_participants": 80,
+    "correct_predictions": 27,
+    "accuracy": 0.3375,
+    "accuracy_ci_95": [
+      0.24345629512571482,
+      0.4464345392021009
+    ],
+    "primary_balanced_accuracy": 0.2615426497277677,
+    "macro_f1": 0.2506105006105006,
+    "cohen_kappa": 0.03680145388459788,
+    "majority_class": "O+",
+    "majority_baseline_accuracy": 0.3625,
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.17647058823529413,
+        "recall": 0.15789473684210525,
+        "f1": 0.16666666666666666,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.4074074074074074,
+        "recall": 0.44,
+        "f1": 0.4230769230769231,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.38235294117647056,
+        "recall": 0.4482758620689655,
+        "f1": 0.4126984126984127,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        3,
+        6,
+        1,
+        9
+      ],
+      [
+        6,
+        11,
+        1,
+        7
+      ],
+      [
+        1,
+        1,
+        0,
+        5
+      ],
+      [
+        7,
+        9,
+        0,
+        13
+      ]
+    ],
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_confusion_matrix": [
+      [
+        3,
+        1,
+        6,
+        9
+      ],
+      [
+        1,
+        0,
+        1,
+        5
+      ],
+      [
+        6,
+        1,
+        11,
+        7
+      ],
+      [
+        7,
+        0,
+        9,
+        13
+      ]
+    ]
+  },
+  "paired_mcnemar_test": {
+    "b_arm_a_better": 12,
+    "c_arm_b_better": 10,
+    "total_discordant_pairs": 22,
+    "mcnemar_exact_p_value": 0.8318119049072266
+  },
+  "paired_permutation_test": {
+    "observed_balanced_acc_diff (B - A)": -0.024537205081669677,
+    "paired_permutation_p_value": 0.6225,
+    "n_permutations": 10000
+  },
+  "null_test_arm_a": {
+    "observed_balanced_accuracy": 0.2860798548094374,
+    "perm_p_value_balanced_accuracy": 0.216,
+    "observed_macro_f1": 0.2800245098039216,
+    "perm_p_value_macro_f1": 0.237,
+    "null_balanced_acc_mean": 0.25108233094215393,
+    "null_macro_f1_mean": 0.2480880171060562
+  },
+  "null_test_arm_b": {
+    "observed_balanced_accuracy": 0.2615426497277677,
+    "perm_p_value_balanced_accuracy": 0.396,
+    "observed_macro_f1": 0.2506105006105006,
+    "perm_p_value_macro_f1": 0.437,
+    "null_balanced_acc_mean": 0.25107625126838684,
+    "null_macro_f1_mean": 0.2458547055721283
+  }
+}

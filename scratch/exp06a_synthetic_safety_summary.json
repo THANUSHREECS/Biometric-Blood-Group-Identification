@@ -1,0 +1,100 @@
+{
+  "status": "ALL_TESTS_PASSED",
+  "protected_checkpoints_verified": 17,
+  "reference_metrics_verified": {
+    "accuracy": 0.525,
+    "balanced_accuracy": 0.5183562354161265,
+    "macro_f1": 0.5107344632768362
+  },
+  "configurations": {
+    "config_a": {
+      "name": "Config A: Reference Temperature (tau=0.07)",
+      "temperature": 0.07,
+      "trainable_vars": 6,
+      "trainable_params": 1968772,
+      "non_trainable_params": 7037504,
+      "var_names": [
+        "kernel",
+        "bias",
+        "kernel",
+        "bias",
+        "kernel",
+        "bias"
+      ]
+    },
+    "config_b": {
+      "name": "Config B: Lower Temperature (tau=0.05)",
+      "temperature": 0.05,
+      "trainable_vars": 6,
+      "trainable_params": 1968772,
+      "non_trainable_params": 7037504,
+      "var_names": [
+        "kernel",
+        "bias",
+        "kernel",
+        "bias",
+        "kernel",
+        "bias"
+      ]
+    },
+    "config_c": {
+      "name": "Config C: Higher Temperature (tau=0.10)",
+      "temperature": 0.1,
+      "trainable_vars": 6,
+      "trainable_params": 1968772,
+      "non_trainable_params": 7037504,
+      "var_names": [
+        "kernel",
+        "bias",
+        "kernel",
+        "bias",
+        "kernel",
+        "bias"
+      ]
+    },
+    "config_d": {
+      "name": "Config D: Highest Temperature (tau=0.15)",
+      "temperature": 0.15,
+      "trainable_vars": 6,
+      "trainable_params": 1968772,
+      "non_trainable_params": 7037504,
+      "var_names": [
+        "kernel",
+        "bias",
+        "kernel",
+        "bias",
+        "kernel",
+        "bias"
+      ]
+    }
+  },
+  "synthetic_loss_metrics": {
+    "config_a": {
+      "clf_loss": 1.8568196296691895,
+      "supcon_loss": 1.14905846118927,
+      "total_loss": 1.9717254638671875
+    },
+    "config_b": {
+      "clf_loss": 1.4763436317443848,
+      "supcon_loss": 1.1734317541122437,
+      "total_loss": 1.593686819076538
+    },
+    "config_c": {
+      "clf_loss": 1.4815610647201538,
+      "supcon_loss": 1.1323518753051758,
+      "total_loss": 1.5947962999343872
+    },
+    "config_d": {
+      "clf_loss": 0.9157990217208862,
+      "supcon_loss": 1.1202901601791382,
+      "total_loss": 1.0278279781341553
+    }
+  },
+  "temperatures": [
+    0.05,
+    0.07,
+    0.1,
+    0.15
+  ],
+  "supcon_loss_monotonic": true
+}

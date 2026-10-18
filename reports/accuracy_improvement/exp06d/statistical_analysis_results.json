@@ -1,0 +1,15 @@
+{
+  "n_participants": 80,
+  "contingency_table": {
+    "n11": 28,
+    "n10": 9,
+    "n01": 14,
+    "n00": 29
+  },
+  "exact_binomial_two_sided_p": 0.4048728942871094,
+  "bootstrap_f1_diff_mean": 0.06177621669327771,
+  "bootstrap_f1_diff_ci95": [
+    -0.06692919005792573,
+    0.19117334361737898
+  ]
+}

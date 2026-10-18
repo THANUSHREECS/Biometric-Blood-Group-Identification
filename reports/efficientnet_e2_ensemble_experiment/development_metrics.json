@@ -1,0 +1,226 @@
+{
+  "cohort": "DEVELOPMENT_80",
+  "description": "80 MFS100 development participants (64 TRAIN + 16 VALIDATION). E2 is 5-fold OOF; EfficientNet-B0 is zero-shot transfer.",
+  "efficientnet_b0": {
+    "num_participants": 80,
+    "num_correct": 26,
+    "accuracy": 0.325,
+    "balanced_accuracy": 0.2391288566243194,
+    "macro_precision": 0.18697033898305085,
+    "macro_recall": 0.2391288566243194,
+    "macro_f1": 0.1885386119257087,
+    "always_o_plus_baseline": 0.3625,
+    "per_class": {
+      "A+": {
+        "support": 19,
+        "precision": 0.25,
+        "recall": 0.15789473684210525,
+        "f1": 0.1935483870967742
+      },
+      "AB+": {
+        "support": 7,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B+": {
+        "support": 25,
+        "precision": 0.125,
+        "recall": 0.04,
+        "f1": 0.06060606060606061
+      },
+      "O+": {
+        "support": 29,
+        "precision": 0.3728813559322034,
+        "recall": 0.7586206896551724,
+        "f1": 0.5
+      }
+    },
+    "confusion_matrix": [
+      [
+        3,
+        0,
+        4,
+        12
+      ],
+      [
+        2,
+        0,
+        1,
+        4
+      ],
+      [
+        2,
+        1,
+        1,
+        21
+      ],
+      [
+        5,
+        0,
+        2,
+        22
+      ]
+    ],
+    "true_class_distribution": {
+      "A+": 19,
+      "AB+": 7,
+      "B+": 25,
+      "O+": 29
+    },
+    "predicted_class_distribution": {
+      "A+": 12,
+      "AB+": 1,
+      "B+": 8,
+      "O+": 59
+    }
+  },
+  "e2_fusion_oof": {
+    "num_participants": 80,
+    "num_correct": 43,
+    "accuracy": 0.5375,
+    "balanced_accuracy": 0.4715400570391496,
+    "macro_precision": 0.6628409090909091,
+    "macro_recall": 0.4715400570391496,
+    "macro_f1": 0.47723137718444353,
+    "always_o_plus_baseline": 0.3625,
+    "per_class": {
+      "A+": {
+        "support": 19,
+        "precision": 0.375,
+        "recall": 0.631578947368421,
+        "f1": 0.47058823529411764
+      },
+      "AB+": {
+        "support": 7,
+        "precision": 1.0,
+        "recall": 0.14285714285714285,
+        "f1": 0.25
+      },
+      "B+": {
+        "support": 25,
+        "precision": 0.6363636363636364,
+        "recall": 0.56,
+        "f1": 0.5957446808510638
+      },
+      "O+": {
+        "support": 29,
+        "precision": 0.64,
+        "recall": 0.5517241379310345,
+        "f1": 0.5925925925925926
+      }
+    },
+    "confusion_matrix": [
+      [
+        12,
+        0,
+        3,
+        4
+      ],
+      [
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        8,
+        0,
+        14,
+        3
+      ],
+      [
+        10,
+        0,
+        3,
+        16
+      ]
+    ],
+    "true_class_distribution": {
+      "A+": 19,
+      "AB+": 7,
+      "B+": 25,
+      "O+": 29
+    },
+    "predicted_class_distribution": {
+      "A+": 32,
+      "AB+": 1,
+      "B+": 22,
+      "O+": 25
+    }
+  },
+  "equal_weight_ensemble": {
+    "num_participants": 80,
+    "num_correct": 31,
+    "accuracy": 0.3875,
+    "balanced_accuracy": 0.31635208711433754,
+    "macro_precision": 0.29948405253283306,
+    "macro_recall": 0.31635208711433754,
+    "macro_f1": 0.2932330827067669,
+    "always_o_plus_baseline": 0.3625,
+    "per_class": {
+      "A+": {
+        "support": 19,
+        "precision": 0.34615384615384615,
+        "recall": 0.47368421052631576,
+        "f1": 0.4
+      },
+      "AB+": {
+        "support": 7,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "B+": {
+        "support": 25,
+        "precision": 0.46153846153846156,
+        "recall": 0.24,
+        "f1": 0.3157894736842105
+      },
+      "O+": {
+        "support": 29,
+        "precision": 0.3902439024390244,
+        "recall": 0.5517241379310345,
+        "f1": 0.45714285714285713
+      }
+    },
+    "confusion_matrix": [
+      [
+        9,
+        0,
+        3,
+        7
+      ],
+      [
+        2,
+        0,
+        0,
+        5
+      ],
+      [
+        6,
+        0,
+        6,
+        13
+      ],
+      [
+        9,
+        0,
+        4,
+        16
+      ]
+    ],
+    "true_class_distribution": {
+      "A+": 19,
+      "AB+": 7,
+      "B+": 25,
+      "O+": 29
+    },
+    "predicted_class_distribution": {
+      "A+": 26,
+      "AB+": 0,
+      "B+": 13,
+      "O+": 41
+    }
+  }
+}

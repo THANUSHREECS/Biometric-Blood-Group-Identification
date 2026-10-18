@@ -1,0 +1,78 @@
+{
+  "total_images": 2769,
+  "max_permitted_cluster_size_5pct": 138,
+  "thresholds_evaluated": {
+    "threshold_0.98": {
+      "threshold": 0.98,
+      "n_edges": 10,
+      "n_components": 2759,
+      "multi_image_components": 10,
+      "singleton_count": 2749,
+      "largest_component_size": 2,
+      "largest_component_pct": 0.07222824124232576,
+      "violates_5pct_guard": false,
+      "eligible_for_grouped_cv": true
+    },
+    "threshold_0.95": {
+      "threshold": 0.95,
+      "n_edges": 15345,
+      "n_components": 932,
+      "multi_image_components": 29,
+      "singleton_count": 903,
+      "largest_component_size": 1801,
+      "largest_component_pct": 65.04153123871433,
+      "violates_5pct_guard": true,
+      "eligible_for_grouped_cv": false
+    },
+    "threshold_0.92": {
+      "threshold": 0.92,
+      "n_edges": 193546,
+      "n_components": 184,
+      "multi_image_components": 6,
+      "singleton_count": 178,
+      "largest_component_size": 2580,
+      "largest_component_pct": 93.17443120260022,
+      "violates_5pct_guard": true,
+      "eligible_for_grouped_cv": false
+    },
+    "threshold_0.90": {
+      "threshold": 0.9,
+      "n_edges": 462073,
+      "n_components": 65,
+      "multi_image_components": 2,
+      "singleton_count": 63,
+      "largest_component_size": 2704,
+      "largest_component_pct": 97.65258215962442,
+      "violates_5pct_guard": true,
+      "eligible_for_grouped_cv": false
+    },
+    "threshold_0.85": {
+      "threshold": 0.85,
+      "n_edges": 1425152,
+      "n_components": 11,
+      "multi_image_components": 1,
+      "singleton_count": 10,
+      "largest_component_size": 2759,
+      "largest_component_pct": 99.63885879378837,
+      "violates_5pct_guard": true,
+      "eligible_for_grouped_cv": false
+    }
+  },
+  "max_sim_to_train_summary": {
+    "mean": 0.9493326544761658,
+    "std": 0.02282739244401455,
+    "min": 0.7317618131637573,
+    "max": 0.9930176138877869,
+    "percentiles": {
+      "p_0": 0.7317618131637573,
+      "p_5": 0.9099379479885101,
+      "p_25": 0.9398451149463654,
+      "p_50": 0.9550403356552124,
+      "p_75": 0.9638101160526276,
+      "p_90": 0.9689574480056763,
+      "p_95": 0.9729359984397888,
+      "p_99": 0.9776001858711243,
+      "p_100": 0.9930176138877869
+    }
+  }
+}

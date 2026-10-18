@@ -1,0 +1,81 @@
+{
+  "experiment_name": "fair_comparison_effnet_b0_vs_e2_vs_ensemble",
+  "timestamp": "2026-10-13T22:52:00",
+  "framework_versions": {
+    "tensorflow": "2.21.0",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3"
+  },
+  "models": {
+    "efficientnet_b0": {
+      "checkpoint_path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\abo_positive_4class\\best_model.keras",
+      "sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9",
+      "input_shape": [
+        224,
+        224,
+        3
+      ],
+      "native_class_order": [
+        "A+",
+        "AB+",
+        "B+",
+        "O+"
+      ],
+      "preprocessing": "resize(224, 224, Bilinear) -> RGB float32 -> tf.keras.applications.efficientnet.preprocess_input",
+      "scan_aggregation": "mean of 3 scan probability vectors"
+    },
+    "e2_fusion": {
+      "checkpoints": [
+        "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_1_best.weights.h5",
+        "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_2_best.weights.h5",
+        "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_3_best.weights.h5",
+        "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_4_best.weights.h5",
+        "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_5_best.weights.h5"
+      ],
+      "sha256_hashes": [
+        "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d",
+        "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede",
+        "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3",
+        "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519",
+        "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d"
+      ],
+      "input_shape": [
+        3,
+        112,
+        112,
+        3
+      ],
+      "native_class_order": [
+        "A+",
+        "B+",
+        "AB+",
+        "O+"
+      ],
+      "preprocessing": "transform_c5 (composite_alpha -> crop_foreground -> CLAHE_bilateral -> resize(112, 112))",
+      "architecture": "3-tower frozen DenseNet-121 -> GAP -> Concat(3072) -> Dense(512, relu) -> Dropout(0.5) -> Dense(4, softmax)",
+      "ensemble_aggregation": "mean across 5 folds",
+      "canonical_remapping": "[native[0], native[2], native[1], native[3]]"
+    }
+  },
+  "canonical_class_order": [
+    "A+",
+    "AB+",
+    "B+",
+    "O+"
+  ],
+  "ensemble_formula": "P_combined = 0.5 * P_effnet + 0.5 * P_e2_canonical",
+  "cohorts": {
+    "development_80": {
+      "description": "80 MFS100 development participants (64 TRAIN, 16 VALIDATION)",
+      "manifest": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\phase3_participant_benchmark\\participant_split.csv"
+    },
+    "locked_test_21": {
+      "description": "21 quarantined MFS100 test participants",
+      "manifest": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\phase3_participant_benchmark\\participant_split.csv"
+    },
+    "separate_cohort_26": {
+      "description": "26 MFS100 participants with hospital serological confirmation (S001-S026)",
+      "manifest": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\data\\mfs100_ground_truth.csv"
+    }
+  }
+}

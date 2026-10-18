@@ -1,0 +1,29 @@
+# Freeze quantitative leakage audit artifacts as exact binary byte streams (-text)
+# to prevent any CRLF/LF line-ending conversion on commit or checkout across all platforms.
+.gitattributes -text
+experiments/leakage_audit/** -text
+reports/leakage_audit/** -text
+scripts/README_leakage_audit.md -text
+scripts/audit_collection_date.py -text
+scripts/audit_mfs100_metadata_correlations.py -text
+scripts/audit_phase1_readonly.py -text
+scripts/audit_search_05085_traceability.py -text
+scripts/compare_seed42_historical.py -text
+scripts/compute_audit_exact_numbers.py -text
+scripts/compute_percolation_finer_scan.py -text
+scripts/compute_trainval_reference_hashes.py -text
+scripts/extract_original_dataset_raw_effb0_features.py -text
+scripts/extract_seed42_participant_preds.py -text
+scripts/generate_leakage_audit_figures.py -text
+scripts/leakage_audit_cache_dev_features.py -text
+scripts/leakage_audit_exp1_duplicates_and_hashes.py -text
+scripts/leakage_audit_exp1_embeddings_and_clustering.py -text
+scripts/leakage_audit_exp2_signal_tests.py -text
+scripts/leakage_audit_phase2_experiments.py -text
+scripts/leakage_audit_phase2_selection_null.py -text
+scripts/leakage_audit_phase3_densenet_similarity.py -text
+scripts/leakage_audit_phase3_purged_cv.py -text
+scripts/leakage_audit_trivial_ablation_and_concat.py -text
+scripts/leakage_audit_trivial_image_properties.py -text
+scripts/verify_audit_manifest.py -text
+scripts/verify_leakage_audit_report_concordance.py -text

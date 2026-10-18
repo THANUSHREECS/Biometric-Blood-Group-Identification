@@ -1,0 +1,173 @@
+[
+  {
+    "test_id": 1,
+    "name": "Correct Three-Scan Input Shape",
+    "purpose": "Verify that valid 5D tensor (N, 3, 112, 112, 3) is accepted",
+    "input": "dummy_X.shape = (10, 3, 112, 112, 3), y.shape = (10,), pids = 10",
+    "expected": "Validation function returns True",
+    "actual": "Returned True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 2,
+    "name": "Rejection of Missing Scans",
+    "purpose": "Verify that a participant with only 2 scans is rejected",
+    "input": "DataFrame with 2 scans for SYNTH_P1",
+    "expected": "ValueError raised with scan count != 3",
+    "actual": "ValueError caught: 'Participants with scan count != 3: {'SYNTH_P1': np.int64(2)}'",
+    "status": "PASS"
+  },
+  {
+    "test_id": 3,
+    "name": "Rejection of Extra Scans",
+    "purpose": "Verify that a participant with 4 scans is rejected",
+    "input": "DataFrame with 4 scans for SYNTH_P1",
+    "expected": "ValueError raised with scan count != 3",
+    "actual": "ValueError caught: 'Participants with scan count != 3: {'SYNTH_P1': np.int64(4)}'",
+    "status": "PASS"
+  },
+  {
+    "test_id": 4,
+    "name": "Rejection of Inconsistent Labels",
+    "purpose": "Verify that mixed blood group labels for a participant are rejected",
+    "input": "SYNTH_P1 with scans having ['A+', 'A+', 'B+']",
+    "expected": "ValueError raised",
+    "actual": "ValueError caught: 'Inconsistent labels for participant SYNTH_P1: ['A+' 'B+']'",
+    "status": "PASS"
+  },
+  {
+    "test_id": 5,
+    "name": "Rejection of Participant Leakage",
+    "purpose": "Verify that overlapping participants between train and val are rejected",
+    "input": "train={'SYNTH_01','SYNTH_02','SYNTH_03'}, val={'SYNTH_03','SYNTH_04'}",
+    "expected": "ValueError raised indicating leakage of SYNTH_03",
+    "actual": "ValueError caught: 'CRITICAL LEAKAGE: Participants in both train and validation: {'SYNTH_03'}'",
+    "status": "PASS"
+  },
+  {
+    "test_id": 6,
+    "name": "Canonical Class Ordering & Permutation",
+    "purpose": "Verify canonical order [A+, AB+, B+, O+] and native permutation",
+    "input": "CANONICAL_CLASSES, NATIVE_CLASSES, native [0.1, 0.2, 0.3, 0.4]",
+    "expected": "canonical == ['A+', 'AB+', 'B+', 'O+'] and canon_p == [0.1, 0.3, 0.2, 0.4]",
+    "actual": "canonical=['A+', 'AB+', 'B+', 'O+'], mapped_p=[np.float64(0.1), np.float64(0.3), np.float64(0.2), np.float64(0.4)]",
+    "status": "PASS"
+  },
+  {
+    "test_id": 7,
+    "name": "Probability Tensor Shape Validation",
+    "purpose": "Verify (N, 4) probability shape accepted and (N, 2) rejected",
+    "input": "valid=(2, 4), invalid=(2, 2)",
+    "expected": "Valid passes, invalid raises ValueError",
+    "actual": "valid returned True, invalid caught ValueError: True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 8,
+    "name": "Rejection of NaN & Inf Probabilities",
+    "purpose": "Verify that probability arrays containing NaN or Inf are rejected",
+    "input": "nan_probs containing np.nan, inf_probs containing np.inf",
+    "expected": "Both raise ValueError",
+    "actual": "threw_nan=True, threw_inf=True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 9,
+    "name": "Rejection of Negative Probabilities",
+    "purpose": "Verify that negative probability values are rejected",
+    "input": "probs=[[0.5, -0.1, 0.3, 0.3]]",
+    "expected": "ValueError raised",
+    "actual": "ValueError caught: True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 10,
+    "name": "Rejection of Non-Unity Probability Sums",
+    "purpose": "Verify that probability vector not summing to ~1.0 is rejected",
+    "input": "probs=[[0.2, 0.2, 0.2, 0.2]] (sum = 0.8)",
+    "expected": "ValueError raised",
+    "actual": "ValueError caught: True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 11,
+    "name": "Synthetic Metrics Calculation",
+    "purpose": "Verify deterministic accuracy and macro F1 on known synthetic vector",
+    "input": "y_t=['A+', 'AB+', 'B+', 'O+', 'A+', 'B+'], y_p=['A+', 'AB+', 'O+', 'O+', 'A+', 'B+']",
+    "expected": "acc=0.8333, macro_f1=0.8333",
+    "actual": "acc=0.8333, macro_f1=0.8333",
+    "status": "PASS"
+  },
+  {
+    "test_id": 12,
+    "name": "Output Directory Isolation",
+    "purpose": "Verify checkpoint and report paths are strictly isolated to exp06d",
+    "input": "EXP_CKPT_BASE, EXP_REPORT_DIR",
+    "expected": "Contain 'exp06d' and do not contain 'exp06c' or 'exp06b'",
+    "actual": "ckpt=c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06d\\checkpoints, report=c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\accuracy_improvement\\exp06d",
+    "status": "PASS"
+  },
+  {
+    "test_id": 13,
+    "name": "Protected Checkpoint Hash Verification Logic",
+    "purpose": "Verify hash comparison accepts matching hash and rejects tampered hash",
+    "input": "Synthetic file with known SHA256; then simulated 1-bit corruption",
+    "expected": "Valid hash returns 1, tampered hash raises ValueError",
+    "actual": "valid_returned=1, tampered_raised_error=True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 14,
+    "name": "Prevention of Training When Unauthorized",
+    "purpose": "Verify that run_configuration() aborts with PermissionError when TRAINING_AUTHORIZED=False",
+    "input": "TRAINING_AUTHORIZED = False, call run_configuration('config_a')",
+    "expected": "PermissionError raised with fail-closed refusal message",
+    "actual": "PermissionError caught: 'TRAINING REFUSED (FAIL-CLOSED GUARD): TRAINING_AUTHORIZED is False. Real-data training has not been authorized by the user. Execution aborted safely.'",
+    "status": "PASS"
+  },
+  {
+    "test_id": 15,
+    "name": "Prevention of Access to Protected Cohorts",
+    "purpose": "Verify that check_cohort_quarantine() rejects locked test participant IDs",
+    "input": "clean_set={'P0010','P00105','P0012'}, breach_set={'P0010','P0023'}",
+    "expected": "Clean set passes, breach set raises PermissionError",
+    "actual": "clean_passed=True, breach_caught_error=True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 16,
+    "name": "Shared Epoch-Zero Initialization Parity",
+    "purpose": "Verify exported shared weights force exact parameter parity across model instances",
+    "input": "Models instantiated with different seeds (100 vs 999), shared weights applied to second model",
+    "expected": "diff_before > 0, diff_after == 0.0 (exact match across all 6 tensors)",
+    "actual": "diff_before=0.2103, diff_after=0.0",
+    "status": "PASS"
+  },
+  {
+    "test_id": 17,
+    "name": "Output Directory Conflict Rejection",
+    "purpose": "Verify validate_output_directory_isolation blocks writing into protected checkpoint dirs",
+    "input": "Targeting exp06c checkpoints vs exp06d checkpoints",
+    "expected": "Targeting exp06c raises PermissionError; targeting exp06d returns True",
+    "actual": "blocked_protected=True, accepted_isolated=True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 18,
+    "name": "Fold Assignment Parity Check",
+    "purpose": "Verify detection of inconsistent fold assignments between configurations",
+    "input": "Identical fold splits vs mismatched fold splits",
+    "expected": "Mismatched folds raise ValueError; matching folds return True",
+    "actual": "mismatch_detected=True, match_accepted=True",
+    "status": "PASS"
+  },
+  {
+    "test_id": 19,
+    "name": "Synthetic OOF Aggregation & Canonical Integrity",
+    "purpose": "Verify that synthetic OOF aggregation generates exactly 80 unique participant predictions",
+    "input": "80 synthetic participants evaluated across 5 folds",
+    "expected": "Exactly 80 unique participant records with valid canonical probabilities",
+    "actual": "record_count=80, unique_pids=80, acc=1.0",
+    "status": "PASS"
+  }
+]

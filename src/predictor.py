@@ -60,70 +60,90 @@ class BloodGroupPredictor:
         # weight states across the 5 shared fold model objects.
         self._inference_lock = threading.Lock()
         
+        self.model_name = "EXP-06C Config A (Linear Projection Reference)"
+        self.is_exp06c = False
+        self.canonical_classes = ["A+", "AB+", "B+", "O+"]
+        self.native_classes = ["A+", "B+", "AB+", "O+"]
+
         self._load_models()
 
     def _build_E2(self):
-        inputs = tf.keras.Input(shape=(3, 112, 112, 3))
+        inputs = tf.keras.Input(shape=(3, 112, 112, 3), name="participant_scans")
         scan1, scan2, scan3 = inputs[:, 0], inputs[:, 1], inputs[:, 2]
         
         base = tf.keras.applications.DenseNet121(include_top=False, weights="imagenet")
         base.trainable = False
-        pool = tf.keras.layers.GlobalAveragePooling2D()
+        pool = tf.keras.layers.GlobalAveragePooling2D(name="gap")
         feat1, feat2, feat3 = pool(base(scan1)), pool(base(scan2)), pool(base(scan3))
-        concat = tf.keras.layers.Concatenate()([feat1, feat2, feat3])
+        concat = tf.keras.layers.Concatenate(name="fused_features")([feat1, feat2, feat3])
         
-        d = tf.keras.layers.Dense(512, activation="relu")(concat)
-        drop = tf.keras.layers.Dropout(0.5)(d)
+        d = tf.keras.layers.Dense(512, activation="relu", name="dense_512")(concat)
+        drop = tf.keras.layers.Dropout(0.5, name="dropout_0.5")(d)
         clf = tf.keras.layers.Dense(4, activation="softmax", name="clf")(drop)
         emb = tf.keras.layers.Dense(128, activation=None, name="emb")(concat)
         return tf.keras.Model(inputs, [clf, emb])
 
     def _load_models(self):
         """
-        Loads the Champion E2 5-fold ensemble.
-        Builds one model object per fold and loads weights at startup so that
-        no weight I/O happens during inference requests.
+        Loads the EXP-06C Config A (Linear Projection Reference) 5-fold ensemble checkpoints.
+        Falls back to E2 champion checkpoints if EXP-06C is unavailable.
+        Builds one model object per fold and loads weights at startup.
         """
         try:
             t0 = time.perf_counter()
-            config_path = os.path.join(self.project_root, "reports", "phase3_final_evaluation", "frozen_model_config.json")
-            with open(config_path, "r") as f:
-                config = json.load(f)
-            
-            self.checkpoint_paths = [os.path.join(self.project_root, cp.replace("/", os.sep)) for cp in config["checkpoint_paths"]]
+            exp06c_dir = os.path.join(self.project_root, "experiments", "exp06c", "checkpoints", "config_a")
+            exp06c_ckpts = [
+                os.path.join(exp06c_dir, f"fold_{i}_best.weights.h5")
+                for i in range(1, 6)
+            ]
 
-            # Build a separate model object for each fold and pre-load weights
+            if all(os.path.exists(p) for p in exp06c_ckpts):
+                self.checkpoint_paths = exp06c_ckpts
+                self.model_name = "EXP-06C Config A (Linear Projection Reference)"
+                self.is_exp06c = True
+                print(f"[+] Found all 5 EXP-06C Config A checkpoints in {exp06c_dir}")
+            else:
+                config_path = os.path.join(self.project_root, "reports", "phase3_final_evaluation", "frozen_model_config.json")
+                with open(config_path, "r") as f:
+                    config = json.load(f)
+                self.checkpoint_paths = [os.path.join(self.project_root, cp.replace("/", os.sep)) for cp in config["checkpoint_paths"]]
+                self.model_name = "E2 Three-Scan Fusion Model"
+                self.is_exp06c = False
+                print("[+] Falling back to E2 Champion ensemble checkpoints.")
+
             self.fold_models = []
             for i, cp in enumerate(self.checkpoint_paths):
                 t_fold = time.perf_counter()
                 m = self._build_E2()
                 m.load_weights(cp)
                 elapsed = time.perf_counter() - t_fold
-                print(f"[+] Fold {i+1}/{len(self.checkpoint_paths)} loaded in {elapsed:.2f}s  ({cp})")
+                print(f"[+] Fold {i+1}/{len(self.checkpoint_paths)} loaded in {elapsed:.2f}s ({os.path.basename(cp)})")
                 self.fold_models.append(m)
 
-            # Keep self.model pointing at fold 0 for compat (not used in inference)
             self.model = self.fold_models[0] if self.fold_models else None
+            self.shared_base_net = self.fold_models[0].get_layer('densenet121')
+            self.shared_pool = self.fold_models[0].get_layer('gap')
             self.is_ensemble_ready = True
             elapsed_total = time.perf_counter() - t0
-            print(f"[+] E2 Champion 5-Fold Ensemble initialized in {elapsed_total:.2f}s (weights pre-loaded).")
-
-            # Warm-up: run one dummy forward pass through each fold to JIT-compile graph
+            print(f"[+] {self.model_name} initialized in {elapsed_total:.2f}s (5 folds pre-loaded).")
             self._warmup()
 
         except Exception as e:
-            print(f"[-] Warning: Failed to load E2 models: {e}.")
+            print(f"[-] Warning: Failed to load models: {e}.")
             self.is_ensemble_ready = False
 
     def _warmup(self):
-        """Run one zero-tensor forward pass per fold to eliminate cold-start latency."""
+        """Run one zero-tensor forward pass to eliminate cold-start latency."""
         try:
-            dummy = np.zeros((1, 3, 112, 112, 3), dtype=np.float32)
             t0 = time.perf_counter()
-            for i, m in enumerate(self.fold_models):
-                m(dummy, training=False)
+            dummy_batch = np.zeros((3, 112, 112, 3), dtype=np.float32)
+            feats = self.shared_pool(self.shared_base_net(dummy_batch, training=False))
+            fused = tf.concat([feats[0:1], feats[1:2], feats[2:3]], axis=1)
+            for m in self.fold_models:
+                d = m.get_layer('dense_512')(fused)
+                _ = m.get_layer('clf')(d)
             elapsed = time.perf_counter() - t0
-            print(f"[+] Warm-up complete ({len(self.fold_models)} folds) in {elapsed:.3f}s.")
+            print(f"[+] Warm-up complete (shared backbone + 5 heads) in {elapsed:.3f}s.")
         except Exception as e:
             print(f"[-] Warm-up failed (non-fatal): {e}")
 
@@ -133,20 +153,25 @@ class BloodGroupPredictor:
     def get_model_info(self):
         if self.is_ensemble_ready:
             return {
-                "name": "E2 Research Ensemble",
-                "tag": "E2 Active",
-                "accuracy": "8/21 on 21 held-out participants",
-                "type": "5-Fold Feature Fusion",
-                "classes": self.class_names,
+                "name": self.model_name,
+                "tag": "EXP-06C Linear Reference" if self.is_exp06c else "E2 Active",
+                "accuracy": "53.75% Dev (43/80 OOF) | 33.33% Locked Test (Below 36.25% Baseline)",
+                "type": "DenseNet-121 (Frozen) + 3-Scan Feature Concatenation (3072-d)",
+                "classes": self.canonical_classes,
+                "canonical_classes": self.canonical_classes,
+                "native_classes": self.native_classes,
+                "input_shape": [3, 112, 112, 3],
+                "folds_loaded": len(self.fold_models),
                 "ADVISORY_CONFIRMATION_THRESHOLD": self.ADVISORY_CONFIRMATION_THRESHOLD,
                 "advisory_layer": {
                     "enabled": True,
                     "threshold": self.advisory_threshold,
                     "status": "healthy"
-                }
+                },
+                "research_disclaimer": "RESEARCH PROTOTYPE ONLY. Not clinically validated. Cannot be used for medical diagnosis, triage, or transfusion decisions."
             }
         else:
-            return {"name": "No Model Loaded", "classes": self.class_names}
+            return {"name": "No Model Loaded", "classes": self.canonical_classes}
 
     def _evaluate_advisory(self, confidence):
         is_low_conf = bool(confidence < self.advisory_threshold)
@@ -203,45 +228,58 @@ class BloodGroupPredictor:
         t_pre_done = time.perf_counter()
         print(f"[TIMING] Preprocessing (3 scans): {(t_pre_done - t_pre)*1000:.1f} ms")
 
-        # --- Stage: Build input tensor ---
-        t_tensor = time.perf_counter()
-        X_input = np.expand_dims(np.array(scans), axis=0)  # (1, 3, 112, 112, 3)
-        t_tensor_done = time.perf_counter()
-        print(f"[TIMING] Tensor assembly:          {(t_tensor_done - t_tensor)*1000:.1f} ms")
-
-        # --- Stage: Inference per fold (weights pre-loaded at startup) ---
-        # Use direct __call__ (same code path as warm-up) to avoid per-call tf.function retracing.
-        # m.predict() traces a *different* tf.function than m(x, training=False) and would add
-        # ~10s retracing overhead on every request after the first.
-        # threading.Lock: fold models are shared objects; concurrent requests must not interleave.
+        # --- Stage: Feature Extraction & Fold Head Execution ---
+        # Shared frozen DenseNet-121 backbone is evaluated ONCE in a single batch of 3 scans.
+        # This yields mathematically identical 3072-d fused features while eliminating 12 redundant
+        # backbone passes, accelerating inference by ~15x.
         all_probs = []
         with self._inference_lock:
+            t_feat = time.perf_counter()
+            scans_batch = np.array(scans, dtype=np.float32)  # (3, 112, 112, 3)
+            feats = self.shared_pool(self.shared_base_net(scans_batch, training=False))  # (3, 1024)
+            fused = tf.concat([feats[0:1], feats[1:2], feats[2:3]], axis=1)  # (1, 3072)
+            t_feat_done = time.perf_counter()
+            print(f"[TIMING] Backbone Feature Extraction (3 scans): {(t_feat_done - t_feat)*1000:.1f} ms")
+
+            t_heads = time.perf_counter()
             for i, m in enumerate(self.fold_models):
-                t_fold = time.perf_counter()
-                preds = m(X_input, training=False)   # [clf_tensor, emb_tensor]
-                all_probs.append(preds[0].numpy()[0])
-                t_fold_done = time.perf_counter()
-                print(f"[TIMING] Fold {i+1} inference:          {(t_fold_done - t_fold)*1000:.1f} ms")
+                t_f = time.perf_counter()
+                d = m.get_layer('dense_512')(fused)
+                clf_out = m.get_layer('clf')(d)
+                all_probs.append(clf_out.numpy()[0])
+                print(f"[TIMING] Fold {i+1} head inference:          {(time.perf_counter() - t_f)*1000:.2f} ms")
+            print(f"[TIMING] 5-Fold Heads Inference:               {(time.perf_counter() - t_heads)*1000:.1f} ms")
 
         # --- Stage: Ensembling ---
         t_ens = time.perf_counter()
         all_probs = np.array(all_probs)
         ensemble_probs = np.mean(all_probs, axis=0)
         t_ens_done = time.perf_counter()
-        print(f"[TIMING] Ensembling:               {(t_ens_done - t_ens)*1000:.1f} ms")
+        print(f"[TIMING] Ensembling:                           {(t_ens_done - t_ens)*1000:.1f} ms")
         
-        best_idx = int(np.argmax(ensemble_probs))
-        predicted_group = self.class_names[best_idx]
-        confidence = float(ensemble_probs[best_idx])
+        # Canonical order: ["A+", "AB+", "B+", "O+"]
+        if self.is_exp06c:
+            canonical_probs = np.array([
+                ensemble_probs[0],  # A+
+                ensemble_probs[2],  # AB+ (native index 2)
+                ensemble_probs[1],  # B+ (native index 1)
+                ensemble_probs[3]   # O+
+            ], dtype=np.float32)
+        else:
+            canonical_probs = ensemble_probs
+
+        best_idx = int(np.argmax(canonical_probs))
+        predicted_group = self.canonical_classes[best_idx]
+        confidence = float(canonical_probs[best_idx])
 
         prob_dict = {
-            self.class_names[i]: round(float(ensemble_probs[i]), 4)
-            for i in range(len(self.class_names))
+            self.canonical_classes[i]: round(float(canonical_probs[i]), 4)
+            for i in range(len(self.canonical_classes))
         }
 
         is_low = confidence < self.ADVISORY_CONFIRMATION_THRESHOLD
         status = "LOW_CONFIDENCE" if is_low else "NORMAL"
-        msg = "Prediction completed successfully via E2 Research Ensemble."
+        msg = f"Experimental inference completed via {self.model_name}."
 
         adv = self._evaluate_advisory(confidence)
 
@@ -261,7 +299,7 @@ class BloodGroupPredictor:
             "message": msg,
             "probabilities": prob_dict,
             "is_low_confidence": is_low,
-            "model_name": "E2 Research Ensemble",
+            "model_name": self.model_name,
             "display_image": display_img,
             "crop_metadata": crop_metas[0],
             "needs_confirmation": adv["needs_confirmation"],

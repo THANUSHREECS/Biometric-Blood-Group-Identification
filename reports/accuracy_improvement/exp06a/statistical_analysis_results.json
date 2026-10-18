@@ -1,0 +1,387 @@
+{
+  "summary": [
+    {
+      "cid": "config_a",
+      "name": "Config A: Reference Temperature (tau=0.07)",
+      "tau": 0.07,
+      "acc": 0.4875,
+      "bacc": 0.4626419497018408,
+      "macro_p": 0.47676962676962675,
+      "macro_r": 0.4626419497018408,
+      "macro_f1": 0.46547037787446993,
+      "weighted_f1": 0.4846963884367977,
+      "fold_f1_mean": 0.42690170940170935,
+      "fold_f1_std": 0.09904568637890176,
+      "fold_f1s": [
+        0.39285714285714285,
+        0.501984126984127,
+        0.24871794871794872,
+        0.5189255189255189,
+        0.4720238095238095
+      ],
+      "per_class": {
+        "A+": {
+          "p": 0.4,
+          "r": 0.3157894736842105,
+          "f1": 0.35294117647058826,
+          "supp": 19
+        },
+        "AB+": {
+          "p": 0.42857142857142855,
+          "r": 0.42857142857142855,
+          "f1": 0.42857142857142855,
+          "supp": 7
+        },
+        "B+": {
+          "p": 0.6190476190476191,
+          "r": 0.52,
+          "f1": 0.5652173913043478,
+          "supp": 25
+        },
+        "O+": {
+          "p": 0.4594594594594595,
+          "r": 0.5862068965517241,
+          "f1": 0.5151515151515151,
+          "supp": 29
+        }
+      },
+      "runtime_sec": 3608.3989679813385
+    },
+    {
+      "cid": "config_b",
+      "name": "Config B: Lower Temperature (tau=0.05)",
+      "tau": 0.05,
+      "acc": 0.525,
+      "bacc": 0.5517656209489241,
+      "macro_p": 0.5261904761904762,
+      "macro_r": 0.5517656209489241,
+      "macro_f1": 0.5313151454726729,
+      "weighted_f1": 0.5225459983685308,
+      "fold_f1_mean": 0.5013933873144399,
+      "fold_f1_std": 0.1277298945189676,
+      "fold_f1s": [
+        0.44345238095238093,
+        0.6595238095238095,
+        0.3092105263157895,
+        0.6249999999999999,
+        0.4697802197802198
+      ],
+      "per_class": {
+        "A+": {
+          "p": 0.5714285714285714,
+          "r": 0.42105263157894735,
+          "f1": 0.48484848484848486,
+          "supp": 19
+        },
+        "AB+": {
+          "p": 0.5,
+          "r": 0.7142857142857143,
+          "f1": 0.5882352941176471,
+          "supp": 7
+        },
+        "B+": {
+          "p": 0.5,
+          "r": 0.52,
+          "f1": 0.5098039215686274,
+          "supp": 25
+        },
+        "O+": {
+          "p": 0.5333333333333333,
+          "r": 0.5517241379310345,
+          "f1": 0.5423728813559322,
+          "supp": 29
+        }
+      },
+      "runtime_sec": 4099.524295091629
+    },
+    {
+      "cid": "config_c",
+      "name": "Config C: Higher Temperature (tau=0.10)",
+      "tau": 0.1,
+      "acc": 0.55,
+      "bacc": 0.518957739175525,
+      "macro_p": 0.5142628205128206,
+      "macro_r": 0.518957739175525,
+      "macro_f1": 0.5152162559939231,
+      "weighted_f1": 0.5485481650287234,
+      "fold_f1_mean": 0.4684343434343434,
+      "fold_f1_std": 0.102516668795272,
+      "fold_f1s": [
+        0.39166666666666666,
+        0.525,
+        0.3308080808080808,
+        0.6249999999999999,
+        0.46969696969696967
+      ],
+      "per_class": {
+        "A+": {
+          "p": 0.5,
+          "r": 0.42105263157894735,
+          "f1": 0.45714285714285713,
+          "supp": 19
+        },
+        "AB+": {
+          "p": 0.375,
+          "r": 0.42857142857142855,
+          "f1": 0.4,
+          "supp": 7
+        },
+        "B+": {
+          "p": 0.6153846153846154,
+          "r": 0.64,
+          "f1": 0.6274509803921569,
+          "supp": 25
+        },
+        "O+": {
+          "p": 0.5666666666666667,
+          "r": 0.5862068965517241,
+          "f1": 0.576271186440678,
+          "supp": 29
+        }
+      },
+      "runtime_sec": 9227.715563774109
+    },
+    {
+      "cid": "config_d",
+      "name": "Config D: Highest Temperature (tau=0.15)",
+      "tau": 0.15,
+      "acc": 0.525,
+      "bacc": 0.5169769250712989,
+      "macro_p": 0.5474867724867725,
+      "macro_r": 0.5169769250712989,
+      "macro_f1": 0.519382341796135,
+      "weighted_f1": 0.5173143236074271,
+      "fold_f1_mean": 0.4784256266609207,
+      "fold_f1_std": 0.1327316988333879,
+      "fold_f1s": [
+        0.4967032967032967,
+        0.5777777777777777,
+        0.2426470588235294,
+        0.6249999999999999,
+        0.44999999999999996
+      ],
+      "per_class": {
+        "A+": {
+          "p": 0.6,
+          "r": 0.3157894736842105,
+          "f1": 0.41379310344827586,
+          "supp": 19
+        },
+        "AB+": {
+          "p": 0.5714285714285714,
+          "r": 0.5714285714285714,
+          "f1": 0.5714285714285714,
+          "supp": 7
+        },
+        "B+": {
+          "p": 0.5185185185185185,
+          "r": 0.56,
+          "f1": 0.5384615384615384,
+          "supp": 25
+        },
+        "O+": {
+          "p": 0.5,
+          "r": 0.6206896551724138,
+          "f1": 0.5538461538461539,
+          "supp": 29
+        }
+      },
+      "runtime_sec": 6146.330436468124
+    }
+  ],
+  "mcnemar": [
+    {
+      "comparison": "Config A vs CONFIG_C",
+      "tau_comp": "0.07 vs 0.10",
+      "discordant_a_only": 6,
+      "discordant_other_only": 11,
+      "p_value": 0.332305908203125,
+      "statistic": 0.9411764705882353,
+      "alpha_adj": 0.016666666666666666,
+      "significant": false
+    },
+    {
+      "comparison": "Config A vs CONFIG_D",
+      "tau_comp": "0.07 vs 0.15",
+      "discordant_a_only": 8,
+      "discordant_other_only": 11,
+      "p_value": 0.6476058959960938,
+      "statistic": 0.21052631578947367,
+      "alpha_adj": 0.025,
+      "significant": false
+    },
+    {
+      "comparison": "Config A vs CONFIG_B",
+      "tau_comp": "0.07 vs 0.05",
+      "discordant_a_only": 9,
+      "discordant_other_only": 12,
+      "p_value": 0.6636238098144531,
+      "statistic": 0.19047619047619047,
+      "alpha_adj": 0.05,
+      "significant": false
+    }
+  ],
+  "protected_integrity_pass": true,
+  "exp06a_checkpoints": [
+    {
+      "config": "config_a",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_1_best.weights.h5",
+      "sha256": "069325542cb050101b47c44f614194836238acb40581672bf3d7dc70876b7eb6",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_a",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_2_best.weights.h5",
+      "sha256": "d049073c9064c4341e99287ef0ec2bfea2b3de859de0b9234ec4d42ddaf1e4c9",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_a",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_3_best.weights.h5",
+      "sha256": "a22266418809f97e16f3028d947fb8f23bd616b73d5ac0a3020663089251fe4d",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_a",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_4_best.weights.h5",
+      "sha256": "986dc12ea6296fe351d30e7b7d0441d31656a51353086e0ea4460400844918bf",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_a",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_5_best.weights.h5",
+      "sha256": "eabeddf5a9f9a1e875872e777e0d5392401a80860ef03ddfac6fd2654b13d8ad",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_b",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_1_best.weights.h5",
+      "sha256": "cda89fa6650457e9a182a2417d64c960a6efbc95eb2c004c444bfe3add25bb5a",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_b",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_2_best.weights.h5",
+      "sha256": "0280f43e201492581ad4612e99a5cadd17f8e585f241dd4424b0273ff85bf27d",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_b",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_3_best.weights.h5",
+      "sha256": "af880fbb01c7097b48ffacc09191e467babdf6ca44671e2b994557bea1778989",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_b",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_4_best.weights.h5",
+      "sha256": "28222a09aafc569785e37565db526ae9f47b46d47a61672f5e1e4a2d88957d20",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_b",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_5_best.weights.h5",
+      "sha256": "4265c32da9fb6779faceff9c29bf7a27a357054938eaf4e3822e70dc5c854e01",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_c",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_1_best.weights.h5",
+      "sha256": "15ba772bc166f3e5f426d8bdd09ee9dded4a2464b5c04e795085514385fdd279",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_c",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_2_best.weights.h5",
+      "sha256": "2897c807f0cbe9a2b1c8efa9a00ba2cf3c8070ed07e56e9b050c08779a8e2cea",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_c",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_3_best.weights.h5",
+      "sha256": "eda25bacb0bccefd48abc9b09cfc71557ecf8413e66c0f1bcd138e80940a536d",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_c",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_4_best.weights.h5",
+      "sha256": "a30619f1f342a7a66cf6b86779e903ca735436fcbebbfb49ca7da0c0a6c62b60",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_c",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_5_best.weights.h5",
+      "sha256": "077f589c491f796dba64b6d15ef40b36d4f5bd8d53bcbcbfdcaf7a63f9f70754",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_d",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_1_best.weights.h5",
+      "sha256": "c72f4192ec3e3aa2b20ca0f00bc5e25ed9b27edb9d61f8fabf68ef5a8e1c9c4f",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_d",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_2_best.weights.h5",
+      "sha256": "e603200f133d4ebf3652e60abdab2fb825e644af9883a124c83b7f8aea867841",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_d",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_3_best.weights.h5",
+      "sha256": "65f53caea11b1ec1b7bb9e2b45bf60482ce37d202f546374eb97d1cc2b7d64d8",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_d",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_4_best.weights.h5",
+      "sha256": "f62ff1ad0aad4de98086d1377a1d2947a0fd6a0e1cb82d020693a6475fbd822d",
+      "exists": true,
+      "size_bytes": 52899216
+    },
+    {
+      "config": "config_d",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_5_best.weights.h5",
+      "sha256": "ecc5ec2890e847ce5112ae0353ac7f0945213142c214c495ba09091309589a25",
+      "exists": true,
+      "size_bytes": 52899216
+    }
+  ]
+}

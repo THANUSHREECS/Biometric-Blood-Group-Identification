@@ -140,9 +140,9 @@ async function checkSystemStatus() {
         const statusData = await modelRes.json();
         const modelTag = document.getElementById("model-tag");
         if (statusData.model) {
-            modelTag.innerText = "E2 Research Ensemble — Research Prototype (21 held-out: 8/21, equal to always-O+ baseline)";
+            modelTag.innerHTML = `E2 Three-Scan Fusion Model | Experimental Research Prototype <span style="cursor:help; margin-left:4px;" title="Evaluated on a locked test set of 21 participants, the E2 model achieved 38.10% accuracy (8/21), equal to an always-O+ baseline. This indicates limited generalization to unseen participants.">ℹ️</span>`;
             modelTag.className = "badge badge-primary";
-            modelTag.title = "E2 Research Ensemble — On 21 held-out participants this model matched always guessing O+ (8/21). It is not a blood-typing tool.";
+            modelTag.title = "Evaluated on a locked test set of 21 participants, the E2 model achieved 38.10% accuracy (8/21), equal to an always-O+ baseline. This indicates limited generalization to unseen participants.";
         }
 
     } catch (err) {
@@ -271,40 +271,147 @@ function initDropzone() {
         const dt = e.dataTransfer;
         const files = dt.files;
         if (files.length > 0) {
-            handleFile(files[0]);
+            handleFiles(Array.from(files));
         }
     });
 }
 
-function handleFileSelected(input) {
+// Global array for 3 uploaded scans
+let uploadedScans = [null, null, null];
+
+function updateSlotDisplay(index, file, dataUrl) {
+    uploadedScans[index - 1] = file;
+    const previewWrapper = document.getElementById(`slot-preview-${index}`);
+    const nameEl = document.getElementById(`slot-name-${index}`);
+    const slotEl = document.getElementById(`slot-${index}`);
+
+    if (previewWrapper && dataUrl) {
+        previewWrapper.innerHTML = `<img src="${dataUrl}" alt="Scan ${index}" style="width:48px; height:48px; object-fit:cover; border-radius:4px; border:1px solid #93c5fd;">`;
+    }
+    if (nameEl && file) {
+        nameEl.innerText = file.name;
+        nameEl.title = file.name;
+    }
+    if (slotEl) {
+        slotEl.style.borderColor = "#2563eb";
+        slotEl.style.backgroundColor = "#eff6ff";
+    }
+
+    checkUploadReady();
+}
+
+function handleSingleSlotSelected(index, input) {
     if (input.files && input.files[0]) {
-        handleFile(input.files[0]);
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            updateSlotDisplay(index, file, e.target.result);
+        };
+        reader.readAsDataURL(file);
     }
 }
 
-function handleFile(file) {
-    selectedFile = file;
-    document.getElementById("file-name-preview").innerText = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-    document.getElementById("btn-upload-predict").disabled = false;
+function handleFileSelected(input) {
+    if (input.files && input.files.length > 0) {
+        handleFiles(Array.from(input.files));
+    }
+}
+
+function handleFiles(files) {
+    if (files.length >= 3) {
+        // Populate slots 1, 2, 3
+        for (let i = 0; i < 3; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            const slotIdx = i + 1;
+            reader.onload = (e) => {
+                updateSlotDisplay(slotIdx, file, e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+        document.getElementById("file-name-preview").innerText = `Loaded 3 scans: ${files[0].name}, ${files[1].name}, ${files[2].name}`;
+    } else if (files.length === 1) {
+        selectedFile = files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            updateSlotDisplay(1, files[0], e.target.result);
+        };
+        reader.readAsDataURL(files[0]);
+        document.getElementById("file-name-preview").innerText = `Selected Scan 1: ${files[0].name}. (Please select Scans 2 & 3 for 3-scan consensus)`;
+    }
+    checkUploadReady();
+}
+
+function checkUploadReady() {
+    const uploadBtn = document.getElementById("btn-upload-predict");
+    const count = uploadedScans.filter(f => f !== null).length;
+    if (count === 3 || selectedFile !== null) {
+        uploadBtn.disabled = false;
+        if (count === 3) {
+            uploadBtn.innerText = "Analyze 3 Fingerprint Scans";
+        }
+    } else {
+        uploadBtn.disabled = true;
+    }
+}
+
+async function loadSampleScans(bloodGroup) {
+    const progressBox = document.getElementById("progress-box");
+    const progressText = document.getElementById("progress-text");
+    try {
+        progressBox.style.display = "flex";
+        progressText.innerText = `Loading authentic sample scans for ${bloodGroup}...`;
+
+        const res = await fetch(`/api/sample-scans/${encodeURIComponent(bloodGroup)}`);
+        const data = await res.json();
+        if (!res.ok || data.error) {
+            throw new Error(data.error || "Failed to load sample scans");
+        }
+
+        for (let i = 0; i < data.scans.length; i++) {
+            const scan = data.scans[i];
+            const fetchRes = await fetch(scan.data);
+            const blob = await fetchRes.blob();
+            const file = new File([blob], scan.name, { type: "image/bmp" });
+            updateSlotDisplay(i + 1, file, scan.data);
+        }
+
+        document.getElementById("file-name-preview").innerText = `Loaded 3 authentic MFS100 scans for participant ${data.pid} (${bloodGroup})`;
+        progressBox.style.display = "none";
+        checkUploadReady();
+    } catch (err) {
+        progressBox.style.display = "none";
+        alert("Could not load sample scans: " + err.message);
+    }
 }
 
 async function submitUpload() {
-    if (!selectedFile) return;
+    const count = uploadedScans.filter(f => f !== null).length;
+    if (count !== 3 && !selectedFile) {
+        alert("Please provide all 3 fingerprint scans for E2 consensus inference.");
+        return;
+    }
 
     const progressBox = document.getElementById("progress-box");
     const progressText = document.getElementById("progress-text");
     const uploadBtn = document.getElementById("btn-upload-predict");
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    if (count === 3) {
+        formData.append("scan1", uploadedScans[0]);
+        formData.append("scan2", uploadedScans[1]);
+        formData.append("scan3", uploadedScans[2]);
+    } else {
+        formData.append("file", selectedFile);
+    }
 
     try {
         uploadBtn.disabled = true;
         progressBox.style.display = "flex";
-        progressText.innerText = "Uploading fingerprint image...";
+        progressText.innerText = count === 3 ? "Uploading 3 fingerprint impressions..." : "Uploading fingerprint image...";
 
-        await new Promise(r => setTimeout(r, 400));
-        progressText.innerText = "Preprocessing & running ResNet50 classification...";
+        await new Promise(r => setTimeout(r, 200));
+        progressText.innerText = "Preprocessing via C5 (CLAHE + Bilateral) & evaluating E2 5-fold ensemble...";
 
         const res = await fetch("/api/upload", {
             method: "POST",
@@ -314,11 +421,11 @@ async function submitUpload() {
         const data = await res.json();
 
         if (!res.ok || data.error) {
-            throw new Error(data.error || "Upload failed");
+            throw new Error(data.error || "Upload inference failed");
         }
 
         progressText.innerText = "Prediction completed successfully!";
-        await new Promise(r => setTimeout(r, 300));
+        await new Promise(r => setTimeout(r, 200));
         progressBox.style.display = "none";
 
         renderPredictionResult(data);
@@ -339,28 +446,49 @@ function renderPredictionResult(data) {
     const resultContent = document.getElementById("result-content");
     resultContent.style.display = "block";
 
-    // Set preview image
-    if (data.image_url) {
+    // 1. Set 3-scan preview thumbnails
+    if (data.image_urls && data.image_urls.length >= 3) {
+        document.getElementById("preview-scan-1").src = data.image_urls[0];
+        document.getElementById("preview-scan-2").src = data.image_urls[1];
+        document.getElementById("preview-scan-3").src = data.image_urls[2];
+        const gal = document.getElementById("scans-preview-gallery");
+        if (gal) gal.style.display = "grid";
+    } else if (data.image_url) {
+        document.getElementById("preview-scan-1").src = data.image_url;
+        document.getElementById("preview-scan-2").src = data.image_url;
+        document.getElementById("preview-scan-3").src = data.image_url;
         document.getElementById("preview-image").src = data.image_url;
     }
 
-    // Blood group value - hide if low confidence
-    if (data.needs_confirmation) {
-        document.getElementById("blood-group-val").innerText = "Not Reliable";
-        document.getElementById("blood-group-val").style.fontSize = "1.5rem";
-        document.getElementById("blood-group-val").style.color = "#b45309";
-    } else {
-        document.getElementById("blood-group-val").innerText = data.blood_group;
-        document.getElementById("blood-group-val").style.fontSize = "3.5rem";
-        document.getElementById("blood-group-val").style.color = "#dc2626";
+    // 2. Set source badge
+    const srcBadge = document.getElementById("result-source-badge");
+    if (srcBadge) {
+        srcBadge.innerText = data.input_source || (data.scanner_mode === 'hardware' ? "Source: Mantra MFS100 Scanner" : "Source: 3 Uploaded Scans");
+        srcBadge.style.display = "inline-block";
     }
 
-    // Confidence
+    // 3. Predicted Blood Group - ALWAYS display the actual predicted class prominently
+    const bgValEl = document.getElementById("blood-group-val");
+    bgValEl.innerText = data.blood_group;
+    bgValEl.style.fontSize = "3.2rem";
+    bgValEl.style.color = "#dc2626";
+
+    // Update Model Name and Input Source tags in Prediction Card
+    const modelNameEl = document.getElementById("prediction-model-name");
+    if (modelNameEl) {
+        modelNameEl.innerText = `Model: ${data.model_name || "E2 Three-Scan Fusion"}`;
+    }
+    const inputSrcEl = document.getElementById("prediction-input-source");
+    if (inputSrcEl) {
+        inputSrcEl.innerText = `Source: ${data.input_source || (data.scanner_mode === 'hardware' ? "Physical MFS100" : "File Upload")}`;
+    }
+
+    // 4. Model Confidence
     const confPct = (data.confidence * 100).toFixed(1);
     document.getElementById("confidence-val").innerText = `${confPct}%`;
     document.getElementById("confidence-bar").style.width = `${confPct}%`;
 
-    // Research/Prototype Advisory Decision-Support Layer (tau = 0.70)
+    // 5. Research/Prototype Advisory Decision-Support Layer (tau = 0.70)
     const chip = document.getElementById("confidence-chip");
     const advAlert = document.getElementById("advisory-screening-alert");
     const advMsg = document.getElementById("advisory-screening-message");

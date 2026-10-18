@@ -1,0 +1,101 @@
+Rank,Relative Path,Size (Bytes),Size (MB),Size (GB),File Extension,Last Modified,Category,Likely Purpose,Source Code References,Script References,Report References,Total References
+1,.git/objects/pack/pack-eca7cb6dc962350724cc08c82c2aba7a264d04e9.pack,1357740896,1294.84,1.264,.pack,2026-10-10 12:57:30,Repository Metadata / Git Packfile,Git object storage and version history database,0,0,0,0
+2,models/experiments/combined_ensemble_best.keras,442112606,421.63,0.412,.keras,2026-09-06 11:56:52,Model Checkpoint,Trained model best validation weights,0,0,1,1
+3,models/resnet50_improved_blood_group.keras,277708315,264.84,0.259,.keras,2026-09-04 12:57:36,Model Checkpoint,Trained neural network model weights,0,16,2,36
+4,models/experiments/resnet50_long_epoch_best.keras,277708314,264.84,0.259,.keras,2026-09-05 18:18:44,Model Checkpoint,Trained model best validation weights,0,3,1,5
+5,models/blood_group_resnet50.keras,220976456,210.74,0.206,.keras,2026-09-04 00:18:24,Model Checkpoint,Trained neural network model weights,0,3,1,12
+6,models/phase3_transfer_learning/VGG16/T4/fold_1_best.keras,176718697,168.53,0.165,.keras,2026-10-08 15:44:40,Model Checkpoint,Trained model best validation weights,0,0,1,1
+7,models/phase3_transfer_learning/VGG16/T4/fold_2_best.keras,176718697,168.53,0.165,.keras,2026-10-08 16:13:21,Model Checkpoint,Trained model best validation weights,0,0,1,1
+8,models/phase3_transfer_learning/VGG16/T4/fold_3_best.keras,176718697,168.53,0.165,.keras,2026-10-08 16:22:01,Model Checkpoint,Trained model best validation weights,0,0,1,1
+9,models/phase3_transfer_learning/VGG16/T4/fold_4_best.keras,176718697,168.53,0.165,.keras,2026-10-08 17:32:35,Model Checkpoint,Trained model best validation weights,0,0,1,1
+10,models/phase3_transfer_learning/VGG16/T4/fold_5_best.keras,176718697,168.53,0.165,.keras,2026-10-08 18:10:49,Model Checkpoint,Trained model best validation weights,0,0,1,1
+11,models/vgg16_blood_group.keras,164398056,156.78,0.153,.keras,2026-09-04 14:08:13,Model Checkpoint,Trained neural network model weights,0,14,2,34
+12,models/experiments/vgg16_long_epoch_best.keras,164398055,156.78,0.153,.keras,2026-09-06 02:09:05,Model Checkpoint,Trained model best validation weights,0,3,1,5
+13,experiments/exp04/checkpoints/config_c/fold_1_best.weights.h5,126342472,120.49,0.118,.h5,2026-10-15 00:18:57,Model Checkpoint,Trained model best validation weights,0,0,45,54
+14,experiments/exp04/checkpoints/config_c/fold_2_best.weights.h5,126342472,120.49,0.118,.h5,2026-10-15 00:26:24,Model Checkpoint,Trained model best validation weights,0,0,44,53
+15,experiments/exp04/checkpoints/config_c/fold_3_best.weights.h5,126342472,120.49,0.118,.h5,2026-10-15 00:33:55,Model Checkpoint,Trained model best validation weights,0,0,44,53
+16,experiments/exp04/checkpoints/config_c/fold_4_best.weights.h5,126342472,120.49,0.118,.h5,2026-10-15 00:45:50,Model Checkpoint,Trained model best validation weights,0,0,44,53
+17,experiments/exp04/checkpoints/config_c/fold_5_best.weights.h5,126342472,120.49,0.118,.h5,2026-10-15 01:03:01,Model Checkpoint,Trained model best validation weights,0,0,44,53
+18,models/phase3_transfer_learning/VGG16/T2/fold_1_best.keras,115621988,110.27,0.108,.keras,2026-10-08 12:58:53,Model Checkpoint,Trained model best validation weights,0,0,1,1
+19,models/phase3_transfer_learning/VGG16/T2/fold_2_best.keras,115621988,110.27,0.108,.keras,2026-10-08 13:17:34,Model Checkpoint,Trained model best validation weights,0,0,1,1
+20,models/phase3_transfer_learning/VGG16/T2/fold_3_best.keras,115621988,110.27,0.108,.keras,2026-10-08 13:28:21,Model Checkpoint,Trained model best validation weights,0,0,1,1
+21,models/phase3_transfer_learning/VGG16/T2/fold_4_best.keras,115621988,110.27,0.108,.keras,2026-10-08 13:41:59,Model Checkpoint,Trained model best validation weights,0,0,1,1
+22,models/phase3_transfer_learning/VGG16/T2/fold_5_best.keras,115621988,110.27,0.108,.keras,2026-10-08 13:50:44,Model Checkpoint,Trained model best validation weights,0,0,1,1
+23,models/phase3_transfer_learning/VGG16/T3/fold_1_best.keras,115621987,110.27,0.108,.keras,2026-10-08 14:11:18,Model Checkpoint,Trained model best validation weights,0,0,1,1
+24,models/phase3_transfer_learning/VGG16/T3/fold_2_best.keras,115621987,110.27,0.108,.keras,2026-10-08 14:30:39,Model Checkpoint,Trained model best validation weights,0,0,1,1
+25,models/phase3_transfer_learning/VGG16/T3/fold_3_best.keras,115621987,110.27,0.108,.keras,2026-10-08 14:40:47,Model Checkpoint,Trained model best validation weights,0,0,1,1
+26,models/phase3_transfer_learning/VGG16/T3/fold_4_best.keras,115621987,110.27,0.108,.keras,2026-10-08 14:49:44,Model Checkpoint,Trained model best validation weights,0,0,1,1
+27,models/phase3_transfer_learning/VGG16/T3/fold_5_best.keras,115621987,110.27,0.108,.keras,2026-10-08 15:07:49,Model Checkpoint,Trained model best validation weights,0,0,1,1
+28,models/phase3_architecture_benchmark/convnext_tiny/best_model.keras,111847432,106.67,0.104,.keras,2026-10-07 21:50:29,Model Checkpoint,Trained model best validation weights,1,9,36,73
+29,.git/objects/pack/pack-c70c3617228cacd418a2b1599b3edc45ff49943b.pack,110790172,105.66,0.103,.pack,2026-10-17 15:51:47,Repository Metadata / Git Packfile,Git object storage and version history database,0,0,0,0
+30,models/abo_rh_experiments/two_stage_abo_rh_best_val.keras,101923359,97.2,0.095,.keras,2026-09-08 16:05:19,Model Checkpoint,Trained model best validation weights,0,4,4,12
+31,models/abo_rh_experiments/two_stage_abo_rh_model.keras,101923359,97.2,0.095,.keras,2026-09-08 16:05:21,Model Checkpoint,Trained neural network model weights,0,1,1,2
+32,models/mfs100_experiments/resnet50_mfs100_abo_v1_reproduced.keras,96656595,92.18,0.09,.keras,2026-09-08 09:19:44,Model Checkpoint,Trained neural network model weights,0,1,0,3
+33,models/mfs100_domain_adaptation/e4_aug_full_best.keras,96656589,92.18,0.09,.keras,2026-09-10 22:31:02,Model Checkpoint,Trained model best validation weights,0,0,0,0
+34,models/mfs100_domain_adaptation/e5_noaug_full_best.keras,96656589,92.18,0.09,.keras,2026-09-10 22:36:07,Model Checkpoint,Trained model best validation weights,0,0,0,0
+35,models/mfs100_domain_adaptation/e6_bestprep_adapted_best.keras,96656589,92.18,0.09,.keras,2026-09-10 22:38:21,Model Checkpoint,Trained model best validation weights,0,0,0,0
+36,models/mfs100_experiments/resnet50_mfs100_abo_v1_1.keras,96656514,92.18,0.09,.keras,2026-09-08 10:03:50,Model Checkpoint,Trained neural network model weights,0,1,0,2
+37,models/mfs100_experiments/v1_1_checkpoints/epoch_01.keras,96656514,92.18,0.09,.keras,2026-09-08 09:52:50,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+38,models/mfs100_experiments/v1_1_checkpoints/epoch_02.keras,96656514,92.18,0.09,.keras,2026-09-08 09:53:13,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+39,models/mfs100_experiments/v1_1_checkpoints/epoch_03.keras,96656514,92.18,0.09,.keras,2026-09-08 09:53:30,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+40,models/mfs100_experiments/v1_1_checkpoints/epoch_04.keras,96656514,92.18,0.09,.keras,2026-09-08 09:53:50,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+41,models/mfs100_experiments/v1_1_checkpoints/epoch_05.keras,96656514,92.18,0.09,.keras,2026-09-08 09:54:09,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+42,models/mfs100_experiments/v1_1_checkpoints/epoch_06.keras,96656514,92.18,0.09,.keras,2026-09-08 09:54:28,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+43,models/mfs100_experiments/v1_1_checkpoints/epoch_07.keras,96656514,92.18,0.09,.keras,2026-09-08 09:54:46,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+44,models/mfs100_experiments/v1_1_checkpoints/epoch_08.keras,96656514,92.18,0.09,.keras,2026-09-08 09:55:02,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+45,models/mfs100_experiments/v1_1_checkpoints/epoch_09.keras,96656514,92.18,0.09,.keras,2026-09-08 09:55:21,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+46,models/mfs100_experiments/v1_1_checkpoints/epoch_10.keras,96656514,92.18,0.09,.keras,2026-09-08 09:55:45,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+47,models/mfs100_experiments/v1_1_checkpoints/epoch_11.keras,96656514,92.18,0.09,.keras,2026-09-08 09:56:08,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+48,models/mfs100_experiments/v1_1_checkpoints/epoch_12.keras,96656514,92.18,0.09,.keras,2026-09-08 09:56:30,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+49,models/mfs100_experiments/v1_1_checkpoints/epoch_13.keras,96656514,92.18,0.09,.keras,2026-09-08 09:56:53,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+50,models/mfs100_experiments/v1_1_checkpoints/epoch_14.keras,96656514,92.18,0.09,.keras,2026-09-08 09:57:16,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+51,models/mfs100_experiments/v1_1_checkpoints/epoch_15.keras,96656514,92.18,0.09,.keras,2026-09-08 09:57:40,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+52,models/mfs100_experiments/v1_1_checkpoints/epoch_16.keras,96656514,92.18,0.09,.keras,2026-09-08 09:58:04,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+53,models/mfs100_experiments/v1_1_checkpoints/epoch_17.keras,96656514,92.18,0.09,.keras,2026-09-08 09:58:28,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+54,models/mfs100_experiments/v1_1_checkpoints/epoch_18.keras,96656514,92.18,0.09,.keras,2026-09-08 09:58:51,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+55,models/mfs100_experiments/v1_1_checkpoints/epoch_19.keras,96656514,92.18,0.09,.keras,2026-09-08 09:59:14,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+56,models/mfs100_experiments/v1_1_checkpoints/epoch_20.keras,96656514,92.18,0.09,.keras,2026-09-08 09:59:38,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+57,models/mfs100_experiments/v1_1_checkpoints/epoch_21.keras,96656514,92.18,0.09,.keras,2026-09-08 10:00:01,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+58,models/mfs100_experiments/v1_1_checkpoints/epoch_22.keras,96656514,92.18,0.09,.keras,2026-09-08 10:00:25,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,1
+59,models/mfs100_experiments/v1_1_checkpoints/epoch_23.keras,96656514,92.18,0.09,.keras,2026-09-08 10:00:48,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+60,models/mfs100_experiments/v1_1_checkpoints/epoch_24.keras,96656514,92.18,0.09,.keras,2026-09-08 10:01:11,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+61,models/mfs100_experiments/v1_1_checkpoints/epoch_25.keras,96656514,92.18,0.09,.keras,2026-09-08 10:01:52,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+62,models/mfs100_experiments/v1_1_checkpoints/epoch_26.keras,96656514,92.18,0.09,.keras,2026-09-08 10:02:16,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+63,models/mfs100_experiments/v1_1_checkpoints/epoch_27.keras,96656514,92.18,0.09,.keras,2026-09-08 10:02:39,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+64,models/mfs100_experiments/v1_1_checkpoints/epoch_28.keras,96656514,92.18,0.09,.keras,2026-09-08 10:03:02,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+65,models/mfs100_experiments/v1_1_checkpoints/epoch_29.keras,96656514,92.18,0.09,.keras,2026-09-08 10:03:25,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+66,models/mfs100_experiments/v1_1_checkpoints/epoch_30.keras,96656514,92.18,0.09,.keras,2026-09-08 10:03:49,Model Checkpoint,Intermediate epoch training checkpoint,0,0,0,0
+67,models/phase3_architecture_benchmark/resnet50/best_model.keras,95115197,90.71,0.089,.keras,2026-10-07 21:18:40,Model Checkpoint,Trained model best validation weights,1,9,36,73
+68,experiments/exp04/checkpoints/config_b/fold_1_best.weights.h5,86376168,82.37,0.08,.h5,2026-10-14 23:28:55,Model Checkpoint,Trained model best validation weights,0,0,45,54
+69,experiments/exp04/checkpoints/config_b/fold_2_best.weights.h5,86376168,82.37,0.08,.h5,2026-10-14 23:33:52,Model Checkpoint,Trained model best validation weights,0,0,44,53
+70,experiments/exp04/checkpoints/config_b/fold_3_best.weights.h5,86376168,82.37,0.08,.h5,2026-10-14 23:49:23,Model Checkpoint,Trained model best validation weights,0,0,44,53
+71,experiments/exp04/checkpoints/config_b/fold_4_best.weights.h5,86376168,82.37,0.08,.h5,2026-10-14 23:57:16,Model Checkpoint,Trained model best validation weights,0,0,44,53
+72,experiments/exp04/checkpoints/config_b/fold_5_best.weights.h5,86376168,82.37,0.08,.h5,2026-10-15 00:04:00,Model Checkpoint,Trained model best validation weights,0,0,44,53
+73,models/phase3_transfer_learning/DenseNet121/T4/fold_1_best.keras,85621560,81.66,0.08,.keras,2026-10-08 05:32:20,Model Checkpoint,Trained model best validation weights,0,0,1,1
+74,models/phase3_transfer_learning/DenseNet121/T4/fold_2_best.keras,85621560,81.66,0.08,.keras,2026-10-08 06:18:53,Model Checkpoint,Trained model best validation weights,0,0,1,1
+75,models/phase3_transfer_learning/DenseNet121/T4/fold_3_best.keras,85621560,81.66,0.08,.keras,2026-10-08 07:00:32,Model Checkpoint,Trained model best validation weights,0,0,1,1
+76,models/phase3_transfer_learning/DenseNet121/T4/fold_4_best.keras,85621560,81.66,0.08,.keras,2026-10-08 08:46:47,Model Checkpoint,Trained model best validation weights,0,0,1,1
+77,models/phase3_transfer_learning/DenseNet121/T4/fold_5_best.keras,85621560,81.66,0.08,.keras,2026-10-08 09:31:03,Model Checkpoint,Trained model best validation weights,0,0,1,1
+78,.git/objects/cc/tmp_obj_1CpHWI,69722112,66.49,0.065,,2026-10-10 12:50:11,Repository Metadata / Git Packfile,Git object storage and version history database,0,0,0,0
+79,experiments/exp06c/checkpoints/config_b/fold_1_best.weights.h5,67852944,64.71,0.063,.h5,2026-10-16 11:50:18,Model Checkpoint,Trained model best validation weights,0,0,45,54
+80,experiments/exp06c/checkpoints/config_b/fold_2_best.weights.h5,67852944,64.71,0.063,.h5,2026-10-16 12:10:46,Model Checkpoint,Trained model best validation weights,0,0,44,53
+81,experiments/exp06c/checkpoints/config_b/fold_3_best.weights.h5,67852944,64.71,0.063,.h5,2026-10-16 13:07:33,Model Checkpoint,Trained model best validation weights,0,0,44,53
+82,experiments/exp06c/checkpoints/config_b/fold_4_best.weights.h5,67852944,64.71,0.063,.h5,2026-10-16 13:31:29,Model Checkpoint,Trained model best validation weights,0,0,44,53
+83,experiments/exp06c/checkpoints/config_b/fold_5_best.weights.h5,67852944,64.71,0.063,.h5,2026-10-16 13:56:16,Model Checkpoint,Trained model best validation weights,0,0,44,53
+84,experiments/exp04/checkpoints/config_a/fold_1_best.weights.h5,60779864,57.96,0.057,.h5,2026-10-14 22:36:54,Model Checkpoint,Trained model best validation weights,0,0,45,54
+85,experiments/exp04/checkpoints/config_a/fold_2_best.weights.h5,60779864,57.96,0.057,.h5,2026-10-14 22:43:31,Model Checkpoint,Trained model best validation weights,0,0,44,53
+86,experiments/exp04/checkpoints/config_a/fold_3_best.weights.h5,60779864,57.96,0.057,.h5,2026-10-14 22:51:42,Model Checkpoint,Trained model best validation weights,0,0,44,53
+87,experiments/exp04/checkpoints/config_a/fold_4_best.weights.h5,60779864,57.96,0.057,.h5,2026-10-14 23:01:11,Model Checkpoint,Trained model best validation weights,0,0,44,53
+88,experiments/exp04/checkpoints/config_a/fold_5_best.weights.h5,60779864,57.96,0.057,.h5,2026-10-14 23:22:02,Model Checkpoint,Trained model best validation weights,0,0,44,53
+89,models/phase3_transfer_learning/VGG16/T1/fold_1_best.keras,58982504,56.25,0.055,.keras,2026-10-08 10:23:09,Model Checkpoint,Trained model best validation weights,0,0,1,1
+90,models/phase3_transfer_learning/VGG16/T1/fold_2_best.keras,58982504,56.25,0.055,.keras,2026-10-08 11:58:20,Model Checkpoint,Trained model best validation weights,0,0,1,1
+91,models/phase3_transfer_learning/VGG16/T1/fold_3_best.keras,58982504,56.25,0.055,.keras,2026-10-08 12:02:44,Model Checkpoint,Trained model best validation weights,0,0,1,1
+92,models/phase3_transfer_learning/VGG16/T1/fold_4_best.keras,58982504,56.25,0.055,.keras,2026-10-08 12:30:43,Model Checkpoint,Trained model best validation weights,0,0,1,1
+93,models/phase3_transfer_learning/VGG16/T1/fold_5_best.keras,58982504,56.25,0.055,.keras,2026-10-08 12:38:20,Model Checkpoint,Trained model best validation weights,0,0,1,1
+94,models/phase3_architecture_benchmark/vgg16/best_model.keras,58982485,56.25,0.055,.keras,2026-10-07 21:02:56,Model Checkpoint,Trained model best validation weights,1,9,36,73
+95,experiments/checkpoints/exp01/fold_1_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-14 09:15:30,Model Checkpoint,Trained model best validation weights,0,0,45,54
+96,experiments/checkpoints/exp01/fold_2_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-14 09:16:45,Model Checkpoint,Trained model best validation weights,0,0,44,53
+97,experiments/checkpoints/exp01/fold_3_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-14 09:19:31,Model Checkpoint,Trained model best validation weights,0,0,44,53
+98,experiments/checkpoints/exp01/fold_4_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-14 09:23:14,Model Checkpoint,Trained model best validation weights,0,0,44,53
+99,experiments/checkpoints/exp01/fold_5_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-14 09:29:13,Model Checkpoint,Trained model best validation weights,0,0,44,53
+100,models/phase3_fusion_metric_learning/E2/fold_1_best.weights.h5,52910112,50.46,0.049,.h5,2026-10-09 19:00:27,Model Checkpoint,Trained model best validation weights,0,0,45,54

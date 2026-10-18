@@ -1,0 +1,413 @@
+Path,Filename,Size (MB),Experiment Group,Output Type,Referenced in Reports,Referenced in Scripts,Referenced in App,Reproducibility Impact,Retention Recommendation
+experiments/exp01_class_balanced_e2.py,exp01_class_balanced_e2.py,0.03,exp01_class_balanced_e2.py,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp02_e2_augmentation.py,exp02_e2_augmentation.py,0.03,exp02_e2_augmentation.py,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/generate_exp01_reports.py,generate_exp01_reports.py,0.01,generate_exp01_reports.py,other,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/checkpoints/exp01/fold_1_best.weights.h5,fold_1_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp01/fold_2_best.weights.h5,fold_2_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp01/fold_3_best.weights.h5,fold_3_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp01/fold_4_best.weights.h5,fold_4_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp01/fold_5_best.weights.h5,fold_5_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp02/fold_1_best.weights.h5,fold_1_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp02/fold_2_best.weights.h5,fold_2_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp02/fold_3_best.weights.h5,fold_3_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp02/fold_4_best.weights.h5,fold_4_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/checkpoints/exp02/fold_5_best.weights.h5,fold_5_best.weights.h5,50.46,checkpoints,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/run_exp03.py,run_exp03.py,0.03,exp03,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm0/fold_1_best.weights.h5,fold_1_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm0/fold_2_best.weights.h5,fold_2_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm0/fold_3_best.weights.h5,fold_3_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm0/fold_4_best.weights.h5,fold_4_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm0/fold_5_best.weights.h5,fold_5_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm1/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm1/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm1/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm1/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm1/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm2/fold_1_best.weights.h5,fold_1_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm2/fold_2_best.weights.h5,fold_2_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm2/fold_3_best.weights.h5,fold_3_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm2/fold_4_best.weights.h5,fold_4_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp03/checkpoints/arm2/fold_5_best.weights.h5,fold_5_best.weights.h5,50.46,exp03,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/run_exp04.py,run_exp04.py,0.03,exp04,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_a/fold_1_best.weights.h5,fold_1_best.weights.h5,57.96,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_a/fold_2_best.weights.h5,fold_2_best.weights.h5,57.96,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_a/fold_3_best.weights.h5,fold_3_best.weights.h5,57.96,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_a/fold_4_best.weights.h5,fold_4_best.weights.h5,57.96,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_a/fold_5_best.weights.h5,fold_5_best.weights.h5,57.96,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_b/fold_1_best.weights.h5,fold_1_best.weights.h5,82.37,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_b/fold_2_best.weights.h5,fold_2_best.weights.h5,82.37,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_b/fold_3_best.weights.h5,fold_3_best.weights.h5,82.37,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_b/fold_4_best.weights.h5,fold_4_best.weights.h5,82.37,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_b/fold_5_best.weights.h5,fold_5_best.weights.h5,82.37,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_c/fold_1_best.weights.h5,fold_1_best.weights.h5,120.49,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_c/fold_2_best.weights.h5,fold_2_best.weights.h5,120.49,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_c/fold_3_best.weights.h5,fold_3_best.weights.h5,120.49,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_c/fold_4_best.weights.h5,fold_4_best.weights.h5,120.49,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp04/checkpoints/config_c/fold_5_best.weights.h5,fold_5_best.weights.h5,120.49,exp04,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/run_exp05.py,run_exp05.py,0.03,exp05,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_a/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_a/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_a/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_a/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_a/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_b/fold_1_best.weights.h5,fold_1_best.weights.h5,36.96,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_b/fold_2_best.weights.h5,fold_2_best.weights.h5,36.96,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_b/fold_3_best.weights.h5,fold_3_best.weights.h5,36.96,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_b/fold_4_best.weights.h5,fold_4_best.weights.h5,36.96,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_b/fold_5_best.weights.h5,fold_5_best.weights.h5,36.96,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_c/fold_1_best.weights.h5,fold_1_best.weights.h5,42.65,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_c/fold_2_best.weights.h5,fold_2_best.weights.h5,42.65,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_c/fold_3_best.weights.h5,fold_3_best.weights.h5,42.65,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_c/fold_4_best.weights.h5,fold_4_best.weights.h5,42.65,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp05/checkpoints/config_c/fold_5_best.weights.h5,fold_5_best.weights.h5,42.65,exp05,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/run_exp06a.py,run_exp06a.py,0.03,exp06a,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_a/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_a/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_a/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_a/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_a/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_b/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_b/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_b/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_b/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_b/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_c/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_c/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_c/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_c/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_c/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_d/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_d/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_d/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_d/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06a/checkpoints/config_d/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06a,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/run_exp06b.py,run_exp06b.py,0.03,exp06b,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_a/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_a/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_a/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_a/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_a/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_b/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_b/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_b/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_b/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_b/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_c/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_c/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_c/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_c/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_c/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_d/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_d/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_d/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_d/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06b/checkpoints/arm_d/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06b,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/run_exp06c.py,run_exp06c.py,0.03,exp06c,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_a/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_a/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_a/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_a/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_a/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_b/fold_1_best.weights.h5,fold_1_best.weights.h5,64.71,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_b/fold_2_best.weights.h5,fold_2_best.weights.h5,64.71,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_b/fold_3_best.weights.h5,fold_3_best.weights.h5,64.71,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_b/fold_4_best.weights.h5,fold_4_best.weights.h5,64.71,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06c/checkpoints/config_b/fold_5_best.weights.h5,fold_5_best.weights.h5,64.71,exp06c,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/run_exp06d.py,run_exp06d.py,0.04,exp06d,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_a/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_a/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_a/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_a/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_a/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_b/fold_1_best.weights.h5,fold_1_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_b/fold_2_best.weights.h5,fold_2_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_b/fold_3_best.weights.h5,fold_3_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_b/fold_4_best.weights.h5,fold_4_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp06d/checkpoints/config_b/fold_5_best.weights.h5,fold_5_best.weights.h5,50.45,exp06d,checkpoint,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/config.py,config.py,0.0,exp07_resolution_fidelity,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/evaluate.py,evaluate.py,0.01,exp07_resolution_fidelity,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/evaluation_results.json,evaluation_results.json,0.0,exp07_resolution_fidelity,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/manifest.json,manifest.json,0.0,exp07_resolution_fidelity,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/README.md,README.md,0.0,exp07_resolution_fidelity,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/split_validator.py,split_validator.py,0.01,exp07_resolution_fidelity,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/synthetic_test.py,synthetic_test.py,0.01,exp07_resolution_fidelity,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/train.py,train.py,0.02,exp07_resolution_fidelity,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/checkpoints/arm_a_112/oof_predictions.npy,oof_predictions.npy,0.0,exp07_resolution_fidelity,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp07_resolution_fidelity/checkpoints/arm_b_224/oof_predictions.npy,oof_predictions.npy,0.0,exp07_resolution_fidelity,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/config.py,config.py,0.0,exp08_dermatoglyphic_minutiae,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/evaluate.py,evaluate.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/feature_extraction.py,feature_extraction.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/participant_feature_builder.py,participant_feature_builder.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/README.md,README.md,0.01,exp08_dermatoglyphic_minutiae,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/split_validator.py,split_validator.py,0.0,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/synthetic_test.py,synthetic_test.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/train.py,train.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/features/dev80_handcrafted_features.csv,dev80_handcrafted_features.csv,0.03,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/features/feature_names.json,feature_names.json,0.0,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/permutation_test/exp08_full_pipeline_permutation_metrics.json,exp08_full_pipeline_permutation_metrics.json,0.0,exp08_dermatoglyphic_minutiae,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/permutation_test/logistic_regression_null_distribution.csv,logistic_regression_null_distribution.csv,0.06,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/permutation_test/random_forest_null_distribution.csv,random_forest_null_distribution.csv,0.06,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/permutation_test/run_full_pipeline_permutation_test.py,run_full_pipeline_permutation_test.py,0.01,exp08_dermatoglyphic_minutiae,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/results/exp08_evaluation_metrics.json,exp08_evaluation_metrics.json,0.01,exp08_dermatoglyphic_minutiae,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/results/exp08_participant_oof_predictions.csv,exp08_participant_oof_predictions.csv,0.01,exp08_dermatoglyphic_minutiae,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp08_dermatoglyphic_minutiae/results/logistic_regression_oof_probs.npy,logistic_regression_oof_probs.npy,0.0,exp08_dermatoglyphic_minutiae,prediction_or_metric,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/exp08_dermatoglyphic_minutiae/results/majority_baseline_oof_probs.npy,majority_baseline_oof_probs.npy,0.0,exp08_dermatoglyphic_minutiae,prediction_or_metric,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/exp08_dermatoglyphic_minutiae/results/random_forest_oof_probs.npy,random_forest_oof_probs.npy,0.0,exp08_dermatoglyphic_minutiae,prediction_or_metric,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/exp09_orientation_tensor/dev80_orientation_tensor_features.csv,dev80_orientation_tensor_features.csv,0.73,exp09_orientation_tensor,other,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/exp09_orientation_tensor/exp09_evaluation_metrics.json,exp09_evaluation_metrics.json,0.01,exp09_orientation_tensor,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp09_orientation_tensor/exp09_participant_oof_predictions.csv,exp09_participant_oof_predictions.csv,0.0,exp09_orientation_tensor,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp09_orientation_tensor/run_orientation_tensor_experiment.py,run_orientation_tensor_experiment.py,0.01,exp09_orientation_tensor,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp10_multi_scan_quality/exp10_evaluation_metrics.json,exp10_evaluation_metrics.json,0.02,exp10_multi_scan_quality,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp10_multi_scan_quality/exp10_participant_oof_predictions.csv,exp10_participant_oof_predictions.csv,0.0,exp10_multi_scan_quality,prediction_or_metric,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp10_multi_scan_quality/exp10_scan_quality_audit.csv,exp10_scan_quality_audit.csv,0.02,exp10_multi_scan_quality,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/exp10_multi_scan_quality/run_exp10_quality_aggregation.py,run_exp10_quality_aggregation.py,0.02,exp10_multi_scan_quality,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/final_evaluation/evaluate_frozen_candidate.py,evaluate_frozen_candidate.py,0.02,final_evaluation,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/dev_densenet121_features.npz,dev_densenet121_features.npz,0.66,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_clustering_summary.json,exp1_clustering_summary.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_duplicates_and_perceptual_hashes.json,exp1_duplicates_and_perceptual_hashes.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_efficientnetb0_embeddings.npy,exp1_efficientnetb0_embeddings.npy,13.52,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_perceptual_hashes_trainval_reference.json,exp1_perceptual_hashes_trainval_reference.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_percolation_finer_scan.json,exp1_percolation_finer_scan.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_positive_images_clusters.csv,exp1_positive_images_clusters.csv,0.38,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp1_positive_images_hashes.csv,exp1_positive_images_hashes.csv,0.34,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp2_permutation_distributions.csv,exp2_permutation_distributions.csv,0.6,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp2_signal_tests_results.json,exp2_signal_tests_results.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp3_effnet_concat_results.json,exp3_effnet_concat_results.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp3_trivial_ablation_results.json,exp3_trivial_ablation_results.json,0.02,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp3_trivial_image_properties_features.csv,exp3_trivial_image_properties_features.csv,1.56,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/exp3_trivial_image_properties_results.json,exp3_trivial_image_properties_results.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/original_dataset_densenet121_features.npz,original_dataset_densenet121_features.npz,9.79,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/original_dataset_raw_effb0_features.npy,original_dataset_raw_effb0_features.npy,13.52,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/phase1_readonly_results.json,phase1_readonly_results.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/phase2_selection_rules_comparison.json,phase2_selection_rules_comparison.json,0.01,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/phase3_densenet121_similarity_distribution.json,phase3_densenet121_similarity_distribution.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/phase3_purged_cv_results.csv,phase3_purged_cv_results.csv,0.04,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/phase3_purged_cv_summary.json,phase3_purged_cv_summary.json,0.02,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/seed42_rerun_predictions.csv,seed42_rerun_predictions.csv,0.0,leakage_audit,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/selection_inclusive_null_results.csv,selection_inclusive_null_results.csv,0.01,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/leakage_audit/selection_inclusive_null_summary.json,selection_inclusive_null_summary.json,0.0,leakage_audit,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/mfs100_domain_adaptation/augmentation.py,augmentation.py,0.0,mfs100_domain_adaptation,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+experiments/mfs100_domain_adaptation/preprocessing_variants.py,preprocessing_variants.py,0.01,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/mfs100_domain_adaptation/run_domain_adaptation.py,run_domain_adaptation.py,0.05,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/mfs100_domain_analysis/run_domain_analysis.py,run_domain_analysis.py,0.05,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+experiments/mfs100_ridge_scale_alignment/run_scale_alignment.py,run_scale_alignment.py,0.04,mfs100_ridge_scale_alignment,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/best_model_resnet50_confusion_matrix.png,best_model_resnet50_confusion_matrix.png,0.1,best_model_resnet50_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/confusion_matrix.png,confusion_matrix.png,0.16,confusion_matrix.png,plot,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/custom_cnn_confusion_matrix.png,custom_cnn_confusion_matrix.png,0.08,custom_cnn_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/custom_cnn_training_accuracy.png,custom_cnn_training_accuracy.png,0.1,custom_cnn_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/custom_cnn_training_loss.png,custom_cnn_training_loss.png,0.09,custom_cnn_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/dataset_manifest.csv,dataset_manifest.csv,0.54,dataset_manifest.csv,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/dataset_report.json,dataset_report.json,0.0,dataset_report.json,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/densenet121_confusion_matrix.png,densenet121_confusion_matrix.png,0.09,densenet121_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/densenet121_long_epoch_experiment_results.json,densenet121_long_epoch_experiment_results.json,0.0,densenet121_long_epoch_experiment_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/densenet121_long_epoch_training_log.csv,densenet121_long_epoch_training_log.csv,0.0,densenet121_long_epoch_training_log.csv,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/densenet121_training_accuracy.png,densenet121_training_accuracy.png,0.08,densenet121_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/densenet121_training_loss.png,densenet121_training_loss.png,0.08,densenet121_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/efficientnetb0_confusion_matrix.png,efficientnetb0_confusion_matrix.png,0.09,efficientnetb0_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/efficientnetb0_long_epoch_experiment_results.json,efficientnetb0_long_epoch_experiment_results.json,0.0,efficientnetb0_long_epoch_experiment_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/efficientnetb0_long_epoch_training_log.csv,efficientnetb0_long_epoch_training_log.csv,0.0,efficientnetb0_long_epoch_training_log.csv,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/efficientnetb0_training_accuracy.png,efficientnetb0_training_accuracy.png,0.1,efficientnetb0_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/efficientnetb0_training_loss.png,efficientnetb0_training_loss.png,0.09,efficientnetb0_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/ensemble_confusion_matrix.png,ensemble_confusion_matrix.png,0.06,ensemble_confusion_matrix.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/ensemble_optimization_v2_results.json,ensemble_optimization_v2_results.json,0.0,ensemble_optimization_v2_results.json,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/ensemble_val_results.json,ensemble_val_results.json,0.0,ensemble_val_results.json,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/ensemble_weights.json,ensemble_weights.json,0.0,ensemble_weights.json,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/evaluation_results.json,evaluation_results.json,0.0,evaluation_results.json,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/final_confusion_matrix.png,final_confusion_matrix.png,0.17,final_confusion_matrix.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/final_evaluation_results.json,final_evaluation_results.json,0.01,final_evaluation_results.json,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/FINAL_MODEL_EVALUATION.json,FINAL_MODEL_EVALUATION.json,0.0,FINAL_MODEL_EVALUATION.json,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/long_epoch_experiment_results.json,long_epoch_experiment_results.json,0.0,long_epoch_experiment_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/long_epoch_training_log.csv,long_epoch_training_log.csv,0.0,long_epoch_training_log.csv,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_crop_diagnostic.png,mfs100_crop_diagnostic.png,3.56,mfs100_crop_diagnostic.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_crop_results.json,mfs100_crop_results.json,0.01,mfs100_crop_results.json,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_domain_diagnostic_results.json,mfs100_domain_diagnostic_results.json,0.01,mfs100_domain_diagnostic_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_visual_diagnostic.png,mfs100_visual_diagnostic.png,0.23,mfs100_visual_diagnostic.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mobilenetv2_confusion_matrix.png,mobilenetv2_confusion_matrix.png,0.09,mobilenetv2_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mobilenetv2_training_accuracy.png,mobilenetv2_training_accuracy.png,0.09,mobilenetv2_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mobilenetv2_training_loss.png,mobilenetv2_training_loss.png,0.09,mobilenetv2_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_comparison.json,model_comparison.json,0.0,model_comparison.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_comparison.png,model_comparison.png,0.13,model_comparison.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_experiments.csv,model_experiments.csv,0.0,model_experiments.csv,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/original_6000_models_audit_results.json,original_6000_models_audit_results.json,0.02,original_6000_models_audit_results.json,other,Yes,No,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/preprocessing_experiments_results.json,preprocessing_experiments_results.json,0.0,preprocessing_experiments_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/resnet50_confusion_matrix.png,resnet50_confusion_matrix.png,0.08,resnet50_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/resnet50_training_accuracy.png,resnet50_training_accuracy.png,0.09,resnet50_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/resnet50_training_loss.png,resnet50_training_loss.png,0.09,resnet50_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/resolution_experiments_results.json,resolution_experiments_results.json,0.0,resolution_experiments_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/round11_reproduce_test.json,round11_reproduce_test.json,0.0,round11_reproduce_test.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/stress_test_2026-09-04_23-34-39.json,stress_test_2026-09-04_23-34-39.json,0.02,stress_test_2026-09-04_23-34-39.json,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/stress_test_2026-09-08_20-37-06.json,stress_test_2026-09-08_20-37-06.json,0.01,stress_test_2026-09-08_20-37-06.json,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/stress_test_2026-09-08_21-40-45.json,stress_test_2026-09-08_21-40-45.json,0.01,stress_test_2026-09-08_21-40-45.json,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/stress_test_report_2026-09-04_23-34-39.html,stress_test_report_2026-09-04_23-34-39.html,0.04,stress_test_report_2026-09-04_23-34-39.html,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/stress_test_report_2026-09-08_20-37-06.html,stress_test_report_2026-09-08_20-37-06.html,0.02,stress_test_report_2026-09-08_20-37-06.html,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/stress_test_report_2026-09-08_21-40-45.html,stress_test_report_2026-09-08_21-40-45.html,0.02,stress_test_report_2026-09-08_21-40-45.html,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/three_model_ensemble_confusion_matrix.png,three_model_ensemble_confusion_matrix.png,0.03,three_model_ensemble_confusion_matrix.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/three_model_ensemble_results.json,three_model_ensemble_results.json,0.05,three_model_ensemble_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/three_model_ensemble_weights.json,three_model_ensemble_weights.json,0.0,three_model_ensemble_weights.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/training_accuracy.png,training_accuracy.png,0.15,training_accuracy.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/training_loss.png,training_loss.png,0.18,training_loss.png,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/training_results.json,training_results.json,0.0,training_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/training_summary.json,training_summary.json,0.0,training_summary.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/val_labels.npy,val_labels.npy,0.01,val_labels.npy,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/val_probs_efficientnetb0.npy,val_probs_efficientnetb0.npy,0.03,val_probs_efficientnetb0.npy,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/val_probs_resnet50.npy,val_probs_resnet50.npy,0.03,val_probs_resnet50.npy,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/val_probs_vgg16.npy,val_probs_vgg16.npy,0.03,val_probs_vgg16.npy,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/vgg16_confusion_matrix.png,vgg16_confusion_matrix.png,0.08,vgg16_confusion_matrix.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/vgg16_long_epoch_experiment_results.json,vgg16_long_epoch_experiment_results.json,0.0,vgg16_long_epoch_experiment_results.json,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/vgg16_long_epoch_training_log.csv,vgg16_long_epoch_training_log.csv,0.0,vgg16_long_epoch_training_log.csv,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/vgg16_training_accuracy.png,vgg16_training_accuracy.png,0.09,vgg16_training_accuracy.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/vgg16_training_loss.png,vgg16_training_loss.png,0.09,vgg16_training_loss.png,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/abo_positive_4class/baseline_metrics.json,baseline_metrics.json,0.0,abo_positive_4class,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/classification_report_test.txt,classification_report_test.txt,0.0,abo_positive_4class,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/classification_report_val.txt,classification_report_val.txt,0.0,abo_positive_4class,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/confidence_analysis.json,confidence_analysis.json,0.0,abo_positive_4class,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/confidence_distribution.png,confidence_distribution.png,0.19,abo_positive_4class,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/confusion_matrix_test.png,confusion_matrix_test.png,0.08,abo_positive_4class,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/confusion_matrix_val.png,confusion_matrix_val.png,0.08,abo_positive_4class,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/README.md,README.md,0.0,abo_positive_4class,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/abo_positive_4class/test_metrics.json,test_metrics.json,0.0,abo_positive_4class,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/abo_positive_4class/test_predictions.csv,test_predictions.csv,0.06,abo_positive_4class,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/abo_positive_4class/training_history.json,training_history.json,0.0,abo_positive_4class,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/training_history.png,training_history.png,0.26,abo_positive_4class,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/val_metrics.json,val_metrics.json,0.0,abo_positive_4class,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_positive_4class/val_predictions.csv,val_predictions.csv,0.06,abo_positive_4class,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/abo_metrics.csv,abo_metrics.csv,0.0,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/ABO_RH_EXPERIMENT_REPORT.md,ABO_RH_EXPERIMENT_REPORT.md,0.01,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/error_type_analysis.csv,error_type_analysis.csv,0.0,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/final_test_errors.csv,final_test_errors.csv,0.02,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/final_test_metrics.json,final_test_metrics.json,0.0,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/final_test_predictions.csv,final_test_predictions.csv,0.07,abo_rh_experiments,prediction_or_metric,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/abo_rh_experiments/model_comparison.csv,model_comparison.csv,0.0,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/per_class_metrics.csv,per_class_metrics.csv,0.0,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/rh_metrics.csv,rh_metrics.csv,0.0,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/training_history.csv,training_history.csv,0.0,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/validation_comparison.csv,validation_comparison.csv,0.0,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/validation_errors.csv,validation_errors.csv,0.02,abo_rh_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/validation_metrics.csv,validation_metrics.csv,0.0,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/validation_predictions.csv,validation_predictions.csv,0.14,abo_rh_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/abo_accuracy_curve.png,abo_accuracy_curve.png,0.06,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/abo_confusion_matrix.png,abo_confusion_matrix.png,0.04,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/error_type_distribution_chart.png,error_type_distribution_chart.png,0.03,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/reconstructed_8class_confusion_matrix.png,reconstructed_8class_confusion_matrix.png,0.06,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/reconstructed_8class_val_accuracy_curve.png,reconstructed_8class_val_accuracy_curve.png,0.06,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/rh_accuracy_curve.png,rh_accuracy_curve.png,0.06,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/rh_confusion_matrix.png,rh_confusion_matrix.png,0.03,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/test_abo_confusion_matrix.png,test_abo_confusion_matrix.png,0.04,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/test_reconstructed_8class_confusion_matrix.png,test_reconstructed_8class_confusion_matrix.png,0.06,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/test_rh_confusion_matrix.png,test_rh_confusion_matrix.png,0.03,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/abo_rh_experiments/figures/training_validation_loss_curve.png,training_validation_loss_curve.png,0.05,abo_rh_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/ab_plus_diagnostics/ab_plus_confusion_summary.json,ab_plus_confusion_summary.json,0.0,ab_plus_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/ab_plus_diagnostics/ab_plus_sample_predictions.csv,ab_plus_sample_predictions.csv,0.02,ab_plus_diagnostics,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/ab_plus_diagnostics/confusion_matrix_val.csv,confusion_matrix_val.csv,0.0,ab_plus_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/CALIBRATION_EXPERIMENT_REPORT.md,CALIBRATION_EXPERIMENT_REPORT.md,0.01,calibration_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/confidence_table.csv,confidence_table.csv,0.39,calibration_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/test_calibration_metrics.csv,test_calibration_metrics.csv,0.0,calibration_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/top_30_errors_calibration.csv,top_30_errors_calibration.csv,0.0,calibration_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/uncertainty_threshold_analysis.csv,uncertainty_threshold_analysis.csv,0.0,calibration_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/validation_calibration_metrics.csv,validation_calibration_metrics.csv,0.0,calibration_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/calibration_error_by_bin.png,calibration_error_by_bin.png,0.11,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/confidence_distribution_after.png,confidence_distribution_after.png,0.07,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/confidence_distribution_before.png,confidence_distribution_before.png,0.07,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/correct_vs_incorrect_confidence.png,correct_vs_incorrect_confidence.png,0.09,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/reliability_diagram_after.png,reliability_diagram_after.png,0.11,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/reliability_diagram_before.png,reliability_diagram_before.png,0.11,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/test_reliability_diagram_after.png,test_reliability_diagram_after.png,0.11,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/calibration_experiments/figures/test_reliability_diagram_before.png,test_reliability_diagram_before.png,0.11,calibration_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/diagnostic_ab_plus/ab_plus_224x224_input.png,ab_plus_224x224_input.png,0.07,diagnostic_ab_plus,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/diagnostic_ab_plus/ab_plus_cropped.png,ab_plus_cropped.png,0.12,diagnostic_ab_plus,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/diagnostic_ab_plus/ab_plus_enhanced.png,ab_plus_enhanced.png,0.12,diagnostic_ab_plus,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/live_verification/LIVE_DASHBOARD_VERIFICATION_REPORT.md,LIVE_DASHBOARD_VERIFICATION_REPORT.md,0.01,live_verification,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_abplus_diagnostic/abplus_capture_predictions.csv,abplus_capture_predictions.csv,0.0,mfs100_abplus_diagnostic,prediction_or_metric,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_consensus_summary.csv,abplus_consensus_summary.csv,0.0,mfs100_abplus_diagnostic,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_domain_comparison.png,abplus_domain_comparison.png,0.24,mfs100_abplus_diagnostic,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_domain_features.csv,abplus_domain_features.csv,0.02,mfs100_abplus_diagnostic,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/ABPLUS_MFS100_DIAGNOSTIC_REPORT.md,ABPLUS_MFS100_DIAGNOSTIC_REPORT.md,0.02,mfs100_abplus_diagnostic,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_model_agreement.png,abplus_model_agreement.png,0.13,mfs100_abplus_diagnostic,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_model_comparison.csv,abplus_model_comparison.csv,0.0,mfs100_abplus_diagnostic,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_probability_comparison.csv,abplus_probability_comparison.csv,0.0,mfs100_abplus_diagnostic,prediction_or_metric,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_abplus_diagnostic/abplus_probability_comparison.png,abplus_probability_comparison.png,0.19,mfs100_abplus_diagnostic,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/consensus_results.csv,consensus_results.csv,0.0,mfs100_domain_adaptation,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_adaptation/experiment_metadata.json,experiment_metadata.json,0.0,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/mfs100_confidence_distribution.png,mfs100_confidence_distribution.png,0.15,mfs100_domain_adaptation,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/mfs100_confusion_matrix.png,mfs100_confusion_matrix.png,0.1,mfs100_domain_adaptation,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/MFS100_DOMAIN_ADAPTATION_REPORT.md,MFS100_DOMAIN_ADAPTATION_REPORT.md,0.01,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/mfs100_experiment_results.csv,mfs100_experiment_results.csv,0.0,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/mfs100_subject_results.csv,mfs100_subject_results.csv,0.0,mfs100_domain_adaptation,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_adaptation/preprocessing_comparison.png,preprocessing_comparison.png,1.46,mfs100_domain_adaptation,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/contrast_distribution.png,contrast_distribution.png,0.16,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/domain_statistics.csv,domain_statistics.csv,0.0,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/domain_visual_comparison.png,domain_visual_comparison.png,2.08,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/experiment_metadata.json,experiment_metadata.json,0.0,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/fingerprint_position_scatter.png,fingerprint_position_scatter.png,0.33,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/fingerprint_scale_comparison.png,fingerprint_scale_comparison.png,0.19,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/foreground_area_distribution.png,foreground_area_distribution.png,0.21,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/image_level_features.csv,image_level_features.csv,2.24,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/intensity_histogram_comparison.png,intensity_histogram_comparison.png,0.15,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/MFS100_DOMAIN_ANALYSIS_REPORT.md,MFS100_DOMAIN_ANALYSIS_REPORT.md,0.01,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/normalization_comparison.csv,normalization_comparison.csv,0.0,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/normalization_distribution_comparison.png,normalization_distribution_comparison.png,0.37,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/sharpness_distribution.png,sharpness_distribution.png,0.16,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/subject_level_mfs100_features.csv,subject_level_mfs100_features.csv,0.01,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/texture_frequency_comparison.png,texture_frequency_comparison.png,0.09,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/validation_error_analysis.csv,validation_error_analysis.csv,0.0,mfs100_domain_analysis,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_analysis/validation_error_property_comparison.png,validation_error_property_comparison.png,0.2,mfs100_domain_analysis,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_domain_diagnostic/canonical_reference_metrics.json,canonical_reference_metrics.json,0.0,mfs100_domain_diagnostic,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/confidence_comparison.png,confidence_comparison.png,0.26,mfs100_domain_diagnostic,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/confusion_matrix_cropped.png,confusion_matrix_cropped.png,0.08,mfs100_domain_diagnostic,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/confusion_matrix_raw.png,confusion_matrix_raw.png,0.08,mfs100_domain_diagnostic,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/cropped_mfs100_metrics.json,cropped_mfs100_metrics.json,0.0,mfs100_domain_diagnostic,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/crop_examples.png,crop_examples.png,5.01,mfs100_domain_diagnostic,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/domain_shift_summary.json,domain_shift_summary.json,0.0,mfs100_domain_diagnostic,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/per_capture_predictions.csv,per_capture_predictions.csv,0.04,mfs100_domain_diagnostic,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/per_subject_summary.csv,per_subject_summary.csv,0.0,mfs100_domain_diagnostic,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/prediction_agreement.png,prediction_agreement.png,0.09,mfs100_domain_diagnostic,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/raw_mfs100_metrics.json,raw_mfs100_metrics.json,0.0,mfs100_domain_diagnostic,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_domain_diagnostic/README.md,README.md,0.01,mfs100_domain_diagnostic,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/data_expansion_status.md,data_expansion_status.md,0.01,mfs100_experiments,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_experiments/mfs100_adaptation_pilot_results.json,mfs100_adaptation_pilot_results.json,0.01,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_preprocessing_config.json,v1_preprocessing_config.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/best_epoch.json,best_epoch.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/classification_report.txt,classification_report.txt,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/confusion_matrix.png,confusion_matrix.png,0.03,mfs100_experiments,plot,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_1_optimization/epoch_metrics.csv,epoch_metrics.csv,0.0,mfs100_experiments,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/experiment_config.json,experiment_config.json,0.0,mfs100_experiments,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_1_optimization/prediction_distribution.png,prediction_distribution.png,0.03,mfs100_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/README.md,README.md,0.0,mfs100_experiments,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_1_optimization/subject_consensus_results.csv,subject_consensus_results.csv,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/test_results.json,test_results.json,0.0,mfs100_experiments,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_1_optimization/training_curves.png,training_curves.png,0.16,mfs100_experiments,plot,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_1_optimization/validation_results.json,validation_results.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/classification_report.txt,classification_report.txt,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/confusion_matrix.png,confusion_matrix.png,0.03,mfs100_experiments,plot,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_reproduction/README.md,README.md,0.0,mfs100_experiments,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_reproduction/reproduction_comparison.json,reproduction_comparison.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/reproduction_config.json,reproduction_config.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/subject_consensus_results.csv,subject_consensus_results.csv,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/test_results.json,test_results.json,0.0,mfs100_experiments,other,Yes,Yes,No,Essential (Report / Manuscript Evidence),Must Retain in Paper Package
+outputs/mfs100_experiments/v1_reproduction/training_history.json,training_history.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_experiments/v1_reproduction/validation_results.json,validation_results.json,0.0,mfs100_experiments,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/mfs100_ridge_scale_alignment/alignment_experiment_results.csv,alignment_experiment_results.csv,0.0,mfs100_ridge_scale_alignment,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/alignment_image_results.csv,alignment_image_results.csv,0.01,mfs100_ridge_scale_alignment,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/alignment_visual_comparison.png,alignment_visual_comparison.png,1.15,mfs100_ridge_scale_alignment,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/contrast_before_after.png,contrast_before_after.png,0.2,mfs100_ridge_scale_alignment,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/experiment_metadata.json,experiment_metadata.json,0.0,mfs100_ridge_scale_alignment,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/MFS100_RIDGE_SCALE_ALIGNMENT_REPORT.md,MFS100_RIDGE_SCALE_ALIGNMENT_REPORT.md,0.01,mfs100_ridge_scale_alignment,other,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/ridge_frequency_comparison.png,ridge_frequency_comparison.png,0.15,mfs100_ridge_scale_alignment,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/mfs100_ridge_scale_alignment/ridge_scale_distribution.png,ridge_scale_distribution.png,0.19,mfs100_ridge_scale_alignment,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confidence_analysis.csv,confidence_analysis.csv,0.0,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/confusion_matrix_champion_v2_test.png,confusion_matrix_champion_v2_test.png,0.06,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_champion_v2_val.png,confusion_matrix_champion_v2_val.png,0.06,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_efficientnetb0_test.png,confusion_matrix_efficientnetb0_test.png,0.07,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_efficientnetb0_val.png,confusion_matrix_efficientnetb0_val.png,0.07,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_resnet50_test.png,confusion_matrix_resnet50_test.png,0.06,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_resnet50_val.png,confusion_matrix_resnet50_val.png,0.06,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_vgg16_test.png,confusion_matrix_vgg16_test.png,0.06,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/confusion_matrix_vgg16_val.png,confusion_matrix_vgg16_val.png,0.07,model_diagnostics,plot,No,No,No,Moderate (Audit Record),Retain in Archive
+outputs/model_diagnostics/duplicate_analysis.csv,duplicate_analysis.csv,0.0,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/error_pairs.csv,error_pairs.csv,0.0,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/model_comparison.csv,model_comparison.csv,0.0,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/MODEL_DIAGNOSTIC_REPORT.md,MODEL_DIAGNOSTIC_REPORT.md,0.01,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/per_class_metrics.csv,per_class_metrics.csv,0.01,model_diagnostics,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/predictions_all_models.csv,predictions_all_models.csv,1.35,model_diagnostics,prediction_or_metric,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/test_errors.csv,test_errors.csv,0.03,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction
+outputs/model_diagnostics/top_100_high_conf_errors.csv,top_100_high_conf_errors.csv,0.02,model_diagnostics,other,No,Yes,No,Essential (Script Execution Lineage),Retain for Experiment Reproduction

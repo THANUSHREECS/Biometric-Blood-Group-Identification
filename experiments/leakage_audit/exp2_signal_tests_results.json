@@ -1,0 +1,124 @@
+{
+  "experiment": "EXP-2: Signal-Existence Tests on Saved Predictions",
+  "timestamp": "2026-10-16T22:54:21.723100",
+  "development_80_participants": {
+    "cohort": "Development_OOF_80",
+    "n_participants": 80,
+    "class_distribution": {
+      "A+": 19,
+      "AB+": 7,
+      "B+": 25,
+      "O+": 29
+    },
+    "observed": {
+      "accuracy": 0.5375,
+      "correct_count": 43,
+      "balanced_accuracy": 0.5346720248898107,
+      "macro_f1": 0.5486846486846487
+    },
+    "baselines": {
+      "majority_class": "O+",
+      "majority_accuracy": 0.3625,
+      "majority_binom_pvalue": 0.001558037115474895,
+      "stratified_random_accuracy": 0.29312499999999997,
+      "stratified_random_binom_pvalue": 5.874257804502044e-06,
+      "uniform_random_accuracy": 0.25,
+      "uniform_random_binom_pvalue": 3.938981830435321e-08
+    },
+    "permutation_test": {
+      "n_permutations": 10000,
+      "seed": 42,
+      "mean_acc": 0.305015,
+      "std_acc": 0.04941476019369112,
+      "empirical_p_accuracy": 0.00019998000199980003,
+      "mean_f1": 0.24753751581751585,
+      "std_f1": 0.048970230759437634,
+      "empirical_p_macro_f1": 9.999000099990002e-05
+    },
+    "bootstrap_ci_95": {
+      "n_resamples": 10000,
+      "seed": 142,
+      "accuracy": {
+        "mean": 0.53720875,
+        "ci_95": [
+          0.425,
+          0.65
+        ]
+      },
+      "balanced_accuracy": {
+        "mean": 0.534534707765222,
+        "ci_95": [
+          0.39592693932411677,
+          0.6681056763285023
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.5388318851278664,
+        "ci_95": [
+          0.40112149053776414,
+          0.6603539135582682
+        ]
+      }
+    }
+  },
+  "primary_test_21_participants": {
+    "cohort": "Primary_Locked_Test_21",
+    "n_participants": 21,
+    "class_distribution": {
+      "A+": 5,
+      "AB+": 2,
+      "B+": 6,
+      "O+": 8
+    },
+    "observed": {
+      "accuracy": 0.3333333333333333,
+      "correct_count": 7,
+      "balanced_accuracy": 0.3125,
+      "macro_f1": 0.20833333333333331
+    },
+    "baselines": {
+      "majority_class": "O+",
+      "majority_accuracy": 0.38095238095238093,
+      "majority_binom_pvalue": 0.8230211542601588,
+      "stratified_random_accuracy": 0.2925170068027211,
+      "stratified_random_binom_pvalue": 0.6390026664176067,
+      "uniform_random_accuracy": 0.25,
+      "uniform_random_binom_pvalue": 0.4480525195667724
+    },
+    "permutation_test": {
+      "n_permutations": 10000,
+      "seed": 42,
+      "mean_acc": 0.3216142857142857,
+      "std_acc": 0.06512737893949322,
+      "empirical_p_accuracy": 0.5641435856414359,
+      "mean_f1": 0.1785699404761905,
+      "std_f1": 0.06493344450863588,
+      "empirical_p_macro_f1": 0.3711628837116288
+    },
+    "bootstrap_ci_95": {
+      "n_resamples": 10000,
+      "seed": 142,
+      "accuracy": {
+        "mean": 0.3337428571428572,
+        "ci_95": [
+          0.14285714285714285,
+          0.5238095238095238
+        ]
+      },
+      "balanced_accuracy": {
+        "mean": 0.30443458165676923,
+        "ci_95": [
+          0.13636363636363635,
+          0.5
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.1949518300325009,
+        "ci_95": [
+          0.07142857142857142,
+          0.3390804597701149
+        ]
+      }
+    }
+  }
+}

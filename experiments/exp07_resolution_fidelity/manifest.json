@@ -1,0 +1,101 @@
+{
+  "experiment_id": "EXP-07-RES-FIDELITY",
+  "created_at": "2026-10-17T22:59:00+05:30",
+  "completed_at": "2026-10-18T05:13:30+05:30",
+  "status": "COMPLETED",
+  "execution_regime": "fixed_duration (80 epochs, 0 outer feedback)",
+  "empirical_results": {
+    "arm_a_112": {
+      "balanced_accuracy": 0.2861,
+      "participant_accuracy": 0.3625,
+      "accuracy_count": "29/80",
+      "accuracy_95_ci": [0.2657, 0.4719],
+      "macro_f1": 0.2800,
+      "cohen_kappa": 0.0773,
+      "permutation_p_balanced_acc": 0.216,
+      "permutation_p_macro_f1": 0.237
+    },
+    "arm_b_224": {
+      "balanced_accuracy": 0.2615,
+      "participant_accuracy": 0.3375,
+      "accuracy_count": "27/80",
+      "accuracy_95_ci": [0.2435, 0.4464],
+      "macro_f1": 0.2506,
+      "cohen_kappa": 0.0368,
+      "permutation_p_balanced_acc": 0.396,
+      "permutation_p_macro_f1": 0.437
+    },
+    "paired_comparison": {
+      "observed_bal_acc_diff_b_minus_a": -0.0245,
+      "paired_permutation_p_value": 0.6225,
+      "mcnemar_exact_p_value": 0.8318,
+      "discordant_pairs": "12 vs 10 (total 22)"
+    },
+    "majority_baseline_accuracy": 0.3625
+  },
+  "hardware": {
+    "scanner": "Mantra MFS100 Optical Fingerprint Scanner",
+    "native_resolution": [316, 354],
+    "native_dpi": 500,
+    "native_ridge_period_pixels": "8 to 10"
+  },
+  "dataset_partitioning": {
+    "total_participants": 101,
+    "total_scans": 303,
+    "dev_cohort_participants": 80,
+    "dev_cohort_scans": 240,
+    "locked_test_cohort_participants": 21,
+    "locked_test_cohort_scans": 63,
+    "quarantined_hospital_cohort_participants": 26,
+    "quarantined_hospital_cohort_scans": 78,
+    "participant_overlap_dev_vs_locked_test": 0,
+    "participant_overlap_dev_vs_hospital": 0,
+    "split_manifest_path": "reports/phase3_participant_benchmark/participant_split.csv"
+  },
+  "conditions": {
+    "arm_a_112": {
+      "input_resolution": [112, 112],
+      "input_shape": [3, 112, 112, 3],
+      "downsampling_ratio": "approx 3.0x",
+      "effective_ridge_period_pixels": "approx 2.67 to 3.33 (Spatial aliasing regime)",
+      "preprocessing": "Alpha composite -> Platen crop -> Lanczos resize -> Raw float32 [0, 255]",
+      "trainable_head_params": 1968772,
+      "frozen_backbone_params": 7037504
+    },
+    "arm_b_224": {
+      "input_resolution": [224, 224],
+      "input_shape": [3, 224, 224, 3],
+      "downsampling_ratio": "approx 1.5x",
+      "effective_ridge_period_pixels": "approx 5.33 to 6.67 (Nyquist-compliant ridge regime)",
+      "preprocessing": "Alpha composite -> Platen crop -> Lanczos resize -> Raw float32 [0, 255]",
+      "trainable_head_params": 1968772,
+      "frozen_backbone_params": 7037504
+    }
+  },
+  "parameter_parity": {
+    "trainable_param_difference": 0,
+    "parameter_confound": false,
+    "trainable_variables_count": 6
+  },
+  "evaluation_safeguards": {
+    "fail_closed_guard": "TRAINING_AUTHORIZED = False",
+    "checkpoint_selection_leakage_prevented": true,
+    "regime_1_fixed_duration_epochs": 80,
+    "regime_1_outer_validation_monitoring": "DISABLED (0 callbacks, 0 outer feedback)",
+    "regime_2_nested_inner_split": "48 inner-train / 16 inner-val (selected on inner-val only)",
+    "predefined_primary_metric": "Out-of-Fold Balanced Accuracy",
+    "statistical_hypothesis_tests": [
+      "Exact Paired McNemar Test on discordant participant predictions",
+      "Paired Permutation Test (10,000 resamples)",
+      "Participant-Level Label Permutation Null Distribution (1,000 resamples)",
+      "95% Wilson Score Binomial Confidence Intervals"
+    ]
+  },
+  "synthetic_validation_results": {
+    "split_firewall_validation": "PASSED (Zero leakage, 100% mutually exclusive)",
+    "model_graph_validation": "PASSED (112x112 and 224x224 match 1,968,772 params)",
+    "forward_backward_gradient_steps": "PASSED (Loss convergence verified on dummy tensors)",
+    "quarantine_guard_trigger": "PASSED (PermissionError successfully raised when unauthorized)",
+    "evaluation_script_demo": "PASSED (Wilson CI, McNemar, paired permutations verified)"
+  }
+}

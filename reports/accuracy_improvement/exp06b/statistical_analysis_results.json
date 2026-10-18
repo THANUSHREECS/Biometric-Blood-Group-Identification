@@ -1,0 +1,767 @@
+{
+  "summary": [
+    {
+      "arm_id": "arm_a",
+      "arm_name": "Arm A: Reduced Loss Weight (lambda=0.05)",
+      "lambda_supcon": 0.05,
+      "temperature": 0.05,
+      "accuracy": 0.4625,
+      "balanced_accuracy": 0.4638190303344568,
+      "macro_precision": 0.44201388888888893,
+      "macro_recall": 0.4638190303344568,
+      "macro_f1": 0.44381623848108115,
+      "weighted_f1": 0.4551516814239112,
+      "fold_f1_mean": 0.4607181415076152,
+      "fold_f1_std": 0.0751588395344849,
+      "fold_f1s": [
+        0.5252747252747253,
+        0.5328947368421053,
+        0.32371794871794873,
+        0.45384615384615384,
+        0.46785714285714286
+      ],
+      "per_class": {
+        "A+": {
+          "precision": 0.3125,
+          "recall": 0.2631578947368421,
+          "f1": 0.2857142857142857,
+          "support": 19,
+          "correct": 5
+        },
+        "AB+": {
+          "precision": 0.4,
+          "recall": 0.5714285714285714,
+          "f1": 0.47058823529411764,
+          "support": 7,
+          "correct": 4
+        },
+        "B+": {
+          "precision": 0.5555555555555556,
+          "recall": 0.4,
+          "f1": 0.46511627906976744,
+          "support": 25,
+          "correct": 10
+        },
+        "O+": {
+          "precision": 0.5,
+          "recall": 0.6206896551724138,
+          "f1": 0.5538461538461539,
+          "support": 29,
+          "correct": 18
+        }
+      },
+      "confusion_matrix": [
+        [
+          5,
+          1,
+          5,
+          8
+        ],
+        [
+          0,
+          4,
+          1,
+          2
+        ],
+        [
+          5,
+          2,
+          10,
+          8
+        ],
+        [
+          6,
+          3,
+          2,
+          18
+        ]
+      ],
+      "total_runtime_sec": 4669.645662307739
+    },
+    {
+      "arm_id": "arm_b",
+      "arm_name": "Arm B: Reference Loss Weight (lambda=0.10)",
+      "lambda_supcon": 0.1,
+      "temperature": 0.05,
+      "accuracy": 0.475,
+      "balanced_accuracy": 0.48467202488981076,
+      "macro_precision": 0.49508547008547005,
+      "macro_recall": 0.48467202488981076,
+      "macro_f1": 0.47894144144144146,
+      "weighted_f1": 0.4712443693693694,
+      "fold_f1_mean": 0.4798806748806749,
+      "fold_f1_std": 0.07441812053971393,
+      "fold_f1s": [
+        0.44191919191919193,
+        0.5861111111111111,
+        0.382051282051282,
+        0.5444444444444444,
+        0.44487734487734487
+      ],
+      "per_class": {
+        "A+": {
+          "precision": 0.4444444444444444,
+          "recall": 0.42105263157894735,
+          "f1": 0.43243243243243246,
+          "support": 19,
+          "correct": 8
+        },
+        "AB+": {
+          "precision": 0.5,
+          "recall": 0.5714285714285714,
+          "f1": 0.5333333333333333,
+          "support": 7,
+          "correct": 4
+        },
+        "B+": {
+          "precision": 0.6,
+          "recall": 0.36,
+          "f1": 0.45,
+          "support": 25,
+          "correct": 9
+        },
+        "O+": {
+          "precision": 0.4358974358974359,
+          "recall": 0.5862068965517241,
+          "f1": 0.5,
+          "support": 29,
+          "correct": 17
+        }
+      },
+      "confusion_matrix": [
+        [
+          8,
+          2,
+          1,
+          8
+        ],
+        [
+          0,
+          4,
+          0,
+          3
+        ],
+        [
+          4,
+          1,
+          9,
+          11
+        ],
+        [
+          6,
+          1,
+          5,
+          17
+        ]
+      ],
+      "total_runtime_sec": 6489.793228387833
+    },
+    {
+      "arm_id": "arm_c",
+      "arm_name": "Arm C: Moderate Loss Weight (lambda=0.20)",
+      "lambda_supcon": 0.2,
+      "temperature": 0.05,
+      "accuracy": 0.45,
+      "balanced_accuracy": 0.4399377754731657,
+      "macro_precision": 0.4422268907563025,
+      "macro_recall": 0.4399377754731657,
+      "macro_f1": 0.44037964407875035,
+      "weighted_f1": 0.44944072051197176,
+      "fold_f1_mean": 0.437004107004107,
+      "fold_f1_std": 0.07172422693388311,
+      "fold_f1s": [
+        0.4256410256410257,
+        0.503968253968254,
+        0.30833333333333335,
+        0.5042207792207792,
+        0.44285714285714284
+      ],
+      "per_class": {
+        "A+": {
+          "precision": 0.4117647058823529,
+          "recall": 0.3684210526315789,
+          "f1": 0.3888888888888889,
+          "support": 19,
+          "correct": 7
+        },
+        "AB+": {
+          "precision": 0.42857142857142855,
+          "recall": 0.42857142857142855,
+          "f1": 0.42857142857142855,
+          "support": 7,
+          "correct": 3
+        },
+        "B+": {
+          "precision": 0.42857142857142855,
+          "recall": 0.48,
+          "f1": 0.4528301886792453,
+          "support": 25,
+          "correct": 12
+        },
+        "O+": {
+          "precision": 0.5,
+          "recall": 0.4827586206896552,
+          "f1": 0.49122807017543857,
+          "support": 29,
+          "correct": 14
+        }
+      },
+      "confusion_matrix": [
+        [
+          7,
+          2,
+          4,
+          6
+        ],
+        [
+          2,
+          3,
+          1,
+          1
+        ],
+        [
+          4,
+          2,
+          12,
+          7
+        ],
+        [
+          4,
+          0,
+          11,
+          14
+        ]
+      ],
+      "total_runtime_sec": 8125.291362762451
+    },
+    {
+      "arm_id": "arm_d",
+      "arm_name": "Arm D: Heavy Loss Weight (lambda=0.50)",
+      "lambda_supcon": 0.5,
+      "temperature": 0.05,
+      "accuracy": 0.525,
+      "balanced_accuracy": 0.5146175784288307,
+      "macro_precision": 0.5215773809523809,
+      "macro_recall": 0.5146175784288307,
+      "macro_f1": 0.4924634528035421,
+      "weighted_f1": 0.5115652314973854,
+      "fold_f1_mean": 0.5035107655502392,
+      "fold_f1_std": 0.1007226638490077,
+      "fold_f1s": [
+        0.4419642857142857,
+        0.6043233082706767,
+        0.41666666666666663,
+        0.6458333333333333,
+        0.4087662337662338
+      ],
+      "per_class": {
+        "A+": {
+          "precision": 0.6363636363636364,
+          "recall": 0.3684210526315789,
+          "f1": 0.4666666666666667,
+          "support": 19,
+          "correct": 7
+        },
+        "AB+": {
+          "precision": 0.36363636363636365,
+          "recall": 0.5714285714285714,
+          "f1": 0.4444444444444444,
+          "support": 7,
+          "correct": 4
+        },
+        "B+": {
+          "precision": 0.5625,
+          "recall": 0.36,
+          "f1": 0.43902439024390244,
+          "support": 25,
+          "correct": 9
+        },
+        "O+": {
+          "precision": 0.5238095238095238,
+          "recall": 0.7586206896551724,
+          "f1": 0.6197183098591549,
+          "support": 29,
+          "correct": 22
+        }
+      },
+      "confusion_matrix": [
+        [
+          7,
+          2,
+          3,
+          7
+        ],
+        [
+          0,
+          4,
+          1,
+          2
+        ],
+        [
+          1,
+          4,
+          9,
+          11
+        ],
+        [
+          3,
+          1,
+          3,
+          22
+        ]
+      ],
+      "total_runtime_sec": 10392.86740064621
+    }
+  ],
+  "mcnemar_pairwise_vs_arm_b": [
+    {
+      "comparison": "Arm B (lambda=0.10) vs Arm D (lambda=0.50)",
+      "arm_compared": "arm_d",
+      "discordant_ref_only": 6,
+      "discordant_arm_only": 10,
+      "total_discordant": 16,
+      "test_used": "Two-tailed Exact Binomial Test",
+      "statistic": 0.5625,
+      "p_value": 0.454498291015625,
+      "alpha_adj": 0.016666666666666666,
+      "significant": false
+    },
+    {
+      "comparison": "Arm B (lambda=0.10) vs Arm C (lambda=0.20)",
+      "arm_compared": "arm_c",
+      "discordant_ref_only": 15,
+      "discordant_arm_only": 13,
+      "total_discordant": 28,
+      "test_used": "McNemar Test with Edwards Continuity Correction",
+      "statistic": 0.03571428571428571,
+      "p_value": 0.8501067391385259,
+      "alpha_adj": 0.025,
+      "significant": false
+    },
+    {
+      "comparison": "Arm B (lambda=0.10) vs Arm A (lambda=0.05)",
+      "arm_compared": "arm_a",
+      "discordant_ref_only": 11,
+      "discordant_arm_only": 10,
+      "total_discordant": 21,
+      "test_used": "Two-tailed Exact Binomial Test",
+      "statistic": 0.0,
+      "p_value": 1.0,
+      "alpha_adj": 0.05,
+      "significant": false
+    }
+  ],
+  "reproduction_comparison_arm_b_vs_exp06a_config_b": {
+    "exp06a_config_b_macro_f1": 0.5313151454726729,
+    "exp06a_config_b_acc": 0.525,
+    "exp06a_config_b_bal_acc": 0.5517656209489241,
+    "exp06b_arm_b_macro_f1": 0.47894144144144146,
+    "exp06b_arm_b_acc": 0.475,
+    "exp06b_arm_b_bal_acc": 0.48467202488981076,
+    "delta_macro_f1": -0.05237370403123143,
+    "delta_acc": -0.050000000000000044,
+    "discordant_exp06b_only": 9,
+    "discordant_exp06a_only": 13,
+    "p_value": 0.5234670639038086,
+    "significant_difference": false
+  },
+  "protected_checkpoint_audit": {
+    "all_passed": true,
+    "details": [
+      {
+        "name": "prod_model",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\abo_positive_4class\\best_model.keras",
+        "pre_sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9",
+        "post_sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9",
+        "match": true
+      },
+      {
+        "name": "orig_e2_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_1_best.weights.h5",
+        "pre_sha256": "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d",
+        "post_sha256": "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d",
+        "match": true
+      },
+      {
+        "name": "orig_e2_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_2_best.weights.h5",
+        "pre_sha256": "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede",
+        "post_sha256": "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede",
+        "match": true
+      },
+      {
+        "name": "orig_e2_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_3_best.weights.h5",
+        "pre_sha256": "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3",
+        "post_sha256": "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3",
+        "match": true
+      },
+      {
+        "name": "orig_e2_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_4_best.weights.h5",
+        "pre_sha256": "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519",
+        "post_sha256": "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519",
+        "match": true
+      },
+      {
+        "name": "orig_e2_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_5_best.weights.h5",
+        "pre_sha256": "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d",
+        "post_sha256": "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d",
+        "match": true
+      },
+      {
+        "name": "exp03_arm1_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_1_best.weights.h5",
+        "pre_sha256": "0d047b7a10153718b067e84a27a6ad2bc0486ccf1d35057a07da6e2e2d627ac5",
+        "post_sha256": "0d047b7a10153718b067e84a27a6ad2bc0486ccf1d35057a07da6e2e2d627ac5",
+        "match": true
+      },
+      {
+        "name": "exp03_arm1_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_2_best.weights.h5",
+        "pre_sha256": "dd94e4c44887399d700ac2de195f513a5b1db73ac561f4ff8c2345d5156f7063",
+        "post_sha256": "dd94e4c44887399d700ac2de195f513a5b1db73ac561f4ff8c2345d5156f7063",
+        "match": true
+      },
+      {
+        "name": "exp03_arm1_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_3_best.weights.h5",
+        "pre_sha256": "f763f67068a4411dbd4a405e39248f2ead1b1b1fe228c4b1bca5da807005b3e3",
+        "post_sha256": "f763f67068a4411dbd4a405e39248f2ead1b1b1fe228c4b1bca5da807005b3e3",
+        "match": true
+      },
+      {
+        "name": "exp03_arm1_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_4_best.weights.h5",
+        "pre_sha256": "589f1e52275f68ed02329b1d4a7a9c16f406ed3868b8afeef9706ebace61b496",
+        "post_sha256": "589f1e52275f68ed02329b1d4a7a9c16f406ed3868b8afeef9706ebace61b496",
+        "match": true
+      },
+      {
+        "name": "exp03_arm1_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp03\\checkpoints\\arm1\\fold_5_best.weights.h5",
+        "pre_sha256": "848aea5498e469871d5fdcd136d849f971c9c3c485a4c66afb2505d3b0a46776",
+        "post_sha256": "848aea5498e469871d5fdcd136d849f971c9c3c485a4c66afb2505d3b0a46776",
+        "match": true
+      },
+      {
+        "name": "exp05_config_a_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_1_best.weights.h5",
+        "pre_sha256": "52bd4a65becdb6146a338f1a55fe73b6b4722ef4ba93d8a924b5d1a0081bd95a",
+        "post_sha256": "52bd4a65becdb6146a338f1a55fe73b6b4722ef4ba93d8a924b5d1a0081bd95a",
+        "match": true
+      },
+      {
+        "name": "exp05_config_a_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_2_best.weights.h5",
+        "pre_sha256": "a3935aca244e471a98166684be75d7ba00736c05a59212eca43db4ddb2ccdf36",
+        "post_sha256": "a3935aca244e471a98166684be75d7ba00736c05a59212eca43db4ddb2ccdf36",
+        "match": true
+      },
+      {
+        "name": "exp05_config_a_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_3_best.weights.h5",
+        "pre_sha256": "ba355773dd0b23bcde90300b29e4fb4e7cc0dbd2d99d9f115cf84ab15bc4a6b8",
+        "post_sha256": "ba355773dd0b23bcde90300b29e4fb4e7cc0dbd2d99d9f115cf84ab15bc4a6b8",
+        "match": true
+      },
+      {
+        "name": "exp05_config_a_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_4_best.weights.h5",
+        "pre_sha256": "0a2f7a859f3b956564a04211945ee92c7cea9437e7822ecc37a0e376862e8cce",
+        "post_sha256": "0a2f7a859f3b956564a04211945ee92c7cea9437e7822ecc37a0e376862e8cce",
+        "match": true
+      },
+      {
+        "name": "exp05_config_a_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp05\\checkpoints\\config_a\\fold_5_best.weights.h5",
+        "pre_sha256": "d1404d789c04dfeb09b27564f67c78e7b3cb722a06766999d4efa7493fb268dc",
+        "post_sha256": "d1404d789c04dfeb09b27564f67c78e7b3cb722a06766999d4efa7493fb268dc",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_a_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_1_best.weights.h5",
+        "pre_sha256": "069325542cb050101b47c44f614194836238acb40581672bf3d7dc70876b7eb6",
+        "post_sha256": "069325542cb050101b47c44f614194836238acb40581672bf3d7dc70876b7eb6",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_a_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_2_best.weights.h5",
+        "pre_sha256": "d049073c9064c4341e99287ef0ec2bfea2b3de859de0b9234ec4d42ddaf1e4c9",
+        "post_sha256": "d049073c9064c4341e99287ef0ec2bfea2b3de859de0b9234ec4d42ddaf1e4c9",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_a_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_3_best.weights.h5",
+        "pre_sha256": "a22266418809f97e16f3028d947fb8f23bd616b73d5ac0a3020663089251fe4d",
+        "post_sha256": "a22266418809f97e16f3028d947fb8f23bd616b73d5ac0a3020663089251fe4d",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_a_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_4_best.weights.h5",
+        "pre_sha256": "986dc12ea6296fe351d30e7b7d0441d31656a51353086e0ea4460400844918bf",
+        "post_sha256": "986dc12ea6296fe351d30e7b7d0441d31656a51353086e0ea4460400844918bf",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_a_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_a\\fold_5_best.weights.h5",
+        "pre_sha256": "eabeddf5a9f9a1e875872e777e0d5392401a80860ef03ddfac6fd2654b13d8ad",
+        "post_sha256": "eabeddf5a9f9a1e875872e777e0d5392401a80860ef03ddfac6fd2654b13d8ad",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_b_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_1_best.weights.h5",
+        "pre_sha256": "cda89fa6650457e9a182a2417d64c960a6efbc95eb2c004c444bfe3add25bb5a",
+        "post_sha256": "cda89fa6650457e9a182a2417d64c960a6efbc95eb2c004c444bfe3add25bb5a",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_b_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_2_best.weights.h5",
+        "pre_sha256": "0280f43e201492581ad4612e99a5cadd17f8e585f241dd4424b0273ff85bf27d",
+        "post_sha256": "0280f43e201492581ad4612e99a5cadd17f8e585f241dd4424b0273ff85bf27d",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_b_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_3_best.weights.h5",
+        "pre_sha256": "af880fbb01c7097b48ffacc09191e467babdf6ca44671e2b994557bea1778989",
+        "post_sha256": "af880fbb01c7097b48ffacc09191e467babdf6ca44671e2b994557bea1778989",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_b_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_4_best.weights.h5",
+        "pre_sha256": "28222a09aafc569785e37565db526ae9f47b46d47a61672f5e1e4a2d88957d20",
+        "post_sha256": "28222a09aafc569785e37565db526ae9f47b46d47a61672f5e1e4a2d88957d20",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_b_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_b\\fold_5_best.weights.h5",
+        "pre_sha256": "4265c32da9fb6779faceff9c29bf7a27a357054938eaf4e3822e70dc5c854e01",
+        "post_sha256": "4265c32da9fb6779faceff9c29bf7a27a357054938eaf4e3822e70dc5c854e01",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_c_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_1_best.weights.h5",
+        "pre_sha256": "15ba772bc166f3e5f426d8bdd09ee9dded4a2464b5c04e795085514385fdd279",
+        "post_sha256": "15ba772bc166f3e5f426d8bdd09ee9dded4a2464b5c04e795085514385fdd279",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_c_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_2_best.weights.h5",
+        "pre_sha256": "2897c807f0cbe9a2b1c8efa9a00ba2cf3c8070ed07e56e9b050c08779a8e2cea",
+        "post_sha256": "2897c807f0cbe9a2b1c8efa9a00ba2cf3c8070ed07e56e9b050c08779a8e2cea",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_c_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_3_best.weights.h5",
+        "pre_sha256": "eda25bacb0bccefd48abc9b09cfc71557ecf8413e66c0f1bcd138e80940a536d",
+        "post_sha256": "eda25bacb0bccefd48abc9b09cfc71557ecf8413e66c0f1bcd138e80940a536d",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_c_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_4_best.weights.h5",
+        "pre_sha256": "a30619f1f342a7a66cf6b86779e903ca735436fcbebbfb49ca7da0c0a6c62b60",
+        "post_sha256": "a30619f1f342a7a66cf6b86779e903ca735436fcbebbfb49ca7da0c0a6c62b60",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_c_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_c\\fold_5_best.weights.h5",
+        "pre_sha256": "077f589c491f796dba64b6d15ef40b36d4f5bd8d53bcbcbfdcaf7a63f9f70754",
+        "post_sha256": "077f589c491f796dba64b6d15ef40b36d4f5bd8d53bcbcbfdcaf7a63f9f70754",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_d_f1",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_1_best.weights.h5",
+        "pre_sha256": "c72f4192ec3e3aa2b20ca0f00bc5e25ed9b27edb9d61f8fabf68ef5a8e1c9c4f",
+        "post_sha256": "c72f4192ec3e3aa2b20ca0f00bc5e25ed9b27edb9d61f8fabf68ef5a8e1c9c4f",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_d_f2",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_2_best.weights.h5",
+        "pre_sha256": "e603200f133d4ebf3652e60abdab2fb825e644af9883a124c83b7f8aea867841",
+        "post_sha256": "e603200f133d4ebf3652e60abdab2fb825e644af9883a124c83b7f8aea867841",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_d_f3",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_3_best.weights.h5",
+        "pre_sha256": "65f53caea11b1ec1b7bb9e2b45bf60482ce37d202f546374eb97d1cc2b7d64d8",
+        "post_sha256": "65f53caea11b1ec1b7bb9e2b45bf60482ce37d202f546374eb97d1cc2b7d64d8",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_d_f4",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_4_best.weights.h5",
+        "pre_sha256": "f62ff1ad0aad4de98086d1377a1d2947a0fd6a0e1cb82d020693a6475fbd822d",
+        "post_sha256": "f62ff1ad0aad4de98086d1377a1d2947a0fd6a0e1cb82d020693a6475fbd822d",
+        "match": true
+      },
+      {
+        "name": "exp06a_config_d_f5",
+        "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06a\\checkpoints\\config_d\\fold_5_best.weights.h5",
+        "pre_sha256": "ecc5ec2890e847ce5112ae0353ac7f0945213142c214c495ba09091309589a25",
+        "post_sha256": "ecc5ec2890e847ce5112ae0353ac7f0945213142c214c495ba09091309589a25",
+        "match": true
+      }
+    ]
+  },
+  "exp06b_checkpoints": [
+    {
+      "arm": "arm_a",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_a\\fold_1_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "b6457e90d2d27ad67ebc74aa4aa44cd59ef8dd03ea5ed5ecb77e55cb016814dc"
+    },
+    {
+      "arm": "arm_a",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_a\\fold_2_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "7ac46ba81da30807a88e07096285900048554f43a230023c2a3d88fad52a2406"
+    },
+    {
+      "arm": "arm_a",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_a\\fold_3_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "21a43ac57bbaf084c4771b0733188d87c7c6546dee137e540c3fd00218194db4"
+    },
+    {
+      "arm": "arm_a",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_a\\fold_4_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "2afab39937c2777a46843ca4ac91ec6230bcb2d666b32ebbef5703d6959e946a"
+    },
+    {
+      "arm": "arm_a",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_a\\fold_5_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "7963f587063f0f0725303c6eee359d8a430ffd8f0e6bf2e7dda332e1b0be2f8b"
+    },
+    {
+      "arm": "arm_b",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_b\\fold_1_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "d9ebc77069beb7ebda6fbd3247a9606c91a868a426ac09088ac6f177b23f3efd"
+    },
+    {
+      "arm": "arm_b",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_b\\fold_2_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "f19e767d4ab8604583d786134e183a5e6e68bbd7a8dbefe43c692d0e26db6143"
+    },
+    {
+      "arm": "arm_b",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_b\\fold_3_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "0f4d8b328b436d9ef72d685cf52540b6aa901c9698a21bbe253a9cd5f90109d9"
+    },
+    {
+      "arm": "arm_b",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_b\\fold_4_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "4793c504d276945e9faccc832182883fa771fdf08e9f9ddcb46a9be94acbce83"
+    },
+    {
+      "arm": "arm_b",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_b\\fold_5_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "2eaf592b4c874f76fb7b28282e7c6fbcb3ae15273d4f6999c64fa4753b144ae7"
+    },
+    {
+      "arm": "arm_c",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_c\\fold_1_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "0799e74311ce2421cf00958a532b08faa358d185d7ebfd973f7b43d8ed3515c1"
+    },
+    {
+      "arm": "arm_c",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_c\\fold_2_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "7d5281c3def2a324aaf2993e761424774a363fd3356ea4e3eacdab462a3a4747"
+    },
+    {
+      "arm": "arm_c",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_c\\fold_3_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "a563bbf662ad9a6d43f690f856e196db6ffd352f333bf700d155da79ace4c489"
+    },
+    {
+      "arm": "arm_c",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_c\\fold_4_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "2490e9cc0625086a8a20fb3a69601e0d8d5341692b2dd3fe144674367606dd22"
+    },
+    {
+      "arm": "arm_c",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_c\\fold_5_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "38e0dbe907cc0722bd74cb5df04c9a6eef69a5873fc5c577aee27745e292309c"
+    },
+    {
+      "arm": "arm_d",
+      "fold": 1,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_d\\fold_1_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "fce514583f80b8400ec4109edc7212cc817b739fbeabebfd81eedef6e96bdd12"
+    },
+    {
+      "arm": "arm_d",
+      "fold": 2,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_d\\fold_2_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "93eea00f077461b15feb6527cd0b8ae83fc71bb7b19dda1318e81e49516888ec"
+    },
+    {
+      "arm": "arm_d",
+      "fold": 3,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_d\\fold_3_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "f5955b65490d7185b7a8007c6d5e9f2f8a2065b271478648b84938ba6ce4aecf"
+    },
+    {
+      "arm": "arm_d",
+      "fold": 4,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_d\\fold_4_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "ab676c2043fbfc4ec9dd2cd35b034d19f7b6009c524ac9b97841aac20c5e58f1"
+    },
+    {
+      "arm": "arm_d",
+      "fold": 5,
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\experiments\\exp06b\\checkpoints\\arm_d\\fold_5_best.weights.h5",
+      "size_bytes": 52899472,
+      "sha256": "389502f52067cfc882da2782db2ad9d9e3a3d78d26236bc43fffb2e60c4e0e23"
+    }
+  ]
+}

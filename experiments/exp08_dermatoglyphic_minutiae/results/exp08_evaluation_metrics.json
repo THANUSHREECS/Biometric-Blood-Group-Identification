@@ -1,0 +1,558 @@
+{
+  "constant_majority_baseline": {
+    "model_name": "Constant Majority-Class Baseline (Predicts O+ for all)",
+    "n_participants": 80,
+    "correct_predictions": 29,
+    "accuracy": 0.3625,
+    "accuracy_ci_95": [
+      0.26570810692963076,
+      0.4718918298092901
+    ],
+    "primary_balanced_accuracy": 0.25,
+    "macro_precision": 0.090625,
+    "macro_recall": 0.25,
+    "macro_f1": 0.13302752293577982,
+    "cohen_kappa": 0.0,
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_per_class_metrics": {
+      "A+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 19
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "B+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 25
+      },
+      "O+": {
+        "precision": 0.3625,
+        "recall": 1.0,
+        "f1": 0.5321100917431193,
+        "support": 29
+      }
+    },
+    "canonical_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        19
+      ],
+      [
+        0,
+        0,
+        0,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        25
+      ],
+      [
+        0,
+        0,
+        0,
+        29
+      ]
+    ],
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.3625,
+        "recall": 1.0,
+        "f1": 0.5321100917431193,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        19
+      ],
+      [
+        0,
+        0,
+        0,
+        25
+      ],
+      [
+        0,
+        0,
+        0,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        29
+      ]
+    ],
+    "permutation_null_test": {
+      "observed_balanced_accuracy": 0.25,
+      "perm_p_balanced_accuracy": 1.0,
+      "observed_macro_f1": 0.13302752293577982,
+      "perm_p_macro_f1": 1.0,
+      "null_balanced_acc_mean": 0.25,
+      "null_macro_f1_mean": 0.13302753865718842
+    }
+  },
+  "infold_dummy_baseline": {
+    "model_name": "In-Fold DummyClassifier Baseline (Most Frequent per fold)",
+    "n_participants": 80,
+    "correct_predictions": 23,
+    "accuracy": 0.2875,
+    "accuracy_ci_95": [
+      0.1998693959124246,
+      0.3946032335931805
+    ],
+    "primary_balanced_accuracy": 0.20103448275862068,
+    "macro_precision": 0.11328125,
+    "macro_recall": 0.20103448275862068,
+    "macro_f1": 0.13729346970889064,
+    "cohen_kappa": -0.10038610038610041,
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_per_class_metrics": {
+      "A+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 19
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "B+": {
+        "precision": 0.125,
+        "recall": 0.08,
+        "f1": 0.0975609756097561,
+        "support": 25
+      },
+      "O+": {
+        "precision": 0.328125,
+        "recall": 0.7241379310344828,
+        "f1": 0.45161290322580644,
+        "support": 29
+      }
+    },
+    "canonical_confusion_matrix": [
+      [
+        0,
+        0,
+        5,
+        14
+      ],
+      [
+        0,
+        0,
+        1,
+        6
+      ],
+      [
+        0,
+        0,
+        2,
+        23
+      ],
+      [
+        0,
+        0,
+        8,
+        21
+      ]
+    ],
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.125,
+        "recall": 0.08,
+        "f1": 0.0975609756097561,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.328125,
+        "recall": 0.7241379310344828,
+        "f1": 0.45161290322580644,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        0,
+        5,
+        0,
+        14
+      ],
+      [
+        0,
+        2,
+        0,
+        23
+      ],
+      [
+        0,
+        1,
+        0,
+        6
+      ],
+      [
+        0,
+        8,
+        0,
+        21
+      ]
+    ],
+    "permutation_null_test": {
+      "observed_balanced_accuracy": 0.20103448275862068,
+      "perm_p_balanced_accuracy": 0.976,
+      "observed_macro_f1": 0.13729346970889064,
+      "perm_p_macro_f1": 0.978,
+      "null_balanced_acc_mean": 0.2507293224334717,
+      "null_macro_f1_mean": 0.18637019395828247
+    }
+  },
+  "logistic_regression": {
+    "model_name": "L2-Regularized Logistic Regression",
+    "n_participants": 80,
+    "correct_predictions": 22,
+    "accuracy": 0.275,
+    "accuracy_ci_95": [
+      0.18917772050768933,
+      0.3814403577923632
+    ],
+    "primary_balanced_accuracy": 0.2115426497277677,
+    "macro_precision": 0.23111658456486042,
+    "macro_recall": 0.2115426497277677,
+    "macro_f1": 0.2193364073777065,
+    "cohen_kappa": -0.003026372676178113,
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_per_class_metrics": {
+      "A+": {
+        "precision": 0.14285714285714285,
+        "recall": 0.15789473684210525,
+        "f1": 0.15,
+        "support": 19
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "B+": {
+        "precision": 0.3333333333333333,
+        "recall": 0.24,
+        "f1": 0.27906976744186046,
+        "support": 25
+      },
+      "O+": {
+        "precision": 0.4482758620689655,
+        "recall": 0.4482758620689655,
+        "f1": 0.4482758620689655,
+        "support": 29
+      }
+    },
+    "canonical_confusion_matrix": [
+      [
+        3,
+        3,
+        5,
+        8
+      ],
+      [
+        2,
+        0,
+        2,
+        3
+      ],
+      [
+        8,
+        6,
+        6,
+        5
+      ],
+      [
+        8,
+        3,
+        5,
+        13
+      ]
+    ],
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.14285714285714285,
+        "recall": 0.15789473684210525,
+        "f1": 0.15,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.3333333333333333,
+        "recall": 0.24,
+        "f1": 0.27906976744186046,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.4482758620689655,
+        "recall": 0.4482758620689655,
+        "f1": 0.4482758620689655,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        3,
+        5,
+        3,
+        8
+      ],
+      [
+        8,
+        6,
+        6,
+        5
+      ],
+      [
+        2,
+        2,
+        0,
+        3
+      ],
+      [
+        8,
+        5,
+        3,
+        13
+      ]
+    ],
+    "permutation_null_test": {
+      "observed_balanced_accuracy": 0.2115426497277677,
+      "perm_p_balanced_accuracy": 0.781,
+      "observed_macro_f1": 0.2193364073777065,
+      "perm_p_macro_f1": 0.713,
+      "null_balanced_acc_mean": 0.2525804340839386,
+      "null_macro_f1_mean": 0.24791018664836884
+    }
+  },
+  "random_forest": {
+    "model_name": "Random Forest Classifier",
+    "n_participants": 80,
+    "correct_predictions": 28,
+    "accuracy": 0.35,
+    "accuracy_ci_95": [
+      0.2545456780768367,
+      0.4591997074565316
+    ],
+    "primary_balanced_accuracy": 0.27056261343012705,
+    "macro_precision": 0.25326797385620914,
+    "macro_recall": 0.27056261343012705,
+    "macro_f1": 0.26026513169370313,
+    "cohen_kappa": 0.05711695376246595,
+    "canonical_class_order": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_per_class_metrics": {
+      "A+": {
+        "precision": 0.23529411764705882,
+        "recall": 0.21052631578947367,
+        "f1": 0.2222222222222222,
+        "support": 19
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "B+": {
+        "precision": 0.3333333333333333,
+        "recall": 0.32,
+        "f1": 0.32653061224489793,
+        "support": 25
+      },
+      "O+": {
+        "precision": 0.4444444444444444,
+        "recall": 0.5517241379310345,
+        "f1": 0.49230769230769234,
+        "support": 29
+      }
+    },
+    "canonical_confusion_matrix": [
+      [
+        4,
+        1,
+        5,
+        9
+      ],
+      [
+        1,
+        0,
+        4,
+        2
+      ],
+      [
+        6,
+        2,
+        8,
+        9
+      ],
+      [
+        6,
+        0,
+        7,
+        16
+      ]
+    ],
+    "native_class_order": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "native_per_class_metrics": {
+      "A+": {
+        "precision": 0.23529411764705882,
+        "recall": 0.21052631578947367,
+        "f1": 0.2222222222222222,
+        "support": 19
+      },
+      "B+": {
+        "precision": 0.3333333333333333,
+        "recall": 0.32,
+        "f1": 0.32653061224489793,
+        "support": 25
+      },
+      "AB+": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "O+": {
+        "precision": 0.4444444444444444,
+        "recall": 0.5517241379310345,
+        "f1": 0.49230769230769234,
+        "support": 29
+      }
+    },
+    "native_confusion_matrix": [
+      [
+        4,
+        5,
+        1,
+        9
+      ],
+      [
+        6,
+        8,
+        2,
+        9
+      ],
+      [
+        1,
+        4,
+        0,
+        2
+      ],
+      [
+        6,
+        7,
+        0,
+        16
+      ]
+    ],
+    "permutation_null_test": {
+      "observed_balanced_accuracy": 0.27056261343012705,
+      "perm_p_balanced_accuracy": 0.325,
+      "observed_macro_f1": 0.26026513169370313,
+      "perm_p_macro_f1": 0.369,
+      "null_balanced_acc_mean": 0.25192853808403015,
+      "null_macro_f1_mean": 0.24837066233158112
+    }
+  }
+}

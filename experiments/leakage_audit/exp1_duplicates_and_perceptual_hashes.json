@@ -1,0 +1,57 @@
+{
+  "manifest_positive_count": 2769,
+  "exact_duplicates": {
+    "unique_hashes": 2769,
+    "duplicate_groups": 0,
+    "cross_split_groups": 0,
+    "cross_split_details": []
+  },
+  "perceptual_hashes": {
+    "hamming_thresholds_pre_declared": [
+      2,
+      5,
+      10
+    ],
+    "test_sample_count": 415,
+    "phash_min_dist_summary": {
+      "mean": 7.79277108433735,
+      "std": 2.2783307741134338,
+      "min": 2,
+      "max": 16
+    },
+    "dhash_min_dist_summary": {
+      "mean": 7.660240963855422,
+      "std": 2.3310858816696465,
+      "min": 2,
+      "max": 15
+    },
+    "phash_near_duplicate_counts": {
+      "hamming_le_2": {
+        "count": 3,
+        "percentage": 0.7228915662650602
+      },
+      "hamming_le_5": {
+        "count": 46,
+        "percentage": 11.08433734939759
+      },
+      "hamming_le_10": {
+        "count": 388,
+        "percentage": 93.49397590361446
+      }
+    },
+    "dhash_near_duplicate_counts": {
+      "hamming_le_2": {
+        "count": 1,
+        "percentage": 0.24096385542168677
+      },
+      "hamming_le_5": {
+        "count": 66,
+        "percentage": 15.903614457831324
+      },
+      "hamming_le_10": {
+        "count": 369,
+        "percentage": 88.91566265060241
+      }
+    }
+  }
+}

@@ -20,3 +20,22 @@ outputs/
 scratch/research_*/
 reports/blood_group_report_*.pdf
 scratch/clean_estimate_cache/
+
+# Model checkpoints and weights (exceeds GitHub file size limits)
+*.weights.h5
+*.h5
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+**/checkpoints/
+scratch/exp05_synthetic/
+scratch/*.weights.h5
+scratch/exp06d_init_shared_weights_*.json
+
+# Frontend dependencies and builds
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/

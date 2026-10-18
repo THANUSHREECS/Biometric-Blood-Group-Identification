@@ -1,0 +1,32 @@
+{
+  "original_dataset": {
+    "total_images": 6000,
+    "unique_hashes": 5985,
+    "duplicates": 15,
+    "class_breakdown": {
+      "A+": 565,
+      "A-": 1009,
+      "AB+": 708,
+      "AB-": 761,
+      "B+": 652,
+      "B-": 741,
+      "O+": 852,
+      "O-": 712
+    },
+    "sample_size_modes": [
+      "(96, 103)_RGBA"
+    ],
+    "mean_intensity": 170.85521465412626,
+    "mean_contrast_std": 103.01769448601382
+  },
+  "mfs100_final": {
+    "total_images": 303,
+    "unique_hashes": 303,
+    "duplicates": 0,
+    "sample_size_modes": [
+      "(316, 354)_L"
+    ],
+    "mean_intensity": 125.37645167346062,
+    "mean_contrast_std": 86.13912649394415
+  }
+}

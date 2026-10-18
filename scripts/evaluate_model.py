@@ -1,5 +1,299 @@
 #!/usr/bin/env python3
 """
+Evaluation script for Biometric Blood Group Identification.
+- Uses preprocessing pipeline from src/preprocessing.py
+- Evaluates on test split defined in manifest
+- Computes loss, accuracy, macro/weighted precision, recall, F1, per-class metrics, confusion matrix
+- Saves confusion matrix plot and JSON results.
+"""
+
+import os
+import sys
+import json
+import datetime
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import tensorflow as tf
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    accuracy_score,
+    precision_recall_fscore_support,
+)
+
+# Ensure project root is in sys.path
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from src.config import (
+    IMAGE_SIZE,
+    NUM_CLASSES,
+    CLASS_NAMES,
+    CLASS_TO_ID,
+    ID_TO_CLASS,
+    MODEL_PATH,
+    DATASET_MANIFEST_PATH,
+    OUTPUTS_DIR,
+    EVALUATION_RESULTS_PATH,
+)
+from src.preprocessing import load_and_preprocess_for_training
+
+def load_test_split(manifest_path=DATASET_MANIFEST_PATH):
+    if not os.path.exists(manifest_path):
+        raise FileNotFoundError(f"Manifest not found: {manifest_path}")
+    df = pd.read_csv(manifest_path)
+    test_df = df[df["split"] == "test"].copy()
+    if test_df.empty:
+        raise ValueError("No records found with split == 'test'!")
+    paths = test_df["image_path"].tolist()
+    labels = test_df["class_id"].astype(int).tolist()
+    return paths, labels
+
+def plot_confusion_matrix(cm, class_names=CLASS_NAMES, output_path=None):
+    if output_path is None:
+        output_path = os.path.join(OUTPUTS_DIR, "confusion_matrix.png")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.figure(figsize=(9, 8))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=class_names, yticklabels=class_names, cbar=False, linewidths=0.5)
+    plt.title("Confusion Matrix (Test Set)", fontsize=13, fontweight="bold")
+    plt.xlabel("Predicted", fontsize=11, fontweight="bold")
+    plt.ylabel("True", fontsize=11, fontweight="bold")
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+    print(f"[+] Saved confusion matrix to: {output_path}")
+
+def evaluate_model(model_path=MODEL_PATH, manifest_path=DATASET_MANIFEST_PATH, batch_size=32):
+    print("=" * 70)
+    print("STEP: MODEL EVALUATION ON TEST SET")
+    print("=" * 70)
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model not found at {model_path}")
+    model = tf.keras.models.load_model(model_path)
+
+    test_paths, test_labels = load_test_split(manifest_path)
+    total = len(test_paths)
+    print(f"[+] {total} test samples found.")
+
+    # Predict in batches
+    all_probs = []
+    for i in range(0, total, batch_size):
+        batch_paths = test_paths[i:i + batch_size]
+        batch_imgs = [load_and_preprocess_for_training(p, target_size=IMAGE_SIZE) for p in batch_paths]
+        batch_tensor = np.stack(batch_imgs, axis=0)
+        probs = model.predict(batch_tensor, verbose=0)
+        all_probs.append(probs)
+    all_probs = np.concatenate(all_probs, axis=0)
+    pred_labels = np.argmax(all_probs, axis=1)
+    true_labels = np.array(test_labels)
+
+    # Metrics
+    loss_fn = tf.keras.losses.SparseCategoricalCrossentropy()
+    loss = float(loss_fn(true_labels, all_probs).numpy())
+    accuracy = accuracy_score(true_labels, pred_labels)
+    precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
+        true_labels, pred_labels, average="macro", zero_division=0
+    )
+    precision_weighted, recall_weighted, f1_weighted, _ = precision_recall_fscore_support(
+        true_labels, pred_labels, average="weighted", zero_division=0
+    )
+    cm = confusion_matrix(true_labels, pred_labels, labels=list(range(NUM_CLASSES)))
+
+    # Plot confusion matrix
+    plot_confusion_matrix(cm)
+
+    # Per‑class metrics
+    per_class_metrics = {}
+    for cid in range(NUM_CLASSES):
+        cname = CLASS_NAMES[cid]
+        total_c = int(np.sum(true_labels == cid))
+        correct_c = int(cm[cid, cid])
+        acc_c = float(correct_c) / total_c if total_c > 0 else 0.0
+        per_class_metrics[cname] = {
+            "class_id": cid,
+            "total_samples": total_c,
+            "correct_predictions": correct_c,
+            "accuracy": round(acc_c, 4),
+        }
+
+    # Classification report
+    clf_report = classification_report(true_labels, pred_labels, target_names=CLASS_NAMES, output_dict=True, zero_division=0)
+
+    results = {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "model_path": model_path,
+        "test_total": total,
+        "loss": round(loss, 4),
+        "accuracy": round(accuracy, 4),
+        "macro": {
+            "precision": round(precision_macro, 4),
+            "recall": round(recall_macro, 4),
+            "f1": round(f1_macro, 4),
+        },
+        "weighted": {
+            "precision": round(precision_weighted, 4),
+            "recall": round(recall_weighted, 4),
+            "f1": round(f1_weighted, 4),
+        },
+        "per_class_metrics": per_class_metrics,
+        "classification_report": clf_report,
+        "confusion_matrix": cm.tolist(),
+    }
+
+    os.makedirs(os.path.dirname(EVALUATION_RESULTS_PATH), exist_ok=True)
+    with open(EVALUATION_RESULTS_PATH, "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"[+] Evaluation results saved to {EVALUATION_RESULTS_PATH}")
+    return results
+
+if __name__ == "__main__":
+    evaluate_model()
+
+"""
+scripts/evaluate_model.py
+Production evaluation script for Biometric Blood Group Identification:
+- Evaluates exclusively on the untouched test split
+- Uses preprocessing pipeline from src/preprocessing.py
+- Computes metrics: loss, accuracy, precision, recall, F1 (macro, weighted), confusion matrix
+- Generates outputs/confusion_matrix.png and outputs/evaluation_results.json
+"""
+
+import os
+import sys
+import json
+import datetime
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import tensorflow as tf
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    accuracy_score,
+    precision_recall_fscore_support,
+)
+import csv
+
+# Add project root to sys.path for config and modules
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, PROJECT_ROOT)
+
+from src.config import (
+    IMAGE_SIZE,
+    NUM_CLASSES,
+    CLASS_NAMES,
+    CLASS_TO_ID,
+    ID_TO_CLASS,
+    MODEL_PATH,
+    DATASET_MANIFEST_PATH,
+    OUTPUTS_DIR,
+    EVALUATION_RESULTS_PATH,
+)
+from src.preprocessing import load_and_preprocess_for_training
+
+# E2 pipeline utilities
+sys.path.insert(0, PROJECT_ROOT)  # ensure imports resolve for round16_three_pipelines
+from round16_three_pipelines import P2, build_E2
+
+def load_test_split(manifest_path=DATASET_MANIFEST_PATH):
+    if not os.path.exists(manifest_path):
+        raise FileNotFoundError(f"Manifest not found: {manifest_path}")
+    df = pd.read_csv(manifest_path)
+    test_df = df[df["split"] == "test"].copy()
+    if test_df.empty:
+        raise ValueError("No records found with split == 'test'!")
+    paths = test_df["image_path"].tolist()
+    labels = test_df["class_id"].astype(int).tolist()
+    return paths, labels
+
+def plot_confusion_matrix(cm, class_names=CLASS_NAMES, output_path=None):
+    if output_path is None:
+        output_path = os.path.join(OUTPUTS_DIR, "confusion_matrix.png")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.figure(figsize=(9, 8))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=class_names, yticklabels=class_names, cbar=False, linewidths=0.5)
+    plt.title("Confusion Matrix (Test Set)", fontsize=13, fontweight="bold")
+    plt.xlabel("Predicted", fontsize=11, fontweight="bold")
+    plt.ylabel("True", fontsize=11, fontweight="bold")
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+    print(f"[+] Saved confusion matrix to: {output_path}")
+
+def evaluate_model(model_path=MODEL_PATH, manifest_path=DATASET_MANIFEST_PATH, batch_size=32):
+    print("=" * 70)
+    print("STEP: MODEL EVALUATION ON TEST SET")
+    print("=" * 70)
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model not found at {model_path}")
+    model = tf.keras.models.load_model(model_path)
+
+    test_paths, test_labels = load_test_split(manifest_path)
+    total = len(test_paths)
+    print(f"[+] {total} test samples found.")
+
+    # Prediction loop
+    all_probs = []
+    for i in range(0, total, batch_size):
+        batch_paths = test_paths[i:i+batch_size]
+        batch_imgs = [load_and_preprocess_for_training(p, target_size=IMAGE_SIZE) for p in batch_paths]
+        batch_tensor = np.stack(batch_imgs, axis=0)
+        probs = model.predict(batch_tensor, verbose=0)
+        all_probs.append(probs)
+    all_probs = np.concatenate(all_probs, axis=0)
+    pred_labels = np.argmax(all_probs, axis=1)
+    true_labels = np.array(test_labels)
+
+    # Metrics
+    loss_fn = tf.keras.losses.SparseCategoricalCrossentropy()
+    loss = float(loss_fn(true_labels, all_probs).numpy())
+    accuracy = accuracy_score(true_labels, pred_labels)
+    precision_macro, recall_macro, f1_macro, _ = precision_recall_fscore_support(
+        true_labels, pred_labels, average="macro", zero_division=0
+    )
+    precision_weighted, recall_weighted, f1_weighted, _ = precision_recall_fscore_support(
+        true_labels, pred_labels, average="weighted", zero_division=0
+    )
+    cm = confusion_matrix(true_labels, pred_labels, labels=list(range(NUM_CLASSES)))
+
+    # Save confusion matrix plot
+    plot_confusion_matrix(cm)
+
+    # Save results JSON
+    results = {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "model_path": model_path,
+        "test_total": total,
+        "loss": round(loss, 4),
+        "accuracy": round(accuracy, 4),
+        "macro": {
+            "precision": round(precision_macro, 4),
+            "recall": round(recall_macro, 4),
+            "f1": round(f1_macro, 4),
+        },
+        "weighted": {
+            "precision": round(precision_weighted, 4),
+            "recall": round(recall_weighted, 4),
+            "f1": round(f1_weighted, 4),
+        },
+        "confusion_matrix": cm.tolist(),
+    }
+    os.makedirs(os.path.dirname(EVALUATION_RESULTS_PATH), exist_ok=True)
+    with open(EVALUATION_RESULTS_PATH, "w") as f:
+        json.dump(results, f, indent=2)
+    print(f"[+] Evaluation results saved to {EVALUATION_RESULTS_PATH}")
+    return results
+
+if __name__ == "__main__":
+    evaluate_model()
+
+"""
 scripts/evaluate_model.py
 Production evaluation script for Biometric Blood Group Identification:
 - Evaluates exclusively on the untouched 15% test split (898 samples)

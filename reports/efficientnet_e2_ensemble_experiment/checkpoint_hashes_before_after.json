@@ -1,0 +1,92 @@
+{
+  "before_experiment": {
+    "effnet_checkpoint": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\abo_positive_4class\\best_model.keras",
+      "size_bytes": 32642427,
+      "sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9"
+    },
+    "e2_fold1_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_1_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d"
+    },
+    "e2_fold2_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_2_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede"
+    },
+    "e2_fold3_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_3_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3"
+    },
+    "e2_fold4_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_4_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519"
+    },
+    "e2_fold5_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_5_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d"
+    },
+    "participant_split_csv": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\phase3_participant_benchmark\\participant_split.csv",
+      "size_bytes": 40556,
+      "sha256": "aa0b7fd5aefd0b2c869780e5b7f0dd5c7415782cc59813c1caaaad191c747121"
+    },
+    "mfs100_ground_truth_csv": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\data\\mfs100_ground_truth.csv",
+      "size_bytes": 12895,
+      "sha256": "c61f78f8afb5eb0d88a5ec005b226b10a6c97f1812b4ad5f0797e643efb8415d"
+    },
+    "model_fusion_npz": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\model_fusion\\all_models_participant_probs.npz",
+      "size_bytes": 13608,
+      "sha256": "8e1b2c04dcd6e0acc4ebbad127971d14edbbb22806bf22d5840c59e00e03cc6e"
+    }
+  },
+  "after_experiment": {
+    "effnet_checkpoint": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\abo_positive_4class\\best_model.keras",
+      "size_bytes": 32642427,
+      "sha256": "7b5ff5d94d4ce3de7d432fcfb3e0ad71b508d69f7e993ca93075bba67ea12de9"
+    },
+    "e2_fold1_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_1_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "7d9464d18619a94fabd5c85a28c5fd7ef47b071e259bdaada8d05f7aa6db264d"
+    },
+    "e2_fold2_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_2_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "9c72809f23152708806a663891bdaa096840cc15e4dee2c485e890db6cc7bede"
+    },
+    "e2_fold3_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_3_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "8123b1b86f44719d5cf46341d81b0958665cdc5058844b71fd1590447a0432e3"
+    },
+    "e2_fold4_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_4_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "cc122b23e0c6d118cd8ffac836b2ab97d73a419e61ba9d042d735e5f9cd71519"
+    },
+    "e2_fold5_weights": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\models\\phase3_fusion_metric_learning\\E2\\fold_5_best.weights.h5",
+      "size_bytes": 52910112,
+      "sha256": "aff9e137bed61f641c4f5432ceb91ee40f052bcc63a28a42f55dacac51faf05d"
+    },
+    "participant_split_csv": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\reports\\phase3_participant_benchmark\\participant_split.csv",
+      "size_bytes": 40556,
+      "sha256": "aa0b7fd5aefd0b2c869780e5b7f0dd5c7415782cc59813c1caaaad191c747121"
+    },
+    "mfs100_ground_truth_csv": {
+      "path": "c:\\Users\\thanu\\OneDrive - Don Bosco Institute of Technology\\major project\\data\\mfs100_ground_truth.csv",
+      "size_bytes": 12895,
+      "sha256": "c61f78f8afb5eb0d88a5ec005b226b10a6c97f1812b4ad5f0797e643efb8415d"
+    }
+  },
+  "hash_verification_status": "ALL_HASHES_MATCH_EXACTLY"
+}

@@ -1,0 +1,89 @@
+================================================================================
+INDEPENDENT RECOMPUTE SPOT-CHECK (SEED=888)
+Standalone execution: does NOT import verify_inventory.py
+Direct pandas, numpy, and json calculations against raw source files
+================================================================================
+
+--- Spot-Check #1: [MFS100-LOCK21-EFFB0] ---
+Group       : MFS100 Individual Models
+Source File : reports/efficientnet_e2_ensemble_experiment/locked_test_metrics.json
+Source Field: efficientnet_b0
+Inventory   : Acc=0.2857, BalAcc=0.2062, MacroF1=0.1587
+Recomputed  : Acc=0.2857, BalAcc=0.2062, MacroF1=0.1587
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000014, BalAcc Diff=0.000050, MacroF1 Diff=0.000004)
+
+--- Spot-Check #2: [E2-LOCKED-TEST-21] ---
+Group       : E2 Variants & Ensembles
+Source File : reports/final/eval_101_raw_results.json
+Source Field: metrics_test
+Inventory   : Acc=0.381, BalAcc=0.3063, MacroF1=0.25
+Recomputed  : Acc=0.3810, BalAcc=0.3063, MacroF1=0.2500
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000048, BalAcc Diff=0.000050, MacroF1 Diff=0.000000)
+
+--- Spot-Check #3: [PRIMARY-LOCKED-TEST-EXP06C-CONFIG-A] ---
+Group       : Locked Test Final Evaluations
+Source File : reports/final_evaluation/primary_evaluation_results.json
+Source Field: accuracy
+Inventory   : Acc=0.3333, BalAcc=0.3125, MacroF1=0.2083
+Recomputed  : Acc=0.3333, BalAcc=0.3125, MacroF1=0.2083
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000033, BalAcc Diff=0.000000, MacroF1 Diff=0.000033)
+
+--- Spot-Check #4: [DAY27-LOCKED-ZERO-SHOT-PART-21] ---
+Group       : Day 27 Locked Cohort Zero-Shot
+Source File : reports/final_mfs100/final_zero_shot_participant_predictions.csv
+Source Field: participant_id, true_label, final_prediction (filtered to TEST split)
+Inventory   : Acc=0.3333, BalAcc=0.2375, MacroF1=0.1875
+Recomputed  : Acc=0.3333, BalAcc=0.2375, MacroF1=0.1875
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000033, BalAcc Diff=0.000000, MacroF1 Diff=0.000000)
+
+--- Spot-Check #5: [DAY27-02] ---
+Group       : Day 27 Source-Domain Benchmarks
+Source File : reports/DAY27_FULL_DATASET_COMPARISON.csv
+Source Field: Day27_8Class:canonical_test_accuracy
+Inventory   : Acc=0.7244, BalAcc=None, MacroF1=0.7272
+Recomputed  : Acc=0.7244, BalAcc=N/A, MacroF1=0.7272
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000034, MacroF1 Diff=0.000048)
+
+--- Spot-Check #6: [EXP-06C CONFIG A] ---
+Group       : EXP-03 to EXP-06D Hyperparameter Ablations
+Source File : reports/accuracy_improvement/exp06c/statistical_analysis_results.json
+Source Field: configurations[config_id='config_a']
+Inventory   : Acc=0.5375, BalAcc=0.5347, MacroF1=0.5487
+Recomputed  : Acc=0.5375, BalAcc=0.5347, MacroF1=0.5487
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000000, BalAcc Diff=0.000028, MacroF1 Diff=0.000015)
+
+--- Spot-Check #7: [AUDIT-PHASE3-ARM2-PURGE-50] ---
+Group       : Leakage Audit Diagnostics & Experiments
+Source File : experiments/leakage_audit/phase3_purged_cv_summary.json
+Source Field: secondary_arm_inner_val['50%_purge'] (val_accuracy & val_macro_f1 from phase3_purged_cv_results.csv)
+Inventory   : Acc=0.7998, BalAcc=0.7967, MacroF1=0.7964
+Recomputed  : Acc=0.7998, BalAcc=0.7967, MacroF1=0.7964
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000001, BalAcc Diff=0.000004, MacroF1 Diff=0.000003)
+
+--- Spot-Check #8: [ORIG-ENS-02] ---
+Group       : Original-Dataset Ensembles
+Source File : outputs/ensemble_optimization_v2_results.json
+Source Field: optimized_v2_val_accuracy
+Inventory   : Acc=0.8641, BalAcc=0.8684, MacroF1=0.8663
+Recomputed  : Acc=0.8641, BalAcc=0.8684, MacroF1=0.8663
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000043, BalAcc Diff=0.000001, MacroF1 Diff=0.000048)
+
+--- Spot-Check #9: [ORIG-04] ---
+Group       : Original-Dataset Models
+Source File : outputs/original_6000_models_audit_results.json
+Source Field: densenet121
+Inventory   : Acc=0.5345, BalAcc=0.535, MacroF1=0.5229
+Recomputed  : Acc=0.5345, BalAcc=0.5350, MacroF1=0.5229
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000021, BalAcc Diff=0.000022, MacroF1 Diff=0.000006)
+
+--- Spot-Check #10: [P3-ARCH-RESNET50-LOCKED-21] ---
+Group       : Phase 3 Architecture Benchmark (Locked Cohort)
+Source File : reports/phase3_architecture_benchmark/resnet50_test_preds.csv
+Source Field: participant_id, true_label, final_prediction
+Inventory   : Acc=0.2381, BalAcc=0.1667, MacroF1=0.1357
+Recomputed  : Acc=0.2381, BalAcc=0.1667, MacroF1=0.1357
+Result      : PASSED [Exact match within 1e-4] (Acc Diff=0.000005, BalAcc Diff=0.000033, MacroF1 Diff=0.000014)
+
+================================================================================
+INDEPENDENT RECOMPUTE SUMMARY: 10/10 PASSED (0 MISMATCHES)
+================================================================================

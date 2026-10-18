@@ -1,0 +1,35 @@
+{
+  "original": {
+    "name": "Original Dataset (dataset_blood_group)",
+    "count": 100,
+    "mean_width": 96.0,
+    "mean_height": 103.0,
+    "mean_aspect_ratio": 0.932038834951456,
+    "mean_intensity": 149.51205444335938,
+    "std_intensity": 103.42516326904297,
+    "mean_sharpness_laplacian_var": 59277.498871758085,
+    "mean_foreground_coverage_pct": 39.47016585760518
+  },
+  "mfs100_final_101": {
+    "name": "MFS100 Final (101 Cohort)",
+    "count": 100,
+    "mean_width": 316.0,
+    "mean_height": 354.0,
+    "mean_aspect_ratio": 0.8926553672316385,
+    "mean_intensity": 125.3764419555664,
+    "std_intensity": 86.1391372680664,
+    "mean_sharpness_laplacian_var": 5250.687798258515,
+    "mean_foreground_coverage_pct": 55.35581599084601
+  },
+  "mfs100_captured_26": {
+    "name": "MFS100 Captured (26 Cohort)",
+    "count": 78,
+    "mean_width": 316.0,
+    "mean_height": 354.0,
+    "mean_aspect_ratio": 0.8926553672316385,
+    "mean_intensity": 158.96966552734375,
+    "std_intensity": 86.36844635009766,
+    "mean_sharpness_laplacian_var": 5946.451030386076,
+    "mean_foreground_coverage_pct": 55.485289371526235
+  }
+}

@@ -1,0 +1,4 @@
+Config ID,Configuration Name,Accuracy,Balanced Accuracy,Macro F1,A+ Recall,AB+ Recall,B+ Recall,O+ Recall,Runtime (min)
+config_a,Config A: Frozen Backbone Reference,50.00%,47.86%,0.4781,36.84%,42.86%,60.00%,51.72%,53.59
+config_b,Config B: DenseBlock 4 Partial Fine-Tuning,41.25%,42.97%,0.4032,31.58%,57.14%,28.00%,55.17%,40.48
+config_c,Config C: DenseBlock 3+4 + Trans 3 Deep Fine-Tuning,47.50%,39.04%,0.3789,15.79%,14.29%,64.00%,62.07%,57.27

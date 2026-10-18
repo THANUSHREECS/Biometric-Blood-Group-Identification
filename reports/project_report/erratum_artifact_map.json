@@ -1,0 +1,31 @@
+{
+  "manually_curated_note": "Manually curated mapping of locked cohort artifacts to distinct scoring/prediction status and underlying checkpoint paths based on repository scripts and manifests.",
+  "summary_docs": [
+    "reports/final_mfs100/FINAL_ZERO_SHOT_MFS100_REPORT.md",
+    "reports/phase3_final_evaluation/final_test_classification_report.csv",
+    "reports/final/E2_101_PARTICIPANT_EVALUATION.md",
+    "reports/efficientnet_e2_ensemble_experiment/locked_test_metrics.json",
+    "reports/efficientnet_e2_ensemble_experiment/participant_disagreement_analysis.csv",
+    "reports/final_evaluation/primary_evaluation_results.json",
+    "reports/final_evaluation/primary_evaluation_final_report.md"
+  ],
+  "checkpoint_map": {
+    "reports/final_mfs100/final_zero_shot_participant_predictions.csv": "models/day27_full_dataset/four_class/best_model.keras",
+    "reports/final_mfs100/final_zero_shot_scan_predictions.csv": "models/day27_full_dataset/four_class/best_model.keras",
+    "reports/phase3_architecture_benchmark/convnext_tiny_test_preds.csv": "models/phase3_architecture_benchmark/convnext_tiny/best_model.keras",
+    "reports/phase3_architecture_benchmark/custom_cnn_test_preds.csv": "models/phase3_architecture_benchmark/custom_cnn/best_model.keras",
+    "reports/phase3_architecture_benchmark/densenet121_test_preds.csv": "models/phase3_architecture_benchmark/densenet121/best_model.keras",
+    "reports/phase3_architecture_benchmark/efficientnet_b0_test_preds.csv": "models/phase3_architecture_benchmark/efficientnet_b0/best_model.keras",
+    "reports/phase3_architecture_benchmark/efficientnetv2_b0_test_preds.csv": "models/phase3_architecture_benchmark/efficientnetv2_b0/best_model.keras",
+    "reports/phase3_architecture_benchmark/resnet50_test_preds.csv": "models/phase3_architecture_benchmark/resnet50/best_model.keras",
+    "reports/phase3_architecture_benchmark/vgg16_test_preds.csv": "models/phase3_architecture_benchmark/vgg16/best_model.keras",
+    "reports/phase3_final_evaluation/final_test_predictions.csv": "models/phase3_fusion_metric_learning/E2/fold_[1-5]_best.weights.h5",
+    "reports/phase3_final_evaluation/FINAL_TEST_REPORT.md": null,
+    "reports/final/eval_101_raw_results.json": "models/phase3_fusion_metric_learning/E2/fold_[1-5]_best.weights.h5",
+    "reports/efficientnet_e2_ensemble_experiment/e2_predictions.csv": "models/phase3_fusion_metric_learning/E2/fold_[1-5]_best.weights.h5",
+    "reports/efficientnet_e2_ensemble_experiment/efficientnet_predictions.csv": "models/abo_positive_4class/best_model.keras",
+    "reports/efficientnet_e2_ensemble_experiment/equal_weight_ensemble_predictions.csv": "models/abo_positive_4class/best_model.keras + models/phase3_fusion_metric_learning/E2/fold_[1-5]_best.weights.h5",
+    "reports/final_evaluation/primary_evaluation_predictions.csv": "experiments/exp06c/checkpoints/config_a/fold_[1-5]_best.weights.h5",
+    "experiments/leakage_audit/exp2_signal_tests_results.json": "read-only re-analysis of primary_evaluation_predictions.csv"
+  }
+}

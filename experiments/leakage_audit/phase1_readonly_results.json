@@ -1,0 +1,149 @@
+{
+  "exp_checkpoint_audit": {
+    "exp03": "MacroF1Checkpoint on held-out fold",
+    "exp04": "MacroF1Checkpoint on held-out fold",
+    "exp05": "MacroF1Checkpoint on held-out fold",
+    "exp06a": "MacroF1Checkpoint on held-out fold",
+    "exp06b": "MacroF1Checkpoint on held-out fold",
+    "exp06c": "MacroF1Checkpoint on held-out fold",
+    "exp06d": "MacroF1Checkpoint on held-out fold"
+  },
+  "metadata_cols": {
+    "participants_csv": [
+      "participant_id",
+      "blood_group",
+      "verification_source",
+      "collection_date",
+      "finger",
+      "consent",
+      "number_of_scans"
+    ],
+    "collection_log_csv": [
+      "timestamp",
+      "participant_id",
+      "scan_number",
+      "image_path",
+      "prediction",
+      "confidence",
+      "prob_A_plus",
+      "prob_B_plus",
+      "prob_AB_plus",
+      "prob_O_plus",
+      "timestamp_dt",
+      "numeric_id"
+    ],
+    "demographic_fields_found": false
+  },
+  "metadata_baseline_1b": [
+    {
+      "features": "Numeric Participant ID only",
+      "classifier": "Logistic Regression",
+      "accuracy": 0.4375,
+      "balanced_accuracy": 0.3210344827586207,
+      "macro_f1": 0.2585897147990119
+    },
+    {
+      "features": "Numeric Participant ID only",
+      "classifier": "Random Forest (depth=3)",
+      "accuracy": 0.3875,
+      "balanced_accuracy": 0.2950453720508167,
+      "macro_f1": 0.2777777777777778
+    },
+    {
+      "features": "Enrollment Time only (seconds)",
+      "classifier": "Logistic Regression",
+      "accuracy": 0.375,
+      "balanced_accuracy": 0.26689655172413795,
+      "macro_f1": 0.20176082171680115
+    },
+    {
+      "features": "Enrollment Time only (seconds)",
+      "classifier": "Random Forest (depth=3)",
+      "accuracy": 0.4125,
+      "balanced_accuracy": 0.32451905626134303,
+      "macro_f1": 0.304029304029304
+    },
+    {
+      "features": "Numeric ID + Enrollment Time",
+      "classifier": "Logistic Regression",
+      "accuracy": 0.425,
+      "balanced_accuracy": 0.3082758620689655,
+      "macro_f1": 0.24556962025316456
+    },
+    {
+      "features": "Numeric ID + Enrollment Time",
+      "classifier": "Random Forest (depth=3)",
+      "accuracy": 0.4125,
+      "balanced_accuracy": 0.3213611615245009,
+      "macro_f1": 0.3037863950907429
+    }
+  ],
+  "oof_correlations": {
+    "spearman_id_pred": -0.07212111190133101,
+    "p_id_pred": 0.524941297482592,
+    "spearman_time_pred": -0.07136985031902547,
+    "p_time_pred": 0.5292785827834284,
+    "spearman_id_true": -0.2385077120107617,
+    "p_id_true": 0.03312590452208356,
+    "spearman_time_true": -0.23922114405287745,
+    "p_time_true": 0.032588364115801315,
+    "pearson_id_pred": -0.06807384763763419,
+    "p_pearson_id_pred": 0.548516299289503,
+    "pearson_time_pred": -0.08733112058950612,
+    "p_pearson_time_pred": 0.4411260552697598,
+    "pearson_id_true": -0.19180021510154052,
+    "p_pearson_id_true": 0.08831074237781401,
+    "pearson_time_true": -0.16358473737732768,
+    "p_pearson_time_true": 0.14708489947369763
+  },
+  "img_id_consecutive_vs_random_1d": {
+    "overall_consec_mean": 0.828808234018438,
+    "overall_consec_median": 0.8504660129547119,
+    "overall_random_mean": 0.8272171263824054,
+    "overall_random_median": 0.8429921865463257,
+    "overall_mann_whitney_u": 2954010.5,
+    "overall_p_value": 0.24482232968384332,
+    "per_class": {
+      "0": {
+        "n_images": 565,
+        "consec_count": 44,
+        "consec_mean": 0.7946622236208483,
+        "consec_median": 0.8100031316280365,
+        "random_mean": 0.8008466421005005,
+        "random_median": 0.8161285817623138,
+        "mann_whitney_u": 105015.5,
+        "p_value": 0.6902121935115412
+      },
+      "2": {
+        "n_images": 648,
+        "consec_count": 62,
+        "consec_mean": 0.8094329276392537,
+        "consec_median": 0.844046413898468,
+        "random_mean": 0.8244710631358126,
+        "random_median": 0.8386133015155792,
+        "mann_whitney_u": 143958.0,
+        "p_value": 0.8277636743616772
+      },
+      "4": {
+        "n_images": 705,
+        "consec_count": 80,
+        "consec_mean": 0.8263499327003956,
+        "consec_median": 0.8516415655612946,
+        "random_mean": 0.8309660679004036,
+        "random_median": 0.8483972251415253,
+        "mann_whitney_u": 195598.0,
+        "p_value": 0.6233143086629338
+      },
+      "6": {
+        "n_images": 851,
+        "consec_count": 103,
+        "consec_mean": 0.856967045265494,
+        "consec_median": 0.8687821626663208,
+        "random_mean": 0.8525487950307645,
+        "random_median": 0.8627943992614746,
+        "mann_whitney_u": 264338.0,
+        "p_value": 0.3182114807007317
+      }
+    }
+  }
+}

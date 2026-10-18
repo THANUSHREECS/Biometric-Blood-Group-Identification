@@ -1,0 +1,50 @@
+{
+  "reference_set": "train_plus_val",
+  "reference_sample_count": 2354,
+  "test_sample_count": 415,
+  "hamming_thresholds_pre_declared": [
+    2,
+    5,
+    10
+  ],
+  "phash_min_dist_summary": {
+    "mean": 7.556626506024096,
+    "std": 2.2119169449474416,
+    "min": 2,
+    "max": 16
+  },
+  "dhash_min_dist_summary": {
+    "mean": 7.530120481927711,
+    "std": 2.3167142779646066,
+    "min": 2,
+    "max": 15
+  },
+  "phash_near_duplicate_counts": {
+    "hamming_le_2": {
+      "count": 3,
+      "percentage": 0.7228915662650602
+    },
+    "hamming_le_5": {
+      "count": 53,
+      "percentage": 12.771084337349398
+    },
+    "hamming_le_10": {
+      "count": 397,
+      "percentage": 95.66265060240964
+    }
+  },
+  "dhash_near_duplicate_counts": {
+    "hamming_le_2": {
+      "count": 4,
+      "percentage": 0.9638554216867471
+    },
+    "hamming_le_5": {
+      "count": 69,
+      "percentage": 16.626506024096386
+    },
+    "hamming_le_10": {
+      "count": 372,
+      "percentage": 89.63855421686748
+    }
+  }
+}

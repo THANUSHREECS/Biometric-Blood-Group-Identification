@@ -1,0 +1,119 @@
+{
+  "experiment_id": "EXP-03",
+  "title": "Controlled Three-Arm Data Augmentation Experiment for E2",
+  "timestamp": "2026-10-14T13:35:00",
+  "author": "Antigravity AI",
+  "safety_and_integrity_rules": {
+    "production_models_untouched": true,
+    "original_e2_script_untouched": true,
+    "locked_test_quarantined": true,
+    "separate_cohort_quarantined": true,
+    "isolated_directories": {
+      "scripts": "experiments/exp03/",
+      "reports": "reports/accuracy_improvement/exp03/"
+    }
+  },
+  "dataset": {
+    "cohort": "DEVELOPMENT_80",
+    "manifest": "reports/phase3_participant_benchmark/participant_split.csv",
+    "participants_total": 80,
+    "train_per_fold": 64,
+    "val_per_fold": 16,
+    "scans_per_participant": 3,
+    "preprocessing": "transform_c5 (composite_alpha -> crop_foreground -> CLAHE_bilateral -> resize(112, 112))",
+    "input_shape": [
+      3,
+      112,
+      112,
+      3
+    ],
+    "value_scale": "float32 [0.0, 255.0]"
+  },
+  "cross_validation": {
+    "method": "StratifiedGroupKFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42,
+    "grouping_key": "participant_id"
+  },
+  "common_training_hyperparameters": {
+    "architecture": "3-tower frozen DenseNet-121 -> GAP -> Concat(3072) -> Dense(512, relu) -> Dropout(0.5) -> Dense(4, softmax) + Dense(128, emb)",
+    "classification_loss": "sparse_categorical_crossentropy",
+    "metric_loss": "supervised_contrastive_loss (temp=0.07)",
+    "loss_weights": [
+      1.0,
+      0.1
+    ],
+    "class_weighting": "inverse-frequency N / (4 * N_c) passed via sample_weight to clf branch",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 16,
+    "epochs": 150,
+    "min_epochs": 100,
+    "patience": 15,
+    "checkpoint_selection": "Validation Macro F1 on held-out fold",
+    "native_classes": [
+      "A+",
+      "B+",
+      "AB+",
+      "O+"
+    ],
+    "canonical_classes": [
+      "A+",
+      "AB+",
+      "B+",
+      "O+"
+    ],
+    "canonical_remapping": [
+      0,
+      2,
+      1,
+      3
+    ]
+  },
+  "arms": {
+    "arm0": {
+      "name": "Arm 0: Faithful Original E2 Baseline Reproduction",
+      "description": "Exact replication of original E2 training and augmentation policy",
+      "augmentation": {
+        "rotation": 0.027,
+        "translation_height": 0.1,
+        "translation_width": 0.1,
+        "zoom": 0.1,
+        "contrast": 0.1,
+        "fill_mode": "nearest"
+      }
+    },
+    "arm1": {
+      "name": "Arm 1: No-Augmentation Ablation",
+      "description": "Stochastic image perturbation completely disabled (identity pass-through)",
+      "augmentation": {
+        "enabled": false,
+        "type": "identity_pass_through"
+      }
+    },
+    "arm2": {
+      "name": "Arm 2: Conservative Fingerprint Augmentation",
+      "description": "Conservative, domain-appropriate augmentation without zoom frequency distortion",
+      "augmentation": {
+        "rotation": [
+          -0.02,
+          0.02
+        ],
+        "translation_height": [
+          -0.04,
+          0.04
+        ],
+        "translation_width": [
+          -0.04,
+          0.04
+        ],
+        "contrast": 0.05,
+        "brightness": 0.05,
+        "zoom": 0.0,
+        "fill_mode": "nearest"
+      }
+    }
+  }
+}
